@@ -1,0 +1,26 @@
+@import "./partials/index.scss";
+@import "./components/index.scss";
+@import "./pages/index.scss";
+
+*,
+*::after,
+*::before{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Calibre";
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+ul,li{
+    list-style: none;
+}
+
+button{
+    border: none;
+}
+
+
+

@@ -1,0 +1,25 @@
+
+
+.setting{
+    display: flex;
+    background-color: var(--blackColorWhite);
+    border-radius: 0.75rem;
+
+    &__navigation{
+        padding: 6.25rem 3rem 0 2rem;
+        display: flex;
+        flex-direction: column;
+        row-gap: 2rem;
+        border-right: 1px solid var(--greyColorGrey6);
+
+        &--item{
+            color: var(--greyColorGrey3);
+            @include normalTextMedium;
+
+            &_active{
+                color: var(--brandColorPrimary4);
+            }
+        }
+    }
+}
+

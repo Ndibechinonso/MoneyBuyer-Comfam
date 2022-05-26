@@ -1,0 +1,179 @@
+
+@font-face {
+    font-family: "Calibre";
+    src: url("../../fonts/CalibreRegular.otf");
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Calibre",;
+    src: url("../../fonts/CalibreMedium.otf");
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Calibre",;
+    src: url("../../fonts/CalibreSemibold.otf");
+    font-weight: 600;
+    font-style: normal;
+}       
+@font-face {
+    font-family: "Calibre",;
+    src: url("../../fonts/CalibreBold.otf");
+    font-weight: 700;
+    font-style: normal;
+}       
+
+@mixin h1Bold {
+//styleName: H1/Bold;
+font-family: "Calibre";
+font-size: 4rem;
+font-weight: 700;
+line-height: 4.8125rem;
+letter-spacing: 0em;
+}
+
+@mixin h2SemiBold {
+//styleName: H2/Semibold;
+font-size: 3.5rem;
+font-weight: 600;
+line-height: 4.1875rem;
+letter-spacing: 0em;
+}
+
+@mixin h3SemiBold {
+//styleName: H3/Semibold;
+font-size: 3rem;
+font-weight: 600;
+line-height: 3.625rem;
+letter-spacing: 0em;
+}
+ @mixin h4SemiBold {
+//styleName: H4/Semibold;
+font-size: 2.5rem;
+font-weight: 600;
+line-height: 3rem;
+letter-spacing: 0em;
+ }
+
+ @mixin h5SemiBold {
+//styleName: H5/Semibold;
+font-size: 2rem;
+font-weight: 600;
+line-height: 2.5rem;
+letter-spacing: 0em;
+ }
+
+ @mixin h5Medium {
+//styleName: H5/Medium;
+font-size: 2rem;
+font-weight: 500;
+line-height: 2.5rem;
+letter-spacing: 0em;
+ }
+
+ @mixin largeTextSemiBold {
+//styleName: 24/Large Text/Semibold;
+font-size: 1.5rem;
+font-weight: 600;
+line-height: 1.875rem;
+letter-spacing: 0em;
+ }
+
+ @mixin largeTextMedium {
+//styleName: 24/Large Text/Medium;
+font-size: 1.5rem;
+font-weight: 500;
+line-height: 1.8125rem;
+letter-spacing: 0em;
+ }
+
+ @mixin largeTextRegular {
+//styleName: 24/Large Text/Regular;
+font-size: 1.5rem;
+font-weight: 400;
+line-height: 1.875rem;
+letter-spacing: 0em;
+ }
+
+ @mixin mediumTextSemiBold {
+//styleName: 20/Medium Text/Semibold;
+font-size: 1.25rem;
+font-weight: 600;
+line-height: 1.875rem;
+letter-spacing: 0em;
+ }
+
+ @mixin mediumTextMedium {
+//styleName: 20/Medium Text/Medium;
+font-size: 1.25rem;
+font-weight: 500;
+line-height: 1.875rem;
+letter-spacing: 0em;
+ }
+
+ @mixin mediumTextRegular {
+//styleName: 20/Medium Text/Regular;
+font-size: 1.25rem;
+font-weight: 400;
+line-height: 1.875rem;
+letter-spacing: 0em;
+ }
+
+ @mixin normalTextSemiBold {
+//styleName: 18/Normal Text/Semibold;
+font-size: 1.125rem;
+font-weight: 600;
+line-height: 1.5rem;
+letter-spacing: 0em;
+
+ }
+
+ @mixin normalTextMedium {
+//styleName: 18/Normal Text/Medium;
+font-size: 1.125rem;
+font-weight: 500;
+line-height: 1.375rem;
+letter-spacing: 0em;
+ }
+
+ @mixin normalTextRegular {
+//styleName: 18/Normal Text/Regular;
+font-size: 1.125rem;
+font-weight: 400;
+line-height: 1.5rem;
+letter-spacing: 0em;
+ }
+ 
+ 
+ @mixin smallTextSemiBold {
+//styleName: 16/Small Text/Semibold;
+font-size: 1rem;
+font-weight: 600;
+line-height: 1.5rem;
+letter-spacing: 0em;
+ }
+
+ @mixin smallTextMedium {
+//styleName: 16/Small Text/Medium;
+font-size: 1rem;
+font-weight: 500;
+line-height: 1.5rem;
+letter-spacing: 0em;
+ }
+
+ @mixin smallTextRegular {
+//styleName: 16/Small Text/Regular;
+font-size: 1rem;
+font-weight: 400;
+line-height: 1.5rem;
+letter-spacing: 0em;
+ }
+
+ @mixin smallerText {
+//styleName: 16/Small Text/14/Button/Medium;
+font-size: 0.875rem;
+font-weight: 500;
+line-height: 1.0625rem;
+letter-spacing: 0.08em;
+ }
