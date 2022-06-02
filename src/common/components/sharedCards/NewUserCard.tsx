@@ -13,7 +13,7 @@ function NewUserCard({ message, completedRegistration }: NewUserCardProps) {
     <div className={`newUserCard newUserCard__${pathname.substring(1)}`} >
       <p>{message}</p>
       <CustomButton
-        disabled={!completedRegistration}
+        disabled={completedRegistration}
         action={() => console.log(message)}
         actionText={"New Transaction"}
       />

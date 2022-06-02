@@ -1,114 +1,112 @@
-.header{
-    align-items: center;
-    border-bottom: 1px solid var(--greyColorGrey6);
-    height:  5.625rem;
-    position: relative;
+.header {
+  align-items: center;
+  border-bottom: 1px solid var(--greyColorGrey6);
+  height: 5.625rem;
+  position: relative;
+  z-index: 1;
 
-    & > svg {
-        grid-column: -4/-3;
-        justify-self: center;
+  & > svg {
+    grid-column: -4/-3;
+    justify-self: center;
+  }
+
+  &__dropDownMenu {
+    position: absolute;
+    background-color: var(--blackColorWhite);
+    border: 1px solid #cdcdd0;
+    border-radius: 10px;
+    top: 50%;
+    right: 4rem;
+
+    &--container {
+      padding-top: 22px;
+      padding-bottom: 20px;
     }
+    &--itm {
+      a {
+        color: var(--blackColorBlack3);
+      }
 
-    &__dropDownMenu{
-        position: absolute;
-        background-color: var(--blackColorWhite);
-        border: 1px solid #CDCDD0;
-        border-radius: 10px;
-        top: 50%;
-        right: 4rem;
-        
-        
-        &--container{
-            padding-top: 22px;
-            padding-bottom: 20px;
+      &:not(:last-child) {
+        a {
+          padding-bottom: 18px;
         }
-        &--itm{
-            a{
-                color: var(--blackColorBlack3);
-            }
-            
-            &:not(:last-child){
-                
-                a{
-                    padding-bottom: 18px;
-                }
-            }
-            
-            &:nth-child(3){
-                a{
-                    padding-bottom: 9px;
-                    
-                }
-            }
-            
-            &:last-child{
-                border-top: 1px solid #E9EEEF;
-                cursor: pointer;
-                button{
-                    padding-top: 14px;
-                    background-color: transparent;
-                    color: var(--stateColorError);
-                }
-            }
-            
-            
-            
-            a,
-            button{
-                padding: 0 1.875rem 0 1rem;
-                display: flex;
-                align-items: center;
-                column-gap: 1.25rem;
+      }
 
-                @include smallTextRegular;
-            }
+      &:nth-child(3) {
+        a {
+          padding-bottom: 9px;
         }
-    }
+      }
 
-    .userMenu {
-        grid-column: -3/-2;
+      &:last-child {
+        border-top: 1px solid #e9eeef;
+        cursor: pointer;
+        button {
+          padding-top: 14px;
+          background-color: transparent;
+          color: var(--stateColorError);
+        }
+      }
+
+      a,
+      button {
+        padding: 0 1.875rem 0 1rem;
         display: flex;
         align-items: center;
-        column-gap: .5rem;
-        cursor: pointer;
+        column-gap: 1.25rem;
 
-        &__image{
-            width: 3.125rem;
-            height: 3.125rem;
-            object-fit: cover;
-            object-position: top;
-            border-radius: 50%;
-        }
-        &__icon{
-            transform: rotate(180deg);
-        }
+        @include smallTextRegular;
+      }
     }
+  }
 
-    svg{
-        width: 1.5rem;
-        height: 1.5rem;
+  .userMenu {
+    grid-column: -3/-2;
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    cursor: pointer;
+
+    &__image {
+      width: 3.125rem;
+      height: 3.125rem;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 50%;
     }
+    &__icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 }
-.titleBar{
-    height:  6.5rem;
-    &__message{
-        grid-column: 2/9;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+.titleBar {
+  height: 6.5rem;
+  box-shadow: 4px 0px 2px 2px rgba($color: #000000, $alpha: 0.1);
 
-        &--headline{
-            @include largeTextMedium;
-            color: var(--greyColorGrey1);
-        }
-        &--sub {
-            @include normalTextRegular;
-            color: var(--greyColorGrey3);
-        }
+  &__message {
+    grid-column: 2/9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &--headline {
+      @include largeTextMedium;
+      color: var(--greyColorGrey1);
     }
-    &__cta{
-        grid-column: -5/-2;
-        align-self: center;
-        justify-self: end;
+    &--sub {
+      @include normalTextRegular;
+      color: var(--greyColorGrey3);
     }
+  }
+  &__cta {
+    grid-column: -5/-2;
+    align-self: center;
+    justify-self: end;
+  }
 }

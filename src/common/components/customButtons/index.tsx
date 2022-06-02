@@ -1,19 +1,22 @@
 import { ReactElement } from "react";
-import { CustomButtonProps } from "./types";
+import { CustomButtonProps} from "./types";
 
-function CustomButton({
-  actionText,
-  loading,
-  disabled,
-  action,
-  style,
-  variant,
-  size,
-  color,
-  className,
-  icon,
-  iconOreintation,
-}: CustomButtonProps) {
+function CustomButton(props: CustomButtonProps) {
+  const {
+    actionText,
+    loading,
+    disabled,
+    action,
+    type,
+    style,
+    variant,
+    size,
+    color,
+    className,
+    icon,
+    iconOreintation,
+  } = props;
+
   let template: ReactElement | null = null;
   let defaultClassName = className ? className : "";
   let iconItem: ReactElement | null = null;
@@ -83,6 +86,7 @@ function CustomButton({
           onClick={action}
           disabled={loading || disabled}
           style={style}
+          type={type}
         >
           {iconItem}
         </button>
@@ -98,6 +102,7 @@ function CustomButton({
           onClick={action}
           disabled={loading || disabled || !icon}
           style={style}
+          type={type}
         >
           {iconItem}
           {actionText}
@@ -112,6 +117,7 @@ function CustomButton({
           className={`${defaultClassName} btn`}
           disabled={loading || disabled}
           style={style}
+          type={type}
         >
           {actionText}
         </button>
@@ -125,6 +131,7 @@ function CustomButton({
           className={`${defaultClassName} btn`}
           disabled={loading || disabled}
           style={style}
+          type={type}
         >
           {actionText}
         </button>

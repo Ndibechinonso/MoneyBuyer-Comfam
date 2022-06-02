@@ -1,64 +1,69 @@
 @import "./header.scss";
 @import "./navigation.scss";
 
-.confam{
-    display: grid;
-    grid-template-columns: 15.625rem 1fr;   
-    background-color: var(--appBackground);
+.confam {
+  display: grid;
+  grid-template-columns: 15.625rem 1fr;
+  background-color: var(--appBackground);
+  position: relative;
+  overflow: scroll;
+
+  &__sideNav {
+    grid-column: 1/2;
+    background-color: var(--blackColorWhite);
+    position: absolute;
+    inset: 0 0 0 0;
+    z-index: 2;
+  }
+  &__layout {
+    grid-column: 2/-1;
+    height: 100vh;
+    overflow-y: scroll;
     position: relative;
-    overflow: scroll;
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+      display: none; /* Safari and Chrome */
+    }
+    &--header {
+      position: fixed;
+      inset: 0 0 auto 15.625rem;
+      z-index: 1;
 
-    &__sideNav{
-        grid-column: 1/2;
+      &_top,
+      &_bottom {
+        display: grid;
+        grid-template-columns: 3.75rem repeat(12, 1fr) 4rem;
         background-color: var(--blackColorWhite);
-        position: absolute;
-        inset: 0 0 0 0;
+      }
     }
-    &__layout{
-        grid-column: 2/-1;
-        height: 100vh;
-        overflow-y: scroll;
-        position: relative;
-        
-        &--header{
-            position: fixed;
-            inset: 0 0 auto 15.625rem;
-
-            &_top,
-            &_bottom{
-                display: grid;
-                grid-template-columns: 3.75rem repeat(12, 1fr) 4rem;
-                background-color: var(--blackColorWhite);
-            }
-        }
-       
-    }
+  }
 }
 
 .notice {
-    padding: .5rem 1.5rem 1rem 1.5rem;
-    border: 1px solid #FF7A7A;
-    border-radius: .5rem;
-    background: #FEDFDF;
+  padding: 0.5rem 1.5rem 1rem 1.5rem;
+  border: 1px solid #ff7a7a;
+  border-radius: 0.5rem;
+  background: #fedfdf;
+  display: flex;
+  column-gap: 0.5rem;
+  margin: 1.5rem 0 2rem 0;
+
+  &__container {
     display: flex;
-    column-gap: 0.5rem;
-    margin: 1.5rem 0 2rem 0;
+    flex-direction: column;
 
-    &__container{
-        display: flex;
-        flex-direction: column;
-
-        &--headline{
-            @include mediumTextMedium;
-            color: var(--greyColorGrey1);
-        }
-        &--sub{
-            @include normalTextMedium;
-            color: var(--greyColorGrey3);
-        }
-
-        button {
-            align-self: flex-start;
-        }
+    &--headline {
+      @include mediumTextMedium;
+      color: var(--greyColorGrey1);
     }
+    &--sub {
+      @include normalTextMedium;
+      color: var(--greyColorGrey3);
+    }
+
+    button {
+      align-self: flex-start;
+    }
+  }
 }

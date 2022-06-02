@@ -1,6 +1,8 @@
 import { customInput } from "./type";
 
 function CustomTextFields({
+  currencyIcon,
+  onKeyDown,
   onChange,
   onBlur,
   onFocus,
@@ -13,9 +15,22 @@ function CustomTextFields({
   inputIcon,
 }: customInput) {
   return (
-    <div className={`customInput ${iconPosition === "left"?"customInput__left":"customInput__right"}`}>
-      {label && <label>{label}</label>}
+    <div
+      className={`customInput ${
+        iconPosition === "left" ? "customInput__left" : "customInput__right"
+      }`}
+    >
+      {label && (
+        <label
+          className={`${currencyIcon === true ? "currencyIcon__label" : ""}`}
+        >
+          {label}
+        </label>
+      )}
+
       <input
+        className={`${currencyIcon === true ? "currencyIcon__input" : ""}`}
+        onKeyDown={onKeyDown}
         value={value}
         placeholder={placeholder}
         name={name}
@@ -23,6 +38,7 @@ function CustomTextFields({
         onBlur={onBlur}
         onFocus={onFocus}
       />
+      {currencyIcon && <span className="currencyIcon">₦</span>}
       {status && <p>{`${status}!`}</p>}
       {inputIcon}
     </div>

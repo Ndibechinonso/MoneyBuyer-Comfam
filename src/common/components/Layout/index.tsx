@@ -23,16 +23,15 @@ function Layout() {
             pathname
           )} content__${userError ? "userError" : "clean"}`}
         >
-          {newUser &&
-            userError &&
-            getFirstLevelPath(pathname) !== "setting" && <Notice />}
-          {newUser && (
-            <NewUserCard
-              completedRegistration={userError}
-              message={value?.newUser.message}
-            />
-          )}
-          {!newUser && (
+          {newUser && getFirstLevelPath(pathname) !== "setting" ? (
+            <>
+              {userError && <Notice />}
+              <NewUserCard
+                completedRegistration={userError}
+                message={value?.newUser.message}
+              />
+            </>
+          ) : (
             <section className={`${getFirstLevelPath(pathname)}`}>
               <Outlet />
             </section>

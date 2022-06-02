@@ -3,31 +3,29 @@ import { InputHTMLAttributes, ReactSVGElement } from "react";
 interface parentElement extends InputHTMLAttributes<HTMLInputElement> {
     name: string,
     value: string | number,
+    currencyIcon?: boolean
   }
   
   interface withoutAnything extends parentElement {
     variant: "default";
-    label?: undefined;
-    status?: undefined;
-    inputIcon?: undefined;
+    label?: never;
+    status?: never;
+    inputIcon?: never;
     iconPosition?:never
-    
   }
   interface withLabelOnly extends parentElement {
     variant: "labelOnly";
     label: string;
-    status?: undefined;
-    inputIcon?: undefined;
-    iconPosition?:never
-
+    status?: never;
+    inputIcon?: never;
+    iconPosition?:never;
   }
   interface withStatusOnly extends parentElement {
     variant: "statusOnly";
     label?: undefined;
     status?: "success" | "warning" | "error";
     inputIcon?: undefined;
-    iconPosition?:never
-
+    iconPosition?:never;
   }
   interface withLabelAndStatus extends parentElement {
     variant: "labelAndStatusOnly";
