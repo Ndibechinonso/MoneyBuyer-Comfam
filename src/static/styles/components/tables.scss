@@ -110,7 +110,28 @@
   &_footer{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    margin: 0 auto;
     width: 100%;
+    border-top: 1px solid #D4DDDF;
+    margin-top: 75px;
+    padding: 24px 0 0;
+    button{
+      width: 78px;
+      height: 32px;
+      border-radius: 10px;
+      background-color: #eaeaea;
+      padding: 8px 0;
+      color: #aaaaaa;
+      font-weight: 500;
+      font-size: 16px;
+      &.active{
+        background-color: var(--brandColorPrimary1);
+        color: var(--blackColorWhite);
+        font-weight: 500;
+        font-size: 16px;
+        padding: 8px 0;
+      }
+    }
   }
 }

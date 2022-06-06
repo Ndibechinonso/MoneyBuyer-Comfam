@@ -1,4 +1,6 @@
 import React from 'react'
+import CaretLeft from '../customIcons/CaretLeft'
+import CaretRight from '../customIcons/CaretRight'
 import MoreIcon from '../customIcons/MoreIcon'
 import SearchIcon from '../customIcons/SearchIcon'
 import SortIcon from '../customIcons/SortIcon'
@@ -65,7 +67,10 @@ const Table = () => {
         </tbody>
       </table>
       <div className='table__container_footer'>
-        
+        <button> <CaretLeft/> Prev </button>
+        <button className='active'>
+          Next <CaretRight/>
+        </button>
       </div>
     </div>
   )
