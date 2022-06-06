@@ -1,5 +1,7 @@
 // import NewUserCard from "../../../common/components/sharedCards/NewUserCard"
 
+import Table from "../../../common/components/customTable/Table"
+
 
 function Delivery() {
   return (
@@ -8,6 +10,7 @@ function Delivery() {
         completedRegistration={false}
         message={"You currently don’t have any delivery yet."}
       /> */}
+      <Table/>
     </>
   )
 }
