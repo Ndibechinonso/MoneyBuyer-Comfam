@@ -1,4 +1,5 @@
 import React from 'react'
+import CustomButton from '../customButtons'
 import CaretLeft from '../customIcons/CaretLeft'
 import CaretRight from '../customIcons/CaretRight'
 import MoreIcon from '../customIcons/MoreIcon'
@@ -67,7 +68,8 @@ const Table = () => {
         </tbody>
       </table>
       <div className='table__container_footer'>
-        <button> <CaretLeft/> Prev </button>
+        <button> <CaretLeft /> Prev </button>
+        {/* <CustomButton className="profile__cta"  action={() => console.log("profile updated")} actionText="Prev"  size="small" disabled={true} /> */}
         <button className='active'>
           Next <CaretRight/>
         </button>
