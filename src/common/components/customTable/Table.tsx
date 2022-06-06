@@ -1,5 +1,6 @@
 import React from 'react'
 import CustomButton from '../customButtons'
+import Tag from '../customTags'
 import CaretLeft from '../customIcons/CaretLeft'
 import CaretRight from '../customIcons/CaretRight'
 import MoreIcon from '../customIcons/MoreIcon'
@@ -47,9 +48,7 @@ const Table = () => {
             <td> ₦45,000</td>
             <td> 3 Mar, 2022 </td>
             <td>
-              <div className={`table_tag_delivered`}>
-                Delivered
-              </div>
+              <Tag value="Pending delivery......"/>
             </td>
             <td> <MoreIcon/></td>
           </tr>
@@ -59,9 +58,7 @@ const Table = () => {
             <td> ₦45,000</td>
             <td> 3 Mar, 2022 </td>
             <td>
-              <div className={`table_tag_pending`}>
-                Delivered
-              </div>
+              <Tag value="Delivered"/>
             </td>
             <td> <MoreIcon/> </td>
           </tr>
