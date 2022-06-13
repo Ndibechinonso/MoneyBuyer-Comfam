@@ -3,15 +3,15 @@ import userImg from "../../../../static/images/userImage.jpeg";
 import DropDownIcon from "../../customIcons/DropDownIcon";
 
 interface userMenuProps {
-  dropDownHandler: () => void;
-  showDropDown: boolean;
+  // dropDownHandler: () => void;
+  // showDropDown: boolean;
 }
 
-function UserMenu({ dropDownHandler, showDropDown }: userMenuProps) {
+function UserMenu({}: userMenuProps) {
   return (
-    <div className="userMenu" onClick={dropDownHandler}>
+    <div className="userMenu">
       <img className="userMenu__image" src={userImg} alt="user profile" />
-      <DropDownIcon className={`${showDropDown ? "userMenu__icon" : ""}`} />
+      <DropDownIcon className={`userMenu__icon`} />
     </div>
   );
 }

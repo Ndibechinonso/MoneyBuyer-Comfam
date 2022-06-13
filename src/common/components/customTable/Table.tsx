@@ -1,78 +1,115 @@
-import React from 'react'
-import CustomButton from '../customButtons'
-import Tag from '../customTags'
-import CaretLeft from '../customIcons/CaretLeft'
-import CaretRight from '../customIcons/CaretRight'
-import MoreIcon from '../customIcons/MoreIcon'
-import SearchIcon from '../customIcons/SearchIcon'
-import SortIcon from '../customIcons/SortIcon'
+import dayjs from "dayjs";
+import React from "react";
+import { Ioptions } from "../dropDowns/StatusFilter";
+import TableInfo from "./TableInfo";
+import TableControls from "./TableControls";
 
-const Table = () => {
+type headerObj = {
+  title: string;
+  dataIndex?: string;
+  key: string;
+};
+// type dataObj = {
+//   id: string;
+//   transactionId: string;
+//   seller: string;
+//   amount: string;
+//   date: string;
+//   status: string;
+// };
+
+type Props = {
+  headers: Array<headerObj>;
+  data: Array<any>;
+};
+
+type ifState = {
+  search: string;
+  date: dayjs.Dayjs;
+  filter: string[];
+};
+
+function Table({ headers, data }: Props) {
+  const [formState, setFormState] = React.useState<ifState>({
+    search: "",
+    date: dayjs(),
+    filter: [],
+  });
+
+  // const onChangeHandler = React.useCallback(
+  //   () => (e: React.ChangeEvent<HTMLInputElement>) => {
+  //     const { name, value } = e.target;
+  //     setFormState((prev) => ({ ...prev, search: value }));
+  //   },
+  //   []
+  // );
+
+  // const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+  //   setFormState((prev) => ({ ...prev, [name]: value }));
+  // };
+
+  const convertStatusFilter = (input: Array<any>): Ioptions[] => {
+    const result: any = {};
+
+    const data = input.map((val) => val["status"]);
+    data.forEach((itm) => {
+      if (!result[`${itm}`]) {
+        result[`${itm}`] = {
+          val: itm,
+          checked: false,
+        };
+      }
+    });
+    return Object.values(result);
+  };
+
+  const [filter, setFilter] = React.useState(convertStatusFilter(data));
+
+  const filteSelectHandler = (itm: Ioptions, id: number) => {
+    const { checked, val } = itm;
+    let oldArr = [...filter];
+    oldArr[id] = { val: val, checked: !checked };
+    setFilter(oldArr);
+  };
+
+  const resetFilterHandler = () => {
+    setFilter(convertStatusFilter(data));
+    setFormState((prev) => ({ ...prev, filter: [] }));
+  };
+
+  const filterSubmitHandler = () => {
+    const filterd = filter.filter((itm) => itm.checked === true);
+    const params = filterd.map((itm) => itm.val);
+    setFormState((prev) => ({ ...prev, filter: params }));
+  };
+
+  const dateChangeHandler = (data: any) => {
+    setFormState((prev) => ({ ...prev, date: data }));
+  };
+
+  const fill = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) =>
+      setFormState((prev) => ({ ...prev, search: e.target.value })),
+    [formState.search] //eslint-disable-line
+  );
+
   return (
-    <div className='table__container'>
-      <div className='table__container_header'>
-        <div>
-          <h4 className='table__container_header_text'> Showing All </h4>
-        </div>
-        <div className='table__container_header_inputs'>
-          <div className='table__container_header_inputs_transaction_search'>
-            <SearchIcon/>
-            <input type='text' placeholder='Search Transaction' />
-          </div>
-          <div className='table__container_header_inputs_date_select'>
-            <input type='date' placeholder='Select Date'  />
-          </div>
-        </div>
-        <div className='table__container_header_sort'>
-        <SortIcon/>
-          <h3 className='table__container_header_text'> Sort by:
-            <span className='table__container_header_text_span'> Recent </span>
-          </h3>
-        </div>
-      </div>
-      <table className = 'table__main'>    
-        <thead className='table__main_header'>
-          <tr className='table__main_header_title'>
-            <th>Transaction ID</th>
-            <th> Seller</th>
-            <th> Amount </th>
-            <th> Date</th>
-            <th> Status </th>
-            <th>  </th>
-          </tr>
-        </thead>
-        <tbody className='table__main_body'>
-          <tr>
-            <td>85613390HL36</td>
-            <td> Bryan Daniels</td>
-            <td> ₦45,000</td>
-            <td> 3 Mar, 2022 </td>
-            <td>
-              <Tag value="Pending delivery......"/>
-            </td>
-            <td> <MoreIcon/></td>
-          </tr>
-          <tr>
-            <td>85613390HL36</td>
-            <td> Bryan Daniels</td>
-            <td> ₦45,000</td>
-            <td> 3 Mar, 2022 </td>
-            <td>
-              <Tag value="Delivered"/>
-            </td>
-            <td> <MoreIcon/> </td>
-          </tr>
-        </tbody>
-      </table>
-      <div className='table__container_footer'>
-        <button> <CaretLeft /> Prev </button>
-        {/* <CustomButton className="profile__cta"  action={() => console.log("profile updated")} actionText="Prev"  size="small" disabled={true} /> */}
-        <button className='active'>
-          Next <CaretRight/>
-        </button>
-      </div>
+    <div className="table">
+      <span className="tableBgTop"></span>
+      <span className="tableBgBtm"></span>
+      <TableControls
+        filterSubmitHandler={filterSubmitHandler}
+        filteSelectHandler={filteSelectHandler}
+        resetFilterHandler={resetFilterHandler}
+        formState={formState}
+        inputChange={fill}
+        dateChange={dateChangeHandler}
+        filterOptions={filter}
+      />
+      <TableInfo data={data} headers={headers} />
     </div>
-  )
+  );
 }
 
-export default Table
+export default Table;

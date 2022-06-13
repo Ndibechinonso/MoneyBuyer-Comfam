@@ -3,9 +3,6 @@ import DropDownIcon from "../customIcons/DropDownIcon";
 // import Dropdown from "react-dropdown";
 // import "react-dropdown/style.css";
 
-type Props = {
-  variant: "dropDown" | "checkBox" | "radioBtn" | "toggle" | "tabs";
-};
 
 type checkBox = {
   variant: "checkBox";
@@ -16,10 +13,12 @@ type checkBox = {
   isChecked: boolean;
   placeholder?: string;
   refEl?: never;
+  className?: string;
   onClickHandler: (args: any) => void;
 };
 type dropDown = {
   variant: "dropDown";
+  className?: string;
   options: Array<{ label: string; value: string }>;
   disabled?: boolean;
   value?: never;
@@ -41,6 +40,7 @@ function CustomSelector({
   disabled,
   value,
   placeholder,
+  className,
 }: checkBox | dropDown) {
   let template: React.ReactElement | null = null;
   const dropDownInitialState = {
@@ -126,4 +126,5 @@ function CustomSelector({
   return template;
 }
 
+// const Sele = React.memo(CustomSelector)
 export default CustomSelector;

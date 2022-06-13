@@ -3,7 +3,7 @@
   border-bottom: 1px solid var(--greyColorGrey6);
   height: 5.625rem;
   position: relative;
-  z-index: 1;
+  z-index: $goAboveMyPeers;
 
   & > svg {
     grid-column: -4/-3;
@@ -11,16 +11,16 @@
   }
 
   &__dropDownMenu {
-    position: absolute;
+    // position: absolute;
     background-color: var(--blackColorWhite);
     border: 1px solid #cdcdd0;
-    border-radius: 10px;
-    top: 50%;
+    border-radius: 0.625rem;
+    top: 4.375rem;
     right: 4rem;
 
     &--container {
-      padding-top: 22px;
-      padding-bottom: 20px;
+      padding-top: 1.375rem;
+      padding-bottom: 1.25rem;
     }
     &--itm {
       a {
@@ -29,13 +29,13 @@
 
       &:not(:last-child) {
         a {
-          padding-bottom: 18px;
+          padding-bottom: 1.125rem;
         }
       }
 
       &:nth-child(3) {
         a {
-          padding-bottom: 9px;
+          padding-bottom: 0.5625rem;
         }
       }
 
@@ -43,7 +43,7 @@
         border-top: 1px solid #e9eeef;
         cursor: pointer;
         button {
-          padding-top: 14px;
+          padding-top: 0.875rem;
           background-color: transparent;
           color: var(--stateColorError);
         }
@@ -87,7 +87,7 @@
 }
 .titleBar {
   height: 6.5rem;
-  box-shadow: 4px 0px 2px 2px rgba($color: #000000, $alpha: 0.1);
+  box-shadow: 0.25rem 0px 0.125rem 0.125rem rgba($color: #000000, $alpha: 0.1);
 
   &__message {
     grid-column: 2/9;
