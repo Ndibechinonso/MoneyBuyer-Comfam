@@ -1,0 +1,123 @@
+.dropdownTrigger{
+    all: unset;
+  }
+.table__input {
+  position: relative;
+
+  input {
+    all: unset;
+    padding: 0.75rem 0.75rem 0.6875rem 2.8125rem;
+    width: 18rem;
+    border-radius: 0.5rem;
+    border: 1px solid #cdcdd0;
+    background-color: var(--blackColorWhite);
+
+    &::placeholder {
+      color: var(--greyColorGrey4);
+      @include smallestText;
+    }
+  }
+  svg {
+    position: absolute;
+    inset: 0.8125rem auto auto 0.9375rem;
+  }
+
+  .input__date {
+    cursor: pointer;
+    padding: 0.75rem 0.75rem 0.6875rem 2.8125rem;
+    width: 12.25rem;
+    border-radius: 0.5rem;
+    border: 1px solid #cdcdd0;
+    background-color: var(--blackColorWhite);
+    color: var(--greyColorGrey4);
+  }
+  .calIcn {
+    width: 1.5rem;
+    height: 1.5rem;
+    inset: 0.625rem auto auto 0.625rem;
+  }
+}
+
+.statusFilter {
+  background-color: var(--blackColorWhite);
+  box-shadow: 0px 4px 8px 0px #2728331f;
+  width: 15rem;
+
+  &__head {
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+
+    h5 {
+      @include smallTextMedium;
+      color: #808185;
+    }
+    button {
+      @include smallerText;
+      background-color: transparent;
+      color: var(--tagCl5);
+    }
+  }
+  &__itm {
+    padding: 0.75rem 1rem;
+    label {
+      color: #808185;
+    }
+
+    &:hover {
+      background-color: var(--brandColorPrimary9);
+    }
+  }
+  &__btn {
+    padding: 1rem 1rem 0.5rem 1rem;
+    display: flex;
+
+    button {
+      flex: 1;
+      justify-content: center;
+    }
+  }
+  .checkBox {
+    @include normalTextRegular;
+    margin: 0;
+  }
+}
+
+.tableDropDown {
+  width: fit-content;
+  border: 1px solid #cdcdd0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--blackColorWhite);
+  border-radius: 0.625rem;
+  box-shadow: 0px 4px 8px 0px #2728331F;
+
+  
+   
+  & ~ span {
+    display: none;
+    svg{
+        fill: transparent;
+    }
+  }
+
+  button {
+    all: unset;
+    display: flex;
+    align-items: flex-start;
+    @include smallTextRegular;
+    cursor: pointer;
+
+    &:first-child {
+      padding: 1.125rem 1rem 0.375rem 1.0625rem;
+      color: var(--blackColorBlack3);
+      border-bottom: 1px solid #e9eeef;
+      column-gap: 0.9375rem;
+    }
+    &:last-child {
+      padding: 0.375rem 1rem 1rem 1rem;
+      column-gap: 1.125rem;
+      color: #ff4b55;
+    }
+  }
+}

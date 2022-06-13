@@ -1,0 +1,123 @@
+export const deliveryTable = {
+  columns: [
+    {
+      title: "Transaction ID",
+      dataIndex: "transactionId",
+      key: "transactionId",
+    },
+    {
+      title: "Seller",
+      dataIndex: "seller",
+      key: "seller",
+    },
+    {
+      title: "Amount",
+      dataIndex: "amount",
+      key: "amount",
+    },
+    {
+      title: "Date",
+      dataIndex: "date",
+      key: "date",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+    },
+  ],
+
+  rows: [
+    {
+      transactionId: "85613390HL36",
+      seller: "Bryan Daniels",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Completed",
+    },
+    {
+      transactionId: "85613390HL36",
+      seller: "Bryan Daniels",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Awaiting confirmation",
+    },
+    {
+      transactionId: "85613390HL36",
+      seller: "Bryan Daniels",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Pending confirmation",
+    },
+    {
+      transactionId: "85613390HL36",
+      seller: "Bryan Daniels",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Awaiting delivery",
+    },
+    {
+      transactionId: "85613390HL36",
+      seller: "Bryan Daniels",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Cancelled",
+    },
+    {
+      transactionId: "85613390HL36",
+      seller: "Bryan Daniels",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Awaiting Delivery",
+    },
+    {
+      transactionId: "85613390HL36",
+      seller: "Bryan Daniels",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Pending payment",
+    },
+    {
+      transactionId: "85613390HL36",
+      seller: "Bryan Daniels",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Awaiting Delivery",
+    },
+    {
+      transactionId: "85613390HL36",
+      seller: "Bryan Daniels",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Cancelled",
+    },
+    {
+      transactionId: "85613390HL36",
+      seller: "Bryan Daniels",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Completed",
+    },
+    {
+      transactionId: "85613390HL36",
+      seller: "Bryan Daniels",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Refunded",
+    },
+    {
+      transactionId: "85613390HL36",
+      seller: "Bryan Daniels",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Completed",
+    },
+    {
+      transactionId: "85613390HL36",
+      seller: "Bryan Daniels",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Awaiting Delivery",
+    },
+  ],
+};

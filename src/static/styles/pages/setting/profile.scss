@@ -3,76 +3,76 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 32px 0;
+  padding: 2rem 0;
   &_header{
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items:center;
     .profile_picture{
-      width: 100px;
-      height: 100px;
+      width: 6.25rem;
+      height: 6.25rem;
       border-radius: 50%;
       background-position: center;
       opacity: 50%;
       background-color: var(--greyColorGrey2);
     }
     h4{
-      font-size: 16px;
+      font-size: 1rem;
       font-weight: 500;
-      margin-top:16px;
+      margin-top:1rem;
     }
     &-copy{
       display: flex;
-      width: 260px;
-      height: 48px;
+      width: 16.25rem;
+      height: 3rem;
       border: 1px dashed var(--greyColorGrey2);
       align-items:center;
       justify-content: space-between;
-      padding: 0 17px;
+      padding: 0 1.0625rem;
       background-color: #E5F6FE;
-      border-radius: 10px;
-      margin-top: 8px;
+      border-radius: 0.625rem;
+      margin-top: 1rem;
       .linkText{
         font-weight: 400;
-        font-size: 16px;
+        font-size: 1rem;
         color: var(--greyColorGrey2);
       }
       .copy{
         font-weight: 500;
-        font-size: 12px;
+        font-size: 0.75;
         color: var(--brandColorPrimary4);
       }
     }
   }
   &_form{
-    margin-bottom: 36px;
+    margin-bottom: 2.25rem;
     form{
-      margin-top: 24px;
+      margin-top: 1.5rem;
     }
     label{
-      font-size: 18px;
+      font-size: 1.125rem;
       font-weight:500;
     }
     &_input{
       display: block;
       outline: 0;
-      height: 55px;
+      height: 3.4375rem;
       border: 1px solid var(--greyColorGrey4);
-      padding: 18px 24px 13px;
-      width: 463px;
-      margin-top: 4px;
-      border-radius: 4px;
-      font-size: 16px;
+      padding: 1.125rem 1.5rem 0.8125rem 0;
+      width: 29rem;
+      margin-top: 0.25rem;
+      border-radius: 0.25rem;
+      font-size: 1rem;
       font-weight:400;
       color: var(--greyColorGrey1);
       input{
         border: 0;
         width: 100%;
-        padding: 10px 0;
-        padding-left: 13px;
+        padding: 0.625rem 0;
+        padding-left: 0.8125rem;
         outline: 0;
-        font-size: 16px;
+        font-size: 1rem;
       }
     }
     .flex{
@@ -80,13 +80,13 @@
       align-items: center;
       .input_telephone{
         border-right: 1px solid var(--greyColorGrey4);
-        padding-right: 9px;
-        font-size: 16px;
+        padding-right: 0.5625rem;
+        font-size: 1rem;
         display: flex;
         align-items: flex-end;
         justify-content: center;
         span{
-          padding-left: 5px;
+          padding-left: 0.3125rem;
         }
       }
     }

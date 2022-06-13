@@ -177,3 +177,10 @@ font-weight: 500;
 line-height: 1.0625rem;
 letter-spacing: 0.08em;
  }
+ @mixin smallestText {
+//styleName: 16/Small Text/14/Button/Medium;
+font-size: 0.875rem;
+font-weight: 400;
+line-height: 1.0625rem;
+letter-spacing: 0.08em;
+ }

@@ -13,7 +13,7 @@
     background-color: var(--blackColorWhite);
     position: absolute;
     inset: 0 0 0 0;
-    z-index: 2;
+    z-index: $sideNavZindex;
   }
   &__layout {
     grid-column: 2/-1;
@@ -28,7 +28,7 @@
     &--header {
       position: fixed;
       inset: 0 0 auto 15.625rem;
-      z-index: 1;
+      z-index: $headerZindex;
 
       &_top,
       &_bottom {

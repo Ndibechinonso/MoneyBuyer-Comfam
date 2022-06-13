@@ -1,0 +1,124 @@
+.table {
+  padding-top: 3.75rem;
+  padding-bottom: 10.125rem;
+  background-color: var(--blackColorWhite);
+  border-radius: 0.75rem;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: relative;
+
+  &BgTop,
+  &BgBtm {
+    position: absolute;
+    background-repeat: no-repeat;
+    border-radius: 0.75rem;
+    z-index: 0;
+  }
+
+  &BgTop {
+    width: 10rem;
+    height: 10rem;
+    inset: 0 0 auto auto;
+    background-image: url(../../images/tableTop.svg);
+    background-position: top right;
+  }
+  &BgBtm {
+    width: 10rem;
+    height: 10rem;
+    inset: auto auto 0 0;
+    background-image: url(../../images/tableBg.svg);
+    background-position: bottom left;
+  }
+
+  &__control {
+    z-index: $goAboveMyPeers;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 1.0625rem;
+
+    .dropdownTrigger {
+      z-index: inherit;
+    }
+
+    &__sort {
+      display: flex;
+      column-gap: 0.75rem;
+      align-items: flex-start;
+      cursor: pointer;
+      z-index: inherit;
+
+      &-text {
+        z-index: inherit;
+        @include smallTextMedium;
+        color: var(--greyColorGrey3);
+        span {
+          color: var(--colorPrimary);
+        }
+      }
+      &-drop {
+        align-self: center;
+        path {
+          fill: var(--greyColorGrey3);
+        }
+        transform: rotate(90deg);
+      }
+    }
+
+    &--btn {
+      @include smallTextMedium;
+      color: var(--greyColorGrey3);
+      cursor: pointer;
+      button {
+        all: unset;
+      }
+    }
+
+    form {
+      display: flex;
+      align-items: center;
+      column-gap: 1.25rem;
+    }
+  }
+
+  &__display {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    font-size: 1rem;
+  }
+
+  th {
+    color: var(--greyColorGrey1);
+  }
+  td {
+    color: var(--greyColorGrey2);
+  }
+
+  td,
+  th {
+    padding: 1.25rem 2rem;
+    text-align: center;
+    @include normalTextMedium;
+  }
+  tr {
+    border-top: 1px solid #d4dddf;
+    border-bottom: 1px solid #d4dddf;
+    th:last-child,
+    td:nth-last-child(2) {
+      text-align: left;
+    }
+    td:nth-last-child(2) {
+      padding-right: 0;
+      width: 14.125rem;
+    }
+
+    td:last-child {
+      padding: 1.25rem 2rem 1.25rem 1.25rem;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

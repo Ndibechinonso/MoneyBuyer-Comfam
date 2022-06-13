@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
-import ConfirmMoneyIcon from "../customIcons/ConfamMoney";
-import {language} from "../../utils/language/en";
+// import ConfirmMoneyIcon from "../customIcons/ConfamMoney";
+import { language } from "../../utils/language/en";
 import DashboardIcon from "../customIcons/DashBoardIcon";
 import WalletIcon from "../customIcons/WalletIcon";
 import TransactionIcon from "../customIcons/TransactionIcon";
@@ -14,7 +14,7 @@ function SideNav() {
     <nav className={`confam__sideNav nav`}>
       {/* logo */}
       <Link className="nav__logo" to={"/"}>
-        <ConfirmMoneyIcon />
+        {/* <ConfirmMoneyIcon /> */}
       </Link>
       <ul className="nav__wrapper">
         <li className="nav__item">

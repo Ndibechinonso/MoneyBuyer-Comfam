@@ -1,18 +1,15 @@
-// import NewUserCard from "../../../common/components/sharedCards/NewUserCard"
-
-import Table from "../../../common/components/customTable/Table"
-
+import React from "react";
+import Tabs from "../../../common/components/customTable/Table";
+import { deliveryTable } from "../../../fakeData";
 
 function Delivery() {
+  const [data] = React.useState(deliveryTable.rows);
+
   return (
     <>
-      {/* <NewUserCard
-        completedRegistration={false}
-        message={"You currently don’t have any delivery yet."}
-      /> */}
-      <Table/>
+      <Tabs headers={deliveryTable.columns} data={data} />
     </>
-  )
+  );
 }
 
-export default Delivery
+export default Delivery;
