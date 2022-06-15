@@ -1,4 +1,9 @@
 @import './profile.scss';
+@import './bank.scss';
+@import './feedback.scss';
+@import './notification.scss';
+
+
 
 .setting{
     display: flex;
@@ -11,9 +16,13 @@
         flex-direction: column;
         row-gap: 2rem;
         border-right: 1px solid var(--greyColorGrey6);
+        max-width: 228.01px;
+        width: 100%;
 
         &--item{
             color: var(--greyColorGrey3);
+            font-size: 1.125rem;
+
             @include normalTextMedium;
 
             &_active{
