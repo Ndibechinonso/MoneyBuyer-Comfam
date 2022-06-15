@@ -1,6 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import "./partials/index.scss";
 @import "./components/index.scss";
 @import "./pages/index.scss";
+
 
 *,
 *::after,
@@ -25,6 +30,6 @@ button {
 }
 
 html {
-    font-size: 14px;
+    font-size: 16px;
 }
 

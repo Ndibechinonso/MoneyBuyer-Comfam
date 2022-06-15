@@ -1,0 +1,43 @@
+.notification_form {
+    .intro {
+        max-width: 39.94rem;
+        width: 100%;
+    }
+
+    p {
+        color: var(--greyColorGrey1);
+    }
+
+    .first_checkbox_group {
+        @include flexRow;
+        gap: 2.85rem;
+    }
+
+    .checkbox_div {
+        gap: 5.58px;
+    }
+
+    .form_group {
+        margin-bottom: 2.1rem;
+
+        .questions {
+            font-size: 1.125rem;
+        }
+
+        input {
+            margin-right: 0.35rem;
+        }
+
+        p {
+            @include flexRow;
+            gap: 0.79rem;
+            font-size: 0.88rem;
+            color: var(--greyColorGrey2);
+        }
+
+        .answers {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+    }
+}

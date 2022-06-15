@@ -1,7 +1,8 @@
 import React, { useId } from 'react'
 import CustomButton from '../../../../common/components/customButtons'
+import CustomForm from '../../../../common/components/customForms';
 import NaijaFlag from '../../../../common/components/customIcons/NaijaFlag'
-import userImg from "../../../../static/images/userImage.jpeg";
+// import userImg from "../../../../static/images/userImage.jpeg";
 
 type Props = {}
 
@@ -9,7 +10,8 @@ function Profile({ }: Props) {
   const id = useId()
   return (
     <div className ='profile__container'>
-      <div>
+      <CustomForm formType="profile"/>
+      {/* <div>
         <div className='profile__container_header'>
           <div>
             <img src ={userImg} alt='profile picture'  className='profile_picture'/>
@@ -53,7 +55,7 @@ function Profile({ }: Props) {
           </form>
         </div>
         <CustomButton className="profile__cta"  action={() => console.log("profile updated")} actionText="Update Profile" />
-      </div>
+      </div> */}
     </div>
   )
 }

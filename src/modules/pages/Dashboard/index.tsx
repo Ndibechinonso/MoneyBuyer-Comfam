@@ -10,6 +10,7 @@ function Dashboard() {
         completedRegistration={false}
         message={NewUserPageDictionary.message}
       /> */}
+      
     </>
   );
 }

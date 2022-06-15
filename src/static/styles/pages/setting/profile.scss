@@ -1,13 +1,14 @@
 .profile__container{
   width: 100%;
   display: flex;
-  justify-content: center;
+  // justify-content: center;
   align-items: center;
-  padding: 2rem 0;
+  padding: 32px 6.31rem;
   &_header{
     text-align: center;
     display: flex;
     flex-direction: column;
+    margin-bottom: 1.5rem;
     align-items:center;
     .profile_picture{
       width: 6.25rem;
@@ -47,19 +48,25 @@
   }
   &_form{
     margin-bottom: 2.25rem;
-    form{
-      margin-top: 1.5rem;
-    }
+    @include flexColumn;
+    gap: 1.5rem;
+    // margin-top: 1.5rem;
+    align-items: flex-start;
+        // form{
+    //   margin-top: 1.5rem;
+    // }
     label{
       font-size: 1.125rem;
       font-weight:500;
+      color: var(--greyColorGrey1);
+
     }
     &_input{
       display: block;
       outline: 0;
       height: 3.4375rem;
       border: 1px solid var(--greyColorGrey4);
-      padding: 1.125rem 1.5rem 0.8125rem 0;
+      padding: 1.125rem 1.5rem 0.8125rem 23px;
       width: 29rem;
       margin-top: 0.25rem;
       border-radius: 0.25rem;
@@ -91,4 +98,8 @@
       }
     }
   }
+}
+
+::-webkit-scrollbar {
+  width: 0 !important
 }
