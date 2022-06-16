@@ -11,30 +11,36 @@
   }
 
   &__dropDownMenu {
-    // position: absolute;
+    position: absolute;
     background-color: var(--blackColorWhite);
     border: 1px solid #cdcdd0;
     border-radius: 0.625rem;
-    top: 4.375rem;
-    right: 4rem;
+    width: 14.375rem;
+    // top: 4.375rem;
+    // right: 4rem;
+    padding-top: 1.375rem;
+    padding-bottom: 1.25rem;
 
-    &--container {
-      padding-top: 1.375rem;
-      padding-bottom: 1.25rem;
-    }
+    // &--container {
+
+      // button{
+      //   all:unset;
+      // }
+    // }
     &--itm {
-      a {
+      button {
         color: var(--blackColorBlack3);
       }
 
       &:not(:last-child) {
-        a {
+        button {
           padding-bottom: 1.125rem;
+          width: 100%;
         }
       }
 
       &:nth-child(3) {
-        a {
+        button {
           padding-bottom: 0.5625rem;
         }
       }
@@ -49,9 +55,8 @@
         }
       }
 
-      a,
       button {
-        padding: 0 1.875rem 0 1rem;
+        padding: 0 0 0 1rem;
         display: flex;
         align-items: center;
         column-gap: 1.25rem;

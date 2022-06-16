@@ -6,6 +6,7 @@ import SortIcon from "../customIcons/SortIcon";
 import { DatePicker } from "../customInput/datePicker/DatePicker";
 import { ifState } from "./types";
 import StatusFilter, { Ioptions } from "../dropDowns/StatusFilter";
+import DropDown from "../dropDowns/primitive";
 
 type Props = {
   formState: ifState;
@@ -26,7 +27,6 @@ function TableControls({
   resetFilterHandler,
   filteSelectHandler,
 }: Props) {
-
   return (
     <div className="table__control">
       <span className="table__control--btn">
@@ -44,7 +44,12 @@ function TableControls({
           />
           <SearchIcon />
         </div>
-        <DatePicker selectedDate={formState.date} onChange={dateChange}>
+
+        <DropDown
+          content={
+            <DatePicker selectedDate={formState.date} onChange={dateChange} />
+          }
+        >
           <div className="popup_date table__input">
             <div className="input__date">
               {formState.date.format("DD/MM/YYYY")}
@@ -52,13 +57,17 @@ function TableControls({
 
             <CalenderIcon className="calIcn" />
           </div>
-        </DatePicker>
+        </DropDown>
       </form>
-      <StatusFilter
-        options={filterOptions}
-        onSelect={filteSelectHandler}
-        onResetForm={resetFilterHandler}
-        onSubmitForm={filterSubmitHandler}
+      <DropDown
+        content={
+          <StatusFilter
+            options={filterOptions}
+            onSelect={filteSelectHandler}
+            onResetForm={resetFilterHandler}
+            onSubmitForm={filterSubmitHandler}
+          />
+        }
       >
         <div className="table__control__sort">
           <SortIcon />
@@ -68,7 +77,7 @@ function TableControls({
           </h3>
           <CaretRight className="table__control__sort-drop" />
         </div>
-      </StatusFilter>
+      </DropDown>
     </div>
   );
 }

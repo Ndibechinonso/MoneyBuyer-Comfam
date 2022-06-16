@@ -1,7 +1,7 @@
-import React from "react";
-import DropDownWrapper from ".";
 import CustomButton from "../customButtons";
 import CustomSelector from "../customSelector";
+import DropDownItem from "./primitive/DropDownItem";
+import DropDownMenuContent from "./primitive/DropDownMenuContent";
 
 export type Ioptions = {
   val: string;
@@ -13,51 +13,42 @@ type Props = {
   onSelect: (itm: Ioptions, id: number) => void;
   onResetForm: () => void;
   onSubmitForm: () => void;
-  children: React.ReactNode;
 };
 
-function StatusFilter({
-  options,
-  onSelect,
-  onResetForm,
-  onSubmitForm,
-  children,
-}: Props) {
+function StatusFilter({ options, onSelect, onResetForm, onSubmitForm }: Props) {
   return (
-    <DropDownWrapper trigger={children}>
-      <div className="statusFilter_container">
-        <form onSubmit={(e) => e.preventDefault()} className="statusFilter">
-          <div className="statusFilter__head">
-            <h5>FILTER BY</h5>
-            <button onClick={onResetForm}>
-              <span>Close</span>
-            </button>
-          </div>
-          <div className="statusFilter__body">
-            {options.map((opt, id) => {
-              const { val, checked } = opt;
-              return (
-                <div key={val} className="statusFilter__itm">
-                  <CustomSelector
-                    variant="checkBox"
-                    placeholder={val}
-                    isChecked={checked}
-                    onClickHandler={() => onSelect(opt, id)}
-                  />
-                </div>
-              );
-            })}
-            <div className="statusFilter__btn">
-              <CustomButton
-                type="submit"
-                action={onSubmitForm}
-                actionText="Apply"
-              />
-            </div>
-          </div>
-        </form>
-      </div>
-    </DropDownWrapper>
+    <DropDownMenuContent className="statusFilter_container">
+      <form onSubmit={(e) => e.preventDefault()} className="statusFilter">
+        <div className="statusFilter__head">
+          <h5>FILTER BY</h5>
+          <DropDownItem onClick={onResetForm}>
+            <span>Close</span>
+          </DropDownItem>
+        </div>
+        <div className="statusFilter__body">
+          {options.map((opt, id) => {
+            const { val, checked } = opt;
+            return (
+              <div key={val} className="statusFilter__itm">
+                <CustomSelector
+                  variant="checkBox"
+                  placeholder={val}
+                  isChecked={checked}
+                  onClickHandler={() => onSelect(opt, id)}
+                />
+              </div>
+            );
+          })}
+        </div>
+        <DropDownItem className="statusFilter__btn">
+          <CustomButton
+            type="submit"
+            action={onSubmitForm}
+            actionText="Apply"
+          />
+        </DropDownItem>
+      </form>
+    </DropDownMenuContent>
   );
 }
 
