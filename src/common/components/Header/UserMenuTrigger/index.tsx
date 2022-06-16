@@ -7,7 +7,7 @@ interface userMenuProps {
   // showDropDown: boolean;
 }
 
-function UserMenu({}: userMenuProps) {
+function UserMenuTrigger({}: userMenuProps) {
   return (
     <div className="userMenu">
       <img className="userMenu__image" src={userImg} alt="user profile" />
@@ -16,4 +16,4 @@ function UserMenu({}: userMenuProps) {
   );
 }
 
-export default UserMenu;
+export default UserMenuTrigger;
