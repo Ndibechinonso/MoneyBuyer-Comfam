@@ -1,6 +1,5 @@
 // import NewUserCard from "../../../common/components/sharedCards/NewUserCard";
 import { language } from "../../../common/utils/language/en";
-
 const { newUser: NewUserPageDictionary } = language.dashboard;
 
 function Dashboard() {
@@ -10,7 +9,6 @@ function Dashboard() {
         completedRegistration={false}
         message={NewUserPageDictionary.message}
       /> */}
-      
     </>
   );
 }
