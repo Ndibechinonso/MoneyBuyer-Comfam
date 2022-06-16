@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^0.1.6",
+    "@radix-ui/react-popover": "^0.1.6",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -48,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@radix-ui/react-icons": "^1.1.1",
     "autoprefixer": "^10.4.7",
     "postcss": "^8.4.14",
     "prettier": "2.6.2",

@@ -17,8 +17,7 @@ function Layout() {
   const [newUser, setNewUser] = React.useState(false);
 
   const value = getObject(getFirstLevelPath(pathname));
-
-  
+console.log(value, "val")
   return (
 
     <>

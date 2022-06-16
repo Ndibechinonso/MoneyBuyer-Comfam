@@ -1,7 +1,8 @@
 import React from "react";
 import ThreeDotIcon from "../customIcons/ThreeDot";
 import Tag from "../customTags";
-import TransactionDD from "../dropDowns/TransactionDD";
+import DropDown from "../dropDowns/primitive";
+import TransactionItem from "../dropDowns/TransactionItem";
 import { TObj } from "./types";
 
 function TableInfo({ headers, data }: TObj) {
@@ -27,11 +28,13 @@ function TableInfo({ headers, data }: TObj) {
                   )}
                 </td>
               ))}
-                <td onClick={() => console.log(row)}>
-              <TransactionDD>
-                  <ThreeDotIcon />
-              </TransactionDD>
-                </td>
+              <td>
+                <DropDown content={<TransactionItem data={row} />}>
+                  <button>
+                    <ThreeDotIcon />
+                  </button>
+                </DropDown>
+              </td>
             </tr>
           );
         })}

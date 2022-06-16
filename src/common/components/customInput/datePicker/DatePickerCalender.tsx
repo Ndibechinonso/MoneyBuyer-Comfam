@@ -3,8 +3,7 @@ import { Dayjs } from "dayjs";
 import clsx from "clsx";
 
 import { getCalendarRows } from "./utils/utils";
-
-// import "./DatePickerCalendar.css";
+import DropDownItem from "../../dropDowns/primitive/DropDownItem";
 
 export interface IDatePickerCalendarProps {
   shownDate: Dayjs;
@@ -40,7 +39,7 @@ export const DatePickerCalendar: React.FC<IDatePickerCalendarProps> = ({
         <div key={rowIndex} className={"DatePickerCalendar__row"}>
           {cells.map(({ text, value }, i) => {
             return (
-              <div
+              <DropDownItem
                 key={`${text} - ${i}`}
                 className={clsx(
                   "DatePickerCalendar__cell",
@@ -53,7 +52,7 @@ export const DatePickerCalendar: React.FC<IDatePickerCalendarProps> = ({
                 onClick={handleSelectDate(value)}
               >
                 {text}
-              </div>
+              </DropDownItem>
             );
           })}
         </div>
