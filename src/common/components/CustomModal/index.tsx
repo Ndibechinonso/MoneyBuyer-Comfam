@@ -1,7 +1,8 @@
 import CustomButton from "../customButtons";
 import closemodal from "../../../static/images/modal_close.svg";
 import { useEffect, useState } from "react";
-
+import {Alerts} from '../../components/redux/alert/alertActions' 
+import { useAppDispatch } from "../redux/hooks";
 
 type CustomModalProps = {
    children: JSX.Element|JSX.Element[];
@@ -10,7 +11,7 @@ type CustomModalProps = {
 }
 
 const CustomModal = ({children, isModal, progress}: CustomModalProps) => {
-
+const dispatch = useAppDispatch()
   const [showModal, setModal] = useState(false)
 
 useEffect(()=>{
@@ -23,15 +24,10 @@ useEffect(()=>{
 }, [isModal])
 
 const closeModal = () => {
+  dispatch(Alerts(""))
   setModal(false) 
 }
   return (
-//     <>
-//   { isModal ? (<div className="modal_container">
-//       <div>
-// {children}
-//       </div>
-//     </div>) : null}</>
 <>
 {showModal ? <div className="modal_container">
     <div className="child_div">
@@ -39,9 +35,7 @@ const closeModal = () => {
     </div>
     <div className="modal_backdrop" onClick={() => !progress && closeModal()}></div>
   </div> : null}
-  
   </> 
-
   );
 };
 

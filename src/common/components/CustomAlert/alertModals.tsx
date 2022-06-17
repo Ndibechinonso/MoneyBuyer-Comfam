@@ -2,6 +2,8 @@ import CustomButton from "../customButtons";
 import closemodal from "../../../static/images/modal_close.svg";
 import CustomModal from "../CustomModal";
 import { useState } from "react";
+import {Alerts} from '../../components/redux/alert/alertActions' 
+import { useAppDispatch } from "../redux/hooks";
 
 type alertModalProps = {
   type?: String;
@@ -25,14 +27,14 @@ const AlertModal = ({
 }: alertModalProps) => {
 
     const [isModal, setModal] = useState(true)
-
+const dispatch = useAppDispatch()
   return (
     <CustomModal progress={progress} isModal={isModal}>
       <div className="modal_content">
         {type === "alert" ? (
           <>
             <div className="modal_header">
-              {!progress ? <img src={closemodal} alt="close modal" onClick={() => {setModal(false)}} className="cursor-pointer" /> : null}
+              {!progress ? <img src={closemodal} alt="close modal" onClick={() => {setModal(false); dispatch(Alerts(""))}} className="cursor-pointer" /> : null}
             </div>
             <div className="modal_body">
               {alertIcon && (
