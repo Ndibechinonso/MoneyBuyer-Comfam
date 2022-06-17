@@ -1,0 +1,29 @@
+.dashboard_cards_container{
+    @include flexRow;
+    padding: 1.875rem;
+    background: var(--blackColorWhite);
+    border-radius: 16px;
+    min-width: 336px;
+    width: 100%;
+    gap: 0.75rem;
+    place-items: center;
+    .text_content{
+        @include flexColumn;
+        gap: 0.375rem;
+        .card_title{
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: var(--greyColorGrey2);
+        }
+        .amount{
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--blackColorBlack2);
+            }
+    }
+}
+
+.dashboard_card_group{
+    @include flexRow;
+justify-content: space-between;
+}

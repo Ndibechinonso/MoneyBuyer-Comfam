@@ -1,3 +1,9 @@
+import dashboardCardImg_1 from "../src/static/images/dashboardCard_1.svg"
+import dashboardCardImg_2 from "../src/static/images/dashboardCard_2.svg"
+import dashboardCardImg_3 from "../src/static/images/dashboardCard_3.svg"
+
+
+
 export const deliveryTable = {
   columns: [
     {
@@ -121,3 +127,20 @@ export const deliveryTable = {
     },
   ],
 };
+
+
+export const  cardArray = [{
+  cardImg: dashboardCardImg_1,
+    cardTitle: "Total Income",
+    amount: 456605
+},
+{
+  cardImg: dashboardCardImg_2,
+    cardTitle: "Balance",
+    amount: 10750
+},
+{
+  cardImg: dashboardCardImg_3,
+    cardTitle: "Pending Transactions",
+    amount: 78605
+}]
