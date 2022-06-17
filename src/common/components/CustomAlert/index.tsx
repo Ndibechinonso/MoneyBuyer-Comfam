@@ -1,4 +1,4 @@
-import AlertModal from "../AlertModal"
+import AlertModal from "./alertModals"
 import { ReactElement } from "react";
 import info from "../../../static/images/info.svg";
 import success from "../../../static/images/success.svg";
