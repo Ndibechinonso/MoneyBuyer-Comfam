@@ -5,6 +5,11 @@ import Header from "../Header";
 import NewUserCard from "../sharedCards/NewUserCard";
 import SideNav from "../SideNav";
 import Notice from "./Notice";
+import CustomAlert from "../CustomAlert";
+// import CustomModal from "../customModal";
+// import AlertModal from "../alertModal";
+// import info from "../../../static/images/info.svg";
+// import success from "../../../static/images/success.svg";
 
 function Layout() {
   const { pathname } = useLocation();
@@ -12,8 +17,13 @@ function Layout() {
   const [newUser, setNewUser] = React.useState(false);
 
   const value = getObject(getFirstLevelPath(pathname));
-
+console.log(value, "val")
   return (
+
+    <>
+
+<CustomAlert alertType="verificationfailed"/>
+
     <div className="confam">
       <SideNav />
       <div className="confam__layout">
@@ -39,6 +49,7 @@ function Layout() {
         </main>
       </div>
     </div>
+    </>
   );
 }
 

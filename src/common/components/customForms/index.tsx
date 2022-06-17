@@ -1,5 +1,5 @@
 import React, { useId } from "react";
-import CustomButton from "../../../common/components/customButtons";
+import CustomButton from "../customButtons";
 import NaijaFlag from "../../../common/components/customIcons/NaijaFlag";
 import uploadImg from "../../../static/images/uploadImg.svg";
 import InfoIcon from "../customIcons/Info";

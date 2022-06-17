@@ -50,7 +50,7 @@
     &Primary {
         background-color: var(--brandColorPrimary1);
         &:hover:not(:disabled){
-            background-color: #000026;
+            // background-color: #000026;
         }
         &:active:not(:disabled){
             background: linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),
