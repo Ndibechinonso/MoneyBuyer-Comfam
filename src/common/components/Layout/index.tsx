@@ -22,7 +22,7 @@ console.log(value, "val")
 
     <>
 
-<CustomAlert alertType="verificationfailed"/>
+{/* <CustomAlert alertType="progress"/> */}
 
     <div className="confam">
       <SideNav />
