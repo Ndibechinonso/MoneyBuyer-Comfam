@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 type CustomModalProps = {
    children: JSX.Element|JSX.Element[];
    isModal: boolean;
-   progress?: any
+   progress?: boolean
 }
 
 const CustomModal = ({children, isModal, progress}: CustomModalProps) => {
