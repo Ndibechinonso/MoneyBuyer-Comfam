@@ -27,3 +27,10 @@
     @include flexRow;
 justify-content: space-between;
 }
+.money_recived_container{
+    h4{
+        margin-bottom: 0.75rem;
+        font-weight: 500;
+        font-size: 1.25rem;
+    }
+}

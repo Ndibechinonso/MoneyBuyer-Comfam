@@ -17,6 +17,8 @@ export type TheaderObj = {
   export type TObj = {
     headers: Array<TheaderObj>;
     data: Array<any>;
+    activeOrder?: any;
+    recentTransacionHistory?: any
   };
   
   export type ifState = {

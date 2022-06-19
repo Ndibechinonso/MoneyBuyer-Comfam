@@ -2,7 +2,7 @@
 type DashboardCardsProps = {
     cardImg: string;
     cardTitle: string;
-    amount: number
+    amount: any
 }
 const DashboardCards = ({cardImg, cardTitle, amount}: DashboardCardsProps) => {
     return(
