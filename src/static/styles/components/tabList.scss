@@ -1,0 +1,17 @@
+.orders_container{
+    .react-tabs__tab-list{
+        @include flexRow;
+        gap: 1.125rem;
+        color: var(--greyColorGrey4);
+        font-weight: 500;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        
+    }
+    .react-tabs__tab--selected{
+        color: var(--blackColorBlack2);
+    }
+    .react-tabs__tab:hover{
+cursor: pointer;
+    }
+}

@@ -1,0 +1,11 @@
+.dashboard_container{
+    @include flexColumn;
+    gap: 2.5rem
+}
+.recent_transactions_history{
+    h2{
+        margin-bottom: 0.75rem;
+        font-size: 1.25rem;
+        font-weight: 500;
+    }
+}
