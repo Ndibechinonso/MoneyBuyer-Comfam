@@ -1,24 +1,24 @@
 @import "./layout/index.scss";
 @import "./wallet.scss";
+@import "./transaction.scss";
 @import "./setting/index.scss";
 
-
 .content {
-    grid-column: 2/-2;
-    margin-bottom: 5rem;
-    display: grid;
-    grid-template-columns: 3.75rem 1fr 4rem;
-    
-    &>section,
-    .notice{
-        grid-column: 2/3;
-    }
+  grid-column: 2/-2;
+  margin-bottom: 5rem;
+  display: grid;
+  grid-template-columns: 3.75rem 1fr 4rem;
 
-    &__userError{
-        margin-top: 12.125rem;
-    }
-    &__setting,
-    &__clean{
-        margin-top: 14.625rem;
-    }
+  & > section,
+  .notice {
+    grid-column: 2/3;
+  }
+
+  &__userError {
+    margin-top: 12.125rem;
+  }
+  &__setting,
+  &__clean {
+    margin-top: 14.625rem;
+  }
 }

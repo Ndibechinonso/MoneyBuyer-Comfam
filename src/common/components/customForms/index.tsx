@@ -17,14 +17,14 @@ const CustomForm = ({ formType, intro }: CustomFormProps) => {
   return (
     <div>
       {/* <button onClick={() => dispatch(Alerts("cancelTransaction"))}>test</button> */}
-      <form>
+      <form onSubmit={(e) => e.preventDefault()}>
         {formType === "profile" || formType === "verification" ? (
           <>
             <div className="profile__container_header">
               <div>
                 <img
                   src={uploadImg}
-                  alt="profile picture"
+                  alt="profile mugshot"
                   className="profile_picture"
                 />
               </div>

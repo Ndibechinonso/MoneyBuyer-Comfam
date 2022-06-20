@@ -1,0 +1,258 @@
+.transactionModal {
+  width: 38.5rem;
+  background-color: var(--blackColorWhite);
+
+  &__wrapper{
+    padding: 2rem 0;
+    height: 100vh;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+      display: none; /* Safari and Chrome */
+    }
+  }
+
+  p{
+    margin: 0;
+  }
+
+  &__title {
+    padding-top: 1.25rem;
+    padding-bottom: 1.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 0.625rem;
+    background-color: pink;
+    @include normalTextMedium;
+    color: var(--greyColorGrey2);
+
+    span{
+        align-self: flex-end;
+    }
+
+    &--Completed{
+        background-color: var(--tagBg4);
+        path {
+            fill: var(--stateColorSuccess);
+        }
+    }
+    &--Cancelled{
+        color: var(--greyColorGrey2);
+        background-color: var(--tagBg5);
+        path {
+            fill: var(--stateColorError);
+        }
+    }
+    &--Pending-delivery{
+        background-color: var(--greyColorGrey6);
+        path {
+            fill: var(--greyColorGrey2);
+        }
+    }
+    &--Pending-confirmation{
+        background-color: var(--brandColorSecondary6);
+        path {
+            fill: var(--brandColorSecondary1);
+        }
+    }
+    &--Awaiting-confirmation{
+        background-color: var(--brandColorSecondary6);
+        path {
+            fill: var(--brandColorSecondary1);
+        }
+    }
+    &--Awaiting-payment{
+        background-color: var(--tagBg2);
+        color: var(--brandColorPrimary4);
+        path {
+            fill: var(--brandColorPrimary4);
+        }
+    }
+
+    &--Awaiting-delivery{
+        background-color: var(--tagBg4);
+        path{
+            fill: var(--stateColorSuccess);
+        }
+    }
+  }
+  &__body {
+    padding: 2.5rem 2rem 3rem 2rem;
+    @include flexColumn;
+    row-gap: 1rem;
+
+    &--head {
+      display: grid;
+      grid-template-columns: max-content 1fr max-content max-content;
+      column-gap: 0.5rem;
+      align-items: center;
+
+      h4 {
+        grid-column: 1/2;
+        @include largeTextMedium;
+        color: var(--greyColorGrey1);
+      }
+      .tags {
+        grid-column: 3/4;
+      }
+      svg {
+        grid-column: 4/5;
+      }
+    }
+    .section {
+      @include flexColumn;
+      row-gap: 0.625rem;
+
+      &__head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &--title {
+          @include normalTextSemiBold;
+          color: var(--greyColorGrey1);
+        }
+        &--date {
+          @include smallTextRegular;
+          color: var(--greyColorGrey3);
+        }
+      }
+      &__body {
+        border: 1px solid var(--greyColorGrey8);
+        border-radius: 0.625rem;
+        padding: 1.25rem;
+
+        &--itm {
+          @include flexColumn;
+          row-gap: 0.25rem;
+
+          &__title {
+            @include smallTextMedium;
+            color: var(--greyColorGrey3);
+          }
+
+          &__body {
+            font-size: 1.125rem;
+            font-weight: 500;
+            line-height: 1.375rem;
+            color: var(--greyColorGrey1);
+
+            img {
+              height: 4.75rem;
+              width: 9.75rem;
+              border-radius: .5rem;
+              background-color: red;
+              display: block;
+            }
+          }
+
+          &:not(:last-child) {
+            border-bottom: 1px dashed var(--greyColorGrey9);
+            padding-bottom: 0.75rem;
+          }
+          &:not(:first-child) {
+            padding-top: 0.75rem;
+          }
+        }
+
+        .transactionModal__productDesc {
+          background-color: var(--appBackground);
+          padding: 0.5rem 0.75rem;
+          border-radius: 0.5rem;
+          position: relative;
+          @include smallTextRegular;
+          color: var(--greyColorGrey2);
+
+          &::before {
+            content: "";
+            position: absolute;
+            background-color: var(--brandColorTertiary3);
+            width: 0.125rem;
+            top: 0.75rem;
+            left: 0;
+            bottom: 0.75rem;
+          }
+        }
+      }
+    }
+
+    .btn {
+      align-self: flex-end;
+    }
+    .btnWrapper{
+        align-self: flex-end;
+        display: flex;
+        align-items: center;
+        column-gap: 1.25rem;
+    }
+  }
+
+  &__payment {
+    display: grid;
+    grid-template-columns: max-content 2fr max-content 1fr;
+    row-gap: 1.25rem;
+
+    &--cost,
+    &--fee {
+      &__title {
+        color: var(--greyColorGrey3);
+        @include smallTextMedium;
+      }
+      & > &__body {
+        color: var(--greyColorGrey1);
+        @include normalTextMedium;
+        span {
+          @include smallTextMedium;
+        }
+      }
+    }
+
+    &--cost {
+      grid-column: 1/2;
+    }
+    &--fee {
+      grid-column: 3/4;
+    }
+    &--total {
+      grid-column: 1/-1;
+      padding: 1.25rem 1.25rem 0.75rem 2rem;
+      background-color: var(--appBackground);
+      border: 1px dashed var(--brandColorPrimary4);
+      color: var(--greyColorGrey1);
+      border-radius: 0.625rem;
+      display: flex;
+      column-gap: 2rem;
+      row-gap: 0.375rem;
+
+      &Sub {
+        flex: 2;
+        &__title {
+          @include smallTextSemiBold;
+        }
+        & > &__body {
+          @include normalTextMedium;
+          span {
+            @include smallTextMedium;
+          }
+        }
+      }
+      &Cost {
+        flex: 1;
+        &__title {
+          font-size: 0.875rem;
+          font-weight: 600;
+          line-height: 1.125rem;
+        }
+        &__body {
+          color: var(--brandColorPrimary4);
+          @include mediumTextMedium;
+          span {
+            @include normalTextMedium;
+          }
+        }
+      }
+    }
+  }
+}
