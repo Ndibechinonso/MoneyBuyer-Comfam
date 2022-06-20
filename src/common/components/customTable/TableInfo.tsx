@@ -4,10 +4,8 @@ import Tag from "../customTags";
 import DropDown from "../dropDowns/primitive";
 import TransactionItem from "../dropDowns/TransactionItem";
 import { TObj } from "./types";
-import arrowRight from "../../../static/images/arrow_right.svg"
-import clientImg from "../../../static/images/client_img.svg"
-import { formatMoney } from "../../utils";
-function TableInfo({ headers, data, activeOrder, recentTransacionHistory }: TObj) {
+
+function TableInfo({ headers, data }: TObj) {
   return (
     <table className="table__display">
       <thead>
@@ -23,22 +21,19 @@ function TableInfo({ headers, data, activeOrder, recentTransacionHistory }: TObj
             <tr key={idx}>
               {headers.map((col, id) => (
                 <td key={id}>
-                  <span className="client_div">
-                  <span>{col.key ==="clients" ? <img src={clientImg} alt="alt image"/>: null}</span> 
-                  <span> {col.key === "status" ? (
-                   <Tag value={row[col.key]} />
-                  )  : (
+                  {col.key === "status" ? (
+                    <Tag value={row[col.key]} />
+                  ) : (
                     row[col.key]
-                  )}</span> 
-               </span> </td>
+                  )}
+                </td>
               ))}
               <td>
-         { (!activeOrder || recentTransacionHistory) ? <DropDown content={<TransactionItem data={row} />}>
+                <DropDown content={<TransactionItem data={row} />}>
                   <button>
                     <ThreeDotIcon />
                   </button>
-                </DropDown> : null }
-                {(activeOrder && !recentTransacionHistory) ? <img src={arrowRight} alt="open order details" /> : null}
+                </DropDown>
               </td>
             </tr>
           );

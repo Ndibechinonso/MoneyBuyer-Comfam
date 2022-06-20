@@ -21,8 +21,6 @@ type headerObj = {
 type Props = {
   headers: Array<headerObj>;
   data: Array<any>;
-  activeOrder?: boolean;
-  recentTransacionHistory? : boolean;
 };
 
 type ifState = {
@@ -31,7 +29,7 @@ type ifState = {
   filter: string[];
 };
 
-function Table({ headers, data, activeOrder, recentTransacionHistory}: Props) {
+function Table({ headers, data }: Props) {
   const [formState, setFormState] = React.useState<ifState>({
     search: "",
     date: dayjs(),
@@ -100,7 +98,7 @@ function Table({ headers, data, activeOrder, recentTransacionHistory}: Props) {
     <div className="table">
       <span className="tableBgTop"></span>
       <span className="tableBgBtm"></span>
-     { !(activeOrder || recentTransacionHistory) ? <TableControls
+      <TableControls
         filterSubmitHandler={filterSubmitHandler}
         filteSelectHandler={filteSelectHandler}
         resetFilterHandler={resetFilterHandler}
@@ -108,8 +106,8 @@ function Table({ headers, data, activeOrder, recentTransacionHistory}: Props) {
         inputChange={fill}
         dateChange={dateChangeHandler}
         filterOptions={filter}
-      />  : null}
-      <TableInfo data={data} headers={headers} activeOrder={activeOrder} recentTransacionHistory={recentTransacionHistory} /> 
+      />
+      <TableInfo data={data} headers={headers} />
     </div>
   );
 }
