@@ -1,3 +1,7 @@
 import { combineReducers } from "redux";
-
-export default combineReducers({})
+import alertReducer from "./alert/alertReducer"
+import {  tableItemSlice } from "./tableItem";
+export default combineReducers({
+    alert: alertReducer,
+    tableItem: tableItemSlice.reducer,
+})

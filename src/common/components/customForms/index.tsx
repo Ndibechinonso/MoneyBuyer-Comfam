@@ -3,6 +3,8 @@ import CustomButton from "../customButtons";
 import NaijaFlag from "../../../common/components/customIcons/NaijaFlag";
 import uploadImg from "../../../static/images/uploadImg.svg";
 import InfoIcon from "../customIcons/Info";
+import {Alerts} from '../../components/redux/alert/alertActions' 
+import { useAppDispatch } from "../redux/hooks";
 
 type CustomFormProps = {
   formType: "profile" | "verification" | "bank" | "Notification Settings" | "Give Feedback";
@@ -11,16 +13,18 @@ type CustomFormProps = {
 const CustomForm = ({ formType, intro }: CustomFormProps) => {
   const id = useId();
 
+  const dispatch = useAppDispatch()
   return (
     <div>
-      <form>
+      {/* <button onClick={() => dispatch(Alerts("cancelTransaction"))}>test</button> */}
+      <form onSubmit={(e) => e.preventDefault()}>
         {formType === "profile" || formType === "verification" ? (
           <>
             <div className="profile__container_header">
               <div>
                 <img
                   src={uploadImg}
-                  alt="profile picture"
+                  alt="profile mugshot"
                   className="profile_picture"
                 />
               </div>
@@ -391,7 +395,7 @@ const CustomForm = ({ formType, intro }: CustomFormProps) => {
 
                 <CustomButton
                   className="profile__cta"
-                  action={() => console.log("Update")}
+                  action={() => dispatch(Alerts("progress"))}
                   actionText="Update"
                 />
               </div>

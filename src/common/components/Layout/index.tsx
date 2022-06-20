@@ -6,24 +6,19 @@ import NewUserCard from "../sharedCards/NewUserCard";
 import SideNav from "../SideNav";
 import Notice from "./Notice";
 import CustomAlert from "../CustomAlert";
-// import CustomModal from "../customModal";
-// import AlertModal from "../alertModal";
-// import info from "../../../static/images/info.svg";
-// import success from "../../../static/images/success.svg";
+import { useAppSelector } from "../redux/hooks";
 
 function Layout() {
+
   const { pathname } = useLocation();
-  const [userError, setUserror] = React.useState(false);
-  const [newUser, setNewUser] = React.useState(false);
-
+  const [userError, ] = React.useState(false);
+  const [newUser, ] = React.useState(false);
   const value = getObject(getFirstLevelPath(pathname));
-console.log(value, "val")
+  const {modal, modalType} = useAppSelector((state) => state.alert)
   return (
-
     <>
 
-{/* <CustomAlert alertType="progress"/> */}
-
+{modal && <CustomAlert alertType={modalType} /> }
     <div className="confam">
       <SideNav />
       <div className="confam__layout">
