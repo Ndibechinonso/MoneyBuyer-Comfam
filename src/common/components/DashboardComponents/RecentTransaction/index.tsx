@@ -1,4 +1,4 @@
-import { recentHistoryTable } from "../../../../fakeData"
+import { recentHistoryTable } from "../../../../fakeData";
 import { useState } from "react"
 import Table from "../../../components/customTable/Table"
 
