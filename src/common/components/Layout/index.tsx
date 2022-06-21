@@ -11,8 +11,8 @@ import { useAppSelector } from "../redux/hooks";
 function Layout() {
 
   const { pathname } = useLocation();
-  const [userError, setUserror] = React.useState(false);
-  const [newUser, setNewUser] = React.useState(false);
+  const [userError, ] = React.useState(false);
+  const [newUser, ] = React.useState(false);
   const value = getObject(getFirstLevelPath(pathname));
   const {modal, modalType} = useAppSelector((state) => state.alert)
   return (

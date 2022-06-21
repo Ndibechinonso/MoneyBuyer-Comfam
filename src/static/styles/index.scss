@@ -1,11 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @import "./partials/index.scss";
 @import "./components/index.scss";
 @import "./pages/index.scss";
-
 
 *,
 *::after,
@@ -13,7 +8,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Calibre";
+  font-family: "Calibre", sans-serif;
 }
 a {
   text-decoration: none;
@@ -30,12 +25,7 @@ button {
 }
 
 html {
-    font-size: 16px;
-}
-
-.text-center{
-  text-align: center;
-}
-.text-left{
-  text-align: left;
+  font-size: 14px;
+  height: 100vh;
+  overflow: hidden;
 }

@@ -4,7 +4,7 @@ import { formatMoney } from "../../../utils"
 const DashboardCardGroup = () => {
     return(
     <div className="dashboard_card_group">
-{cardArray.map((card, index) => {
+{cardArray.map((card: any, index: number) => {
     return(  
         <div  key={index}>
         <DashboardCards cardImg={card.cardImg} cardTitle={card.cardTitle} amount={formatMoney(card.amount)} />
