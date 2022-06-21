@@ -1,4 +1,4 @@
-import ModalContent from "./modalContent"
+import AlertModal from "./alertModals"
 import { ReactElement } from "react";
 import info from "../../../static/images/info.svg";
 import success from "../../../static/images/success.svg";
@@ -12,35 +12,23 @@ const CustomAlert = ({alertType}: customAlertProps) =>{
     let template: ReactElement | null = null;
 
     switch (alertType) {
-        case "progress": template = ( <ModalContent type="alert" progress header="Please wait........" text="Your account is being verified" />)
-        break;
+        case "progress": template = ( <AlertModal type="alert" progress header="Please wait........" text="Your account is being verified" />)
             
-        case "verificationfailed": template = (<ModalContent type="alert" alertIcon={info} header="Verification Failed!" text="Please ensure your details are correct" />)
-        break;
+            break;
+    case "verificationfailed": template = (<AlertModal type="alert" alertIcon={info} header="Verification Failed!" text="Please ensure your details are correct" />)
+    break;
 
-        case "accountverified": template = (<ModalContent type="alert" alertIcon={success} header="Account Verified" text="You account have been verified successfully" />)
-        break;
+    case "accountverified": template = (<AlertModal type="alert" alertIcon={success} header="Account Verified" text="You account have been verified successfully" />)
+    break;
 
-        case "profileupdated": template = (<ModalContent type="alert" alertIcon={success} header="Profile Updated" text="You profile have been updated successfully" />)
-        break;
+    case "profileupdated": template = (<AlertModal type="alert" alertIcon={success} header="Profile Updated" text="You profile have been updated successfully" />)
+    break;
 
-        case "transactionaccepted": template = (<ModalContent type="alert" alertIcon={success} singleAction header="Transaction Accepted" text="The buyer would be notified to make payment" />)
-        break;
+    case "confirmTransaction": template = (<AlertModal type="alert" confirmTransaction  header="Accept Transaction" text="Are you sure you want to accept this new transaction" />)
+    break;
 
-        case "transactioncancelled": template = (<ModalContent type="alert" alertIcon={success} singleAction header="Transaction Cancelled" text="Your transaction has been cancelled successfully" />)
-        break;
-
-        case "confirmtransaction": template = (<ModalContent type="alert" confirmTransaction  header="Accept Transaction" text="Are you sure you want to accept this new transaction" />)
-        break;
-
-        case "canceltransaction": template = (<ModalContent type="alert" alertIcon={info} cancelConfirmation header="Cancel Transaction" text="Are you sure you want to cancel this transaction" />)
-        break;
-
-        case "cancelreason": template = (<ModalContent type="alert" textArea header="Reason" text="Kindly state your reason for willing to cancel this transaction" />)
-        break;
-
-        case "transactionitem": template = (<ModalContent type="transactionItem" />)
-        break;
+    case "cancelTransaction": template = (<AlertModal type="alert" cancelTransaction header="Cancel Transaction" text="Are you sure you want to cancel this transaction" />)
+    break;
         default:
             break;
     }

@@ -1,5 +1,7 @@
 @import "./header.scss";
 @import "./navigation.scss";
+@import "./dashboard.scss";
+
 
 .confam {
   display: grid;
@@ -23,7 +25,7 @@
     -ms-overflow-style: none; /* Internet Explorer 10+ */
     scrollbar-width: none; /* Firefox */
     &::-webkit-scrollbar {
-      display: none; /* Safari and Chrome */
+      // display: none; /* Safari and Chrome */
     }
     &--header {
       position: fixed;
