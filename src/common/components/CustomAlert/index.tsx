@@ -41,6 +41,8 @@ const CustomAlert = ({alertType}: customAlertProps) =>{
 
         case "transactionitem": template = (<ModalContent type="transactionItem" />)
         break;
+        case "newtransaction": template = (<ModalContent type="newtransaction" />)
+        break;
         default:
             break;
     }

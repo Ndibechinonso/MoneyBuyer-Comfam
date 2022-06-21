@@ -24,7 +24,7 @@ function TableInfo({ headers, data, activeOrder, recentTransacionHistory }: TObj
               {headers.map((col, id) => (
                 <td key={id}>
                   <span className="client_div">
-                  <span>{col.key ==="clients" ? <img src={clientImg} alt="alt image"/>: null}</span> 
+                  {col.key ==="clients" ?  <span> <img src={clientImg} alt="alt image"/></span> : null}
                   <span> {col.key === "status" ? (
                    <Tag value={row[col.key]} />
                   )  : (

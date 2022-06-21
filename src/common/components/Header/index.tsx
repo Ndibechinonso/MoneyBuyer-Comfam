@@ -5,11 +5,13 @@ import NotificationIcon from "../customIcons/NotificationIcon";
 import DropDown from "../dropDowns/primitive";
 import UserMenuItem from "../dropDowns/UserMenuItem";
 import UserMenuTrigger from "./UserMenuTrigger";
+import { useAppDispatch } from "../redux/hooks";
+import { Alerts } from "../redux/alert/alertActions";
 
 function Header() {
   const { pathname } = useLocation();
   const value = getObject(getFirstLevelPath(pathname));
-
+const dispatch = useAppDispatch()
   return (
     <>
       <header className="confam__layout--header">
@@ -30,7 +32,7 @@ function Header() {
           </div>
           <CustomButton
             className="titleBar__cta"
-            action={() => console.log("first")}
+            action={() => dispatch(Alerts("newtransaction"))}
             actionText="New Transaction"
           />
         </div>
