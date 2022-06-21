@@ -21,6 +21,8 @@ type headerObj = {
 type Props = {
   headers: Array<headerObj>;
   data: Array<any>;
+  activeOrder? : any;
+  recentTransacionHistory?: any
 };
 
 type ifState = {
@@ -29,7 +31,7 @@ type ifState = {
   filter: string[];
 };
 
-function Table({ headers, data }: Props) {
+function Table({ headers, data, activeOrder, recentTransacionHistory }: Props) {
   const [formState, setFormState] = React.useState<ifState>({
     search: "",
     date: dayjs(),
