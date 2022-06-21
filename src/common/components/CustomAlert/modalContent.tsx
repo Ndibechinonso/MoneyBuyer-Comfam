@@ -6,9 +6,9 @@ import { Alerts } from "../redux/alert/alertActions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import TransactionModal from "../CustomModal/TransactionModal";
 import ReasonFormModal from "../CustomModal/ReasonFormModal";
-
+import NewTransaction from "../DashboardComponents/NewTransaction"
 type modalContentProps = {
-  type?: "alert" | "transactionItem";
+  type?: "alert" | "transactionItem" | "newtransaction";
   alertIcon?: any;
   header?: String;
   text?: String;
@@ -136,6 +136,7 @@ const ModalContent = ({
         ) : null}
       </>
       <>{type === "transactionItem" ? <TransactionModal /> : null}</>
+      <>{type === "newtransaction" ? <NewTransaction /> : null}</>
     </CustomModal>
   );
 };

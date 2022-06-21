@@ -1,7 +1,7 @@
 import { Tabs, TabList, Tab, TabPanel } from "react-tabs"
+import TableInfo from "../../../customTable/TableInfo"
 import { activeOrder } from "../../../../../fakeData"
 import { useState } from "react"
-import Table from "../../../customTable/Table"
 
 const Orders = () => {
 
@@ -18,7 +18,8 @@ const Orders = () => {
     </TabList>
 
     <TabPanel>
-      <Table activeOrder headers={activeOrder.columns} data={data} />
+      {/* <Table activeOrder headers={activeOrder.columns} data={data} /> */}
+      <TableInfo activeOrder headers={activeOrder.columns} data={data}/>
 
     </TabPanel>
     <TabPanel>

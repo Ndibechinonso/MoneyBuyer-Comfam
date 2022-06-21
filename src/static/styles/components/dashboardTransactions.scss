@@ -1,0 +1,158 @@
+
+.new_transaction {
+  &_container {
+
+    background: #ffffff;
+    border-radius: 16px;
+    width: 834px;
+    max-height: 646px;
+    overflow-y: scroll;
+    padding: 1.5rem 1.75rem 10.5rem 1.75rem;
+    margin-top: 11.25rem;
+    // padding-bottom: 10.5rem;
+    
+    input{
+    // min-height: 55px;
+    display: block;
+    padding: 17px 16px;
+    border: 1px solid #bdbdbd;
+    border-radius: 4px;
+    }
+    form {
+      .milestone {
+        margin-top: 2rem;
+        padding: 1.5rem 2rem;
+        border: 2px dashed #bdbdbd;
+        border-radius: 4px;
+        .add_milestone_div {
+          justify-content: flex-end;
+        }
+        &_form_input {
+          min-width: 319.62px !important;
+        }
+      }
+
+      .milestone {
+     
+  
+      }
+      h5 {
+        color: #4f4f4f;
+        font-weight: 500;
+        font-size: 1.25rem;
+        width: 100%;
+        border-bottom: 1px solid #d4dddf;
+        padding-bottom: 0.73rem;
+        margin-bottom: 2rem;
+        margin-top: 1.5rem;
+      }
+      h6 {
+        font-weight: 500;
+        font-size: 1.125rem;
+        color: #4f4f4f;
+        margin-bottom: 1.06rem;
+
+      }
+      .form_row {
+        @include flexRow;
+        margin-bottom: 2rem;
+        gap: 2rem;
+        label {
+          font-weight: 500;
+          font-size: 1.125rem;
+          color: #4f4f4f;
+        }
+      }
+      .insurance_div {
+        @include flexRow;
+        justify-content: space-between;
+        align-content: center;
+        align-items: center;
+        margin-top: 1.06rem;
+      }
+      .check_div {
+        @include flexRow;
+        gap: 7px;
+        align-items: center;
+      }
+    }
+
+    .new_transaction_header {
+      @include flexRow;
+      // text-align: center;
+      justify-content: center;
+
+      h4 {
+        font-weight: 500;
+        font-size: 1.5rem;
+        color: #333333;
+        width: 100%;
+        text-align: center;
+      }
+      .close_div {
+        // @include flexRow;
+        // width: 100%
+      }
+    }
+
+    .transaction_cards_container {
+      @include flexRow;
+      justify-content: center;
+      gap: 4rem;
+      margin-top: 7.25rem;
+
+      .transaction_card {
+        border: 1px solid #d4dddf;
+        // box-shadow: 0px 4px 8px rgba(236, 236, 236, 0.56);
+        border-radius: 8px;
+        padding: 80px 74.5px;
+        font-weight: 500;
+        font-size: 2rem;
+        color: #4f4f4f;
+      }
+    }
+  }
+  &_form_input {
+    min-width: 353px;
+
+  }
+  &_description {
+    min-width: 100% !important;
+    min-height: 104px;
+    padding: 0.79rem 0.97rem;
+  }
+  &_form_footer {
+    @include flexRow;
+    margin-top: 4.69rem;
+    justify-content: space-between;
+    .insurance_break-down {
+      @include flexRow;
+      gap: 6.45px;
+      align-items: flex-start;
+      align-content: flex-start;
+      font-weight: 400;
+      font-size: 20px;
+      color: #828282;
+      .price {
+        font-weight: 500;
+        font-size: 1.125rem;
+        color: #333333;
+      }
+    }
+    img {
+      width: 18px;
+    }
+    .submit_div {
+      @include flexRow;
+      align-items: center;
+    }
+  }
+}
+textarea {
+  min-height: 104px;
+}
+
+input#file-upload-button {
+  padding: 17px 16px !important;
+  min-height: 104px;
+}
