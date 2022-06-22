@@ -15,7 +15,7 @@
   }
   &_table {
     padding: 1.63rem 3.25rem;
-    background: #ffffff;
+    background: var(--blackColorWhite);
     border-radius: 16px;
     color: #333333;
     font-weight: 500;
@@ -31,8 +31,8 @@
       font-size: 18px;
       padding-top: 26px;
       padding-bottom: 13px;
-      border-top: 1px solid #D4DDDF;
-      border-bottom: 1px solid #D4DDDF;
+      border-top: 1px solid var(--greyColorGrey910);
+      border-bottom: 1px solid var(--greyColorGrey910);
     }
     tbody{
         td{
@@ -40,7 +40,7 @@
             padding-top: 1.5rem;
             padding-bottom: 0.5rem;
             text-align: center;
-            border-top: 1px solid #F5F5FF;
+            border-top: 1px solid var(--appBackground);
         }
     }
   }
@@ -48,8 +48,8 @@
 .recent_transactions{
   &_history{  
     th {
-      border-top: 1px solid #F8F8F8 !important;
-      border-bottom: 1px solid #F8F8F8 !important;
+      border-top: 1px solid var( --tagBg3) !important;
+      border-bottom: 1px solid var( --tagBg3) !important;
     }
   }
 }
