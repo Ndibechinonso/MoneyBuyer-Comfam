@@ -140,9 +140,15 @@ export const activeOrder = {
       key: "price",
     },
     {
-      title: "Deadline",
-      dataIndex: "deadline",
-      key: "deadline",
+      title: "Start Date",
+      dataIndex: "start_date",
+      key: "start_date",
+    },
+    
+    {
+      title: "End date",
+      dataIndex: "end_date",
+      key: "end_date",
     }
   ],
 
@@ -150,22 +156,28 @@ export const activeOrder = {
     {
       clients: "Luke Dane",
       price: "₦9,000",
-      deadline: "22 March, 2022",
+      start_date: "22 March, 2022",
+      end_date: "22 March, 2022",
     },
     {
       clients: "Luke Dane",
       price: "₦9,000",
-      deadline: "22 March, 2022",
+      start_date: "22 March, 2022",
+      end_date: "22 March, 2022",
+
     },
     {
       clients: "Luke Dane",
       price: "₦9,000",
-      deadline: "22 March, 2022",
+      start_date: "22 March, 2022",
+      end_date: "22 March, 2022",
+
     },
     {
       clients: "Luke Dane",
       price: "₦9,000",
-      deadline: "22 March, 2022",
+      start_date: "22 March, 2022",
+      end_date: "22 March, 2022",
     }
   ],
 };

@@ -13,8 +13,9 @@ function TableInfo({ headers, data, activeOrder, recentTransacionHistory }: TObj
       <thead>
         <tr>
           {headers.map((itm) => {
-            return <th key={itm.title}>{itm.title}</th>;
+            return <th key={itm.title} className={`${itm.title === "Clients" ? "text-left" : null}`}>{itm.title}</th>;
           })}
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -24,7 +25,7 @@ function TableInfo({ headers, data, activeOrder, recentTransacionHistory }: TObj
               {headers.map((col, id) => (
                 <td key={id}>
                   <span className="client_div">
-                  {col.key ==="clients" ?  <span> <img src={clientImg} alt="alt image"/></span> : null}
+                  {col.key ==="clients" ?  <span className="client_img"> <img src={clientImg} alt="alt image" /></span> : null}
                   <span> {col.key === "status" ? (
                    <Tag value={row[col.key]} />
                   )  : (

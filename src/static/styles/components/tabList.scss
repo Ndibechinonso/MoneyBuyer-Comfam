@@ -1,17 +1,55 @@
-.orders_container{
-    .react-tabs__tab-list{
+.orders_container {
+  .react-tabs__tab-list {
+    @include flexRow;
+    gap: 1.125rem;
+    color: var(--greyColorGrey4);
+    font-weight: 500;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .react-tabs__tab--selected {
+    color: var(--blackColorBlack2);
+  }
+  .react-tabs__tab:hover {
+    cursor: pointer;
+  }
+  &_table {
+    padding: 1.63rem 3.25rem;
+    background: #ffffff;
+    border-radius: 16px;
+    color: #333333;
+    font-weight: 500;
+    .client_div{
         @include flexRow;
-        gap: 1.125rem;
-        color: var(--greyColorGrey4);
-        font-weight: 500;
-        font-size: 1.25rem;
-        margin-bottom: 1rem;
-        
+        align-items: center;
+        justify-content: center;
+        .client_img{
+        margin-right: 1.94rem;   
+        }
+      }
+    th {
+      font-size: 18px;
+      padding-top: 26px;
+      padding-bottom: 13px;
+      border-top: 1px solid #D4DDDF;
+      border-bottom: 1px solid #D4DDDF;
     }
-    .react-tabs__tab--selected{
-        color: var(--blackColorBlack2);
+    tbody{
+        td{
+            font-size: 1rem;
+            padding-top: 1.5rem;
+            padding-bottom: 0.5rem;
+            text-align: center;
+            border-top: 1px solid #F5F5FF;
+        }
     }
-    .react-tabs__tab:hover{
-cursor: pointer;
+  }
+}
+.recent_transactions{
+  &_history{  
+    th {
+      border-top: 1px solid #F8F8F8 !important;
+      border-bottom: 1px solid #F8F8F8 !important;
     }
+  }
 }
