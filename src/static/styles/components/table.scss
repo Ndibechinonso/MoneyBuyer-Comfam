@@ -16,11 +16,11 @@
     border-radius: 0.75rem;
     z-index: 0;
   }
-.client_div{
-  @include flexRow;
-  align-items: center;
-  gap: 1.94rem;
-}
+// .client_div{
+//   @include flexRow;
+//   align-items: center;
+//   gap: 1.94rem;
+// }
   &BgTop {
     width: 10rem;
     height: 10rem;

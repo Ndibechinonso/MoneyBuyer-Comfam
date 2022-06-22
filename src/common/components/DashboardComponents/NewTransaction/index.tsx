@@ -34,7 +34,7 @@ const NewTransaction = () => {
               setModal(false);
               dispatch(Alerts(""));
             }}
-            className="cursor-pointer "
+            className="cursor-pointer"
           />
         </div>
       </div>

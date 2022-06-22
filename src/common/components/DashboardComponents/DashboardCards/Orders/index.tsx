@@ -19,8 +19,9 @@ const Orders = () => {
 
     <TabPanel>
       {/* <Table activeOrder headers={activeOrder.columns} data={data} /> */}
+      <div className="orders_container_table">
       <TableInfo activeOrder headers={activeOrder.columns} data={data}/>
-
+      </div>
     </TabPanel>
     <TabPanel>
       <h2>Any content 2</h2>
