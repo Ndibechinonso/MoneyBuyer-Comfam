@@ -41,7 +41,7 @@ const ModalContent = ({
     <CustomModal
       className={`${
         type === "transactionItem" ? "transactionModal__wrapper" : ""
-      }`}
+      } ${type !== "transactionItem" && type !== "newtransaction" ? "alertModal__wrapper":""}`}
       progress={progress}
       isModal={isModal}
     >
@@ -107,12 +107,12 @@ const ModalContent = ({
                 <div className="confirmation_btn_div">
                   <CustomButton
                     className="cancel_btn"
-                    action={() => console.log("cancel")}
+                    action={() => dispatch(Alerts("canceltransaction"))}
                     actionText="Cancel"
                   />{" "}
                   <CustomButton
                     className="confirm_btn"
-                    action={() => console.log("confirm")}
+                    action={() => dispatch(Alerts("transactionaccepted"))}
                     actionText="Confirm"
                   />{" "}
                 </div>
@@ -121,7 +121,7 @@ const ModalContent = ({
                 <div className="confirmation_btn_div">
                   <CustomButton
                     className="cancel_btn"
-                    action={() => console.log("cancel")}
+                    action={() => dispatch(Alerts(""))}
                     actionText="Cancel"
                   />{" "}
                   <CustomButton
