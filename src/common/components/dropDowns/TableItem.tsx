@@ -5,17 +5,24 @@ import DropDownMenuContent from "./primitive/DropDownMenuContent";
 import { useAppDispatch } from "../redux/hooks";
 import { addItem } from "../redux/tableItem";
 import { Alerts } from "../redux/alert/alertActions";
+import { useLocation } from "react-router-dom";
 
 type Props = {
   data: any;
 };
 
-function TransactionItem({ data }: Props) {
+function TableItem({ data }: Props) {
   const dispatch = useAppDispatch();
+  const {pathname} = useLocation()
 
   const viewingItem = () => {
     dispatch(addItem({ ...data }));
-    dispatch(Alerts("transactionitem",data?.status));
+    if (pathname.includes("transaction")) {
+      dispatch(Alerts("transactionitem",data?.status));
+    }
+    if (pathname.includes("dispute")) {
+      dispatch(Alerts("disputeitem",data?.status));
+    }
   };
 
   return (
@@ -36,4 +43,4 @@ function TransactionItem({ data }: Props) {
   );
 }
 
-export default TransactionItem;
+export default TableItem;

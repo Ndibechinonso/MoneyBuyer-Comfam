@@ -670,3 +670,465 @@ export const sellersTransactions = {
     },
   ],
 };
+
+export const disputeTable = {
+  columns: [
+    {
+      title: "Dispute ID",
+      dataIndex: "disputeId",
+      key: "disputeId",
+    },
+    {
+      title: "Reason",
+      dataIndex: "reason",
+      key: "reason",
+    },
+    {
+      title: "Dispute Amount",
+      dataIndex: "amount",
+      key: "amount",
+    },
+    {
+      title: "Date",
+      dataIndex: "date",
+      key: "date",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+    },
+  ],
+
+  rows:[
+    {
+      disputeId: "85613390HL36",
+      reason: "Item received used or expired",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Closed",
+      transactionDetails: {
+        disputeInfo: {
+          disputeReason:"Item received was broken or defective",
+          dispInfomation:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id consectetur adipiscing elit...........",
+          dispImage: img
+        },
+        buyerInfo: {
+          email: "Johnson@gmail.com",
+          paymentDueDate: "24th Mar 2022",
+          phoneNumber: "+234-704-5432-12",
+          deliveryAddress: "16A Adebayo Street, Lagos",
+        },
+        productInfo: {
+          productName: "Laptop",
+          productImage: img,
+          productQuantity: 1,
+          productDesc:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id.Fermentum non vitae pretium nibh congue nisi. Felis, at facilisi sed sit habitant pharetra velit.",
+        },
+        pricingAndPayment:{
+          productCost:"₦12,500",
+          transactionFee:"₦1,000",
+          subTotal:"₦12,500 + ₦1,000 Transaction fee",
+          totalCost:"₦13,500"
+        }
+      },
+    },
+    {
+      disputeId: "85613390HL36",
+      reason: "Item received used or expired",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Open",
+      transactionDetails: {
+        disputeInfo: {
+          disputeReason:"Item received was broken or defective",
+          dispInfomation:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id consectetur adipiscing elit...........",
+          dispImage: img
+        },
+        buyerInfo: {
+          email: "Johnson@gmail.com",
+          paymentDueDate: "24th Mar 2022",
+          phoneNumber: "+234-704-5432-12",
+          deliveryAddress: "16A Adebayo Street, Lagos",
+        },
+        productInfo: {
+          productName: "Laptop",
+          productImage: img,
+          productQuantity: 1,
+          productDesc:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id.Fermentum non vitae pretium nibh congue nisi. Felis, at facilisi sed sit habitant pharetra velit.",
+        },
+        pricingAndPayment:{
+          productCost:"₦12,500",
+          transactionFee:"₦1,000",
+          subTotal:"₦12,500 + ₦1,000 Transaction fee",
+          totalCost:"₦13,500"
+        }
+      },
+    },
+    {
+      disputeId: "85613390HL36",
+      reason: "Item received used or expired",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Closed",
+      transactionDetails: {
+        disputeInfo: {
+          disputeReason:"Item received was broken or defective",
+          dispInfomation:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id consectetur adipiscing elit...........",
+          dispImage: img
+        },
+        buyerInfo: {
+          email: "Johnson@gmail.com",
+          paymentDueDate: "24th Mar 2022",
+          phoneNumber: "+234-704-5432-12",
+          deliveryAddress: "16A Adebayo Street, Lagos",
+        },
+        productInfo: {
+          productName: "Laptop",
+          productImage: img,
+          productQuantity: 1,
+          productDesc:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id.Fermentum non vitae pretium nibh congue nisi. Felis, at facilisi sed sit habitant pharetra velit.",
+        },
+        pricingAndPayment:{
+          productCost:"₦12,500",
+          transactionFee:"₦1,000",
+          subTotal:"₦12,500 + ₦1,000 Transaction fee",
+          totalCost:"₦13,500"
+        }
+      },
+    },
+    {
+      disputeId: "85613390HL36",
+      reason: "Item seems to be fake/unauthentic",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Open",
+      transactionDetails: {
+        disputeInfo: {
+          disputeReason:"Item received was broken or defective",
+          dispInfomation:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id consectetur adipiscing elit...........",
+          dispImage: img
+        },
+        buyerInfo: {
+          email: "Johnson@gmail.com",
+          paymentDueDate: "24th Mar 2022",
+          phoneNumber: "+234-704-5432-12",
+          deliveryAddress: "16A Adebayo Street, Lagos",
+        },
+        productInfo: {
+          productName: "Laptop",
+          productImage: img,
+          productQuantity: 1,
+          productDesc:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id.Fermentum non vitae pretium nibh congue nisi. Felis, at facilisi sed sit habitant pharetra velit.",
+        },
+        pricingAndPayment:{
+          productCost:"₦12,500",
+          transactionFee:"₦1,000",
+          subTotal:"₦12,500 + ₦1,000 Transaction fee",
+          totalCost:"₦13,500"
+        }
+      },
+    },
+    {
+      disputeId: "85613390HL36",
+      reason: "Item seems to be fake/unauthentic",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Closed",
+      transactionDetails: {
+        disputeInfo: {
+          disputeReason:"Item received was broken or defective",
+          dispInfomation:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id consectetur adipiscing elit...........",
+          dispImage: img
+        },
+        buyerInfo: {
+          email: "Johnson@gmail.com",
+          paymentDueDate: "24th Mar 2022",
+          phoneNumber: "+234-704-5432-12",
+          deliveryAddress: "16A Adebayo Street, Lagos",
+        },
+        productInfo: {
+          productName: "Laptop",
+          productImage: img,
+          productQuantity: 1,
+          productDesc:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id.Fermentum non vitae pretium nibh congue nisi. Felis, at facilisi sed sit habitant pharetra velit.",
+        },
+        pricingAndPayment:{
+          productCost:"₦12,500",
+          transactionFee:"₦1,000",
+          subTotal:"₦12,500 + ₦1,000 Transaction fee",
+          totalCost:"₦13,500"
+        }
+      },
+    },
+    {
+      disputeId: "85613390HL36",
+      reason: "Item seems to be fake/unauthentic",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Open",
+      transactionDetails: {
+        disputeInfo: {
+          disputeReason:"Item received was broken or defective",
+          dispInfomation:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id consectetur adipiscing elit...........",
+          dispImage: img
+        },
+        buyerInfo: {
+          email: "Johnson@gmail.com",
+          paymentDueDate: "24th Mar 2022",
+          phoneNumber: "+234-704-5432-12",
+          deliveryAddress: "16A Adebayo Street, Lagos",
+        },
+        productInfo: {
+          productName: "Laptop",
+          productImage: img,
+          productQuantity: 1,
+          productDesc:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id.Fermentum non vitae pretium nibh congue nisi. Felis, at facilisi sed sit habitant pharetra velit.",
+        },
+        pricingAndPayment:{
+          productCost:"₦12,500",
+          transactionFee:"₦1,000",
+          subTotal:"₦12,500 + ₦1,000 Transaction fee",
+          totalCost:"₦13,500"
+        }
+      },
+    },
+    {
+      disputeId: "85613390HL36",
+      reason: "Item stopped working",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Closed",
+      transactionDetails: {
+        disputeInfo: {
+          disputeReason:"Item received was broken or defective",
+          dispInfomation:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id consectetur adipiscing elit...........",
+          dispImage: img
+        },
+        buyerInfo: {
+          email: "Johnson@gmail.com",
+          paymentDueDate: "24th Mar 2022",
+          phoneNumber: "+234-704-5432-12",
+          deliveryAddress: "16A Adebayo Street, Lagos",
+        },
+        productInfo: {
+          productName: "Laptop",
+          productImage: img,
+          productQuantity: 1,
+          productDesc:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id.Fermentum non vitae pretium nibh congue nisi. Felis, at facilisi sed sit habitant pharetra velit.",
+        },
+        pricingAndPayment:{
+          productCost:"₦12,500",
+          transactionFee:"₦1,000",
+          subTotal:"₦12,500 + ₦1,000 Transaction fee",
+          totalCost:"₦13,500"
+        }
+      },
+    },
+    {
+      disputeId: "85613390HL36",
+      reason: "Item stopped working",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Open",
+      transactionDetails: {
+        disputeInfo: {
+          disputeReason:"Item received was broken or defective",
+          dispInfomation:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id consectetur adipiscing elit...........",
+          dispImage: img
+        },
+        buyerInfo: {
+          email: "Johnson@gmail.com",
+          paymentDueDate: "24th Mar 2022",
+          phoneNumber: "+234-704-5432-12",
+          deliveryAddress: "16A Adebayo Street, Lagos",
+        },
+        productInfo: {
+          productName: "Laptop",
+          productImage: img,
+          productQuantity: 1,
+          productDesc:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id.Fermentum non vitae pretium nibh congue nisi. Felis, at facilisi sed sit habitant pharetra velit.",
+        },
+        pricingAndPayment:{
+          productCost:"₦12,500",
+          transactionFee:"₦1,000",
+          subTotal:"₦12,500 + ₦1,000 Transaction fee",
+          totalCost:"₦13,500"
+        }
+      },
+    },
+    {
+      disputeId: "85613390HL36",
+      reason: "Item stopped working",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Closed",
+      transactionDetails: {
+        disputeInfo: {
+          disputeReason:"Item received was broken or defective",
+          dispInfomation:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id consectetur adipiscing elit...........",
+          dispImage: img
+        },
+        buyerInfo: {
+          email: "Johnson@gmail.com",
+          paymentDueDate: "24th Mar 2022",
+          phoneNumber: "+234-704-5432-12",
+          deliveryAddress: "16A Adebayo Street, Lagos",
+        },
+        productInfo: {
+          productName: "Laptop",
+          productImage: img,
+          productQuantity: 1,
+          productDesc:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id.Fermentum non vitae pretium nibh congue nisi. Felis, at facilisi sed sit habitant pharetra velit.",
+        },
+        pricingAndPayment:{
+          productCost:"₦12,500",
+          transactionFee:"₦1,000",
+          subTotal:"₦12,500 + ₦1,000 Transaction fee",
+          totalCost:"₦13,500"
+        }
+      },
+    },
+    {
+      disputeId: "85613390HL36",
+      reason: "Item stopped working",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Open",
+      transactionDetails: {
+        disputeInfo: {
+          disputeReason:"Item received was broken or defective",
+          dispInfomation:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id consectetur adipiscing elit...........",
+          dispImage: img
+        },
+        buyerInfo: {
+          email: "Johnson@gmail.com",
+          paymentDueDate: "24th Mar 2022",
+          phoneNumber: "+234-704-5432-12",
+          deliveryAddress: "16A Adebayo Street, Lagos",
+        },
+        productInfo: {
+          productName: "Laptop",
+          productImage: img,
+          productQuantity: 1,
+          productDesc:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id.Fermentum non vitae pretium nibh congue nisi. Felis, at facilisi sed sit habitant pharetra velit.",
+        },
+        pricingAndPayment:{
+          productCost:"₦12,500",
+          transactionFee:"₦1,000",
+          subTotal:"₦12,500 + ₦1,000 Transaction fee",
+          totalCost:"₦13,500"
+        }
+      },
+    },
+    {
+      disputeId: "85613390HL36",
+      reason: "Item stopped working",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Closed",
+      transactionDetails: {
+        disputeInfo: {
+          disputeReason:"Item received was broken or defective",
+          dispInfomation:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id consectetur adipiscing elit...........",
+          dispImage: img
+        },
+        buyerInfo: {
+          email: "Johnson@gmail.com",
+          paymentDueDate: "24th Mar 2022",
+          phoneNumber: "+234-704-5432-12",
+          deliveryAddress: "16A Adebayo Street, Lagos",
+        },
+        productInfo: {
+          productName: "Laptop",
+          productImage: img,
+          productQuantity: 1,
+          productDesc:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id.Fermentum non vitae pretium nibh congue nisi. Felis, at facilisi sed sit habitant pharetra velit.",
+        },
+        pricingAndPayment:{
+          productCost:"₦12,500",
+          transactionFee:"₦1,000",
+          subTotal:"₦12,500 + ₦1,000 Transaction fee",
+          totalCost:"₦13,500"
+        }
+      },
+    },
+    {
+      disputeId: "85613390HL36",
+      reason: "Item stopped working",
+      amount: "₦45,000",
+      date: "3 Mar, 2022",
+      status: "Open",
+      transactionDetails: {
+        disputeInfo: {
+          disputeReason:"Item received was broken or defective",
+          dispInfomation:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id consectetur adipiscing elit...........",
+          dispImage: img
+        },
+        buyerInfo: {
+          email: "Johnson@gmail.com",
+          paymentDueDate: "24th Mar 2022",
+          phoneNumber: "+234-704-5432-12",
+          deliveryAddress: "16A Adebayo Street, Lagos",
+        },
+        productInfo: {
+          productName: "Laptop",
+          productImage: img,
+          productQuantity: 1,
+          productDesc:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id.Fermentum non vitae pretium nibh congue nisi. Felis, at facilisi sed sit habitant pharetra velit.",
+        },
+        pricingAndPayment:{
+          productCost:"₦12,500",
+          transactionFee:"₦1,000",
+          subTotal:"₦12,500 + ₦1,000 Transaction fee",
+          totalCost:"₦13,500"
+        }
+      },
+    },
+    {
+      disputeId: "85613390HL36",
+      reason: "Item stopped working",
+      amount: "₦565,445,000",
+      date: "3 Mar, 2022",
+      status: "Closed",
+      transactionDetails: {
+        disputeInfo: {
+          disputeReason:"Item received was broken or defective",
+          dispInfomation:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id consectetur adipiscing elit...........",
+          dispImage: img
+        },
+        buyerInfo: {
+          email: "Johnson@gmail.com",
+          paymentDueDate: "24th Mar 2022",
+          phoneNumber: "+234-704-5432-12",
+          deliveryAddress: "16A Adebayo Street, Lagos",
+        },
+        productInfo: {
+          productName: "Laptop",
+          productImage: img,
+          productQuantity: 1,
+          productDesc:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet nisl dui at id.Fermentum non vitae pretium nibh congue nisi. Felis, at facilisi sed sit habitant pharetra velit.",
+        },
+        pricingAndPayment:{
+          productCost:"₦12,500",
+          transactionFee:"₦1,000",
+          subTotal:"₦12,500 + ₦1,000 Transaction fee",
+          totalCost:"₦13,500"
+        }
+      },
+    },
+  ],
+};

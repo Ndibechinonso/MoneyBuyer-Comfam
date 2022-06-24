@@ -39,7 +39,9 @@ const CustomAlert = ({alertType}: customAlertProps) =>{
         case "cancelreason": template = (<ModalContent type="alert" textArea header="Reason" text="Kindly state your reason for willing to cancel this transaction" />)
         break;
 
-        case "transactionitem": template = (<ModalContent type="transactionItem" />)
+        case "transactionitem": template = (<ModalContent type="transactionitem" />)
+        break;
+        case "disputeitem": template = (<ModalContent type="disputeitem" />)
         break;
         case "newtransaction": template = (<ModalContent type="newtransaction" />)
         break;

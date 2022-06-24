@@ -3,12 +3,13 @@ import closemodal from "../../../static/images/modal_close.svg";
 import CustomModal from "../CustomModal";
 import { useState } from "react";
 import { Alerts } from "../redux/alert/alertActions";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppDispatch } from "../redux/hooks";
 import TransactionModal from "../CustomModal/TransactionModal";
 import ReasonFormModal from "../CustomModal/ReasonFormModal";
 import NewTransaction from "../DashboardComponents/NewTransaction"
+import DisputeModal from "../CustomModal/DisputeModal";
 type modalContentProps = {
-  type?: "alert" | "transactionItem" | "newtransaction";
+  type?: "alert" | "transactionitem" | "newtransaction" | "disputeitem";
   alertIcon?: any;
   header?: String;
   text?: String;
@@ -33,15 +34,17 @@ const ModalContent = ({
   textArea,
 }: modalContentProps) => {
   const [isModal, setModal] = useState(true);
-  const direction = useAppSelector(state => state.alert.modalDirection)
+  // const direction = useAppSelector(state => state.alert.modalDirection)
   const dispatch = useAppDispatch();
   
   
   return (
     <CustomModal
       className={`${
-        type === "transactionItem" ? "transactionModal__wrapper" : ""
-      } ${type !== "transactionItem" && type !== "newtransaction" ? "alertModal__wrapper":""}`}
+        type === "transactionitem" ? "transactionModal__wrapper" : ""
+      } ${type !== "transactionitem" && type !== "newtransaction" && type !== "disputeitem" ? "alertModal__wrapper":""}
+      ${type === "disputeitem"? "dispute__wrapper":""}
+      `}
       progress={progress}
       isModal={isModal}
     >
@@ -135,7 +138,8 @@ const ModalContent = ({
           </div>
         ) : null}
       </>
-      <>{type === "transactionItem" ? <TransactionModal /> : null}</>
+      <>{type === "transactionitem" ? <TransactionModal /> : null}</>
+      <>{type === "disputeitem" ? <DisputeModal /> : null}</>
       <>{type === "newtransaction" ? <NewTransaction /> : null}</>
     </CustomModal>
   );

@@ -101,82 +101,7 @@
         grid-column: 4/5;
       }
     }
-    .section {
-      @include flexColumn;
-      row-gap: 0.625rem;
-
-      &__head {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        &--title {
-          @include normalTextSemiBold;
-          color: var(--greyColorGrey1);
-        }
-        &--date {
-          @include smallTextRegular;
-          color: var(--greyColorGrey3);
-        }
-      }
-      &__body {
-        border: 1px solid var(--greyColorGrey8);
-        border-radius: 0.625rem;
-        padding: 1.25rem;
-
-        &--itm {
-          @include flexColumn;
-          row-gap: 0.25rem;
-
-          &__title {
-            @include smallTextMedium;
-            color: var(--greyColorGrey3);
-          }
-
-          &__body {
-            font-size: 1.125rem;
-            font-weight: 500;
-            line-height: 1.375rem;
-            color: var(--greyColorGrey1);
-
-            img {
-              height: 4.75rem;
-              width: 9.75rem;
-              border-radius: .5rem;
-              // background-color: red;
-              display: block;
-            }
-          }
-
-          &:not(:last-child) {
-            border-bottom: 1px dashed var(--greyColorGrey9);
-            padding-bottom: 0.75rem;
-          }
-          &:not(:first-child) {
-            padding-top: 0.75rem;
-          }
-        }
-
-        .transactionModal__productDesc {
-          background-color: var(--appBackground);
-          padding: 0.5rem 0.75rem;
-          border-radius: 0.5rem;
-          position: relative;
-          @include smallTextRegular;
-          color: var(--greyColorGrey2);
-
-          &::before {
-            content: "";
-            position: absolute;
-            background-color: var(--brandColorTertiary3);
-            width: 0.125rem;
-            top: 0.75rem;
-            left: 0;
-            bottom: 0.75rem;
-          }
-        }
-      }
-    }
+    
 
     .btn {
       align-self: flex-end;
@@ -252,6 +177,82 @@
             @include normalTextMedium;
           }
         }
+      }
+    }
+  }
+}
+.section {
+  @include flexColumn;
+  row-gap: 0.625rem;
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &--title {
+      @include normalTextSemiBold;
+      color: var(--greyColorGrey1);
+    }
+    &--date {
+      @include smallTextRegular;
+      color: var(--greyColorGrey3);
+    }
+  }
+  &__body {
+    border: 1px solid var(--greyColorGrey8);
+    border-radius: 0.625rem;
+    padding: 1.25rem;
+
+    &--itm {
+      @include flexColumn;
+      row-gap: 0.25rem;
+
+      &__title {
+        @include smallTextMedium;
+        color: var(--greyColorGrey3);
+      }
+
+      &__body {
+        font-size: 1.125rem;
+        font-weight: 500;
+        line-height: 1.375rem;
+        color: var(--greyColorGrey1);
+
+        img {
+          height: 4.75rem;
+          width: 9.75rem;
+          border-radius: .5rem;
+          // background-color: red;
+          display: block;
+        }
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px dashed var(--greyColorGrey9);
+        padding-bottom: 0.75rem;
+      }
+      &:not(:first-child) {
+        padding-top: 0.75rem;
+      }
+    }
+
+    .transactionModal__productDesc {
+      background-color: var(--appBackground);
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+      position: relative;
+      @include smallTextRegular;
+      color: var(--greyColorGrey2);
+
+      &::before {
+        content: "";
+        position: absolute;
+        background-color: var(--brandColorTertiary3);
+        width: 0.125rem;
+        top: 0.75rem;
+        left: 0;
+        bottom: 0.75rem;
       }
     }
   }

@@ -10,7 +10,7 @@ interface AlertState {
 }
 
 const inititalState = {
-    modal: false,
+    modal: true,
     modalType: "",
     modalDirection:"",
     modalInitiator:"",
@@ -32,6 +32,7 @@ const reducer: Reducer<AlertState, AppDispatchProps> = (
         case AlertTypes.TRANSACTION_ACCEPTED_MODAL: return {...state, modal: true, modalType: "transactionaccepted"};
         case AlertTypes.TRANSACTION_CANCELLED_MODAL: return {...state, modal:true, modalType:"transactioncancelled"}
         case AlertTypes.TRANSACTION_ITEM_MODAL: return {...state, modal: true, modalType: "transactionitem", modalInitiator: payload};
+        case AlertTypes.DISPUTE_ITEM_MODAL: return {...state, modal: true, modalType: "disputeitem", modalInitiator: payload};
         case AlertTypes.NEW_TRANSACTION_MODAL: return {...state, modal:true, modalType:"newtransaction"}
         case AlertTypes.CLOSE_MODAL: return inititalState
         default:

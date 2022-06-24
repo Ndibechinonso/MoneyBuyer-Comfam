@@ -1,5 +1,8 @@
 // import NewUserCard from "../../../common/components/sharedCards/NewUserCard"
 
+import Table from "../../../common/components/customTable/Table"
+import { disputeTable } from "../../../fakeData"
+
 
 function Dispute() {
   return (
@@ -8,6 +11,7 @@ function Dispute() {
         completedRegistration={false}
         message={"No dispute to settle yet"}
       /> */}
+      <Table data={disputeTable.rows} headers={disputeTable.columns} />
   </>
   )
 }

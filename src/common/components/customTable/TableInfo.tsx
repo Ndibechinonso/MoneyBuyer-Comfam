@@ -2,7 +2,7 @@ import React from "react";
 import ThreeDotIcon from "../customIcons/ThreeDot";
 import Tag from "../customTags";
 import DropDown from "../dropDowns/primitive";
-import TransactionItem from "../dropDowns/TransactionItem";
+import TableItem from "../dropDowns/TableItem";
 import { TObj } from "./types";
 import arrowRight from "../../../static/images/arrow_right.svg"
 import clientImg from "../../../static/images/client_img.svg"
@@ -26,15 +26,15 @@ function TableInfo({ headers, data, activeOrder, recentTransacionHistory }: TObj
                 <td key={id}>
                   <span className="client_div">
                   {col.key ==="clients" ?  <span className="client_img"> <img src={clientImg} alt="alt image" /></span> : null}
-                  <span> {col.key === "status" ? (
+                   {col.key === "status" ? (
                    <Tag value={row[col.key]} />
                   )  : (
                     row[col.key]
-                  )}</span> 
+                  )}
                </span> </td>
               ))}
               <td>
-         { (!activeOrder || recentTransacionHistory) ? <DropDown content={<TransactionItem data={row} />}>
+         { (!activeOrder || recentTransacionHistory) ? <DropDown content={<TableItem data={row} />}>
                   <button>
                     <ThreeDotIcon />
                   </button>
