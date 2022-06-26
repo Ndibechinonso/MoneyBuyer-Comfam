@@ -75,6 +75,19 @@ const language = {
             
         },
 	},
+    notifications: {
+        title: "Notifications",
+        subtitle: "Let’s get you set-up, verified and ready to transact!",
+        newUser:{
+            message:"Start paying and receiving money now",
+        },
+        existingUser:{
+            transactionCards:{
+
+            },
+            
+        },
+	},
     setting: {
         title: "Account Settings",
         subtitle: "Let’s get you set-up, verified and ready to transact!",

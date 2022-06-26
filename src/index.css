@@ -16,3 +16,8 @@
     background-color: var(--blackColorWhite);
     /* background-size: 24rem 12rem ; */
 }
+
+.wallet{
+    background: url(./static/images/left.svg) -16rem top no-repeat  , url(./static/images/right.svg) 54rem top no-repeat ;
+    background-color: var(--blackColorWhite);
+}

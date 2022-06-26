@@ -10,6 +10,7 @@ import Notification from "./modules/pages/Settings/Notification";
 import Profile from "./modules/pages/Settings/Profile";
 import Verification from "./modules/pages/Settings/Verification";
 import Transaction from "./modules/pages/Transaction";
+import Notifications from "./modules/pages/Notifications";
 import Wallet from "./modules/pages/Wallet";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="transaction" element={<Transaction />} />
         <Route path="delivery" element={<Delivery />} />
         <Route path="dispute" element={<Dispute />} />
+        <Route path="notifications" element={<Notifications />} />
         <Route element={<Settings />}>
           <Route path="setting/profile" element={<Profile />} />
           <Route path="setting/verification" element={<Verification />} />

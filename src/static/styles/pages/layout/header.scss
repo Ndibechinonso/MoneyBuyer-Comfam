@@ -5,7 +5,8 @@
   position: relative;
   z-index: $goAboveMyPeers;
 
-  & > svg {
+  .notification__icon {
+    background-color: transparent;
     grid-column: -4/-3;
     justify-self: center;
   }

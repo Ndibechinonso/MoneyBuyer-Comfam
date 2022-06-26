@@ -1132,3 +1132,36 @@ export const disputeTable = {
     },
   ],
 };
+
+export const notificationArray = [
+  {
+    status: false,
+    content: "Terry Cane has created  a transaction and awaiting your confirmation. This transactions need to be confirmed within a 48 hours.",
+    time:"14h ago"
+  },
+  {
+    status: false,
+    content: "Delivery has been confirmed, and your wallet has been credited!",
+    time:"14h ago"
+  },
+  {
+    status: false,
+    content: "Payment has been made, and delivery is pending",
+    time:"3h ago"
+  },
+  {
+    status: false,
+    content: "Terry Cane has created  a transaction and awaiting your confirmation. This transactions need to be confirmed within a 48 hours.",
+    time:"3h ago"
+  },
+  {
+    status: true,
+    content: "Terry Cane has created  a transaction and awaiting your confirmation. This transactions need to be confirmed within a 48 hours.",
+    time:"1d ago"
+  },
+  {
+    status: true,
+    content: "Terry Cane has created  a transaction and awaiting your confirmation. This transactions need to be confirmed within a 48 hours.",
+    time:"1d ago"
+  },
+]

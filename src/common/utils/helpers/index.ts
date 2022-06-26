@@ -31,6 +31,9 @@ export const getObject = (path:string): GetObjReturn=> {
     if (path === "setting") {
        value = language.setting
     }
+    if (path === "notifications") {
+       value = language.notifications
+    }
 
     return value
  }
