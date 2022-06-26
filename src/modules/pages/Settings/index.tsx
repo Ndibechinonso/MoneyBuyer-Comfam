@@ -1,9 +1,8 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
-type Props = {};
 
-function Settings({}: Props) {
+function Settings() {
   return (
     <>
       <ul className="setting__navigation">

@@ -1,18 +1,16 @@
 
 .new_transaction {
   &_container {
-
-    background: #ffffff;
     border-radius: 16px;
     width: 834px;
     max-height: 646px;
     overflow-y: scroll;
     padding: 0 1.75rem 10.5rem 1.75rem;
-    margin-top: 11.25rem;
-    // padding-bottom: 10.5rem;
+    &::-webkit-scrollbar{
+      display: none;
+    }
     
     input{
-    // min-height: 55px;
     display: block;
     padding: 17px 16px;
     border: 1px solid #bdbdbd;
@@ -32,16 +30,15 @@
         }
       }
 
-      .milestone {
-     
-  
-      }
+      // .milestone {
+      // }
+
       h5 {
         color: #4f4f4f;
         font-weight: 500;
         font-size: 1.25rem;
         width: 100%;
-        border-bottom: 1px solid #d4dddf;
+        border-bottom: 1px solid var(--greyColorGrey910);
         padding-bottom: 0.73rem;
         margin-bottom: 2rem;
         margin-top: 1.5rem;
@@ -79,11 +76,9 @@
 
     .new_transaction_header {
       position: sticky;
-      background: #ffffff;
       top: 0;
       padding-top: 1.5rem;
       @include flexRow;
-      // text-align: center;
       justify-content: center;
 
       h4 {
@@ -93,10 +88,10 @@
         width: 100%;
         text-align: center;
       }
-      .close_div {
+      // .close_div {
         // @include flexRow;
         // width: 100%
-      }
+      // }
     }
 
     .transaction_cards_container {
@@ -106,8 +101,7 @@
       margin-top: 7.25rem;
 
       .transaction_card {
-        border: 1px solid #d4dddf;
-        // box-shadow: 0px 4px 8px rgba(236, 236, 236, 0.56);
+        border: 1px solid var(--greyColorGrey910);
         border-radius: 8px;
         padding: 80px 74.5px;
         font-weight: 500;

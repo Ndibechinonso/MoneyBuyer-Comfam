@@ -6,7 +6,7 @@ import { Alerts } from "../redux/alert/alertActions";
 import { useAppDispatch } from "../redux/hooks";
 import TransactionModal from "../CustomModal/TransactionModal";
 import ReasonFormModal from "../CustomModal/ReasonFormModal";
-import NewTransaction from "../DashboardComponents/NewTransaction"
+import NewTransaction from "../DashboardComponents/NewTransaction";
 import DisputeModal from "../CustomModal/DisputeModal";
 type modalContentProps = {
   type?: "alert" | "transactionitem" | "newtransaction" | "disputeitem";
@@ -16,9 +16,9 @@ type modalContentProps = {
   progress?: any;
   confirmTransaction?: any;
   cancelTransaction?: any;
-  cancelConfirmation?:  any;
-  textArea?:any;
-  singleAction?:any;
+  cancelConfirmation?: any;
+  textArea?: any;
+  singleAction?: any;
 };
 
 const ModalContent = ({
@@ -36,14 +36,14 @@ const ModalContent = ({
   const [isModal, setModal] = useState(true);
   // const direction = useAppSelector(state => state.alert.modalDirection)
   const dispatch = useAppDispatch();
-  
-  
+
   return (
     <CustomModal
       className={`${
         type === "transactionitem" ? "transactionModal__wrapper" : ""
-      } ${type !== "transactionitem" && type !== "newtransaction" && type !== "disputeitem" ? "alertModal__wrapper":""}
-      ${type === "disputeitem"? "dispute__wrapper":""}
+      } ${type === "alert" ? "alertModal__wrapper" : ""}
+      ${type === "disputeitem" ? "dispute__wrapper" : ""} 
+      ${type === "newtransaction" ? "newtransaction__wrapper" : ""}
       `}
       progress={progress}
       isModal={isModal}
@@ -86,11 +86,11 @@ const ModalContent = ({
                   <div></div>
                 </div>
               )}
-              <h3 className={`${header === "Reason"? "selfStart" :""}`}>{header}</h3>
+              <h3 className={`${header === "Reason" ? "selfStart" : ""}`}>
+                {header}
+              </h3>
               {!textArea && <p>{text}</p>}
-              {
-                textArea && <ReasonFormModal placeHolder={text} />
-              }
+              {textArea && <ReasonFormModal placeHolder={text} />}
               {alertIcon && singleAction ? (
                 <CustomButton
                   className="alert_modal_btn"
@@ -106,7 +106,7 @@ const ModalContent = ({
                 />
               ) : null} */}
 
-              { confirmTransaction ? (
+              {confirmTransaction ? (
                 <div className="confirmation_btn_div">
                   <CustomButton
                     className="cancel_btn"
@@ -120,7 +120,7 @@ const ModalContent = ({
                   />{" "}
                 </div>
               ) : null}
-              {  cancelConfirmation ? (
+              {cancelConfirmation ? (
                 <div className="confirmation_btn_div">
                   <CustomButton
                     className="cancel_btn"

@@ -9,11 +9,20 @@
     grid-column: -4/-3;
     justify-self: center;
   }
+  
+  [data-state="open"] {
+    .userMenu {
+      &__icon {
+        transform: rotate(0deg);
+        transition: transform .5s ease;
+      }
+    }
+  }
 
   &__dropDownMenu {
     position: absolute;
     background-color: var(--blackColorWhite);
-    border: 1px solid #cdcdd0;
+    border: 1px solid var(--greyColorGrey8);
     border-radius: 0.625rem;
     width: 14.375rem;
     // top: 4.375rem;
@@ -23,13 +32,14 @@
 
     // &--container {
 
-      // button{
-      //   all:unset;
-      // }
+    // button{
+    //   all:unset;
+    // }
     // }
     &--itm {
       button {
         color: var(--blackColorBlack3);
+        background-color: var(--blackColorWhite);
       }
 
       &:not(:last-child) {
@@ -82,6 +92,7 @@
     }
     &__icon {
       transform: rotate(180deg);
+      transition: transform .5s ease;
     }
   }
 

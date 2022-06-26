@@ -7689,6 +7689,11 @@ react-router-dom@6:
     history "^5.2.0"
     react-router "6.3.0"
 
+react-router-scroll-position@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/react-router-scroll-position/-/react-router-scroll-position-2.1.4.tgz#90506b18f20561a6a8e566cb8b717e5a8b5ee4fe"
+  integrity sha512-3OMsNCCwjePY54LABio52VLJtUnlUl+rDgcpThZ1794ncU2X1/uKOh4SN2cpZ7tgX2dtrqccYXIXkIfDFRq8Aw==
+
 react-router@6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.3.0.tgz#3970cc64b4cb4eae0c1ea5203a80334fdd175557"

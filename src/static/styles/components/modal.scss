@@ -44,13 +44,13 @@
     align-self: flex-start;
   }
   
-  p {
-    font-size: 1.5rem;
-    color: #67676a;
-    font-weight: 400;
-    margin-top: 1.03rem;
-    margin-bottom: 1.5rem;
-  }
+  // p {
+  //   font-size: 1.5rem;
+  //   color: #67676a;
+  //   font-weight: 400;
+  //   margin-top: 1.03rem;
+  //   margin-bottom: 1.5rem;
+  // }
 }
 
 .lds-spinner {
@@ -145,4 +145,16 @@
 
 .alertModal__wrapper{
   margin-top: 11.25rem;
+   p {
+    font-size: 1.5rem;
+    color: #67676a;
+    font-weight: 400;
+    margin-top: 1.03rem;
+    margin-bottom: 1.5rem;
+  }
+}
+.newtransaction__wrapper{
+  top: 50%;
+  transform: translateY(-50%);
+  transition: top ease 4s;
 }

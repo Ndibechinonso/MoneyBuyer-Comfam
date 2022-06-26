@@ -19,7 +19,7 @@ export const BarChart = () => {
         // const data = await res.json();
         const data =  [79, 45, 30, 35, 28, 49, 26, 47, 15, 30, 20, 28]
 
-        console.log(data)
+        // console.log(data)
         setChartData({
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Decr'],
             datasets: [{

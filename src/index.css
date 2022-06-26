@@ -1,0 +1,18 @@
+.new_transaction_container{
+    background: url(./static/images/transtop.svg) no-repeat top left, url(./static/images/transbtm.svg) right bottom no-repeat;
+    background-size: 12rem, 12rem, auto;
+    background-color: var(--blackColorWhite);
+    position: relative;
+}
+.new_transaction_header{
+    background: url(./static/images/transtop.svg) no-repeat;
+    background-size: 12rem 24rem;
+    background-position-x: -2rem;
+    background-position-y: -4rem;
+    background-color: var(--blackColorWhite);
+}
+.setting{
+    background: url(./static/images/tableTop.svg) no-repeat top right, url(./static/images/tableBtm.svg) left bottom no-repeat;
+    background-color: var(--blackColorWhite);
+    /* background-size: 24rem 12rem ; */
+}

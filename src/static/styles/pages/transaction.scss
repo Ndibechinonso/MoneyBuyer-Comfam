@@ -2,7 +2,7 @@
   width: 38.5rem;
   background-color: var(--blackColorWhite);
 
-  &__wrapper{
+  &__wrapper {
     padding: 2rem 0;
     height: 100vh;
     overflow-y: scroll;
@@ -13,7 +13,7 @@
     }
   }
 
-  p{
+  p {
     margin: 0;
   }
 
@@ -28,54 +28,54 @@
     @include normalTextMedium;
     color: var(--greyColorGrey2);
 
-    span{
-        align-self: flex-end;
+    span {
+      align-self: flex-end;
     }
 
-    &--Completed{
-        background-color: var(--tagBg4);
-        path {
-            fill: var(--stateColorSuccess);
-        }
+    &--Completed {
+      background-color: var(--tagBg4);
+      path {
+        fill: var(--stateColorSuccess);
+      }
     }
-    &--Cancelled{
-        color: var(--greyColorGrey2);
-        background-color: var(--tagBg5);
-        path {
-            fill: var(--stateColorError);
-        }
+    &--Cancelled {
+      color: var(--greyColorGrey2);
+      background-color: var(--tagBg5);
+      path {
+        fill: var(--stateColorError);
+      }
     }
-    &--Pending-delivery{
-        background-color: var(--greyColorGrey6);
-        path {
-            fill: var(--greyColorGrey2);
-        }
+    &--Pending-delivery {
+      background-color: var(--greyColorGrey6);
+      path {
+        fill: var(--greyColorGrey2);
+      }
     }
-    &--Pending-confirmation{
-        background-color: var(--brandColorSecondary6);
-        path {
-            fill: var(--brandColorSecondary1);
-        }
+    &--Pending-confirmation {
+      background-color: var(--brandColorSecondary6);
+      path {
+        fill: var(--brandColorSecondary1);
+      }
     }
-    &--Awaiting-confirmation{
-        background-color: var(--brandColorSecondary6);
-        path {
-            fill: var(--brandColorSecondary1);
-        }
+    &--Awaiting-confirmation {
+      background-color: var(--brandColorSecondary6);
+      path {
+        fill: var(--brandColorSecondary1);
+      }
     }
-    &--Awaiting-payment{
-        background-color: var(--tagBg2);
-        color: var(--brandColorPrimary4);
-        path {
-            fill: var(--brandColorPrimary4);
-        }
+    &--Awaiting-payment {
+      background-color: var(--tagBg2);
+      color: var(--brandColorPrimary4);
+      path {
+        fill: var(--brandColorPrimary4);
+      }
     }
 
-    &--Awaiting-delivery{
-        background-color: var(--tagBg4);
-        path{
-            fill: var(--stateColorSuccess);
-        }
+    &--Awaiting-delivery {
+      background-color: var(--tagBg4);
+      path {
+        fill: var(--stateColorSuccess);
+      }
     }
   }
   &__body {
@@ -101,16 +101,15 @@
         grid-column: 4/5;
       }
     }
-    
 
     .btn {
       align-self: flex-end;
     }
-    .btnWrapper{
-        align-self: flex-end;
-        display: flex;
-        align-items: center;
-        column-gap: 1.25rem;
+    .btnWrapper {
+      align-self: flex-end;
+      display: flex;
+      align-items: center;
+      column-gap: 1.25rem;
     }
   }
 
@@ -222,7 +221,7 @@
         img {
           height: 4.75rem;
           width: 9.75rem;
-          border-radius: .5rem;
+          border-radius: 0.5rem;
           // background-color: red;
           display: block;
         }
