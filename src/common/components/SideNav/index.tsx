@@ -4,7 +4,8 @@ import { language } from "../../utils/language/en";
 import DashboardIcon from "../customIcons/DashBoardIcon";
 import WalletIcon from "../customIcons/WalletIcon";
 import TransactionIcon from "../customIcons/TransactionIcon";
-import DeliveryIcon from "../customIcons/DeliveryIcon";
+// import DeliveryIcon from "../customIcons/DeliveryIcon";
+import MessagesIcon from "../customIcons/MessagesIcon";
 import DisputeIcon from "../customIcons/DisputeIcon";
 
 const { navigation: PageDictionary } = language.layout;
@@ -50,13 +51,26 @@ function SideNav() {
                 ? "nav__item--wrapper nav__item--wrapper__active"
                 : "nav__item--wrapper"
             }
+            to={"/messages"}
+          >
+            <MessagesIcon />
+            <span>{PageDictionary.messages}</span>
+          </NavLink>
+        </li>
+        <li className="nav__item">
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? "nav__item--wrapper nav__item--wrapper__active"
+                : "nav__item--wrapper"
+            }
             to={"/transaction"}
           >
             <TransactionIcon />
             <span>{PageDictionary.transaction}</span>
           </NavLink>
         </li>
-        <li className="nav__item">
+        {/* <li className="nav__item">
           <NavLink
             className={({ isActive }) =>
               isActive
@@ -68,7 +82,7 @@ function SideNav() {
             <DeliveryIcon />
             <span>{PageDictionary.delivery}</span>
           </NavLink>
-        </li>
+        </li> */}
         <li className="nav__item">
           <NavLink
             className={({ isActive }) =>

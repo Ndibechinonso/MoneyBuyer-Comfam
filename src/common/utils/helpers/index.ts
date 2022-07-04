@@ -22,9 +22,12 @@ export const getObject = (path:string): GetObjReturn=> {
     if (path === "transaction") {
        value = language.transaction
     }
-    if (path === "delivery") {
-       value = language.delivery
-    }
+    if (path === "transaction") {
+      value = language.messages
+   }
+   //  if (path === "delivery") {
+   //     value = language.delivery
+   //  }
     if (path === "dispute") {
        value = language.dispute
     }
