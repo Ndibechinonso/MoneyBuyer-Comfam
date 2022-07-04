@@ -40,7 +40,7 @@ const language = {
         title: "Transactions",
         subtitle: "View all your transactions",
         newUser:{
-            message:"Start paying and receiving money now",
+            message:"You currently don’t have any active Transaction.",
         },
         existingUser:{
             transactionCards:{
@@ -64,9 +64,9 @@ const language = {
 	},
     dispute: {
         title: "Dispute",
-        subtitle: "View all your Disputed transactions",
+        subtitle: "Let help settle your transaction disputes",
         newUser:{
-            message:"Start paying and receiving money now",
+            message:"No dispute to settle yet",
         },
         existingUser:{
             transactionCards:{
@@ -77,9 +77,9 @@ const language = {
 	},
     notifications: {
         title: "Notifications",
-        subtitle: "Let’s get you set-up, verified and ready to transact!",
+        subtitle: "View all your notifications",
         newUser:{
-            message:"Start paying and receiving money now",
+            message:"No notification yet!",
         },
         existingUser:{
             transactionCards:{

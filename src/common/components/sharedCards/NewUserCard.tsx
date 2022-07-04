@@ -1,6 +1,8 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import CustomButton from "../customButtons";
+import { Alerts } from "../redux/alert/alertActions";
+import { useAppDispatch } from "../redux/hooks";
 
 type NewUserCardProps = {
   message: string;
@@ -8,15 +10,18 @@ type NewUserCardProps = {
 };
 
 function NewUserCard({ message, completedRegistration }: NewUserCardProps) {
-    const {pathname} =useLocation()
+  const { pathname } = useLocation();
+  const dispatch = useAppDispatch();
   return (
-    <div className={`newUserCard newUserCard__${pathname.substring(1)}`} >
+    <div className={`newUserCard newUserCard__${pathname.substring(1)}`}>
       <p>{message}</p>
-      <CustomButton
-        disabled={completedRegistration}
-        action={() => console.log(message)}
-        actionText={"New Transaction"}
-      />
+      {!pathname.includes("notification") && (
+        <CustomButton
+          disabled={completedRegistration}
+          action={() => dispatch(Alerts("newtransaction"))}
+          actionText={"New Transaction"}
+        />
+      )}
     </div>
   );
 }

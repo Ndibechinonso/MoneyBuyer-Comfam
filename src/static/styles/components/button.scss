@@ -49,9 +49,9 @@
 
     &Primary {
         background-color: var(--brandColorPrimary1);
-        &:hover:not(:disabled){
+        // &:hover:not(:disabled){
             // background-color: #000026;
-        }
+        // }
         &:active:not(:disabled){
             background: linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),
             linear-gradient(0deg, #092C4C, #092C4C);
@@ -166,4 +166,11 @@
       transform: rotate(180deg) ;
     }
   }
+}
+
+[role="menuitem"]{
+    &:active,
+    &:hover{
+        outline: none;
+    }
 }

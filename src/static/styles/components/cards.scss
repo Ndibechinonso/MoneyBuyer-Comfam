@@ -35,5 +35,17 @@
     &__dispute{
         background-image: url(./../../images/dispute.svg);
     }
+    &__notifications{
+        background-image: url(./../../images/notification.svg);
+        background-position: center center;
+        grid-template-rows: 90% max-content;
+        grid-template-columns: 100%;
+        p{
+            grid-column: 1/-1;
+            justify-self: center;
+
+        }
+
+    }
 
 }

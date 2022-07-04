@@ -11,7 +11,7 @@ import { useAppSelector } from "../redux/hooks";
 function Layout() {
   const { pathname } = useLocation();
   const [userError] = React.useState(false);
-  const [newUser] = React.useState(false);
+  const [newUser] = React.useState(true);
   const value = getObject(getFirstLevelPath(pathname));
   const { modal, modalType } = useAppSelector((state) => state.alert);
 
@@ -21,7 +21,7 @@ function Layout() {
       <div className="confam">
         <SideNav />
         <div className="confam__layout">
-          <Header />
+          <Header newUser={userError} />
           <main
             className={`content content__${getFirstLevelPath(
               pathname

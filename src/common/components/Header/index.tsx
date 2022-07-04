@@ -8,7 +8,11 @@ import UserMenuTrigger from "./UserMenuTrigger";
 import { useAppDispatch } from "../redux/hooks";
 import { Alerts } from "../redux/alert/alertActions";
 
-function Header() {
+type Iheader = {
+  newUser?:boolean
+}
+
+function Header({newUser}:Iheader) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const value = getObject(getFirstLevelPath(pathname));
@@ -36,7 +40,7 @@ function Header() {
             }`}</div>
             <div className="titleBar__message--sub">{`${value?.subtitle}`}</div>
           </div>
-          {getFirstLevelPath(pathname) !== "notifications" && (
+          {(getFirstLevelPath(pathname) !== "notifications" && newUser === false) && (
             <CustomButton
               className="titleBar__cta"
               action={() => dispatch(Alerts("newtransaction"))}
