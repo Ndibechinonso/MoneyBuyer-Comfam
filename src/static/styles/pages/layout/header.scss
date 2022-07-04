@@ -120,10 +120,28 @@
       @include normalTextRegular;
       color: var(--greyColorGrey3);
     }
+
   }
   &__cta {
     grid-column: -5/-2;
     align-self: center;
     justify-self: end;
+  }
+}
+#user_info{
+  flex-direction: row !important;
+  align-items: center;
+  gap: 8px;
+  margin-right: auto;
+  .user{
+    &_name{
+    color: var( --greyColorGrey2);
+    font-size: 1.25rem;
+    font-weight: 500;
+    }
+    &_status{
+      color: var( --greyColorGrey3);
+      font-size: 1rem; 
+    }
   }
 }
