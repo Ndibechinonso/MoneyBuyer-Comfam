@@ -6,7 +6,8 @@ const language = {
             dashboard: "Dashboard",
             wallet: "Wallet",
             transaction: "Transaction",
-            delivery: "Delivery",
+            messages: "Messages",
+            // delivery: "Delivery",
             dispute: "Dispute"
         }
     },
@@ -49,9 +50,22 @@ const language = {
             
         },
 	},
-    delivery: {
-        title: "Delivery",
-        subtitle: "View all your delivered transactions",
+    // delivery: {
+    //     title: "Delivery",
+    //     subtitle: "View all your delivered transactions",
+    //     newUser:{
+    //         message:"Start paying and receiving money now",
+    //     },
+    //     existingUser:{
+    //         transactionCards:{
+
+    //         },
+            
+    //     },
+	// },
+    messages: {
+        title: "Transactions",
+        subtitle: "View all your transactions",
         newUser:{
             message:"Start paying and receiving money now",
         },
