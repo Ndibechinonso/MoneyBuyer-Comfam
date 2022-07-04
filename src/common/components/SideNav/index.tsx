@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 // import ConfirmMoneyIcon from "../customIcons/ConfamMoney";
 import { language } from "../../utils/language/en";
 import DashboardIcon from "../customIcons/DashBoardIcon";
@@ -10,9 +10,15 @@ import DisputeIcon from "../customIcons/DisputeIcon";
 
 const { navigation: PageDictionary } = language.layout;
 
-function SideNav() {
+
+type IsideNav = {
+  newUser?:boolean,
+}
+
+function SideNav({newUser}:IsideNav) {
+  const {pathname} = useLocation()
   return (
-    <nav className={`confam__sideNav nav`}>
+    <nav className={`confam__sideNav nav${pathname.includes("messages") && newUser === false?"__small":""}`}>
       {/* logo */}
       <Link className="nav__logo" to={"/"}>
         {/* <ConfirmMoneyIcon /> */}

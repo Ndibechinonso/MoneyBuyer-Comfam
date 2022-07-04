@@ -64,10 +64,10 @@ const language = {
     //     },
 	// },
     messages: {
-        title: "Transactions",
-        subtitle: "View all your transactions",
+        title: "Message",
+        subtitle: "create a transaction to start chatting with a buyer",
         newUser:{
-            message:"Start paying and receiving money now",
+            message:"No messages yet!",
         },
         existingUser:{
             transactionCards:{

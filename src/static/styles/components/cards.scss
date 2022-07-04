@@ -1,51 +1,55 @@
-.newUserCard{
-    height: 39rem;
-    grid-column: 2/-2;
-    border-radius: 0.75rem;
-    background-color: var(--blackColorWhite);
-    display: grid;
-    grid-template-rows: 24.5rem max-content 2rem max-content;
-    justify-content: center;
-    
-    background-repeat: no-repeat;
-    background-position: center 6.5625rem;
-    
-    p{
-        @include largeTextMedium;
-        color: var(--greyColorGrey3);
-        grid-row: 2/3;
-    }
-    button {
-        justify-self: center;
-        grid-row: 4/5;
-    }
+.newUserCard {
+  height: 39rem;
+  grid-column: 2/-2;
+  border-radius: 0.75rem;
+  background-color: var(--blackColorWhite);
+  display: grid;
+  grid-template-rows: 24.5rem max-content 2rem max-content;
+  justify-content: center;
 
-    &__dashboard{
-        background-image: url(./../../images/dashboard.svg);
-    }
-    &__wallet{
-        background-image: url(./../../images/wallet.svg);
-    }
-    &__delivery{
-        background-image: url(./../../images/delivery.svg);
-    }
-    &__transaction{
-        background-image: url(./../../images/transaction.svg);
-    }
-    &__dispute{
-        background-image: url(./../../images/dispute.svg);
-    }
-    &__notifications{
-        background-image: url(./../../images/notification.svg);
-        background-position: center center;
-        grid-template-rows: 90% max-content;
-        grid-template-columns: 100%;
-        p{
-            grid-column: 1/-1;
-            justify-self: center;
+  background-repeat: no-repeat;
+  background-position: center 6.5625rem;
 
-        }
+  p {
+    @include largeTextMedium;
+    color: var(--greyColorGrey3);
+    grid-row: 2/3;
+  }
+  button {
+    justify-self: center;
+    grid-row: 4/5;
+  }
 
+  &__dashboard {
+    background-image: url(./../../images/dashboard.svg);
+  }
+  &__wallet {
+    background-image: url(./../../images/wallet.svg);
+  }
+  &__delivery {
+    background-image: url(./../../images/delivery.svg);
+  }
+  &__transaction {
+    background-image: url(./../../images/transaction.svg);
+  }
+  &__dispute {
+    background-image: url(./../../images/dispute.svg);
+  }
+  &__messages,
+  &__notifications {
+    background-position: center center;
+    grid-template-rows: 90% max-content;
+    grid-template-columns: 100%;
+    p {
+      grid-column: 1/-1;
+      justify-self: center;
     }
+  }
+  &__notifications {
+    background-image: url(./../../images/notification.svg);
+  }
 
+  &__messages {
+    background-image: url(./../../images/messaging.svg);
+  }
 }

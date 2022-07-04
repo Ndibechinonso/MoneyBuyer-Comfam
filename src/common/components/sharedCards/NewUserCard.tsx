@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
+import { getFirstLevelPath } from "../../utils/helpers";
 import CustomButton from "../customButtons";
 import { Alerts } from "../redux/alert/alertActions";
 import { useAppDispatch } from "../redux/hooks";
@@ -15,7 +16,7 @@ function NewUserCard({ message, completedRegistration }: NewUserCardProps) {
   return (
     <div className={`newUserCard newUserCard__${pathname.substring(1)}`}>
       <p>{message}</p>
-      {!pathname.includes("notification") && (
+      {!['notifications','messages'].includes(getFirstLevelPath(pathname)) && (
         <CustomButton
           disabled={completedRegistration}
           action={() => dispatch(Alerts("newtransaction"))}

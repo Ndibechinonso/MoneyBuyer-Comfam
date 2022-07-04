@@ -3,6 +3,9 @@
   box-shadow: 0px 0px 0.1875rem 0px #0000001a;
   z-index: $goAboveMyPeers;
   height: 100%;
+
+  
+
   &__logo {
     display: flex;
 
@@ -77,6 +80,37 @@
           height: 100%;
           background-color: var(--brandColorPrimary4);
         }
+      }
+    }
+  }
+
+  &__small{
+    transition: all .5s ease;
+    box-shadow: 0px 0px 3px 0px #0000001A;
+
+    .nav__logo{
+      background-image: url(../../../images/logosmall.svg);
+      background-repeat: no-repeat;
+      width: 3.125rem;
+      height: 3.125rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      // margin: 0;
+      margin:20px auto 80px auto;
+    }
+    .nav__wrapper{
+      row-gap: unset;
+      padding-left: 2.8125rem;
+    }
+    .nav__item--wrapper{
+      padding: 1.5rem 0;
+      span{
+        display: none;
+      }
+
+      &__active{
+        background-color: unset;
       }
     }
   }

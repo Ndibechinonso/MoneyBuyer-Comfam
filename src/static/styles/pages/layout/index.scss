@@ -2,7 +2,6 @@
 @import "./navigation.scss";
 @import "./dashboard.scss";
 
-
 .confam {
   display: grid;
   grid-template-columns: 15.625rem 1fr;
@@ -16,7 +15,9 @@
     position: absolute;
     inset: 0 0 0 0;
     z-index: $sideNavZindex;
+    transition: all ease 0.5s;
   }
+
   &__layout {
     grid-column: 2/-1;
     height: 100vh;
@@ -37,6 +38,22 @@
         display: grid;
         grid-template-columns: 3.75rem repeat(12, 1fr) 4rem;
         background-color: var(--blackColorWhite);
+      }
+    }
+  }
+  &__message {
+    grid-template-columns: 7.1875rem 19.625rem 1fr;
+    transition: all 0.5s ease;
+
+    .messagescontainer {
+      grid-column: 2/3;
+    }
+    .confam__layout {
+      grid-column: 3/-1;
+
+      &--header {
+        inset: 0 0 auto 26.8125rem;
+        transition: inset 0.5s ease;
       }
     }
   }
@@ -69,3 +86,4 @@
     }
   }
 }
+

@@ -11,6 +11,37 @@ export const getFirstLevelPath = (value:string) => {
      existingUser?: object | any
  } | null
 
+ export const displayHeaderBtn = (path:string, newUser?:boolean, incompletereg?:boolean) => { 
+
+   if (incompletereg === true && newUser === true) {
+      return false
+   }
+
+   if (newUser === true && !["notifications"].includes(getFirstLevelPath(path))) {
+      return true
+   }
+
+  if (newUser === false && !["notifications","messages"].includes(getFirstLevelPath(path))) {
+   return true
+  }
+
+}
+ export const displayPageInfo = (path:string, newUser?:boolean, incompletereg?:boolean) => { 
+
+   if (incompletereg === true || newUser === true ) {
+      return true
+   }
+
+   // if (newUser === true) {
+   //    return true
+   // }
+
+  if (newUser === false && !["messages"].includes(getFirstLevelPath(path))) {
+   return true
+  }
+
+}
+
 export const getObject = (path:string): GetObjReturn=> { 
     let value = null
     if (path === "dashboard") {
@@ -22,7 +53,7 @@ export const getObject = (path:string): GetObjReturn=> {
     if (path === "transaction") {
        value = language.transaction
     }
-    if (path === "transaction") {
+    if (path === "messages") {
       value = language.messages
    }
    //  if (path === "delivery") {
