@@ -9,7 +9,7 @@ interface AlertState {
     modalInitiator:string;
 }
 
-const inititalState = {
+const initialState = {
     modal: true,
     modalType: "",
     modalDirection:"",
@@ -17,7 +17,7 @@ const inititalState = {
 };
 
 const reducer: Reducer<AlertState, AppDispatchProps> = (
-    state = inititalState,
+    state = initialState,
     {type, payload}
 ) => {
     switch (type) {
@@ -34,7 +34,7 @@ const reducer: Reducer<AlertState, AppDispatchProps> = (
         case AlertTypes.TRANSACTION_ITEM_MODAL: return {...state, modal: true, modalType: "transactionitem", modalInitiator: payload};
         case AlertTypes.DISPUTE_ITEM_MODAL: return {...state, modal: true, modalType: "disputeitem", modalInitiator: payload};
         case AlertTypes.NEW_TRANSACTION_MODAL: return {...state, modal:true, modalType:"newtransaction"}
-        case AlertTypes.CLOSE_MODAL: return inititalState
+        case AlertTypes.CLOSE_MODAL: return initialState
         default:
             return state;
     }

@@ -1,7 +1,7 @@
 interface buttonDefaultProps {
   loading?: boolean;
   disabled?: boolean;
-  action: VoidFunction;
+  action: VoidFunction | any;
   type?: "button" | "submit" | "reset" | undefined
   style?: React.CSSProperties | undefined;
   size?: "small" | "medium" | "normal" | "large";

@@ -1,0 +1,91 @@
+.seller_container {
+    margin: auto;
+    padding-left: 3.969rem;
+    padding-right: 2.813rem;
+    .state_div input{
+        width: unset;
+    }
+    .state_div{
+        @include flexRow;
+        width: 100%;
+        justify-content: space-between;
+        justify-items: space-between;
+    }
+.signup_ta{
+    margin-left: 7px;
+}
+.signup_btn{
+    width: 100%;
+    @include flexRow;
+    justify-content: space-around;
+}
+.bvn_div label{
+   @include flexRow;
+   gap: 4px;
+   align-content: center;
+   align-items: center; 
+  
+}
+
+&_form{
+    // margin-bottom: 2.25rem;
+    @include flexColumn;
+    gap: 1.5rem;
+    // margin-top: 1.5rem;
+    align-items: flex-start;
+        // form{
+    //   margin-top: 1.5rem;
+    // }
+    label{
+      font-size: 1.125rem;
+      font-weight:500;
+      color: var(--greyColorGrey1);
+    }
+    &_input{
+      display: block;
+      outline: 0;
+      height: 3.4375rem;
+      border: 1px solid var(--greyColorGrey4);
+      padding: 1.125rem 1.5rem 0.8125rem 23px;
+      width: 29rem;
+      margin-top: 0.25rem;
+      border-radius: 0.25rem;
+      font-size: 1rem;
+      font-weight:400;
+      color: var(--greyColorGrey1);
+      input{
+        border: 0;
+        width: 100%;
+        padding: 0.625rem 0;
+        padding-left: 0.8125rem;
+        outline: 0;
+        font-size: 1rem;
+      }
+    }
+    .flex{
+      display: flex;
+      align-items: center;
+      .input_telephone{
+        border-right: 1px solid var(--greyColorGrey4);
+        padding-right: 0.5625rem;
+        font-size: 1rem;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        span{
+          padding-left: 0.3125rem;
+        }
+      }
+    }
+  }
+
+}
+
+.ts_con label{
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--greyColorGrey3);
+}
+.checked_label{
+color: var(--brandColorPrimary1) !important;
+}

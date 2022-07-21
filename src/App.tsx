@@ -1,9 +1,11 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./common/components/Layout";
+import Settings from "./modules/pages/Settings";
+import Auth from "./modules/pages/Auth";
+import Signup from "./modules/pages/Auth/Signup";
 import Dashboard from "./modules/pages/Dashboard";
 import Delivery from "./modules/pages/Delivery";
 import Dispute from "./modules/pages/Dispute";
-import Settings from "./modules/pages/Settings";
 import BankDetail from "./modules/pages/Settings/BankDetails";
 import FeedBack from "./modules/pages/Settings/FeedBack";
 import Notification from "./modules/pages/Settings/Notification";
@@ -13,9 +15,21 @@ import Transaction from "./modules/pages/Transaction";
 import Notifications from "./modules/pages/Notifications";
 import Wallet from "./modules/pages/Wallet";
 import Messages from "./modules/pages/Messages";
+import Seller from "./common/components/Signup/Seller";
+import Buyer from "./common/components/Signup/Buyer";
+
 function App() {
   return (
     <Routes>
+      <Route element={<Auth />} >
+<Route element={<Signup />}>
+<Route path="/signup/seller" element={<Seller /> } />
+<Route path="/signup/buyer" element={<Buyer /> } />
+<Route path="/signup" element={<Navigate replace to="/signup/seller" /> } />
+
+</Route>
+</Route>
+
       <Route element={<Layout />}>
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="wallet" element={<Wallet />} />
