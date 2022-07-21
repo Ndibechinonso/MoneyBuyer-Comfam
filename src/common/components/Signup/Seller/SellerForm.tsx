@@ -111,7 +111,7 @@ const SellerForm = () => {
 
           <div className="state_div">
             <div className="form_group">
-              <label htmlFor={`${id}-firstName`}> State </label>
+              <label htmlFor={`${id}-state`}> State </label>
               <input
                 className="profile__container_form_input"
                 id={`${id}-state`}
@@ -123,7 +123,7 @@ const SellerForm = () => {
               />
             </div>
             <div className="form_group">
-              <label htmlFor={`${id}-lastName`}> City </label>
+              <label htmlFor={`${id}-city`}> City </label>
               <input
                 className="profile__container_form_input"
                 id={`${id}-city`}
@@ -136,7 +136,7 @@ const SellerForm = () => {
             </div>
           </div>
           <div className="form_group">
-            <label htmlFor={`${id}-password`}> Street Address</label>
+            <label htmlFor={`${id}-street_add`}> Street Address</label>
             <input
               className="profile__container_form_input"
               id={`${id}-street_add`}
@@ -148,7 +148,7 @@ const SellerForm = () => {
             />
           </div>
           <div className="form_group">
-            <label htmlFor={`${id}-confirm_password`}> Local Government </label>
+            <label htmlFor={`${id}-lga`}> Local Government </label>
             <input
               className="profile__container_form_input"
               id={`${id}-lga`}
@@ -181,7 +181,7 @@ const SellerForm = () => {
             />
           </div>
           <div className="form_group">
-            <label htmlFor={`${id}-lastName`}> Business Name </label>
+            <label htmlFor={`${id}-business_name`}> Business Name </label>
             <input
               className="profile__container_form_input"
               id={`${id}-business_name`}
@@ -193,7 +193,7 @@ const SellerForm = () => {
             />
           </div>
           <div className="form_group">
-            <label htmlFor={`${id}-lastName`}> Service Industry </label>
+            <label htmlFor={`${id}-service_industry`}> Service Industry </label>
             <input
               className="profile__container_form_input"
               id={`${id}-service_industry`}
