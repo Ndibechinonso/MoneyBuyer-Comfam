@@ -28,7 +28,7 @@ const SellerForm = () => {
     const name = event.target.name;
     if (name !== "signupTAC") {
       const value = event.target.value;
-      setInputs((values: any) => ({ ...values, [name]: value }));
+      setInputs((values: {}) => ({ ...values, [name]: value }));
     } else {
       setInputs((values: {}) => ({ ...values, [name]: event.target.checked }));
     }

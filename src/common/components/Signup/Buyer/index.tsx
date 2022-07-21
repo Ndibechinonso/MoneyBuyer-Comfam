@@ -1,6 +1,10 @@
+import BuyerForm from "./BuyerForm"
+
 const Buyer = () => {
     return(
-        <div>BUYER</div>
+        <div className="seller_container"> 
+      <BuyerForm />
+      </div>
     )
 }
 

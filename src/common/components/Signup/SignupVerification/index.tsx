@@ -97,6 +97,7 @@ const SignupVerification = () => {
 
           <CustomButton
             className="verify_btn"
+            disabled={!(value.length === 6)}
             action={() => dispatch(Signup("success"))}
             actionText="Verify"
           />
