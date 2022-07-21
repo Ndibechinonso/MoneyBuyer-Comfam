@@ -3,6 +3,8 @@ import CustomButton from "../../customButtons";
 import bvnInfo from "../../../../static/images/bvn_info.png";
 import { Signup } from "../../redux/signup/signupActions";
 import { useAppDispatch } from "../../redux/hooks";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 
 const SellerForm = () => {
   const id = useId();
@@ -38,7 +40,7 @@ const SellerForm = () => {
     event.preventDefault();
     console.log(inputs);
     setInputs(initialFormState);
-    dispatch(Signup("verification"))
+    dispatch(Signup("verification"));
   };
 
   const validate =
@@ -62,7 +64,7 @@ const SellerForm = () => {
           <div className="form_group">
             <label htmlFor={`${id}-firstName`}> First Name </label>
             <input
-              className="profile__container_form_input"
+              className="seller_container_form_input"
               id={`${id}-firstName`}
               type="text"
               name="firstName"
@@ -74,7 +76,7 @@ const SellerForm = () => {
           <div className="form_group">
             <label htmlFor={`${id}-lastName`}> Last Name </label>
             <input
-              className="profile__container_form_input"
+              className="seller_container_form_input"
               id={`${id}-lastName`}
               type="text"
               name="lastName"
@@ -86,7 +88,7 @@ const SellerForm = () => {
           <div className="form_group">
             <label htmlFor={`${id}-email`}> Email Address </label>
             <input
-              className="profile__container_form_input"
+              className="seller_container_form_input"
               id={`${id}-email`}
               type="email"
               name="email"
@@ -99,7 +101,7 @@ const SellerForm = () => {
           <div className="form_group">
             <label htmlFor={`${id}-password`}> Password </label>
             <input
-              className="profile__container_form_input"
+              className="seller_container_form_input"
               id={`${id}-password`}
               type="password"
               name="password"
@@ -113,7 +115,7 @@ const SellerForm = () => {
             <div className="form_group">
               <label htmlFor={`${id}-state`}> State </label>
               <input
-                className="profile__container_form_input"
+                className="seller_container_form_input"
                 id={`${id}-state`}
                 type="text"
                 name="state"
@@ -125,7 +127,7 @@ const SellerForm = () => {
             <div className="form_group">
               <label htmlFor={`${id}-city`}> City </label>
               <input
-                className="profile__container_form_input"
+                className="seller_container_form_input"
                 id={`${id}-city`}
                 type="text"
                 name="city"
@@ -138,7 +140,7 @@ const SellerForm = () => {
           <div className="form_group">
             <label htmlFor={`${id}-street_add`}> Street Address</label>
             <input
-              className="profile__container_form_input"
+              className="seller_container_form_input"
               id={`${id}-street_add`}
               type="text"
               name="street"
@@ -150,7 +152,7 @@ const SellerForm = () => {
           <div className="form_group">
             <label htmlFor={`${id}-lga`}> Local Government </label>
             <input
-              className="profile__container_form_input"
+              className="seller_container_form_input"
               id={`${id}-lga`}
               type="text"
               name="lga"
@@ -162,16 +164,27 @@ const SellerForm = () => {
 
           <div className="form_group bvn_div">
             <label htmlFor={`${id}-bvn`}>
-              {" "}
-              <span>BVN</span>{" "}
-              <img
-                src={bvnInfo}
-                alt="bvn info"
-                title="Bank verification number is an 11 digit number that is unique to each individual, but the same across all bank institutions for the same individual"
-              />{" "}
+              <span>BVN</span>
+              <Tippy
+                content={
+                  <>
+                    <>Bank verification number is an</>
+                    <br />
+                    <>11 digit number that is unique to each</>
+                    <br />
+                    <>individual, but the same across all</>
+                    <br />
+                    <>bank institutions for the same</>
+                    <br />
+                    <>individual</>
+                  </>
+                }
+              >
+                <img src={bvnInfo} alt="bvn info" className="cursor-pointer" />
+              </Tippy>
             </label>
             <input
-              className="profile__container_form_input"
+              className="seller_container_form_input"
               id={`${id}-bvn`}
               type="number"
               name="bvn"
@@ -183,7 +196,7 @@ const SellerForm = () => {
           <div className="form_group">
             <label htmlFor={`${id}-business_name`}> Business Name </label>
             <input
-              className="profile__container_form_input"
+              className="seller_container_form_input"
               id={`${id}-business_name`}
               type="text"
               name="businessName"
@@ -195,7 +208,7 @@ const SellerForm = () => {
           <div className="form_group">
             <label htmlFor={`${id}-service_industry`}> Service Industry </label>
             <input
-              className="profile__container_form_input"
+              className="seller_container_form_input"
               id={`${id}-service_industry`}
               type="text"
               name="serviceIndustry"
@@ -214,7 +227,9 @@ const SellerForm = () => {
             />
             <label
               htmlFor={`${id}-signup_ta`}
-              className={`${inputs.signupTAC ? "checked_label" : ""} signup_ta cursor-pointer`}
+              className={`${
+                inputs.signupTAC ? "checked_label" : ""
+              } signup_ta cursor-pointer`}
             >
               By creating an account I agree to the Terms & Conditions
             </label>

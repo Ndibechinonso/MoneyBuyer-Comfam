@@ -26,18 +26,18 @@ const BuyerForm = () => {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-event.preventDefault()
-console.log(inputs)
-setInputs(initialFormState);
-dispatch(Signup("verification"))
-  }
+    event.preventDefault();
+    console.log(inputs);
+    setInputs(initialFormState);
+    dispatch(Signup("verification"));
+  };
 
   const validate =
-  inputs.firstName &&
-  inputs.lastName &&
-  inputs.email &&
-  inputs.password &&
-  inputs.signupTAC;
+    inputs.firstName &&
+    inputs.lastName &&
+    inputs.email &&
+    inputs.password &&
+    inputs.signupTAC;
 
   return (
     <div className="biodata_container">
@@ -46,7 +46,7 @@ dispatch(Signup("verification"))
           <div className="form_group">
             <label htmlFor={`${id}-firstName`}>First Name</label>
             <input
-              className="profile__container_form_input"
+              className="seller_container_form_input"
               name="firstName"
               id={`${id}-firstName`}
               value={inputs.firstName}
@@ -58,7 +58,7 @@ dispatch(Signup("verification"))
           <div className="form_group">
             <label htmlFor={`${id}-lastName`}>Last Name</label>
             <input
-              className="profile__container_form_input"
+              className="seller_container_form_input"
               name="lastName"
               id={`${id}-lastName`}
               value={inputs.lastName}
@@ -69,7 +69,7 @@ dispatch(Signup("verification"))
           <div className="form_group">
             <label htmlFor={`${id}-email`}>Email Address</label>
             <input
-              className="profile__container_form_input"
+              className="seller_container_form_input"
               name="email"
               id={`${id}-email`}
               value={inputs.email}
@@ -80,7 +80,7 @@ dispatch(Signup("verification"))
           <div className="form_group">
             <label htmlFor={`${id}-password`}>Password</label>
             <input
-              className="profile__container_form_input"
+              className="seller_container_form_input"
               name="password"
               id={`${id}-password`}
               value={inputs.password}
