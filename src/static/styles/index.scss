@@ -1,6 +1,7 @@
 @import "./partials/index.scss";
 @import "./components/index.scss";
 @import "./pages/index.scss";
+@import "./pages/auth";
 
 *,
 *::after,
@@ -26,8 +27,8 @@ button {
 
 html {
   font-size: 16px;
-  height: 100vh;
-  overflow: hidden;
+  // height: 100vh;
+  // overflow: hidden;
 }
 
 ::-webkit-scrollbar {

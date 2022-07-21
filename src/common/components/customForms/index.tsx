@@ -383,11 +383,11 @@ const CustomForm = ({ formType, intro }: CustomFormProps) => {
                   <div>
                     <input
                       type="checkbox"
-                      id="sunscribe"
-                      name="sunscribe"
-                      value="sunscribe"
+                      id="subscribe"
+                      name="subscribe"
+                      value="subscribe"
                     />
-                    <label htmlFor="sunscribe" className="answers">
+                    <label htmlFor="subscribe" className="answers">
                       Yes, please subscribe me.
                     </label>
                   </div>
