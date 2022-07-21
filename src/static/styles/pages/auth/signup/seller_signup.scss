@@ -2,14 +2,14 @@
     margin: auto;
     padding-left: 3.969rem;
     padding-right: 2.813rem;
-    .state_div input{
-        width: unset;
+    .form_group{
+      width: 100%;
     }
     .state_div{
         @include flexRow;
         width: 100%;
         justify-content: space-between;
-        justify-items: space-between;
+        gap: 20px;
     }
 .signup_ta{
     margin-left: 7px;
@@ -24,18 +24,12 @@
    gap: 4px;
    align-content: center;
    align-items: center; 
-  
 }
 
 &_form{
-    // margin-bottom: 2.25rem;
     @include flexColumn;
     gap: 1.5rem;
-    // margin-top: 1.5rem;
     align-items: flex-start;
-        // form{
-    //   margin-top: 1.5rem;
-    // }
     label{
       font-size: 1.125rem;
       font-weight:500;
@@ -46,21 +40,14 @@
       outline: 0;
       height: 3.4375rem;
       border: 1px solid var(--greyColorGrey4);
-      padding: 1.125rem 1.5rem 0.8125rem 23px;
-      width: 29rem;
+      min-width: 100%;
+      padding-left: 1.4375rem;
       margin-top: 0.25rem;
       border-radius: 0.25rem;
       font-size: 1rem;
       font-weight:400;
       color: var(--greyColorGrey1);
-      input{
-        border: 0;
-        width: 100%;
-        padding: 0.625rem 0;
-        padding-left: 0.8125rem;
-        outline: 0;
-        font-size: 1rem;
-      }
+      line-height: 19px;
     }
     .flex{
       display: flex;
