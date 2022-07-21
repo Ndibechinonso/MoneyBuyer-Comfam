@@ -8,7 +8,7 @@ const Auth = () => {
 
     return(
         <div className="auth_container">
-<div className="logo_div"><img src={logo}/></div>
+<div className="logo_div"><img src={logo} alt=""/></div>
 <Outlet />
 
 {signupStage === "biodata" && <p className="signup_link_div">Already have an account? <Link to="/signin"><span className="signup_link">Sign In</span></Link></p> }

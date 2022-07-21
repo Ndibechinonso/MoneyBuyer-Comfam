@@ -6,6 +6,7 @@ import { Signup } from "../../redux/signup/signupActions";
 const ResendVerification = () => {
   const id = useId();
   const dispatch = useAppDispatch();
+
   const [email, setEmail] = useState("")
 
 
@@ -32,6 +33,7 @@ const ResendVerification = () => {
 
           <CustomButton
                   className="verify_btn"
+                  disabled={!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)}
                   action={() => dispatch(Signup("verification"))}
                   actionText="Send verification"
                 /> 
