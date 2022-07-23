@@ -23,6 +23,7 @@ const reducer: Reducer<AlertState, AppDispatchProps> = (
     switch (type) {
         case AlertTypes.PROGRESS_MODAL:
             return { ...state, modal: true, modalType: "progress" };
+        case AlertTypes.RESETPASSWORD_MODAL: return {...state, modal: true, modalType: "resetpassword"};
         case AlertTypes.PROFILEUPDATED_MODAL: return {...state, modal: true, modalType: "profileupdated"};
         case AlertTypes.ACCOUNTVERIFIED_MODAL: return {...state, modal: true, modalType: "accountverified"};
         case AlertTypes.VERIFICATIONFAILED_MODAL: return {...state, modal: true, modalType: "verificationfailed"};

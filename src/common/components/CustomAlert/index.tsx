@@ -12,6 +12,8 @@ const CustomAlert = ({alertType}: customAlertProps) =>{
     let template: ReactElement | null = null;
 
     switch (alertType) {
+        case "resetpassword": template = (<ModalContent  type="alert" alertIcon={success} header="Password Reset link sent" text="A password reset link has been succesfully sent to your email address" />)
+        break;
         case "progress": template = ( <ModalContent type="alert" progress header="Please wait........" text="Your account is being verified" />)
         break;
             

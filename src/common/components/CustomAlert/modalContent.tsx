@@ -8,6 +8,7 @@ import TransactionModal from "../CustomModal/TransactionModal";
 import ReasonFormModal from "../CustomModal/ReasonFormModal";
 import NewTransaction from "../DashboardComponents/NewTransaction";
 import DisputeModal from "../CustomModal/DisputeModal";
+import { useLocation, useNavigate } from "react-router-dom";
 type modalContentProps = {
   type?: "alert" | "transactionitem" | "newtransaction" | "disputeitem";
   alertIcon?: any;
@@ -34,8 +35,22 @@ const ModalContent = ({
   textArea,
 }: modalContentProps) => {
   const [isModal, setModal] = useState(true);
+  const { pathname } = useLocation();
+  const navigate = useNavigate()
   // const direction = useAppSelector(state => state.alert.modalDirection)
   const dispatch = useAppDispatch();
+  const handleCloseBtn = () => { 
+    setModal(false);
+    dispatch(Alerts(""));
+    if (pathname.includes("forgotpassword")) {
+      if (pathname.includes("buyer")) {
+        navigate("/sigin/buyer")
+      }
+      if (pathname.includes("seller")) {
+        navigate("/signin/seller")
+      }
+    }
+   }
 
   return (
     <CustomModal
@@ -56,10 +71,7 @@ const ModalContent = ({
                 <img
                   src={closemodal}
                   alt="close modal"
-                  onClick={() => {
-                    setModal(false);
-                    dispatch(Alerts(""));
-                  }}
+                  onClick={handleCloseBtn}
                   className="cursor-pointer"
                 />
               ) : null}

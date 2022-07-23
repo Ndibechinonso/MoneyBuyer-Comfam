@@ -75,7 +75,7 @@ const SignupVerification = () => {
               value={value}
               placeholder={""}
               length={6}
-              onChange={(newValue) => {
+              onChange={(newValue: string) => {
                 setValue(newValue);
 
                 if (newValue !== "") {
@@ -92,7 +92,13 @@ const SignupVerification = () => {
           )}
 
           <p className="verification_resend">
-            Didn’t get a code? <span className="cursor-pointer" onClick={()=> dispatch(Signup("resend_verification"))}>Click to resend</span>
+            Didn’t get a code?{" "}
+            <span
+              className="cursor-pointer"
+              onClick={() => dispatch(Signup("resend_verification"))}
+            >
+              Click to resend
+            </span>
           </p>
 
           <CustomButton

@@ -1,19 +1,24 @@
-import { Outlet } from "react-router-dom"
-import logo from "../../../static/images/logo.svg"
-import { Link } from "react-router-dom"
-import { useAppSelector } from "../../../common/components/redux/hooks"
+import { Outlet } from "react-router-dom";
+import logo from "../../../static/images/logo.svg";
+import { useAppSelector } from "../../../common/components/redux/hooks";
+import CustomAlert from "../../../common/components/CustomAlert";
 
 const Auth = () => {
-    const {signupStage} = useAppSelector(state => state.signup)
+  const { modal, modalType } = useAppSelector((state) => state.alert);
 
-    return(
-        <div className="auth_container">
-<div className="logo_div"><img src={logo} alt=""/></div>
-<Outlet />
+  console.log(modal);
 
-{signupStage === "biodata" && <p className="signup_link_div">Already have an account? <Link to="/signin"><span className="signup_link">Sign In</span></Link></p> }
+  return (
+    <>
+      {modal && <CustomAlert alertType={modalType} />}
+      <div className="auth_container">
+        <div className="logo_div">
+          <img src={logo} alt="" />
         </div>
-    )
-}
+        <Outlet />
+      </div>
+    </>
+  );
+};
 
-export default Auth
+export default Auth;

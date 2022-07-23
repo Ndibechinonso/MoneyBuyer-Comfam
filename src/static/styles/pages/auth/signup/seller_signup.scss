@@ -1,41 +1,44 @@
 .seller_container {
-    margin: auto;
-    padding-left: 3.969rem;
-    padding-right: 2.813rem;
-    .form_group{
-      width: 100%;
-    }
-    .state_div{
-        @include flexRow;
-        width: 100%;
-        justify-content: space-between;
-        gap: 20px;
-    }
-.signup_ta{
+  margin: auto;
+  padding-left: 3.969rem;
+  padding-right: 2.813rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  .form_group {
+    width: 100%;
+  }
+  .state_div {
+    @include flexRow;
+    width: 100%;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .signup_ta {
     margin-left: 7px;
-}
-.signup_btn{
+  }
+  .signup_btn {
     width: 100%;
     @include flexRow;
     justify-content: space-around;
-}
-.bvn_div label{
-   @include flexRow;
-   gap: 4px;
-   align-content: center;
-   align-items: center; 
-}
+  }
+  .bvn_div label {
+    @include flexRow;
+    gap: 4px;
+    align-content: center;
+    align-items: center;
+  }
 
-&_form{
+  &_form {
     @include flexColumn;
     gap: 1.5rem;
     align-items: flex-start;
-    label{
+    label {
       font-size: 1.125rem;
-      font-weight:500;
+      font-weight: 500;
       color: var(--greyColorGrey1);
     }
-    &_input{
+    &_input {
       display: block;
       outline: 0;
       height: 3.4375rem;
@@ -45,34 +48,49 @@
       margin-top: 0.25rem;
       border-radius: 0.25rem;
       font-size: 1rem;
-      font-weight:400;
+      font-weight: 400;
       color: var(--greyColorGrey1);
       line-height: 19px;
+      &_container {
+        position: relative;
+        & > input {
+          padding-right: 2.5rem;
+        }
+      }
+      &_icon {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        inset: 15px 1rem 15px auto ;
+        background-color: transparent;
+        svg{
+          fill: var(--greyColorGrey4);
+        }
+      }
     }
-    .flex{
+    .flex {
       display: flex;
       align-items: center;
-      .input_telephone{
+      .input_telephone {
         border-right: 1px solid var(--greyColorGrey4);
         padding-right: 0.5625rem;
         font-size: 1rem;
         display: flex;
         align-items: flex-end;
         justify-content: center;
-        span{
+        span {
           padding-left: 0.3125rem;
         }
       }
     }
   }
-
 }
 
-.ts_con label{
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--greyColorGrey3);
+.ts_con label {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--greyColorGrey3);
 }
-.checked_label{
-color: var(--brandColorPrimary1) !important;
+.checked_label {
+  color: var(--brandColorPrimary1) !important;
 }

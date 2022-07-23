@@ -1,21 +1,48 @@
 @import "./signup/index.scss";
+@import "./signup/resetpassword.scss";
 
 .auth_container {
-    padding-top: 3.438rem;
-    padding-bottom: 3.625rem;
-    min-height: 100vh;
-    background: rgba(242, 247, 255, 0.7);
-backdrop-filter: blur(100px);
-.logo_div{
+  padding-top: 3.438rem;
+  padding-bottom: 3.625rem;
+  min-height: 100vh;
+  background: url(./../../../images/circle_blue.svg) left,
+    url(./../../../images/circle_yellow.svg) center,
+    url(./../../../images/circle_purple.svg) right;
+  background-color: rgba(242, 247, 255, 0.7);
+  background-repeat: no-repeat;
+  background-size: contain;
+  backdrop-filter: blur(100px);
+  .resetpassword_container,
+  .signup_container {
+    background: url(./../../../images/band_1.svg) left 1rem,
+    url(./../../../images/band_2.svg) left 34.875rem,
+    url(./../../../images/band_3.svg) right top,
+    url(./../../../images/band_4.svg) right top,
+    url(./../../../images/band_5.svg) right 21.25rem;
+    background-repeat: no-repeat;
+    background-color: var(--blackColorWhite);
+  }
+
+  .logo_div {
     text-align: center;
     margin-bottom: 2.75rem;
-}
-.signup_link_div{
+  }
+  .signin_forgotpassword_link {
+    align-self: flex-end;
+    color: var(--brandColorPrimary4);
+  }
+  .signin_link_div,
+  .signup_link_div {
     font-size: 1.25rem;
     text-align: center;
-    margin-top: 1.25rem;;
-    .signup_link{
-        color: var(--brandColorTertiary1);
+    .signup_link {
+      color: var(--brandColorTertiary1);
     }
-}
+  }
+  .signin_link_div {
+    margin-top: 4.125rem;
+  }
+  .signup_link_div {
+    margin-top: 1.25rem;
+  }
 }

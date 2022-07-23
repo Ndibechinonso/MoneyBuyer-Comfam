@@ -17,18 +17,38 @@ import Wallet from "./modules/pages/Wallet";
 import Messages from "./modules/pages/Messages";
 import Seller from "./common/components/Signup/Seller";
 import Buyer from "./common/components/Signup/Buyer";
+import Signin from "./modules/pages/Auth/Signin";
+import Bsignin from "./common/components/Signin/Buyer";
+import Ssignin from "./common/components/Signin/Seller";
+import ResetPassword from "./modules/pages/Auth/ResetPassword";
+import Breset from "./common/components/ResetPassword/Buyer";
+import Sreset from "./common/components/ResetPassword/Seller";
 
 function App() {
   return (
     <Routes>
-      <Route element={<Auth />} >
-<Route element={<Signup />}>
-<Route path="/signup/seller" element={<Seller /> } />
-<Route path="/signup/buyer" element={<Buyer /> } />
-<Route path="/signup" element={<Navigate replace to="/signup/seller" /> } />
-
-</Route>
-</Route>
+      <Route element={<Auth />}>
+        <Route element={<Signup />}>
+          <Route path="/signup/seller" element={<Seller />} />
+          <Route path="/signup/buyer" element={<Buyer />} />
+          <Route
+            path="/signup"
+            element={<Navigate replace to="/signup/seller" />}
+          />
+        </Route>
+        <Route element={<Signin />}>
+          <Route path="/signin/seller" element={<Ssignin />} />
+          <Route path="/signin/buyer" element={<Bsignin />} />
+          <Route
+            path="/signin"
+            element={<Navigate replace to="/signin/seller" />}
+          />
+        </Route>
+        <Route element={<ResetPassword />}>
+          <Route path="/forgotpassword/seller" element={<Sreset />} />
+          <Route path="/forgotpassword/buyer" element={<Breset />} />
+        </Route>
+      </Route>
 
       <Route element={<Layout />}>
         <Route path="dashboard" element={<Dashboard />} />
