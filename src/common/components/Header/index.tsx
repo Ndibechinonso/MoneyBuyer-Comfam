@@ -9,6 +9,7 @@ import { useAppDispatch } from "../redux/hooks";
 import { Alerts } from "../redux/alert/alertActions";
 import steve from "../../../static/images/steve.svg";
 import statusIndicator from "../../../static/images/status_indicator.svg";
+import HandWave from "../customIcons/HandWave";
 
 type Iheader = {
   newUser?:boolean,
@@ -43,7 +44,7 @@ function Header({newUser, inCompleteReg}:Iheader) {
             <div className="titleBar__message--headline">{`${value?.title} ${
               pathname === "/dashboard" ? "Kenneth!" : ""
             }`}</div>
-            <div className="titleBar__message--sub">{`${value?.subtitle}`}</div>
+            <div className="titleBar__message--sub"><span>{`${value?.subtitle}`}</span>{pathname === "/dashboard" && <HandWave /> }</div>
           </div> ) }
           {( newUser=== false && pathname === "/messages") && (<div className="titleBar__message " id="user_info">
             <div className="titleBar__message--user_image"><img src={steve} /></div>
