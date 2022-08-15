@@ -8,10 +8,9 @@ import 'chart.js/auto';
 // import { Chart } from 'react-chartjs-2';
 import { Chart as ChartJS, LineController, LineElement, PointElement, LinearScale, Title } from 'chart.js';
 import BarChart from "../../../common/components/BarChart";
-import Orders from "../../../common/components/DashboardComponents/DashboardCards/Orders";
-import RecentTransaction from "../../../common/components/DashboardComponents/RecentTransaction";
-
-
+import ActiveContracts from "../../../common/components/DashboardComponents/ActiveContracts";
+import TransactionHistory from "../../../common/components/DashboardComponents/TransactionHistory";
+import ClientContact from "../../../common/components/DashboardComponents/ClientContact"
 
 // const { newUser: NewUserPageDictionary } = language.dashboard;
 
@@ -28,9 +27,13 @@ function Dashboard() {
         message={NewUserPageDictionary.message}
       /> */}
       <DashboardCardGroup />
+      <div className="dashboard_container_grid">
+<ActiveContracts />
 <BarChart />  
-<Orders />
-<RecentTransaction />
+<TransactionHistory />
+<ClientContact />
+{/* <RecentTransaction /> */}
+</div>
     </div>
   );
 }

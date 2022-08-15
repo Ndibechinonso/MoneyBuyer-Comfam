@@ -184,3 +184,10 @@ font-weight: 400;
 line-height: 1.0625rem;
 letter-spacing: 0.08em;
  }
+
+ .normalTextMedium{
+    @include normalTextMedium
+ }
+ .smallTextMedium{
+    @include smallTextMedium
+ }

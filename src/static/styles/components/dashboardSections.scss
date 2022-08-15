@@ -1,0 +1,107 @@
+.dashboard_sections {
+  h2 {
+    color: var(--greyColorGrey1);
+    font-weight: 500;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .user_container {
+    gap: 12px;
+    align-content: center;
+    align-items: center;
+  }
+  &_content {
+    padding: 28px 16px;
+    background: #ffffff;
+    box-shadow: 0px 4px 8px rgba(236, 236, 236, 0.56);
+    border-radius: 16px;
+    .d-flex {
+      @include flexRow;
+      justify-content: space-between;
+    }
+    .flexCol {
+      @include flexColumn;
+    }
+    .smallTextMedium {
+      color: var(--greyColorGrey3) !important;
+    }
+    .card_container {
+      background: #f9fafc;
+      &_content {
+        padding: 0.75rem 1rem 1.5rem 1rem;
+        border: 1.5px solid #f5f5ff;
+        border-radius: 8px;
+        font-size: 500;
+      }
+
+  
+      .contract_info {
+        gap: 10px;
+        justify-content: space-between;
+      }
+      .date {
+        color: var(--greyColorGrey1);
+        text-align: right;
+      }
+      .name {
+        font-size: 1.125rem;
+      }
+      .card_content_divider {
+        border-top: 1px solid #ebebeb !important;
+      }
+      .card_top {
+        padding-top: 20px;
+        padding-bottom: 15px;
+      }
+      .price {
+        color: var(--brandColorPrimary4) !important;
+        text-align: right;
+      }
+    }
+  }
+
+  &_table {
+    padding: 1.63rem 3.25rem;
+    background: var(--blackColorWhite);
+    border-radius: 16px;
+    color: #333333;
+    font-weight: 500;
+    .client_div {
+      @include flexRow;
+      align-items: center;
+      justify-content: center;
+      .client_img {
+        margin-right: 1.94rem;
+      }
+    }
+    th {
+      @include normalTextMedium;
+      padding-top: 26px;
+      padding-bottom: 13px;
+      border-top: 1px solid var(--greyColorGrey910);
+      border-bottom: 1px solid var(--greyColorGrey910);
+    }
+    tbody {
+      td {
+        font-size: 1rem;
+        padding-top: 1.5rem;
+        padding-bottom: 0.5rem;
+        text-align: center;
+        border-top: 1px solid var(--appBackground);
+      }
+    }
+  }
+}
+
+.contact_btn{
+  font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 24px;
+background-color: #ffffff;
+text-align: center;
+background: #F5F5FF;
+border-radius: 4px;
+color: var(--brandColorPrimary4);
+padding: 9px 13.5px;
+}
