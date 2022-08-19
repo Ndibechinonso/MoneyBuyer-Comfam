@@ -1,6 +1,10 @@
 .dashboard_container{
-    @include flexColumn;
+    .dashboard_container_grid{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
     gap: 2.5rem
+   } 
 }
 .recent_transactions_history{
     h2{

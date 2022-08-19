@@ -1,7 +1,7 @@
 import React from "react";
 import img from "../../../static/images/unsplash.png";
 import closemodal from "../../../static/images/dashboard_modal_close.svg";
-import arrowLeft from "../../../static/images/arrow_left.svg";
+import ArrowLeft from "../customIcons/ArrowLeft";
 import { useAppDispatch } from "../redux/hooks";
 import { Alerts } from "../redux/alert/alertActions";
 
@@ -17,7 +17,7 @@ function DisputeModal() {
               dispatch(Alerts(""));
             }}
           >
-            <img src={arrowLeft} alt="go back" />
+            <ArrowLeft />
           </div>
           <h4 className="modal__title">Dispute Details</h4>
           <div className="close_div">

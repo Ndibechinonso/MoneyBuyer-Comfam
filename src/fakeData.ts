@@ -127,62 +127,6 @@ export const deliveryTable = {
   ],
 };
 
-export const activeOrder = {
-  columns: [
-    {
-      title: "Clients",
-      dataIndex: "clients",
-      key: "clients",
-    },
-    {
-      title: "Price",
-      dataIndex: "price",
-      key: "price",
-    },
-    {
-      title: "Start Date",
-      dataIndex: "start_date",
-      key: "start_date",
-    },
-    
-    {
-      title: "End date",
-      dataIndex: "end_date",
-      key: "end_date",
-    }
-  ],
-
-  rows: [
-    {
-      clients: "Luke Dane",
-      price: "₦9,000",
-      start_date: "22 March, 2022",
-      end_date: "22 March, 2022",
-    },
-    {
-      clients: "Luke Dane",
-      price: "₦9,000",
-      start_date: "22 March, 2022",
-      end_date: "22 March, 2022",
-
-    },
-    {
-      clients: "Luke Dane",
-      price: "₦9,000",
-      start_date: "22 March, 2022",
-      end_date: "22 March, 2022",
-
-    },
-    {
-      clients: "Luke Dane",
-      price: "₦9,000",
-      start_date: "22 March, 2022",
-      end_date: "22 March, 2022",
-    }
-  ],
-};
-
-
 
 export const recentHistoryTable = {
   columns: [
@@ -248,18 +192,18 @@ export const recentHistoryTable = {
 
 export const  cardArray = [{
   cardImg: dashboardCardImg_1,
-    cardTitle: "Total Income",
-    amount: 456605
+    cardTitle: "Open Transactions",
+    amount: 2
 },
 {
   cardImg: dashboardCardImg_2,
-    cardTitle: "Balance",
-    amount: 10750
+    cardTitle: "Settled Transactions",
+    amount: 0
 },
 {
   cardImg: dashboardCardImg_3,
-    cardTitle: "Pending Transactions",
-    amount: 78605
+    cardTitle: "Total Transactions",
+    amount: 2
 }]
 
 export const chartArray = [

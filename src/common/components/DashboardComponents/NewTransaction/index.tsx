@@ -2,7 +2,7 @@ import { useState, useId } from "react";
 import CustomModal from "../../CustomModal";
 import CustomButton from "../../customButtons";
 import closemodal from "../../../../static/images/dashboard_modal_close.svg";
-import arrowLeft from "../../../../static/images/arrow_left.svg";
+import ArrowLeft from "../../customIcons/ArrowLeft";
 import addProduct from "../../../../static/images/add_product.svg";
 import addmilestone from "../../../../static/images/add_milestone.svg";
 import info from "../../../../static/images/insurance_info.svg";
@@ -23,7 +23,7 @@ const NewTransaction = () => {
     <div className="new_transaction_container">
       <div className="new_transaction_header">
        { headerTittle !== "New Transaction" ?<div className="cursor-pointer" onClick={() => {changeFormState("New Transaction")}}>
-          <img src={arrowLeft} alt="go back" />
+<ArrowLeft />
         </div> : null }
         <h4>{headerTittle}</h4>
         <div className="close_div">

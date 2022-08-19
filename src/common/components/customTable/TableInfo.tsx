@@ -4,7 +4,7 @@ import Tag from "../customTags";
 import DropDown from "../dropDowns/primitive";
 import TableItem from "../dropDowns/TableItem";
 import { TObj } from "./types";
-import arrowRight from "../../../static/images/arrow_right.svg"
+import ArrowRight from "../customIcons/ArrowRight";
 import clientImg from "../../../static/images/client_img.svg"
 import { formatMoney } from "../../utils";
 function TableInfo({ headers, data, activeOrder, recentTransacionHistory }: TObj) {
@@ -39,7 +39,7 @@ function TableInfo({ headers, data, activeOrder, recentTransacionHistory }: TObj
                     <ThreeDotIcon />
                   </button>
                 </DropDown> : null }
-                {(activeOrder && !recentTransacionHistory) ? <img src={arrowRight} alt="open order details" /> : null}
+                {(activeOrder && !recentTransacionHistory) ? <ArrowRight />  : null}
               </td>
             </tr>
           );
