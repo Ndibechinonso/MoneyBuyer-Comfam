@@ -1,10 +1,19 @@
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../../common/components/redux/hooks";
 import SignupVerification from "../../../../common/components/Signup/SignupVerification";
 import ResendVerification from "../../../../common/components/Signup/ResendVerification";
 
 const Signup = () => {
   const { signupStage } = useAppSelector((state) => state.signup);
+  const { pathname } = useLocation();
+  const getAppPath = (path: string) => {
+    if (path.includes("seller")) {
+      return "seller";
+    }
+    if (path.includes("buyer")) {
+      return "buyer";
+    }
+  };
 
   return (
     <>
@@ -41,7 +50,7 @@ const Signup = () => {
           </div>
           <p className="signup_link_div">
             Already have an account?{" "}
-            <Link to="/signin">
+            <Link to={`/signin/${getAppPath(pathname)}`}>
               <span className="signup_link">Sign In</span>
             </Link>
           </p>

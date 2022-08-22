@@ -41,12 +41,12 @@
       button {
         color: var(--blackColorBlack3);
         background-color: var(--blackColorWhite);
+        width: 100%;
       }
 
       &:not(:last-child) {
         button {
           padding-bottom: 1.125rem;
-          width: 100%;
         }
       }
 
@@ -115,6 +115,7 @@
     &--headline {
       @include largeTextMedium;
       color: var(--greyColorGrey1);
+      text-transform: capitalize;
     }
     &--sub {
       @include normalTextRegular;

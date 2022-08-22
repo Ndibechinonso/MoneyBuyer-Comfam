@@ -1,12 +1,17 @@
 import React, { useId, useState } from "react";
 import CustomButton from "../../customButtons";
-import { Signup } from "../../redux/signup/signupActions";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { BsEyeSlash, BsEye } from "react-icons/bs";
+import auth from "../../../../modules/service/auth";
+import { storeUserDetails, storeUserToken } from "../../../../https/storerage";
+import { useNavigate } from "react-router-dom";
+import { loadingStart, loadingStop } from "../../redux/apploader";
 
 const Form = () => {
   const id = useId();
   const [showPassword, setShowPassword] = useState(false);
+  const { isloading } = useAppSelector((state) => state.isloading);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const initialFormState = {
     email: "",
@@ -24,9 +29,16 @@ const Form = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(inputs);
-    setInputs(initialFormState);
-    dispatch(Signup("verification"));
+    dispatch(loadingStart(""));
+    auth
+      .loginBuyer(inputs)
+      .then((res) => {
+        storeUserDetails(res.user);
+        storeUserToken(res.tokens.accessToken);
+        navigate("/dashboard");
+      })
+      .catch((err) => console.log(err))
+      .finally(() => dispatch(loadingStop()));
   };
 
   const validate = inputs.email && inputs.password;
@@ -39,6 +51,7 @@ const Form = () => {
             <label htmlFor={`${id}-email`}>Email Address</label>
             <input
               type="email"
+              disabled={isloading}
               className="seller_container_form_input"
               name="email"
               id={`${id}-email`}
@@ -51,6 +64,8 @@ const Form = () => {
             <label htmlFor={`${id}-password`}>Password</label>
             <div className="seller_container_form_input_container">
               <input
+                required
+                disabled={isloading}
                 autoComplete="off"
                 className="seller_container_form_input"
                 name="password"
@@ -60,7 +75,11 @@ const Form = () => {
                 placeholder="Enter Password"
                 type={`${showPassword ? "text" : "password"}`}
               />
-              <button type="button" onClick={handleShowPassword} className="seller_container_form_input_icon">
+              <button
+                type="button"
+                onClick={handleShowPassword}
+                className="seller_container_form_input_icon"
+              >
                 {!showPassword ? <BsEyeSlash /> : <BsEye />}
               </button>
             </div>
@@ -68,7 +87,7 @@ const Form = () => {
 
           <CustomButton
             className="signup_btn"
-            disabled={!validate}
+            disabled={!validate || isloading}
             type="submit"
             action={handleSubmit}
             actionText="Sign In"

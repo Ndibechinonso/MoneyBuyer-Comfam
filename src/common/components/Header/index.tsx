@@ -1,5 +1,10 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { displayHeaderBtn, displayPageInfo, getFirstLevelPath, getObject } from "../../utils/helpers";
+import {
+  displayHeaderBtn,
+  displayPageInfo,
+  getFirstLevelPath,
+  getObject,
+} from "../../utils/helpers";
 import CustomButton from "../customButtons";
 import NotificationIcon from "../customIcons/NotificationIcon";
 import DropDown from "../dropDowns/primitive";
@@ -10,15 +15,17 @@ import { Alerts } from "../redux/alert/alertActions";
 import steve from "../../../static/images/steve.svg";
 import statusIndicator from "../../../static/images/status_indicator.svg";
 import HandWave from "../customIcons/HandWave";
+import { fetchUserDetails } from "../../../https/storerage";
 
 type Iheader = {
-  newUser?:boolean,
-  inCompleteReg?: boolean
-}
+  newUser?: boolean;
+  inCompleteReg?: boolean;
+};
 
-function Header({newUser, inCompleteReg}:Iheader) {
+function Header({ newUser, inCompleteReg }: Iheader) {
   const { pathname } = useLocation();
-  console.log(pathname);
+  const { first_name } = fetchUserDetails();
+  // console.log(pathname);
 
   const navigate = useNavigate();
   const value = getObject(getFirstLevelPath(pathname));
@@ -40,23 +47,40 @@ function Header({newUser, inCompleteReg}:Iheader) {
           </DropDown>
         </div>
         <div className="confam__layout--header_bottom titleBar">
-        {displayPageInfo(pathname,newUser,inCompleteReg) && (<div className="titleBar__message">
-            <div className="titleBar__message--headline">{`${value?.title} ${
-              pathname === "/dashboard" ? "Kenneth!" : ""
-            }`}</div>
-            <div className="titleBar__message--sub"><span>{`${value?.subtitle}`}</span>{pathname === "/dashboard" && <HandWave /> }</div>
-          </div> ) }
-          {( newUser=== false && pathname === "/messages") && (<div className="titleBar__message " id="user_info">
-            <div className="titleBar__message--user_image"><img src={steve} /></div>
-            <div className=""><div className="user_name">Steve Martins</div> <div><span className=""><img src={statusIndicator} /> </span> <span className="user_status">Active Now</span></div></div>
-          </div> ) }
-          { displayHeaderBtn(pathname,newUser,inCompleteReg) ? (
+          {displayPageInfo(pathname, newUser, inCompleteReg) && (
+            <div className="titleBar__message">
+              <div className="titleBar__message--headline">{`${value?.title} ${
+                pathname === "/dashboard" ? `${first_name}` : ""
+              }`}</div>
+              <div className="titleBar__message--sub">
+                <span>{`${value?.subtitle}`}</span>
+                {pathname === "/dashboard" && <HandWave />}
+              </div>
+            </div>
+          )}
+          {newUser === false && pathname === "/messages" && (
+            <div className="titleBar__message " id="user_info">
+              <div className="titleBar__message--user_image">
+                <img alt="user avatar" src={steve} />
+              </div>
+              <div className="">
+                <div className="user_name">Steve Martins</div>{" "}
+                <div>
+                  <span className="">
+                    <img alt="status indicator" src={statusIndicator} />{" "}
+                  </span>{" "}
+                  <span className="user_status">Active Now</span>
+                </div>
+              </div>
+            </div>
+          )}
+          {displayHeaderBtn(pathname, newUser, inCompleteReg) ? (
             <CustomButton
               className="titleBar__cta"
               action={() => dispatch(Alerts("newtransaction"))}
               actionText="New Transaction"
             />
-          ): null} 
+          ) : null}
         </div>
       </header>
     </>

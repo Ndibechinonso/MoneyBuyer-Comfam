@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
-import alertReducer from "./alert/alertReducer"
-import {  tableItemSlice } from "./tableItem";
-import signupReducer from "./signup/signupReducer"
+import alertReducer from "./alert/alertReducer";
+import tableItmReducer from "./tableItem";
+import signupReducer from "./signup/signupReducer";
+import loadingReducer from "./apploader";
 
 export default combineReducers({
-    alert: alertReducer,
-    tableItem: tableItemSlice.reducer,
-    signup: signupReducer
-})
+  alert: alertReducer,
+  tableItem: tableItmReducer,
+  signup: signupReducer,
+  isloading: loadingReducer,
+});
