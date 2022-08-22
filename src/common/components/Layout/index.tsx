@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { getFirstLevelPath, getObject } from "../../utils/helpers";
 import Header from "../Header";
 import NewUserCard from "../sharedCards/NewUserCard";
@@ -8,6 +8,7 @@ import Notice from "./Notice";
 import CustomAlert from "../CustomAlert";
 import { useAppSelector } from "../redux/hooks";
 import Messages from "../Messages";
+import { fetchUserToken } from "../../../https/storerage";
 
 function Layout() {
   const { pathname } = useLocation();
@@ -15,6 +16,10 @@ function Layout() {
   const [newUser] = React.useState(false);
   const value = getObject(getFirstLevelPath(pathname));
   const { modal, modalType } = useAppSelector((state) => state.alert);
+
+  if(!fetchUserToken()){
+    return <Navigate replace to="/signup/buyer" />
+  }
 
   return (
     <>

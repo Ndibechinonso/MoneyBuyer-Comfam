@@ -4,7 +4,7 @@ import Settings from "./modules/pages/Settings";
 import Auth from "./modules/pages/Auth";
 import Signup from "./modules/pages/Auth/Signup";
 import Dashboard from "./modules/pages/Dashboard";
-import Delivery from "./modules/pages/Delivery";
+// import Delivery from "./modules/pages/Delivery";
 import Dispute from "./modules/pages/Dispute";
 import BankDetail from "./modules/pages/Settings/BankDetails";
 import FeedBack from "./modules/pages/Settings/FeedBack";

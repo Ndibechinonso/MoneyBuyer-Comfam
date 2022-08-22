@@ -80,12 +80,14 @@ const BuyerForm = () => {
           <div className="form_group">
             <label htmlFor={`${id}-password`}>Password</label>
             <input
+              required
               className="seller_container_form_input"
               name="password"
               id={`${id}-password`}
               value={inputs.password}
               onChange={handleChange}
               placeholder="Enter First Name"
+              pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
             />
           </div>
 

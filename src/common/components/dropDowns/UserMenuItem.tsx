@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { clearUserDetails } from "../../../https/storerage";
 import LogoutIcon from "../customIcons/LogoutIcon";
 import ReminderIcon from "../customIcons/ReminderIcon";
 import SettingsIcon from "../customIcons/SettingsIcon";
@@ -11,6 +12,13 @@ interface menuProps {}
 
 function UserMenuItem({}: menuProps) {
   const navigate = useNavigate();
+
+  const logoutHandler = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    clearUserDetails();
+    navigate("/");
+  };
 
   return (
     <DropDownMenuContent className="header__dropDownMenu">
@@ -33,7 +41,7 @@ function UserMenuItem({}: menuProps) {
         </button>
       </DropDownItem>
       <DropDownItem className="header__dropDownMenu--itm">
-        <button>
+        <button onClick={logoutHandler}>
           <LogoutIcon />
           Log Out
         </button>
