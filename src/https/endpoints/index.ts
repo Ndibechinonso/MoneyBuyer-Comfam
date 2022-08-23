@@ -12,6 +12,10 @@ const ENDPOINTS = {
       method: "POST",
       url: "auth/verify-code",
     },
+    resend_code: {
+      method: "POST",
+      url: "auth/resend-code",
+    },
     reset_password: {
       method: "POST",
       url: "auth/reset-password",

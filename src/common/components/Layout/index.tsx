@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { getFirstLevelPath, getObject } from "../../utils/helpers";
 import Header from "../Header";
@@ -8,17 +8,30 @@ import Notice from "./Notice";
 import CustomAlert from "../CustomAlert";
 import { useAppSelector } from "../redux/hooks";
 import Messages from "../Messages";
-import { fetchUserToken } from "../../../https/storerage";
+import { fetchUserDetails, fetchUserToken } from "../../../https/storerage";
+import admin from "../../../modules/service/admin";
 
 function Layout() {
   const { pathname } = useLocation();
-  const [userError] = React.useState(false);
-  const [newUser] = React.useState(false);
+  const [userError, setUserError] = useState(true);
+  const [newUser, setNewUser] = useState(true);
   const value = getObject(getFirstLevelPath(pathname));
   const { modal, modalType } = useAppSelector((state) => state.alert);
 
-  if(!fetchUserToken()){
-    return <Navigate replace to="/signup/buyer" />
+  useEffect(() => {
+    if (fetchUserDetails().verified) {
+      setUserError(false);
+    }
+    if (fetchUserToken()) {
+      admin
+        .getAllTransaction()
+        .then((res) => (res.data !== 0 ? setNewUser(true) : setNewUser(false)))
+        .catch((err) => console.log(err));
+    }
+  }, []);
+
+  if (!fetchUserToken()) {
+    return <Navigate replace to="/signin/buyer" />;
   }
 
   return (

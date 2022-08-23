@@ -1,11 +1,17 @@
 import React, { useId, useState } from "react";
 import CustomButton from "../../customButtons";
-import { Signup } from "../../redux/signup/signupActions";
-import { useAppDispatch } from "../../redux/hooks";
+// import { Signup } from "../../redux/signup/signupActions";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import auth from "../../../../modules/service/auth";
+import { useNavigate } from "react-router-dom";
+import customtoast from "../../customToast";
+import { loadingStart, loadingStop } from "../../redux/apploader";
 
 const BuyerForm = () => {
   const id = useId();
   const dispatch = useAppDispatch();
+  const { isloading } = useAppSelector((state) => state.isloading);
+  const navigate = useNavigate();
   const initialFormState = {
     firstName: "",
     lastName: "",
@@ -13,23 +19,26 @@ const BuyerForm = () => {
     password: "",
     signupTAC: false,
   };
-  const [inputs, setInputs] = useState(initialFormState as any);
+  const [inputs, setInputs] = useState(initialFormState);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name;
     if (name !== "signupTAC") {
       const value = event.target.value;
-      setInputs((values: {}) => ({ ...values, [name]: value }));
+      setInputs((values) => ({ ...values, [name]: value }));
     } else {
-      setInputs((values: {}) => ({ ...values, [name]: event.target.checked }));
+      setInputs((values) => ({ ...values, [name]: event.target.checked }));
     }
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(inputs);
-    setInputs(initialFormState);
-    dispatch(Signup("verification"));
+    dispatch(loadingStart(""));
+    auth
+      .registerBuyer(inputs)
+      .then((res) => navigate(`/verification?email=${inputs.email}`))
+      .catch((err) => customtoast(err.message))
+      .finally(() => dispatch(loadingStop()));
   };
 
   const validate =
@@ -41,11 +50,12 @@ const BuyerForm = () => {
 
   return (
     <div className="biodata_container">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="seller_container_form">
           <div className="form_group">
             <label htmlFor={`${id}-firstName`}>First Name</label>
             <input
+              disabled={isloading}
               className="seller_container_form_input"
               name="firstName"
               id={`${id}-firstName`}
@@ -58,6 +68,7 @@ const BuyerForm = () => {
           <div className="form_group">
             <label htmlFor={`${id}-lastName`}>Last Name</label>
             <input
+              disabled={isloading}
               className="seller_container_form_input"
               name="lastName"
               id={`${id}-lastName`}
@@ -69,6 +80,7 @@ const BuyerForm = () => {
           <div className="form_group">
             <label htmlFor={`${id}-email`}>Email Address</label>
             <input
+              disabled={isloading}
               className="seller_container_form_input"
               name="email"
               id={`${id}-email`}
@@ -81,18 +93,21 @@ const BuyerForm = () => {
             <label htmlFor={`${id}-password`}>Password</label>
             <input
               required
+              disabled={isloading}
               className="seller_container_form_input"
               name="password"
               id={`${id}-password`}
               value={inputs.password}
               onChange={handleChange}
-              placeholder="Enter First Name"
+              type="password"
+              placeholder="Password"
               pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
             />
           </div>
 
           <div className="ts_con">
             <input
+              disabled={isloading}
               type="checkbox"
               id={`${id}-signup_ta`}
               name="signupTAC"
@@ -110,9 +125,9 @@ const BuyerForm = () => {
 
           <CustomButton
             className="signup_btn"
-            disabled={!validate}
+            disabled={!validate || isloading}
             type="submit"
-            action={handleSubmit}
+            action={() => null}
             actionText="Create Account"
           />
         </div>

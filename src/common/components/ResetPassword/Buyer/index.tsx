@@ -1,26 +1,33 @@
 import React, { useId, useState } from "react";
 import CustomButton from "../../customButtons";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Alerts } from "../../redux/alert/alertActions";
+import auth from "../../../../modules/service/auth";
+import { loadingStart, loadingStop } from "../../redux/apploader";
+import customtoast from "../../customToast";
 
 const Form = () => {
   const id = useId();
   const dispatch = useAppDispatch();
+  const { isloading } = useAppSelector((state) => state.isloading);
   const initialFormState = {
     email: "",
   };
-  const [inputs, setInputs] = useState(initialFormState as any);
+  const [inputs, setInputs] = useState(initialFormState);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
-    setInputs((values: {}) => ({ ...values, [name]: value }));
+    setInputs((values) => ({ ...values, [name]: value }));
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(inputs);
-    setInputs(initialFormState);
-    dispatch(Alerts("resetpassword"));
+    dispatch(loadingStart(""));
+    auth
+      .resetPassword(inputs)
+      .then((res) => dispatch(Alerts("resetpassword")))
+      .catch((err) => customtoast(err.message))
+      .finally(() => dispatch(loadingStop()));
   };
 
   const validate = inputs.email && true;
@@ -33,6 +40,7 @@ const Form = () => {
             <label htmlFor={`${id}-email`}>Email Address</label>
             <input
               type="email"
+              disabled={isloading}
               className="seller_container_form_input"
               name="email"
               id={`${id}-email`}
@@ -44,7 +52,7 @@ const Form = () => {
 
           <CustomButton
             className="signup_btn"
-            disabled={!validate}
+            disabled={!validate || isloading}
             type="submit"
             action={handleSubmit}
             actionText="Reset Password"

@@ -14,6 +14,10 @@ const auth = {
     const { method, url } = ENDPOINTS.auth.verify_user;
     return httpRequest({ url, method, body });
   },
+  async resendVerifyBuyer(body: any) {
+    const { method, url } = ENDPOINTS.auth.resend_code;
+    return httpRequest({ url, method, body });
+  },
   async resetPassword(body: any) {
     const { method, url } = ENDPOINTS.auth.reset_password;
     return httpRequest({ url, method, body });

@@ -16,7 +16,7 @@ const Auth = () => {
       {modal && <CustomAlert alertType={modalType} />}
       <div className="auth_container">
         <div className="logo_div">
-          <img src={logo} alt="" />
+          <img src={logo} alt="confam money logo" />
         </div>
         <Outlet />
       </div>

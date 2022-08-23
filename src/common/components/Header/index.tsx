@@ -50,7 +50,7 @@ function Header({ newUser, inCompleteReg }: Iheader) {
           {displayPageInfo(pathname, newUser, inCompleteReg) && (
             <div className="titleBar__message">
               <div className="titleBar__message--headline">{`${value?.title} ${
-                pathname === "/dashboard" ? `${first_name}` : ""
+                pathname === "/dashboard" ? `${first_name}!` : ""
               }`}</div>
               <div className="titleBar__message--sub">
                 <span>{`${value?.subtitle}`}</span>
