@@ -23,6 +23,7 @@ import Ssignin from "./common/components/Signin/Seller";
 import ResetPassword from "./modules/pages/Auth/ResetPassword";
 import Breset from "./common/components/ResetPassword/Buyer";
 import Sreset from "./common/components/ResetPassword/Seller";
+import SignupVerification from "./modules/pages/Auth/SignupVerification";
 
 function App() {
   return (
@@ -31,23 +32,25 @@ function App() {
         <Route element={<Signup />}>
           <Route path="/signup/seller" element={<Seller />} />
           <Route path="/signup/buyer" element={<Buyer />} />
-          <Route
+          
+          {/* <Route
             path="/signup"
             element={<Navigate replace to="/signup/seller" />}
-          />
+          /> */}
         </Route>
         <Route element={<Signin />}>
           <Route path="/signin/seller" element={<Ssignin />} />
           <Route path="/signin/buyer" element={<Bsignin />} />
-          <Route
+          {/* <Route
             path="/signin"
             element={<Navigate replace to="/signin/seller" />}
-          />
+          /> */}
         </Route>
         <Route element={<ResetPassword />}>
           <Route path="/forgotpassword/seller" element={<Sreset />} />
           <Route path="/forgotpassword/buyer" element={<Breset />} />
         </Route>
+        <Route path="/verification" element={<SignupVerification />}/>
       </Route>
 
       <Route element={<Layout />}>

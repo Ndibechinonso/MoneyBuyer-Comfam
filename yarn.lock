@@ -7984,6 +7984,13 @@ react-tabs@^5.1.0:
     clsx "^1.1.0"
     prop-types "^15.5.0"
 
+react-toastify@^9.0.8:
+  version "9.0.8"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-9.0.8.tgz#3876c89fc6211a29027b3075010b5ec39ebe4f7e"
+  integrity sha512-EwM+teWt49HSHx+67qI08yLAW1zAsBxCXLCsUfxHYv1W7/R3ZLhrqKalh7j+kjgPna1h5LQMSMwns4tB4ww2yQ==
+  dependencies:
+    clsx "^1.1.1"
+
 react-verification-code-input@1.2.9:
   version "1.2.9"
   resolved "https://registry.yarnpkg.com/react-verification-code-input/-/react-verification-code-input-1.2.9.tgz#16051396f0c75752aab0cd9f37cb7be7084b98d0"

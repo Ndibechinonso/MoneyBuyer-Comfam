@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useAppSelector } from "../../redux/hooks";
+import { useState } from "react";
+// import { useAppSelector } from "../../redux/hooks";
 import { useAppDispatch } from "../../redux/hooks";
 import { Signup } from "../../redux/signup/signupActions";
 import styled from "styled-components";
@@ -51,13 +51,14 @@ const StyledReactInputVerificationCode = styled.div`
 
 const SignupVerification = () => {
   const dispatch = useAppDispatch();
-  const { success } = useAppSelector((state) => state.signup);
+  // const { success } = useAppSelector((state) => state.signup);
+  const [success] = useState(false);
 
   const [value, setValue] = useState("");
-  const [isInvalid, setIsInvalid] = useState(false);
+  // const [isInvalid, setIsInvalid] = useState(false);
   const [error, setError] = useState(null) as any;
 
-  const [seconds, setSeconds] = useState(null) as any;
+  const [seconds] = useState(null) as any;
 
   return (
     <div className="verification_container">

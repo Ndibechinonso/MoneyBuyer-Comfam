@@ -27,6 +27,7 @@
     "react-router-dom": "6",
     "react-scripts": "5.0.1",
     "react-tabs": "^5.1.0",
+    "react-toastify": "^9.0.8",
     "react-verification-code-input": "1.2.9",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
