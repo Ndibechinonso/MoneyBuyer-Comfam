@@ -33,6 +33,7 @@ const Form = () => {
     auth
       .loginBuyer(inputs)
       .then((res) => {
+        console.log(res, "res")
         storeUserDetails(res.user);
         storeUserToken(res.tokens.accessToken);
         navigate("/dashboard");
