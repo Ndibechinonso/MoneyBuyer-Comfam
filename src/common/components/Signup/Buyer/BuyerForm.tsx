@@ -36,11 +36,11 @@ const validatePassword = (password: any) =>{
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(loadingStart(""));
-    // auth
-    //   .registerBuyer(inputs)
-    //   .then((res) => navigate(`/verification?email=${inputs.email}`))
-    //   .catch((err) => customtoast(err.message))
-    //   .finally(() => dispatch(loadingStop()));
+    auth
+      .registerBuyer(inputs)
+      .then((res) => navigate(`/verification?email=${inputs.email}`))
+      .catch((err) => customtoast(err.message))
+      .finally(() => dispatch(loadingStop()));
   };
 
   const validate =
