@@ -21,6 +21,9 @@ const BuyerForm = () => {
   };
   const [inputs, setInputs] = useState(initialFormState);
 
+const validatePassword = (password: any) =>{
+  return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)
+}
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name;
     if (name !== "signupTAC") {
@@ -30,22 +33,22 @@ const BuyerForm = () => {
       setInputs((values) => ({ ...values, [name]: event.target.checked }));
     }
   };
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(loadingStart(""));
-    auth
-      .registerBuyer(inputs)
-      .then((res) => navigate(`/verification?email=${inputs.email}`))
-      .catch((err) => customtoast(err.message))
-      .finally(() => dispatch(loadingStop()));
+    // auth
+    //   .registerBuyer(inputs)
+    //   .then((res) => navigate(`/verification?email=${inputs.email}`))
+    //   .catch((err) => customtoast(err.message))
+    //   .finally(() => dispatch(loadingStop()));
   };
 
   const validate =
     inputs.firstName &&
     inputs.lastName &&
     inputs.email &&
-    inputs.password &&
+    // inputs.password
+    validatePassword(inputs.password) &&
     inputs.signupTAC;
 
   return (
@@ -101,7 +104,7 @@ const BuyerForm = () => {
               onChange={handleChange}
               type="password"
               placeholder="Password"
-              pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
+              // pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
             />
           </div>
 
