@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import customtoast from "../../customToast";
 import { loadingStart, loadingStop } from "../../redux/apploader";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
+import { validateEmail, validatePassword } from "../../../utils";
 
 const BuyerForm = () => {
   const id = useId();
@@ -25,13 +26,9 @@ const BuyerForm = () => {
   const [inputs, setInputs] = useState(initialFormState);
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-const validatePassword = (password: any) =>{
-  return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)
-}
-
-const validateEmail = (email: any) =>{
-return /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)
-}
+// export const validateEmail = (email: any) =>{
+// return /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)
+// }
 const handleShowPassword = () => {
   setShowPassword((prev) => !prev);
 };

@@ -1,5 +1,5 @@
 import { BASE_URL } from "./constant";
-import { clearData, clearUserDetails, fetchUserToken } from "./storerage";
+import { clearData, clearUserDetails, fetchUserToken } from "./storage";
 import axios from "axios";
 
 // interface HTTPParams {
