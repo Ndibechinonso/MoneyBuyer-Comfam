@@ -18,6 +18,7 @@ const Form = () => {
     password: "",
   };
   const [inputs, setInputs] = useState(initialFormState as any);
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -29,16 +30,20 @@ const Form = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsSubmitted(true)
+    if(!validate) return
+    console.log(inputs)
     dispatch(loadingStart(""));
     auth
       .loginBuyer(inputs)
       .then((res) => {
         console.log(res, "res")
-        storeUserDetails(res.user);
+        setIsSubmitted(false);
+        // storeUserDetails(res.user);
         storeUserToken(res.tokens.accessToken);
         navigate("/dashboard");
       })
-      .catch((err) => console.log(err))
+      .catch((err) => { setIsSubmitted(false); console.log(err, "err")})
       .finally(() => dispatch(loadingStop()));
   };
 
@@ -60,12 +65,14 @@ const Form = () => {
               onChange={handleChange}
               placeholder="Enter Email Address"
             />
+           {isSubmitted && !inputs.email && <small className="input_error text-red-1 text-xs">*Required</small> }
+
           </div>
           <div className="form_group">
             <label htmlFor={`${id}-password`}>Password</label>
             <div className="seller_container_form_input_container">
               <input
-                required
+                
                 disabled={isloading}
                 autoComplete="off"
                 className="seller_container_form_input"
@@ -83,12 +90,14 @@ const Form = () => {
               >
                 {!showPassword ? <BsEyeSlash /> : <BsEye />}
               </button>
+              {isSubmitted && !inputs.password && <small className="input_error text-red-1 text-xs">*Required</small> }
+
             </div>
           </div>
 
           <CustomButton
             className="signup_btn"
-            disabled={!validate || isloading}
+            disabled={isloading}
             type="submit"
             action={handleSubmit}
             actionText="Sign In"
