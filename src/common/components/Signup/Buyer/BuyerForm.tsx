@@ -13,8 +13,8 @@ const BuyerForm = () => {
   const { isloading } = useAppSelector((state) => state.isloading);
   const navigate = useNavigate();
   const initialFormState = {
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
     signupTAC: false,
@@ -44,8 +44,8 @@ const validatePassword = (password: any) =>{
   };
 
   const validate =
-    inputs.firstName &&
-    inputs.lastName &&
+    inputs.first_name &&
+    inputs.last_name &&
     inputs.email &&
     // inputs.password
     validatePassword(inputs.password) &&
@@ -56,26 +56,26 @@ const validatePassword = (password: any) =>{
       <form onSubmit={handleSubmit}>
         <div className="seller_container_form">
           <div className="form_group">
-            <label htmlFor={`${id}-firstName`}>First Name</label>
+            <label htmlFor={`${id}-first_name`}>First Name</label>
             <input
               disabled={isloading}
               className="seller_container_form_input"
-              name="firstName"
-              id={`${id}-firstName`}
-              value={inputs.firstName}
+              name="first_name"
+              id={`${id}-first_name`}
+              value={inputs.first_name}
               onChange={handleChange}
               placeholder="Enter First Name"
             />
           </div>
 
           <div className="form_group">
-            <label htmlFor={`${id}-lastName`}>Last Name</label>
+            <label htmlFor={`${id}-last_name`}>Last Name</label>
             <input
               disabled={isloading}
               className="seller_container_form_input"
-              name="lastName"
-              id={`${id}-lastName`}
-              value={inputs.lastName}
+              name="last_name"
+              id={`${id}-last_name`}
+              value={inputs.last_name}
               onChange={handleChange}
               placeholder="Enter Last Name"
             />
@@ -127,7 +127,7 @@ const validatePassword = (password: any) =>{
           </div>
 
           <CustomButton
-            className="signup_btn"
+            className="signup_bt_n"
             disabled={!validate || isloading}
             type="submit"
             action={() => null}

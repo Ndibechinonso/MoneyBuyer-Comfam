@@ -6,6 +6,7 @@ import auth from "../../../../modules/service/auth";
 import { storeUserDetails, storeUserToken } from "../../../../https/storerage";
 import { useNavigate } from "react-router-dom";
 import { loadingStart, loadingStop } from "../../redux/apploader";
+import customtoast from "../../customToast";
 
 const Form = () => {
   const id = useId();
@@ -17,11 +18,11 @@ const Form = () => {
     email: "",
     password: "",
   };
-  const [inputs, setInputs] = useState(initialFormState as any);
+  const [inputs, setInputs] = useState(initialFormState);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
-    setInputs((values: {}) => ({ ...values, [name]: value }));
+    setInputs((values) => ({ ...values, [name]: value }));
   };
   const handleShowPassword = () => {
     setShowPassword((prev) => !prev);
@@ -33,10 +34,19 @@ const Form = () => {
     auth
       .loginBuyer(inputs)
       .then((res) => {
-        console.log(res, "res")
-        storeUserDetails(res.user);
-        storeUserToken(res.tokens.accessToken);
-        navigate("/dashboard");
+        if (res.statusCode === 200) {
+          storeUserDetails(res.user);
+          storeUserToken(res.tokens.accessToken);
+          navigate("/dashboard");
+        }
+        if (res.statusCode === 409) {
+          customtoast(res.message, true);
+          auth
+            .resendVerifyBuyer({ email: inputs.email })
+            .then((rese) => customtoast(rese.message))
+            .catch((err) => console.log(err));
+          navigate(`/verification?email=${inputs.email}`);
+        }
       })
       .catch((err) => console.log(err))
       .finally(() => dispatch(loadingStop()));

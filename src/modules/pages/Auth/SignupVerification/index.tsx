@@ -86,7 +86,7 @@ const SignupVerification = () => {
     }
   };
 
-  const [value, setValue] = useState({ pin: "", email: query.get("email") });
+  const [value, setValue] = useState({ confirmationCode: "", email: query.get("email") });
   const [error, setError] = useState(null) as any;
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -96,7 +96,13 @@ const SignupVerification = () => {
       .verifyBuyer(value)
       .then((res) => {
         console.log(res);
-        setSuccess((prev) => !prev);
+        if (res.statusCode === 200) {
+          setSuccess((prev) => !prev);
+        }
+        if (res.statusCode >= 400) {
+          customtoast(res.message, true);
+          setValue((prev) => ({ ...prev, confirmationCode: "" }));
+        }
       })
       .catch((err) => {
         customtoast("Fail, Error Occured");
@@ -106,10 +112,11 @@ const SignupVerification = () => {
 
   const handlerResendCode = () => {
     dispatch(loadingStart("resend_code"));
+    setValue((prev) => ({ ...prev, confirmationCode: "" }));
     auth
       .resendVerifyBuyer({ email: query.get("email") })
       .then((res) => customtoast("Sucess, Check your mail"))
-      .catch((err) => customtoast("Fail, Error Encountered"))
+      .catch((err) => customtoast("Fail, Error Encountered", true))
       .finally(() => dispatch(loadingStop()));
   };
 
@@ -125,11 +132,11 @@ const SignupVerification = () => {
 
           <StyledReactInputVerificationCode>
             <ReactInputVerificationCode
-              value={value.pin}
+              value={value.confirmationCode}
               placeholder={""}
               length={6}
               onChange={(newValue: string) => {
-                setValue((prev) => ({ ...prev, pin: newValue }));
+                setValue((prev) => ({ ...prev, confirmationCode: newValue }));
 
                 if (newValue !== "") {
                   setError(null);
@@ -154,7 +161,7 @@ const SignupVerification = () => {
           <CustomButton
             className="verify_btn"
             type="submit"
-            disabled={!(value.pin.length === 6) || isloading}
+            disabled={!(value.confirmationCode.length === 6) || isloading}
             action={() => dispatch(Signup("success"))}
             actionText="Verify"
           />

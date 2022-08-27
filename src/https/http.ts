@@ -12,7 +12,7 @@ interface HTTPParams {
 }
 
 export interface HTTPResponse<T = any> {
-  status: string;
+  statusCode: number;
   data: T;
   tokens?: any;
   user?: any;
@@ -51,18 +51,20 @@ export const httpRequest = async (
     }
 
     const res = await fetch(`${BASE_URL}/${url}`, options);
-    if (res.status >= 400) {
-      throw new Error();
-    }
+    // if (res.status >= 400) {
+    //   console.log(res)
+    //   // throw new Error(res);
+    // }
     if (res.status === 401) {
       clearUserDetails();
       window.location.reload();
     }
-    if (res.status === 409) {
-      //   navigate("/");
-      // window.location.pathname
-      // console.log(res.re);
-    }
+    // if (res.status === 409) {
+    //   // console.log(res)
+    //   //   navigate("/");
+    //   // window.location.pathname
+    //   // console.log(res.re);
+    // }
     const result: any = await res.json();
     // const responseData = result.response
     return result;
