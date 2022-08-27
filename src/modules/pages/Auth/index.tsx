@@ -2,7 +2,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import logo from "../../../static/images/logo.svg";
 import { useAppSelector } from "../../../common/components/redux/hooks";
 import CustomAlert from "../../../common/components/CustomAlert";
-import { fetchUserToken } from "../../../https/storerage";
+import { fetchUserToken } from "../../../https/storage";
 
 const Auth = () => {
   const { modal, modalType } = useAppSelector((state) => state.alert);

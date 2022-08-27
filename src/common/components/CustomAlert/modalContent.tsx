@@ -59,7 +59,7 @@ const ModalContent = ({
       } ${type === "alert" ? "alertModal__wrapper" : ""}
       ${type === "disputeitem" ? "dispute__wrapper" : ""} 
       ${type === "newtransaction" ? "newtransaction__wrapper" : ""}
-      `}
+      cover_screen`}
       progress={progress}
       isModal={isModal}
     >

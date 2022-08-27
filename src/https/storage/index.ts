@@ -1,13 +1,13 @@
 import { STORAGE_KEYS } from "../constant";
 
-const getItem = (key: string) => {
+export const getItem = (key: string) => {
   return localStorage.getItem(key) || null;
 };
 const removeItem = (key: string) => {
   return localStorage.removeItem(key);
 };
 
-const setItem = (key: string, value: any) => {
+export const setItem = (key: string, value: any) => {
   return localStorage.setItem(key, value);
 };
 

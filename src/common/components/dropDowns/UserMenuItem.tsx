@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { clearUserDetails } from "../../../https/storerage";
+import { clearUserDetails } from "../../../https/storage";
 import LogoutIcon from "../customIcons/LogoutIcon";
 import ReminderIcon from "../customIcons/ReminderIcon";
 import SettingsIcon from "../customIcons/SettingsIcon";

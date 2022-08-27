@@ -15,7 +15,7 @@ import { Alerts } from "../redux/alert/alertActions";
 import steve from "../../../static/images/steve.svg";
 import statusIndicator from "../../../static/images/status_indicator.svg";
 import HandWave from "../customIcons/HandWave";
-import { fetchUserDetails } from "../../../https/storerage";
+import { fetchUserDetails } from "../../../https/storage";
 
 type Iheader = {
   newUser?: boolean;

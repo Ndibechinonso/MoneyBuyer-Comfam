@@ -7989,6 +7989,16 @@ react-scripts@5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
+react-select-nigeria-states-lga@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-select-nigeria-states-lga/-/react-select-nigeria-states-lga-1.0.2.tgz#1911d673fa011d98518899ccdd6b91af27f2eb8e"
+  integrity sha512-W5L2EqwZE0Sr5AAJ27iFPFEiHbtu3DRxAsjJeOv/mzQg/HAaKXuY4qvOUfUfUbe0vzVnjnjTvDrobA/AkzSeHg==
+
+react-select-states-and-lga-in-nigeria@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/react-select-states-and-lga-in-nigeria/-/react-select-states-and-lga-in-nigeria-2.1.2.tgz#b4fdac2985857697cc262b736e2f09a546ba523c"
+  integrity sha512-EqJVRn6l87Nx9kKju+8dKq29lm9SKNtCGtWq4Jl2+zjcfvVBcpVGw83ed2jYA/iRm1jtIiD7P8o831J4MTxiVA==
+
 react-style-singleton@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/react-style-singleton/-/react-style-singleton-2.2.1.tgz#f99e420492b2d8f34d38308ff660b60d0b1205b4"

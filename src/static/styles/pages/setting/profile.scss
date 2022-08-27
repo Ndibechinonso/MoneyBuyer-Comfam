@@ -60,7 +60,7 @@
       font-weight:500;
       color: var(--greyColorGrey1);
     }
-    &_input{
+    &_input, ._3S8bS select{
       display: block;
       outline: 0;
       height: 3.4375rem;
@@ -81,6 +81,9 @@
         font-size: 1rem;
       }
     }
+    .state-input{
+      margin-bottom: 1.5rem;
+    }
     .flex{
       display: flex;
       align-items: center;
@@ -89,7 +92,7 @@
         padding-right: 0.5625rem;
         font-size: 1rem;
         display: flex;
-        align-items: flex-end;
+        align-items: center;
         justify-content: center;
         span{
           padding-left: 0.3125rem;

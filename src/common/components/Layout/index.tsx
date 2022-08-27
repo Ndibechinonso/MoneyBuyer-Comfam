@@ -8,7 +8,7 @@ import Notice from "./Notice";
 import CustomAlert from "../CustomAlert";
 import { useAppSelector } from "../redux/hooks";
 import Messages from "../Messages";
-import { fetchUserDetails, fetchUserToken } from "../../../https/storerage";
+import { fetchUserDetails, fetchUserToken } from "../../../https/storage";
 import admin from "../../../modules/service/admin";
 
 function Layout() {

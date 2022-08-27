@@ -3,7 +3,7 @@ import CustomButton from "../../customButtons";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { BsEyeSlash, BsEye } from "react-icons/bs";
 import auth from "../../../../modules/service/auth";
-import { storeUserDetails, storeUserToken } from "../../../../https/storerage";
+import { storeUserDetails, storeUserToken } from "../../../../https/storage";
 import { useNavigate } from "react-router-dom";
 import { loadingStart, loadingStop } from "../../redux/apploader";
 import customtoast from "../../customToast";
@@ -38,6 +38,7 @@ const Form = () => {
     auth
       .loginBuyer(inputs)
       .then((res) => {
+        console.log(res, "me")
         setIsSubmitted(false);
         storeUserToken(res.tokens.accessToken);
         storeUserDetails(res.user)
