@@ -19,6 +19,7 @@ const Form = () => {
     password: "",
   };
   const [inputs, setInputs] = useState(initialFormState);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -30,25 +31,27 @@ const Form = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsSubmitted(true);
+    if (!validate) return;
+    console.log(inputs);
     dispatch(loadingStart(""));
     auth
       .loginBuyer(inputs)
       .then((res) => {
-        if (res.statusCode === 200) {
-          storeUserDetails(res.user);
-          storeUserToken(res.tokens.accessToken);
-          navigate("/dashboard");
-        }
-        if (res.statusCode === 409) {
-          customtoast(res.message, true);
-          auth
-            .resendVerifyBuyer({ email: inputs.email })
-            .then((rese) => customtoast(rese.message))
-            .catch((err) => console.log(err));
-          navigate(`/verification?email=${inputs.email}`);
-        }
+        setIsSubmitted(false);
+        storeUserToken(res.tokens.accessToken);
+        storeUserDetails(res.user)
+        navigate("/dashboard");
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        setIsSubmitted(false);
+        customtoast(err.message, true);
+        auth
+          .resendVerifyBuyer({ email: inputs.email })
+          .then((res) => customtoast(res.message))
+          .catch((err) => console.log(err));
+        navigate(`/verification?email=${inputs.email}`);
+      })
       .finally(() => dispatch(loadingStop()));
   };
 
@@ -70,12 +73,16 @@ const Form = () => {
               onChange={handleChange}
               placeholder="Enter Email Address"
             />
+            {isSubmitted && !inputs.email && (
+              <small className="input_error text-red-1 text-xs">
+                *Required
+              </small>
+            )}
           </div>
           <div className="form_group">
             <label htmlFor={`${id}-password`}>Password</label>
             <div className="seller_container_form_input_container">
               <input
-                required
                 disabled={isloading}
                 autoComplete="off"
                 className="seller_container_form_input"
@@ -93,12 +100,17 @@ const Form = () => {
               >
                 {!showPassword ? <BsEyeSlash /> : <BsEye />}
               </button>
+              {isSubmitted && !inputs.password && (
+                <small className="input_error text-red-1 text-xs">
+                  *Required
+                </small>
+              )}
             </div>
           </div>
 
           <CustomButton
             className="signup_btn"
-            disabled={!validate || isloading}
+            disabled={isloading}
             type="submit"
             action={handleSubmit}
             actionText="Sign In"

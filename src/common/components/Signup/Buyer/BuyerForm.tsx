@@ -6,10 +6,13 @@ import auth from "../../../../modules/service/auth";
 import { useNavigate } from "react-router-dom";
 import customtoast from "../../customToast";
 import { loadingStart, loadingStop } from "../../redux/apploader";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 
 const BuyerForm = () => {
   const id = useId();
   const dispatch = useAppDispatch();
+  const [showPassword, setShowPassword] = useState(false);
+
   const { isloading } = useAppSelector((state) => state.isloading);
   const navigate = useNavigate();
   const initialFormState = {
@@ -20,10 +23,18 @@ const BuyerForm = () => {
     signupTAC: false,
   };
   const [inputs, setInputs] = useState(initialFormState);
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
 const validatePassword = (password: any) =>{
   return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)
 }
+
+const validateEmail = (email: any) =>{
+return /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)
+}
+const handleShowPassword = () => {
+  setShowPassword((prev) => !prev);
+};
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name;
     if (name !== "signupTAC") {
@@ -33,15 +44,15 @@ const validatePassword = (password: any) =>{
       setInputs((values) => ({ ...values, [name]: event.target.checked }));
     }
   };
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    dispatch(loadingStart(""));
-    auth
-      .registerBuyer(inputs)
-      .then((res) => navigate(`/verification?email=${inputs.email}`))
-      .catch((err) => customtoast(err.message))
-      .finally(() => dispatch(loadingStop()));
-  };
+  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   dispatch(loadingStart(""));
+  //   auth
+  //     .registerBuyer(inputs)
+  //     .then((res) => navigate(`/verification?email=${inputs.email}`))
+  //     .catch((err) => customtoast(err.message))
+  //     .finally(() => dispatch(loadingStop()));
+  // };
 
   const validate =
     inputs.first_name &&
@@ -50,6 +61,18 @@ const validatePassword = (password: any) =>{
     // inputs.password
     validatePassword(inputs.password) &&
     inputs.signupTAC;
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitted(true)
+    if(!validate) return
+    dispatch(loadingStart(""));
+    auth
+      .registerBuyer(inputs)
+      .then((res) => { setIsSubmitted(false); navigate(`/verification?email=${inputs.email}`) })
+      .catch((err) => {  setIsSubmitted(false); customtoast(err.message)})
+      .finally(() => dispatch(loadingStop()));
+  };
 
   return (
     <div className="biodata_container">
@@ -66,7 +89,9 @@ const validatePassword = (password: any) =>{
               onChange={handleChange}
               placeholder="Enter First Name"
             />
+           {isSubmitted && !inputs.first_name && <small className="input_error text-red-1 text-xs">*Required</small> }
           </div>
+          
 
           <div className="form_group">
             <label htmlFor={`${id}-last_name`}>Last Name</label>
@@ -79,6 +104,8 @@ const validatePassword = (password: any) =>{
               onChange={handleChange}
               placeholder="Enter Last Name"
             />
+         {isSubmitted && !inputs.last_name && <small className="input_error text-red-1 text-xs">*Required</small> }
+
           </div>
           <div className="form_group">
             <label htmlFor={`${id}-email`}>Email Address</label>
@@ -91,21 +118,36 @@ const validatePassword = (password: any) =>{
               onChange={handleChange}
               placeholder="Enter Email Address"
             />
+         {isSubmitted && !inputs.email && <small className="input_error text-red-1 text-xs">*Required</small> }
+         {isSubmitted && !validateEmail(inputs.email) && <small className="input_error text-red-1 text-xs">  Please provide a valid email</small> }
+
+         
           </div>
           <div className="form_group">
             <label htmlFor={`${id}-password`}>Password</label>
+            <div className="seller_container_form_input_container">
             <input
-              required
+              
               disabled={isloading}
               className="seller_container_form_input"
               name="password"
               id={`${id}-password`}
               value={inputs.password}
               onChange={handleChange}
-              type="password"
+              type={`${showPassword ? "text" : "password"}`}
               placeholder="Password"
               // pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
             />
+                <button
+                type="button"
+                onClick={handleShowPassword}
+                className="seller_container_form_input_icon"
+              >
+                {!showPassword ? <BsEyeSlash /> : <BsEye />}
+              </button>
+              </div>
+          {isSubmitted && !validatePassword(inputs.password) && <small className="input_error text-red-1 text-xs">Password must contain 1 capital , 1 small letter, 1 number, 1 special character and have a minimum length of 8</small> }
+
           </div>
 
           <div className="ts_con">
@@ -123,12 +165,14 @@ const validatePassword = (password: any) =>{
               } signup_ta cursor-pointer`}
             >
               By creating an account I agree to the Terms & Conditions
-            </label>
+            </label> <br />
+            {isSubmitted && !inputs.signupTAC && <small className="input_error text-red-1 text-xs">*Required</small> }
+
           </div>
 
           <CustomButton
-            className="signup_bt_n"
-            disabled={!validate || isloading}
+            className="signup_btn"
+            disabled={isloading}
             type="submit"
             action={() => null}
             actionText="Create Account"

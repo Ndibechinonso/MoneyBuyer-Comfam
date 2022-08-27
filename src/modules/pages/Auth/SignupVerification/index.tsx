@@ -86,7 +86,10 @@ const SignupVerification = () => {
     }
   };
 
-  const [value, setValue] = useState({ confirmationCode: "", email: query.get("email") });
+  const [value, setValue] = useState({
+    confirmationCode: "",
+    email: query.get("email"),
+  });
   const [error, setError] = useState(null) as any;
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -96,16 +99,11 @@ const SignupVerification = () => {
       .verifyBuyer(value)
       .then((res) => {
         console.log(res);
-        if (res.statusCode === 200) {
-          setSuccess((prev) => !prev);
-        }
-        if (res.statusCode >= 400) {
-          customtoast(res.message, true);
-          setValue((prev) => ({ ...prev, confirmationCode: "" }));
-        }
+        setSuccess((prev) => !prev);
       })
       .catch((err) => {
-        customtoast("Fail, Error Occured");
+        customtoast(err.message, true);
+        setValue((prev) => ({ ...prev, confirmationCode: "" }));
       })
       .finally(() => dispatch(loadingStop()));
   };
