@@ -1,38 +1,39 @@
 import ENDPOINTS from "../../../https/endpoints";
-import { httpRequest } from "../../../https/http";
+import { makeUnauthorizedRequestWithHeadersAndPayload } from "../../../https/http";
+import { HTTPResponse } from "../../../https/http";
 
-const auth = {
-  async registerBuyer(body: any) {
+const auth =  {
+  async registerBuyer(body: any)  : Promise<HTTPResponse> {
     const { method, url } = ENDPOINTS.auth.register;
-    return httpRequest({ url, method, body });
+    return makeUnauthorizedRequestWithHeadersAndPayload( method, url, body );
   },
-  async loginBuyer(body: any) {
+  async loginBuyer(body: any) : Promise<HTTPResponse>  {
     const { method, url } = ENDPOINTS.auth.login;
-    return httpRequest({ url, method, body });
+    return makeUnauthorizedRequestWithHeadersAndPayload( method, url, body );
   },
-  async verifyBuyer(body: any) {
+  async verifyBuyer(body: any) : Promise<HTTPResponse>  {
     const { method, url } = ENDPOINTS.auth.verify_user;
-    return httpRequest({ url, method, body });
+    return makeUnauthorizedRequestWithHeadersAndPayload( method, url, body );
   },
-  async resendVerifyBuyer(body: any) {
+  async resendVerifyBuyer(body: any) : Promise<HTTPResponse>  {
     const { method, url } = ENDPOINTS.auth.resend_code;
-    return httpRequest({ url, method, body });
+    return makeUnauthorizedRequestWithHeadersAndPayload( method, url, body );
   },
-  async resetPassword(body: any) {
+  async resetPassword(body: any) : Promise<HTTPResponse>  {
     const { method, url } = ENDPOINTS.auth.reset_password;
-    return httpRequest({ url, method, body });
+    return makeUnauthorizedRequestWithHeadersAndPayload( method, url, body );
   },
-  async changePassword(body: any) {
+  async changePassword(body: any) : Promise<HTTPResponse>  {
     const { method, url } = ENDPOINTS.auth.change_password;
-    return httpRequest({ url, method, body });
+    return makeUnauthorizedRequestWithHeadersAndPayload( method, url, body );
   },
-  async verifyBuyerBvn(body: any) {
+  async verifyBuyerBvn(body: any)  : Promise<HTTPResponse> {
     const { method, url } = ENDPOINTS.auth.verify_bvn;
-    return httpRequest({ url, method, body });
+    return makeUnauthorizedRequestWithHeadersAndPayload( method, url, body );
   },
-  async completeBuyerProfile(body: any) {
+  async completeBuyerProfile(body: any) : Promise<HTTPResponse>  {
     const { method, url } = ENDPOINTS.auth.complete_profile;
-    return httpRequest({ url, method, body });
+    return makeUnauthorizedRequestWithHeadersAndPayload( method, url, body );
   },
 };
 

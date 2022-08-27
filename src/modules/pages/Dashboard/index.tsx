@@ -26,12 +26,12 @@ function Dashboard() {
         completedRegistration={false}
         message={NewUserPageDictionary.message}
       /> */}
-      <DashboardCardGroup />
+      {/* <DashboardCardGroup /> */}
       <div className="dashboard_container_grid">
-<ActiveContracts />
+{/* <ActiveContracts />
 <BarChart />  
 <TransactionHistory />
-<ClientContact />
+<ClientContact /> */}
 {/* <RecentTransaction /> */}
 </div>
     </div>

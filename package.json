@@ -14,6 +14,7 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "axios": "^0.27.2",
     "chart.js": "^3.8.0",
     "clsx": "^1.1.1",
     "dayjs": "^1.11.3",
