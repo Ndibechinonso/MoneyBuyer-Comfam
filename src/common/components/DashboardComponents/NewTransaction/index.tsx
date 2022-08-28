@@ -13,13 +13,39 @@ import Service from "./Service";
 const NewTransaction = () => {
   const id = useId();
   const dispatch = useAppDispatch();
-  const [isModal, setModal] = useState(true);
+  // const [isModal, setModal] = useState(true);
   const [headerTittle, setHeaderTitle] = useState("New Transaction");
+  const initialState = {
+    type: "SERVICE",
+    sellerDetails: {
+      email: "johnloydlegend@yahoo.com.au",
+      phone_number: "09021132111",
+    },
+    ProductName: "Game girl",
+    quantity: "3",
+    description: "Testers  product",
+    productModel: "X6",
+    images: [
+      "https://scontent.flos1-1.fna.fbcdn.net/v/t1.18169-9/16406792_1697302513620567_6685930053906838018_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=e3f864&_nc_eui2=AeGkTDrrc3-2Wwlyl9Bmr6zQshCopVX0KsGyEKilVfQqwZKpyTzIUN8nnRdYF4Lj5zZHT4LNJ_QQI_qeixpZK5QV&_nc_ohc=UIvpxr22luYAX_057Md&_nc_ht=scontent.flos1-1.fna&oh=00_AT8OE5vhzkLu5l96muMoUaRA30nWAW3EH-csvQFbwTsRCw&oe=62DBAA7D",
+    ],
+    completionDueDate: "2022-06-25T17:01:58.353Z",
+    price: "40000",
+    deliveryAddress:
+      "price must be a number conforming to the specified constraints",
+    transactionFee: "2000",
+  };
+  const [inputs, setInputs] = useState(initialState);
   const [productNumber, setProductNumber] = useState(1);
   const [serviceNumber, setServiceNumber] = useState(1);
   const changeFormState = (state: string) => {
     setHeaderTitle(state);
   };
+
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement> |React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+  };
+
   return (
     <div className="new_transaction_container">
       <div className="new_transaction_header">
@@ -39,7 +65,7 @@ const NewTransaction = () => {
             src={closemodal}
             alt="close modal"
             onClick={() => {
-              setModal(false);
+              // setModal(false);
               dispatch(Alerts(""));
             }}
             className="cursor-pointer"
@@ -77,8 +103,10 @@ const NewTransaction = () => {
               <input
                 className="new_transaction_form_input"
                 id={`${id}-buyer_email`}
-                type="text"
+                type="email"
                 placeholder="james@email.com"
+                value={inputs.sellerDetails.email}
+                onChange={changeHandler}
               />
             </div>
 
@@ -89,6 +117,8 @@ const NewTransaction = () => {
                 id={`${id}-phoneNumber`}
                 type="tel"
                 placeholder="070-123-432-11"
+                value={inputs.sellerDetails.phone_number}
+                onChange={changeHandler}
               />
             </div>
           </div>
@@ -99,8 +129,10 @@ const NewTransaction = () => {
               <input
                 className="new_transaction_form_input"
                 id={`${id}-due_date`}
-                type="text"
+                type="date"
                 placeholder="1805/2020"
+                value={inputs.completionDueDate}
+                onChange={changeHandler}
               />
             </div>
             <div className="form_group">
@@ -110,13 +142,22 @@ const NewTransaction = () => {
                 id={`${id}-delivery_address`}
                 type="text"
                 placeholder="Lagos Nigeria"
+                value={inputs.deliveryAddress}
+                onChange={changeHandler}
               />
             </div>
           </div>
 
-          {Array.from(Array(productNumber)).map((item, index) => (
-            <Product key={index} />
-          ))}
+          {/* {Array.from(Array(productNumber)).map((item, index) => ( */}
+          <Product
+            product_description={inputs.description}
+            product_image={inputs.images}
+            product_name={inputs.ProductName}
+            product_price={inputs.price}
+            product_quantity={inputs.quantity}
+            changeHandler={changeHandler}
+          />
+          {/* ))} */}
 
           <div className="add_product">
             <span

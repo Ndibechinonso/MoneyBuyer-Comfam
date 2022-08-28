@@ -1,6 +1,26 @@
 import { useState, useId } from "react";
 
-const Product = () => {
+interface Iproduct {
+  product_name: string;
+  product_price: string;
+  product_image: Array<string>;
+  product_quantity: string;
+  product_description: string;
+  changeHandler: (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => void;
+}
+
+const Product = ({
+  product_name,
+  product_price,
+  product_image,
+  product_quantity,
+  product_description,
+  changeHandler,
+}: Iproduct) => {
   const id = useId();
 
   return (
@@ -14,6 +34,8 @@ const Product = () => {
             id={`${id}-product_name`}
             type="text"
             placeholder="Laptop"
+            onChange={changeHandler}
+            value={product_name}
           />
         </div>
         <div className="form_group">
@@ -23,6 +45,8 @@ const Product = () => {
             id={`${id}-product_price`}
             type="text"
             placeholder="140,0000"
+            value={product_price}
+            onChange={changeHandler}
           />
         </div>
       </div>
@@ -34,6 +58,8 @@ const Product = () => {
             id={`${id}-product_image`}
             type="file"
             placeholder="No file Chosen"
+            // value={product_image}
+            onChange={changeHandler}
           />
         </div>
         <div className="form_group">
@@ -43,6 +69,8 @@ const Product = () => {
             id={`${id}-product_quantity`}
             type="text"
             placeholder="0"
+            value={product_quantity}
+            onChange={changeHandler}
           />
         </div>
       </div>
@@ -52,7 +80,9 @@ const Product = () => {
           className="new_transaction_form_input new_transaction_description"
           id={`${id}-product_description`}
           placeholder="Enter product’s description"
-        ></textarea>
+          value={product_description}
+          onChange={changeHandler}
+        />
       </div>
       <div className="insurance_div">
         <div className="check_div">

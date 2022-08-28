@@ -7989,11 +7989,6 @@ react-scripts@5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
-react-select-nigeria-states-lga@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-select-nigeria-states-lga/-/react-select-nigeria-states-lga-1.0.2.tgz#1911d673fa011d98518899ccdd6b91af27f2eb8e"
-  integrity sha512-W5L2EqwZE0Sr5AAJ27iFPFEiHbtu3DRxAsjJeOv/mzQg/HAaKXuY4qvOUfUfUbe0vzVnjnjTvDrobA/AkzSeHg==
-
 react-select-states-and-lga-in-nigeria@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/react-select-states-and-lga-in-nigeria/-/react-select-states-and-lga-in-nigeria-2.1.2.tgz#b4fdac2985857697cc262b736e2f09a546ba523c"
