@@ -1,6 +1,7 @@
 import { useState, useId } from "react";
 import Milestone from "./Milestone";
 import addmilestone from "../../../../static/images/add_milestone.svg";
+import CustomImageInput from "../../CustomImageInput";
 
 const Service = () => {
   const id = useId();
@@ -21,18 +22,27 @@ const Service = () => {
         </div>
 
         <div className="form_group">
-          <label htmlFor={`${id}-service_price`}> Service Price </label>
+          <label htmlFor={`${id}-service_quantity`}> Service Quantity </label>
           <input
             className="new_transaction_form_input"
-            id={`${id}-service_price`}
+            id={`${id}-service_quantity`}
             type="text"
-            placeholder="800000"
+            placeholder="e.g 10"
           />
         </div>
       </div>
 
       <div className="form_row">
         <div className="form_group">
+          <label htmlFor={`${id}-service_price`}> Service Price </label>
+          <input
+            className="new_transaction_form_input"
+            id={`${id}-service_price`}
+            type="text"
+            placeholder="e.g 1000"
+          />
+        </div>
+        {/* <div className="form_group">
           <label htmlFor={`${id}-product_image`}> Service Photo </label>
           <input
             className="new_transaction_form_input"
@@ -40,7 +50,8 @@ const Service = () => {
             type="file"
             placeholder="No file Chosen"
           />
-        </div>
+        </div> */}
+        {/* <CustomImageInput /> */}
       </div>
 
       <div className="form_group">

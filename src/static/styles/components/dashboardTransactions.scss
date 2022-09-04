@@ -1,20 +1,89 @@
-
 .new_transaction {
+  overflow: hidden;
   &_container {
     border-radius: 16px;
     width: 834px;
     max-height: 646px;
     overflow-y: scroll;
     padding: 0 1.75rem 10.5rem 1.75rem;
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
       display: none;
     }
-    
-    input{
-    display: block;
-    padding: 17px 16px;
-    border: 1px solid #bdbdbd;
-    border-radius: 4px;
+
+    textarea,
+    input {
+      display: block;
+      padding: 17px 16px;
+      border: 1px solid #bdbdbd;
+      border-radius: 4px;
+    }
+    .product_image {
+      display: flex;
+      position: relative;
+      border: 1px solid #bdbdbd;
+      border-radius: 4px;
+      overflow: hidden;
+      height: calc(36px + 15.5px);
+    }
+
+    [accept="image/png, image/jpeg"] {
+      background-color: red;
+      z-index: 1;
+      // visibility: hidden;
+      opacity: 0;
+      cursor: pointer;
+      width: 7.25rem !important;
+
+      & ~ div {
+        // width: 100%;
+        // flex: 1;
+        padding: 0 0.5rem;
+        background-color: var(--blackColorWhite);
+        display: flex;
+        align-items: center;
+        column-gap: 0.5rem;
+        .product_img {
+          padding: 0.125rem;
+          background-color: rgba($color: #828282, $alpha: 0.4);
+          color: var(--blackColorWhite);
+          height: 2rem;
+          width: 3rem;
+          object-fit: cover;
+          border-radius: 4px;
+          position: relative;
+          cursor: pointer;
+
+          &:hover {
+            &::after {
+              content: "x";
+              display: grid;
+              place-items: center;
+              position: absolute;
+              background-color: red;
+              border-radius: 50%;
+              width: 20px;
+              height: 20px;
+              right: -4px;
+              top: -4px;
+            }
+          }
+        }
+      }
+      & ~ span {
+        z-index: 0;
+        cursor: pointer;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        padding: 1rem 1.25rem 0.875rem 1rem;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        background-color: var(--greyColorGrey6);
+        @include normalTextRegular;
+        color: var(--greyColorGrey3);
+      }
     }
     form {
       .milestone {
@@ -48,7 +117,6 @@
         font-size: 1.125rem;
         color: #4f4f4f;
         margin-bottom: 1.06rem;
-
       }
       .form_row {
         @include flexRow;
@@ -58,6 +126,13 @@
           font-weight: 500;
           font-size: 1.125rem;
           color: #4f4f4f;
+        }
+
+        .form_group {
+          flex: 1;
+          input {
+            width: 100%;
+          }
         }
       }
       .insurance_div {
@@ -71,14 +146,14 @@
         @include flexRow;
         gap: 7px;
         align-items: center;
-        color: #044DA1;
+        color: #044da1;
       }
-      .add_product{
-       justify-content: flex-end;
-       span{
-        width: 116px;
-        margin-left: auto;
-       }
+      .add_product {
+        justify-content: flex-end;
+        span {
+          width: 116px;
+          margin-left: auto;
+        }
       }
     }
 
@@ -88,6 +163,17 @@
       padding-top: 1.5rem;
       @include flexRow;
       justify-content: center;
+      z-index: 11;
+
+      &_title {
+        flex: 1;
+        p {
+          text-align: center;
+          margin-top: 0.5rem;
+          @include smallTextMedium;
+          color: var(--greyColorGrey3);
+        }
+      }
 
       h4 {
         font-weight: 500;
@@ -97,9 +183,48 @@
         text-align: center;
       }
       // .close_div {
-        // @include flexRow;
-        // width: 100%
+      // @include flexRow;
+      // width: 100%
       // }
+    }
+    .new_transaction_footer {
+      // background-color: var(--blackColorWhite);
+      z-index: 11;
+      position: fixed;
+      inset: auto 0 0 0;
+      display: flex;
+      justify-content: space-between;
+      // padding: 20px 40px 20px 40px;
+
+      padding: 1.25rem 1.75rem 2.5rem 1.75rem;
+      border-bottom-left-radius: 1rem;
+      border-bottom-right-radius: 1rem;
+
+      .insurance_break-down {
+        @include flexRow;
+        gap: 6.45px;
+        align-items: flex-start;
+        align-content: flex-start;
+        font-weight: 500;
+        font-size: 20px;
+        color: var(--greyColorGrey2);
+        .price {
+          font-size: 1.125rem;
+          font-weight: 500;
+          color: var(--stateColorSuccess);
+        }
+        .vat{
+          color: var(--greyColorGrey3);
+          font-weight: 400;
+        }
+      }
+      img {
+        width: 18px;
+      }
+      .submit_div {
+        @include flexRow;
+        align-items: center;
+      }
     }
 
     .transaction_cards_container {
@@ -118,10 +243,9 @@
       }
     }
   }
-  &_form_input {
-    min-width: 353px;
-
-  }
+  // &_form_input {
+  //   // min-width: 353px;
+  // }
   &_description {
     min-width: 100% !important;
     min-height: 104px;

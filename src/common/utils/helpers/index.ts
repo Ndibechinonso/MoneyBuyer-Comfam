@@ -71,3 +71,9 @@ export const getObject = (path:string): GetObjReturn=> {
 
     return value
  }
+
+ export const toNaira = (amount: string) =>
+  parseInt(amount === ""? "0":amount)?.toLocaleString("en-NG", {
+    style: "currency",
+    currency: "NGN",
+  });
