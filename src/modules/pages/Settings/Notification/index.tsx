@@ -59,7 +59,6 @@ console.log(payload3)
 
   return (
     <div className ='feedback__container'>
-    {/* <CustomAlert alertType="accountverified"/> */}
 
     <form onSubmit={handleSubmit}>
 

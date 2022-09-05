@@ -28,7 +28,7 @@ const headers = {
 
 
 const setAuthorization = () => ({
-  Authorization: `Bearer ${fetchUserToken()}`,
+  "Authorization": `Bearer ${fetchUserToken()}`,
 });
 
 /** axios instance **/

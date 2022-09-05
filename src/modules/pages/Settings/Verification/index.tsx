@@ -22,8 +22,8 @@ function Verification() {
   const id = useId();
   const navigate = useNavigate();
 
-  const [selectState, setSelectState] = useState('')
-const [lga, setLga] = useState('')
+  const [state, setSelectState] = useState('')
+const [local_gov, setLga] = useState('')
 
   const [inputs, setInputs] = useState(initialFormState);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -53,12 +53,13 @@ const [lga, setLga] = useState('')
   inputs.city &&
   inputs.local_gov
 
+
+  useEffect(()=>{
+    setInputs({...inputs, state, local_gov})
+  }, [state, local_gov])
+  
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const state = selectState
-    const local_gov = lga
-    const updatedPayload = {...inputs, state, local_gov}
-    setInputs(updatedPayload)
     setIsSubmitted(true)
     if(!validate) return
     setItem("verification", JSON.stringify(inputs))
@@ -169,18 +170,18 @@ const [lga, setLga] = useState('')
 
                   <div className="form_group">
                   <Select
-    state={selectState}
-    lga={lga}
+    state={state}
+    lga={local_gov}
     changeState={handleStateChange}
     changeLga={handleLgaChange}
   />
-       {isSubmitted && (!selectState || !lga) && <small className="input_error text-red-1 text-xs">*Required</small> }
+       {isSubmitted && (!state || !local_gov) && <small className="input_error text-red-1 text-xs">*Required</small> }
 </div>
             </div>
               <CustomButton
                 className="profile__cta"
                 type="submit"
-                action={() => null}
+                action={() =>{}}
                 actionText="Next"
               />    
       </form>

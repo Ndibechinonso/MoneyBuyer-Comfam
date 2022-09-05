@@ -13,7 +13,7 @@ import admin from "../../../modules/service/admin";
 
 function Layout() {
   const { pathname } = useLocation();
-  const [userError, setUserError] = useState(false);
+  const [userError, setUserError] = useState(true);
   const [newUser, setNewUser] = useState(true);
   const value = getObject(getFirstLevelPath(pathname));
   const { modal, modalType } = useAppSelector((state) => state.alert);
