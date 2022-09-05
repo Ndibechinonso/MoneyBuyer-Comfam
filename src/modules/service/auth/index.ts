@@ -1,5 +1,5 @@
 import ENDPOINTS from "../../../https/endpoints";
-import { makeUnauthorizedRequestWithHeadersAndPayload } from "../../../https/http";
+import { makeAuthorizedRequestWithHeadersAndPayload, makeUnauthorizedRequestWithHeadersAndPayload } from "../../../https/http";
 import { HTTPResponse } from "../../../https/http";
 
 const auth =  {
@@ -33,7 +33,7 @@ const auth =  {
   },
   async completeBuyerProfile(body: any) : Promise<HTTPResponse>  {
     const { method, url } = ENDPOINTS.auth.complete_profile;
-    return makeUnauthorizedRequestWithHeadersAndPayload( method, url, body );
+    return makeAuthorizedRequestWithHeadersAndPayload( method, url, body );
   },
 };
 

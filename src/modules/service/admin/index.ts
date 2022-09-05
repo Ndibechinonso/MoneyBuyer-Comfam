@@ -1,6 +1,6 @@
 import ENDPOINTS from "../../../https/endpoints";
 import { makeAuthorizedRequestWithHeadersAndPayload } from "../../../https/http";
-import { HTTPResponse } from "../../../https/http";
+// import { HTTPResponse } from "../../../https/http";
 const admin = {
   async newTransaction(body: any) {
     const { method, url } = ENDPOINTS.transaction.new_transaction;
@@ -35,6 +35,11 @@ const admin = {
   async searchForTransaction(id: string) {
     const method = ENDPOINTS.transaction.search_transactions.method;
     const url = ENDPOINTS.transaction.search_transactions.url(id);
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url);
+  },
+  async uploadImage(fileName: string) {
+    const method = ENDPOINTS.file_handling.upload_s3_image.method;
+    const url = ENDPOINTS.file_handling.upload_s3_image.url(fileName);
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
 };

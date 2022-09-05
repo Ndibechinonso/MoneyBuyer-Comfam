@@ -24,8 +24,8 @@ export interface HTTPResponse<T = any> {
 const headers = {
   "Content-Type": "application/json",
   Accept: "application/json",
+  x_api_key: "D77961BB64A885E6B716E699EA52B",
 };
-
 
 const setAuthorization = () => ({
   "Authorization": `Bearer ${fetchUserToken()}`,
@@ -42,13 +42,13 @@ instance.defaults.timeout = 60000;
 
 /** axios interceptor to trigger a logout on unauthorized error response code **/
 instance.interceptors.response.use(
-  (response:any) => {
+  (response: any) => {
     return response.data;
   },
-  (error:any) => {
+  (error: any) => {
     if (
       error.response &&
-      (error.response.status === 307 || error.response.status === 403)
+      (error.response.status === 307 || error.response.status === 403 || error.response.status === 401)
     ) {
       clearData();
       window.location.reload();
@@ -59,12 +59,8 @@ instance.interceptors.response.use(
     }
 
     return Promise.reject(
-      error
-        ? error.response
-          ? error.response.data
-          : error.response
-          : null
-        // : Language.NetworkErrorMessage.errorMessage
+      error ? (error.response ? error.response.data : error.response) : null
+      // : Language.NetworkErrorMessage.errorMessage
     );
   }
 );
@@ -73,7 +69,8 @@ instance.interceptors.response.use(
 export const makeGetRequest = (path: string) => instance.get(path);
 
 /** make an axios post request **/
-export const makePostRequest = (path: string, payload: any) => instance.post(path, payload);
+export const makePostRequest = (path: string, payload: any) =>
+  instance.post(path, payload);
 
 /** make an axios request for a guest **/
 export const makeUnauthorizedRequestWithHeadersAndPayload = async (

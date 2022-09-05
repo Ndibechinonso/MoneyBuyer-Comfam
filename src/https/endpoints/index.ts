@@ -63,6 +63,16 @@ const ENDPOINTS = {
       url: (id: string) => `/transaction/search?search=${id}`,
     },
   },
+  file_handling: {
+    upload_s3_image: {
+      method: "GET",
+      url: (fileName: string) => `/file/upload-url?key=${fileName}`,
+    },
+    download_s3_image: {
+      method: "GET",
+      url: (key: string) => `/file/get-upload-url?key=${key}`,
+    },
+  },
 };
 
 export default ENDPOINTS;

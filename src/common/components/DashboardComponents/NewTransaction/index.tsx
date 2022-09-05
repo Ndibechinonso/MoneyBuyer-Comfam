@@ -1,65 +1,140 @@
 import { useState, useId } from "react";
-import CustomModal from "../../CustomModal";
+// import CustomModal from "../../CustomModal";
 import CustomButton from "../../customButtons";
 import closemodal from "../../../../static/images/dashboard_modal_close.svg";
 import ArrowLeft from "../../customIcons/ArrowLeft";
-import addProduct from "../../../../static/images/add_product.svg";
+// import addProduct from "../../../../static/images/add_product.svg";
 import info from "../../../../static/images/insurance_info.svg";
 import { Alerts } from "../../../components/redux/alert/alertActions";
 import { useAppDispatch } from "../../redux/hooks";
 import Product from "./Product";
 import Service from "./Service";
+import { toNaira } from "../../../utils/helpers";
+import Calender from "../../customDate";
+import admin from "../../../../modules/service/admin";
+import customtoast from "../../customToast";
 
 const NewTransaction = () => {
   const id = useId();
   const dispatch = useAppDispatch();
   // const [isModal, setModal] = useState(true);
-  const [headerTittle, setHeaderTitle] = useState("New Transaction");
+  // const [inputs.type, setHeaderTitle] = useState("NEW_TRANSACTION");
   const initialState = {
-    type: "SERVICE",
+    type: "NEW_TRANSACTION",
     sellerDetails: {
-      email: "johnloydlegend@yahoo.com.au",
-      phone_number: "09021132111",
+      email: "",
+      phone_number: "",
     },
-    ProductName: "Game girl",
-    quantity: "3",
-    description: "Testers  product",
-    productModel: "X6",
-    images: [
-      "https://scontent.flos1-1.fna.fbcdn.net/v/t1.18169-9/16406792_1697302513620567_6685930053906838018_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=e3f864&_nc_eui2=AeGkTDrrc3-2Wwlyl9Bmr6zQshCopVX0KsGyEKilVfQqwZKpyTzIUN8nnRdYF4Lj5zZHT4LNJ_QQI_qeixpZK5QV&_nc_ohc=UIvpxr22luYAX_057Md&_nc_ht=scontent.flos1-1.fna&oh=00_AT8OE5vhzkLu5l96muMoUaRA30nWAW3EH-csvQFbwTsRCw&oe=62DBAA7D",
-    ],
-    completionDueDate: "2022-06-25T17:01:58.353Z",
-    price: "40000",
-    deliveryAddress:
-      "price must be a number conforming to the specified constraints",
-    transactionFee: "2000",
-  };
-  const [inputs, setInputs] = useState(initialState);
-  const [productNumber, setProductNumber] = useState(1);
-  const [serviceNumber, setServiceNumber] = useState(1);
-  const changeFormState = (state: string) => {
-    setHeaderTitle(state);
+    ProductName: "",
+    quantity: "",
+    description: "",
+    productModel: "",
+    images: [""],
+    completionDueDate: "",
+    price: "",
+    deliveryAddress: "",
+    transactionFee: "",
   };
 
-  const changeHandler = (e: React.ChangeEvent<HTMLInputElement> |React.ChangeEvent<HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    console.log(name, value);
+  const [inputs, setInputs] = useState(initialState);
+  const [startDate, setStartDate] = useState(new Date());
+  const [rawImages, setRawImages] = useState([]);
+  // const [productNumber, setProductNumber] = useState(1);
+  // const [serviceNumber, setServiceNumber] = useState(1);
+
+  const regex = new RegExp("^[0-9]*$");
+
+  // const changeFormState = (state: string) => {
+  //   setHeaderTitle(state);
+  // };
+
+  const changeHandler = (
+    e: React.ChangeEvent<HTMLInputElement> &
+      React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const {
+      name,
+      value,
+      files,
+      dataset: { cat, type },
+    } = e.target;
+
+    if (!files) {
+      if (!cat && type === "numeric" && regex.test(value)) {
+        setInputs((prev) => ({ ...prev, [name]: value }));
+      }
+      if (!cat && type !== "numeric") {
+        setInputs((prev) => ({ ...prev, [name]: value }));
+      }
+      if (cat && name !== "phone_number") {
+        setInputs((prev) => ({
+          ...prev,
+          sellerDetails: { ...prev.sellerDetails, [name]: value },
+        }));
+      }
+      if (cat && name === "phone_number" && regex.test(value)) {
+        setInputs((prev) => ({
+          ...prev,
+          sellerDetails: { ...prev.sellerDetails, [name]: value },
+        }));
+      }
+    }
+    if (files.length) {
+      setRawImages((prev) => [...prev, files.item(0)]);
+      // admin
+      //   .uploadImage(files.item(0).name)
+      //   .then((res) => customtoast(res.statusText))
+      //   .catch((err) => console.log(err));
+    }
+  };
+
+  const removeImageHandler = (file: any) => {
+    const temp = rawImages.filter(
+      (img) => img.lastModified !== file.lastModified
+    );
+    setRawImages([...temp]);
+  };
+
+  const dateChange = (date: any) => {
+    setStartDate(date);
+    setInputs((prev) => ({ ...prev, completionDueDate: date }));
+  };
+
+  const changeType = (type: string) => {
+    setInputs((prev) => ({ ...prev, type }));
+  };
+
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // admin
+    //   .uploadImage("x.png")
+    //   .then((res) => customtoast("it worked"))
+    //   .catch((err) => console.log(err));
   };
 
   return (
-    <div className="new_transaction_container">
-      <div className="new_transaction_header">
-        {headerTittle !== "New Transaction" ? (
+    <section className="new_transaction_container">
+      <header className="new_transaction_header">
+        {inputs.type !== "NEW_TRANSACTION" ? (
           <div
             className="cursor-pointer"
             onClick={() => {
-              changeFormState("New Transaction");
+              setInputs(initialState);
             }}
           >
             <ArrowLeft />
           </div>
         ) : null}
-        <h4>{headerTittle}</h4>
+        <div className="new_transaction_header_title">
+          {inputs.type === "PRODUCT" && <h4>Product Purchase</h4>}
+          {inputs.type === "SERVICE" && <h4>Service Purchase</h4>}
+          {inputs.type === "NEW_TRANSACTION" && (
+            <>
+              <h4>New Transaction</h4>
+              <p>Select one of the following options</p>
+            </>
+          )}
+        </div>
         <div className="close_div">
           <img
             src={closemodal}
@@ -71,211 +146,196 @@ const NewTransaction = () => {
             className="cursor-pointer"
           />
         </div>
-      </div>
-      {headerTittle === "New Transaction" ? (
-        <div className="transaction_cards_container">
-          <div
-            className="transaction_card cursor-pointer"
-            onClick={() => {
-              changeFormState("Buyer ’s Information");
-            }}
-          >
-            Product
-          </div>
-          <div
-            className="transaction_card cursor-pointer"
-            onClick={() => {
-              changeFormState("Consultant Information");
-            }}
-          >
-            Service
-          </div>
-        </div>
-      ) : null}
+      </header>
 
-      {headerTittle === "Buyer ’s Information" ? (
-        <form>
-          <h5>Buyer ’s Information</h5>
-
-          <div className="form_row">
-            <div className="form_group">
-              <label htmlFor={`${id}-buyer_email`}> Buyer ID/ Email </label>
-              <input
-                className="new_transaction_form_input"
-                id={`${id}-buyer_email`}
-                type="email"
-                placeholder="james@email.com"
-                value={inputs.sellerDetails.email}
-                onChange={changeHandler}
-              />
-            </div>
-
-            <div className="form_group">
-              <label htmlFor={`${id}-phoneNumber`}> Buyer Phone Number </label>
-              <input
-                className="new_transaction_form_input"
-                id={`${id}-phoneNumber`}
-                type="tel"
-                placeholder="070-123-432-11"
-                value={inputs.sellerDetails.phone_number}
-                onChange={changeHandler}
-              />
-            </div>
-          </div>
-
-          <div className="form_row">
-            <div className="form_group">
-              <label htmlFor={`${id}-due_date`}> Payment Due Date </label>
-              <input
-                className="new_transaction_form_input"
-                id={`${id}-due_date`}
-                type="date"
-                placeholder="1805/2020"
-                value={inputs.completionDueDate}
-                onChange={changeHandler}
-              />
-            </div>
-            <div className="form_group">
-              <label htmlFor={`${id}-delivery_address`}>Delivery Address</label>
-              <input
-                className="new_transaction_form_input"
-                id={`${id}-delivery_address`}
-                type="text"
-                placeholder="Lagos Nigeria"
-                value={inputs.deliveryAddress}
-                onChange={changeHandler}
-              />
-            </div>
-          </div>
-
-          {/* {Array.from(Array(productNumber)).map((item, index) => ( */}
-          <Product
-            product_description={inputs.description}
-            product_image={inputs.images}
-            product_name={inputs.ProductName}
-            product_price={inputs.price}
-            product_quantity={inputs.quantity}
-            changeHandler={changeHandler}
-          />
-          {/* ))} */}
-
-          <div className="add_product">
-            <span
-              className="check_div"
-              onClick={() => setProductNumber((prev) => prev + 1)}
+      <form onSubmit={submitHandler}>
+        {inputs.type === "NEW_TRANSACTION" ? (
+          <div className="transaction_cards_container">
+            <div
+              className="transaction_card cursor-pointer"
+              onClick={() => {
+                changeType("PRODUCT");
+              }}
             >
-              <img src={addProduct} alt="add product" />
-              <div className="submit_div">Add product</div>
-            </span>
+              Product
+            </div>
+            <div
+              className="transaction_card cursor-pointer"
+              onClick={() => {
+                changeType("SERVICE");
+              }}
+            >
+              Service
+            </div>
           </div>
-          <div className="new_transaction_form_footer">
+        ) : null}
+        {inputs.type === "PRODUCT" ? (
+          <>
+            <h5>Seller’s Information</h5>
+
+            <div className="form_row">
+              <div className="form_group">
+                <label htmlFor={`${id}-buyer_email`}> Seller ID/ Email </label>
+                <input
+                  className="new_transaction_form_input"
+                  id={`${id}-buyer_email`}
+                  type="email"
+                  name="email"
+                  placeholder="james@email.com"
+                  data-cat="sellerDetails"
+                  value={inputs.sellerDetails.email}
+                  onChange={changeHandler}
+                />
+              </div>
+
+              <div className="form_group">
+                <label htmlFor={`${id}-phoneNumber`}>Seller Phone Number</label>
+                <input
+                  className="new_transaction_form_input"
+                  id={`${id}-phoneNumber`}
+                  type="tel"
+                  name="phone_number"
+                  data-cat="sellerDetails"
+                  placeholder="070-123-432-11"
+                  value={inputs.sellerDetails.phone_number}
+                  onChange={changeHandler}
+                />
+              </div>
+            </div>
+
+            <div className="form_row">
+              <div className="form_group">
+                <label htmlFor={`${id}-due_date`}> Payment Due Date </label>
+                {/* <input
+                  className="new_transaction_form_input"
+                  id={`${id}-due_date`}
+                  type="date"
+                  placeholder="1805/2020"
+                  value={inputs.completionDueDate}
+                  onChange={changeHandler}
+                /> */}
+                <Calender
+                  onChange={dateChange}
+                  type="picker"
+                  startDate={startDate}
+                />
+              </div>
+              <div className="form_group">
+                <label htmlFor={`${id}-delivery_address`}>
+                  Delivery Address
+                </label>
+                <input
+                  className="new_transaction_form_input"
+                  id={`${id}-delivery_address`}
+                  type="text"
+                  placeholder="Lagos Nigeria"
+                  value={inputs.deliveryAddress}
+                  onChange={changeHandler}
+                />
+              </div>
+            </div>
+
+            <Product
+              product_description={inputs.description}
+              product_image={rawImages}
+              product_name={inputs.ProductName}
+              product_price={inputs.price}
+              product_quantity={inputs.quantity}
+              changeHandler={changeHandler}
+              removeImageHandler={removeImageHandler}
+            />
+          </>
+        ) : null}
+        {inputs.type === "SERVICE" ? (
+          <>
+            <h5>Consultant Information</h5>
+
+            <div className="form_row">
+              <div className="form_group">
+                <label htmlFor={`${id}-consultant_email`}>
+                  Consultant ID/Email
+                </label>
+                <input
+                  className="new_transaction_form_input"
+                  id={`${id}-consultant_email`}
+                  type="text"
+                  placeholder="Confam money ID or Email"
+                />
+              </div>
+              <div className="form_group">
+                <label htmlFor={`${id}-phoneNumber`}>
+                  Consultant Phone Number
+                </label>
+                <input
+                  className="new_transaction_form_input"
+                  id={`${id}-phoneNumber`}
+                  type="tel"
+                  placeholder="e.g. 070-123-432-11"
+                />
+              </div>
+            </div>
+            <div className="form_row">
+              <div className="form_group">
+                <label htmlFor={`${id}-due_date`}> Payment Due Date </label>
+                <Calender
+                  onChange={dateChange}
+                  type="picker"
+                  startDate={startDate}
+                />
+              </div>
+              <div className="form_group">
+                <label htmlFor={`${id}-delivery_address`}>
+                  Delivery Address (Optional)
+                </label>
+                <input
+                  className="new_transaction_form_input"
+                  id={`${id}-delivery_address`}
+                  type="text"
+                  placeholder="e.g 18 Akoka, Lagos"
+                />
+              </div>
+            </div>
+            <Service
+              product_description={inputs.description}
+              product_image={rawImages}
+              product_name={inputs.ProductName}
+              product_price={inputs.price}
+              product_quantity={inputs.quantity}
+              changeHandler={changeHandler}
+              removeImageHandler={removeImageHandler}
+            />
+          </>
+        ) : null}
+        {inputs.type !== "NEW_TRANSACTION" ? (
+          <footer className="new_transaction_footer">
             <div className="insurance_break-down">
               <span>
                 <img src={info} alt="insurance info" />
               </span>
               <div>
-                <div>
-                  Transaction fee: <span className="price">₦1,000</span>
-                </div>
-                <div>
-                  Insurance: <span className="price">₦1,500</span>
-                </div>
+                {/* <p>
+                  Transaction fee:{" "}
+                  <span className="price">{toNaira(inputs.price)}</span>
+                </p> */}
+
+                {/* {inputs.type === "SERVICE" ? (
+                  <p>
+                    VAT: <span className="vat">₦450</span>
+                  </p>
+                ) : null} */}
               </div>
             </div>
 
-            <div className="submit_div">
-              <CustomButton
-                className="profile__cta"
-                action={() => alert("Send Transaction")}
-                actionText="Send Transaction"
-              />
-            </div>
-          </div>
-        </form>
-      ) : null}
-
-      {headerTittle === "Consultant Information" ? (
-        <form>
-          <h5>Consultant Information</h5>
-
-          <div className="form_row">
-            <div className="form_group">
-              <label htmlFor={`${id}-consultant_email`}>
-                Consultant ID/Email
-              </label>
-              <input
-                className="new_transaction_form_input"
-                id={`${id}-consultant_email`}
-                type="text"
-                placeholder="Abrahamcollins@gmail.com"
-              />
-            </div>
-            <div className="form_group">
-              <label htmlFor={`${id}-phoneNumber`}>
-                Consultant Phone Number
-              </label>
-              <input
-                className="new_transaction_form_input"
-                id={`${id}-phoneNumber`}
-                type="tel"
-                placeholder="070-123-432-11"
-              />
-            </div>
-          </div>
-          <div className="form_row">
-            <div className="form_group">
-              <label htmlFor={`${id}-due_date`}> Payment Due Date </label>
-              <input
-                className="new_transaction_form_input"
-                id={`${id}-due_date`}
-                type="text"
-                placeholder="30/03/2022"
-              />
-            </div>
-            <div className="form_group">
-              <label htmlFor={`${id}-delivery_address`}>
-                Delivery Address (Optional)
-              </label>
-              <input
-                className="new_transaction_form_input"
-                id={`${id}-delivery_address`}
-                type="text"
-                placeholder="Lagos Nigeria"
-              />
-            </div>
-          </div>
-          {Array.from(Array(serviceNumber)).map((item, index) => (
-            <Service key={index} />
-          ))}
-          <div
-            className="check_div"
-            style={{ marginTop: "18px" }}
-            onClick={() => setServiceNumber((prev) => prev + 1)}
-          >
-            <img src={addProduct} alt="add product" />
-            <div className="submit_div">Add Service</div>
-          </div>
-          <div className="new_transaction_form_footer">
-            <div className="insurance_break-down">
-              <span>
-                <img src={info} alt="insurance info" />
-              </span>
-              <div>
-                Transaction fee: <span className="price">₦1,000</span>
-              </div>
-            </div>
-
-            <div className="submit_div">
-              <CustomButton
-                className="profile__cta"
-                action={() => alert("Send Transaction")}
-                actionText="Send Transaction"
-              />
-            </div>
-          </div>
-        </form>
-      ) : null}
-    </div>
+            <CustomButton
+              type="submit"
+              className="profile__cta"
+              action={() => alert("Send Transaction")}
+              actionText="Send Transaction"
+            />
+          </footer>
+        ) : null}
+      </form>
+    </section>
   );
 };
 

@@ -11,6 +11,9 @@
   box-sizing: border-box;
   font-family: "Calibre", sans-serif;
 }
+// * {
+//   outline: 1px soild red;
+// }
 a {
   text-decoration: none;
   color: inherit;
@@ -25,11 +28,11 @@ button {
   border: none;
 }
 
-html {
-  font-size: 16px;
+// html {
+  // font-size: 16px;
   // height: 100vh;
   // overflow: hidden;
-}
+// }
 
 ::-webkit-scrollbar {
   width: 8px;
@@ -50,13 +53,13 @@ html {
   text-align: center;
 }
 .input_error {
-  color: #C92E2E;
+  color: #c92e2e;
   font-size: 0.875rem;
 }
-.cover_screen{
-  // z-index: 100000;
-  // width: 100vw;
-  // height: 100vh;
-  // position: absolute;
-  // top: 0;
-}
+// .cover_screen {
+// z-index: 100000;
+// width: 100vw;
+// height: 100vh;
+// position: absolute;
+// top: 0;
+// }
