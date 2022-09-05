@@ -11,6 +11,8 @@ import Product from "./Product";
 import Service from "./Service";
 import { toNaira } from "../../../utils/helpers";
 import Calender from "../../customDate";
+import admin from "../../../../modules/service/admin";
+import customtoast from "../../customToast";
 
 const NewTransaction = () => {
   const id = useId();
@@ -29,7 +31,7 @@ const NewTransaction = () => {
     productModel: "",
     images: [""],
     completionDueDate: "",
-    price: "40000",
+    price: "",
     deliveryAddress: "",
     transactionFee: "",
   };
@@ -78,7 +80,11 @@ const NewTransaction = () => {
       }
     }
     if (files.length) {
-      setRawImages((prev) => [...prev, files[0]]);
+      setRawImages((prev) => [...prev, files.item(0)]);
+      // admin
+      //   .uploadImage(files.item(0).name)
+      //   .then((res) => customtoast(res.statusText))
+      //   .catch((err) => console.log(err));
     }
   };
 
@@ -96,6 +102,14 @@ const NewTransaction = () => {
 
   const changeType = (type: string) => {
     setInputs((prev) => ({ ...prev, type }));
+  };
+
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // admin
+    //   .uploadImage("x.png")
+    //   .then((res) => customtoast("it worked"))
+    //   .catch((err) => console.log(err));
   };
 
   return (
@@ -134,7 +148,7 @@ const NewTransaction = () => {
         </div>
       </header>
 
-      <form>
+      <form onSubmit={submitHandler}>
         {inputs.type === "NEW_TRANSACTION" ? (
           <div className="transaction_cards_container">
             <div
@@ -281,7 +295,15 @@ const NewTransaction = () => {
                 />
               </div>
             </div>
-            <Service />
+            <Service
+              product_description={inputs.description}
+              product_image={rawImages}
+              product_name={inputs.ProductName}
+              product_price={inputs.price}
+              product_quantity={inputs.quantity}
+              changeHandler={changeHandler}
+              removeImageHandler={removeImageHandler}
+            />
           </>
         ) : null}
         {inputs.type !== "NEW_TRANSACTION" ? (
@@ -291,16 +313,16 @@ const NewTransaction = () => {
                 <img src={info} alt="insurance info" />
               </span>
               <div>
-                <p>
+                {/* <p>
                   Transaction fee:{" "}
                   <span className="price">{toNaira(inputs.price)}</span>
-                </p>
+                </p> */}
 
-                {inputs.type === "SERVICE" ? (
+                {/* {inputs.type === "SERVICE" ? (
                   <p>
                     VAT: <span className="vat">₦450</span>
                   </p>
-                ) : null}
+                ) : null} */}
               </div>
             </div>
 

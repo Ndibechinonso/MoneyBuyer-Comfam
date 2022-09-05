@@ -3,7 +3,30 @@ import Milestone from "./Milestone";
 import addmilestone from "../../../../static/images/add_milestone.svg";
 import CustomImageInput from "../../CustomImageInput";
 
-const Service = () => {
+interface Iservice {
+  product_name: string;
+  product_price: string;
+  product_image: Array<any>;
+  product_quantity: string;
+  product_description: string;
+  changeHandler: (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => void;
+  removeImageHandler: (file: any) => void;
+}
+
+const Service = (props: Iservice) => {
+  const {
+    changeHandler,
+    product_description,
+    product_image,
+    product_name,
+    product_price,
+    product_quantity,
+    removeImageHandler,
+  } = props;
   const id = useId();
   const [milestoneNumber, setMilestoneNumber] = useState(1);
 
@@ -18,6 +41,9 @@ const Service = () => {
             id={`${id}-service_name`}
             type="text"
             placeholder="UI Design"
+            name="ProductName"
+            value={product_name}
+            onChange={changeHandler}
           />
         </div>
 
@@ -28,6 +54,9 @@ const Service = () => {
             id={`${id}-service_quantity`}
             type="text"
             placeholder="e.g 10"
+            name="qauntity"
+            value={product_quantity}
+            onChange={changeHandler}
           />
         </div>
       </div>
@@ -40,6 +69,9 @@ const Service = () => {
             id={`${id}-service_price`}
             type="text"
             placeholder="e.g 1000"
+            name="price"
+            value={product_price}
+            onChange={changeHandler}
           />
         </div>
         {/* <div className="form_group">
@@ -51,7 +83,12 @@ const Service = () => {
             placeholder="No file Chosen"
           />
         </div> */}
-        {/* <CustomImageInput /> */}
+        <CustomImageInput
+          changeHandler={changeHandler}
+          deleteHandler={removeImageHandler}
+          value={product_image}
+          label="Service Photo"
+        />
       </div>
 
       <div className="form_group">
@@ -60,7 +97,10 @@ const Service = () => {
           className="new_transaction_form_input new_transaction_description"
           id={`${id}-product_description`}
           placeholder="Enter product’s description"
-        ></textarea>
+          name="description"
+          value={product_description}
+          onChange={changeHandler}
+        />
       </div>
 
       <div className="milestone">
