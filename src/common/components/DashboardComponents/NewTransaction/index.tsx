@@ -22,18 +22,18 @@ const NewTransaction = () => {
   const initialState = {
     type: "NEW_TRANSACTION",
     sellerDetails: {
-      email: "",
-      phone_number: "",
+      email: "kirtugoyde@vusra.com",
+      phone_number: "08029326711",
     },
-    ProductName: "",
-    quantity: "",
-    description: "",
-    productModel: "",
-    images: [""],
-    completionDueDate: "",
-    price: "",
-    deliveryAddress: "",
-    transactionFee: "",
+    ProductName: "Green",
+    quantity: "2",
+    description: "Clean and sleek",
+    productModel: "X",
+    images: [],
+    completionDueDate: "january 24th",
+    price: "3000",
+    deliveryAddress: "Lagos",
+    transactionFee: "1300",
   };
 
   const [inputs, setInputs] = useState(initialState);
@@ -81,18 +81,25 @@ const NewTransaction = () => {
     }
     if (files.length) {
       setRawImages((prev) => [...prev, files.item(0)]);
-      // admin
-      //   .uploadImage(files.item(0).name)
-      //   .then((res) => customtoast(res.statusText))
-      //   .catch((err) => console.log(err));
+      admin
+        .uploadImage(files.item(0))
+        .then((res) =>
+          setInputs((prev) => ({
+            ...prev,
+            images: [...prev.images, res.response.data.key],
+          }))
+        )
+        .catch((err) => console.log(err));
     }
   };
 
-  const removeImageHandler = (file: any) => {
+  const removeImageHandler = (file: any, index: number) => {
     const temp = rawImages.filter(
       (img) => img.lastModified !== file.lastModified
     );
+    const temp1 = inputs.images.filter((img, id) => id !== index);
     setRawImages([...temp]);
+    setInputs((prev) => ({ ...prev, images: [...temp1] }));
   };
 
   const dateChange = (date: any) => {
@@ -106,8 +113,9 @@ const NewTransaction = () => {
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     // admin
-    //   .uploadImage("x.png")
+    //   .uploadImage(rawImages[0].name)
     //   .then((res) => customtoast("it worked"))
     //   .catch((err) => console.log(err));
   };

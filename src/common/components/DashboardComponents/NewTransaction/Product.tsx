@@ -12,7 +12,7 @@ interface Iproduct {
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => void;
-  removeImageHandler: (file: any) => void;
+  removeImageHandler: (file: any, idx:number) => void;
 }
 
 const Product = ({

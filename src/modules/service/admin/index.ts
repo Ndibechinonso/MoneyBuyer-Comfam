@@ -1,5 +1,5 @@
 import ENDPOINTS from "../../../https/endpoints";
-import { makeAuthorizedRequestWithHeadersAndPayload } from "../../../https/http";
+import { makeAuthorizedImageUpload, makeAuthorizedRequestWithHeadersAndPayload } from "../../../https/http";
 // import { HTTPResponse } from "../../../https/http";
 const admin = {
   async newTransaction(body: any) {
@@ -37,9 +37,13 @@ const admin = {
     const url = ENDPOINTS.transaction.search_transactions.url(id);
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
-  async uploadImage(fileName: string) {
-    const method = ENDPOINTS.file_handling.upload_s3_image.method;
-    const url = ENDPOINTS.file_handling.upload_s3_image.url(fileName);
+  async uploadImage(file: any) {
+    const url = ENDPOINTS.file_handling.upload_s3_image.url(file.name);
+    return makeAuthorizedImageUpload( url, file);
+  },
+  async getImage(file: any) {
+    const method = ENDPOINTS.file_handling.download_s3_image.method;
+    const url = ENDPOINTS.file_handling.download_s3_image.url(file.name);
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
 };
