@@ -1,66 +1,100 @@
-.profile__container{
+.profile__container {
   width: 100%;
   display: flex;
   // justify-content: center;
   align-items: center;
   padding: 32px 6.31rem;
-  &_header{
+  &_header {
     text-align: center;
     display: flex;
     flex-direction: column;
     margin-bottom: 1.5rem;
-    align-items:center;
-    .profile_picture{
+    align-items: center;
+    .profile_image_div {
+      position: relative;
       width: 6.25rem;
       height: 6.25rem;
       border-radius: 50%;
-      background-position: center;
-      opacity: 50%;
-      background-color: var(--greyColorGrey2);
+      input {
+        visibility: hidden;
+      }
+      .profile_picture_placeholder {
+        position: absolute;
+        background-position: center;
+        border-radius: 50%;
+        opacity: 50%;
+        background-color: var(--greyColorGrey2);
+      }
+      .profile_picture {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 6.25rem;
+        height: 6.25rem;
+        border-radius: 50%;
+        width: 100%;
+        object-fit: cover;
+        z-index: 9;
+        background-color: var(--greyColorGrey2);
+        opacity: 0.5;
+      }
+      p {
+        position: absolute;
+        z-index: 20;
+        left: 0;
+        right: 0;
+        // transform: translate(-50%,-50%);
+        margin: auto;
+        top: 70%;
+        color: #ffffff;
+        font-weight: 500;
+        font-size: 14px;
+      }
     }
-    h4{
+    h4 {
       font-size: 1rem;
       font-weight: 500;
-      margin-top:1rem;
+      margin-top: 1rem;
     }
-    &-copy{
+    &-copy {
       display: flex;
       width: 16.25rem;
       height: 3rem;
       border: 1px dashed var(--greyColorGrey2);
-      align-items:center;
+      align-items: center;
       justify-content: space-between;
       padding: 0 1.0625rem;
-      background-color: #E5F6FE;
+      background-color: #e5f6fe;
       border-radius: 0.625rem;
       margin-top: 1rem;
-      .linkText{
+      .linkText {
         font-weight: 400;
         font-size: 1rem;
         color: var(--greyColorGrey2);
       }
-      .copy{
+      .copy {
         font-weight: 500;
         font-size: 0.75;
         color: var(--brandColorPrimary4);
       }
     }
   }
-  &_form{
+  &_form {
     margin-bottom: 2.25rem;
     @include flexColumn;
     gap: 1.5rem;
     // margin-top: 1.5rem;
     align-items: flex-start;
-        // form{
+    // form{
     //   margin-top: 1.5rem;
     // }
-    label{
+    label {
       font-size: 1.125rem;
-      font-weight:500;
+      font-weight: 500;
       color: var(--greyColorGrey1);
     }
-    &_input, ._3S8bS select{
+    &_input,
+    ._3S8bS select {
       display: block;
       outline: 0;
       height: 3.4375rem;
@@ -70,9 +104,9 @@
       margin-top: 0.25rem;
       border-radius: 0.25rem;
       font-size: 1rem;
-      font-weight:400;
+      font-weight: 400;
       color: var(--greyColorGrey1);
-      input{
+      input {
         border: 0;
         width: 100%;
         padding: 0.625rem 0;
@@ -81,20 +115,20 @@
         font-size: 1rem;
       }
     }
-    .state-input{
+    .state-input {
       margin-bottom: 1.5rem;
     }
-    .flex{
+    .flex {
       display: flex;
       align-items: center;
-      .input_telephone{
+      .input_telephone {
         border-right: 1px solid var(--greyColorGrey4);
         padding-right: 0.5625rem;
         font-size: 1rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        span{
+        span {
           padding-left: 0.3125rem;
         }
       }

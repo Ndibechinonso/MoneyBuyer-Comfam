@@ -46,7 +46,7 @@ function Notification() {
        const email_subcription = checks.email_subcription
        const push_notifications = checks.push_notifications
        const payload3 = {...payload2, notifcation: {
-        sms, email, email_subcription } }
+        sms, email, email_subcription, push_notifications } }
 console.log(payload3)
         auth
         .completeBuyerProfile(payload3)
