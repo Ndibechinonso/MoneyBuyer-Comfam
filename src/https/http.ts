@@ -48,7 +48,9 @@ instance.interceptors.response.use(
   (error: any) => {
     if (
       error.response &&
-      (error.response.status === 307 || error.response.status === 403 || error.response.status === 401)
+      (error.response.status === 307 ||
+        error.response.status === 403 ||
+        error.response.status === 401)
     ) {
       clearData();
       window.location.reload();
@@ -103,6 +105,20 @@ export const makeAuthorizedRequestWithHeadersAndPayload = async (
     },
   });
   return response;
+};
+export const makeAuthorizedImageUpload = async (url: string, data: any) => {
+  const response = await instance.request({
+    method: "GET",
+    url: url,
+    headers: {
+      ...headers,
+      ...setAuthorization(),
+    },
+  });
+
+  const res = await axios.put(response.data.url, [data]);
+
+  return { response, res };
 };
 
 /** make an axios request to submit a file for a logged in user **/

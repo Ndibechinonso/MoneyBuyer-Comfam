@@ -4,7 +4,7 @@ type Props = {
   label: string;
   changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: Array<any>;
-  deleteHandler: (itm: any) => void;
+  deleteHandler: (itm: any, idx:number) => void;
 };
 
 function CustomImageInput(props: Props) {
@@ -30,7 +30,7 @@ function CustomImageInput(props: Props) {
           {value.map((img, idx) => (
             <div key={img?.lastModified} className="product_img">
               <img
-                onClick={() => deleteHandler(img)}
+                onClick={() => deleteHandler(img, idx)}
                 className="product_img"
                 key={img?.lastModified}
                 src={URL.createObjectURL(img)}
