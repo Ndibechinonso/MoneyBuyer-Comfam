@@ -3,7 +3,9 @@
   display: flex;
   // justify-content: center;
   align-items: center;
-  padding: 32px 6.31rem;
+  // padding: 32px 6.31rem;
+  padding: 32px 33% 32px 12%;
+
   .loading_state{
     background: #000000;
     // opacity: 0.5;
@@ -102,6 +104,7 @@
       height: 3.4375rem;
       border: 1px solid var(--greyColorGrey4);
       padding: 1.125rem 1.5rem 0.8125rem 23px;
+      // width: 29rem;
       width: 29rem;
       margin-top: 0.25rem;
       border-radius: 0.25rem;

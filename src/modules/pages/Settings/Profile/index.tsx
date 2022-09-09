@@ -84,6 +84,13 @@ function Profile() {
             ))}
             {rawImage.length > 0 && <p>Remove Image</p>}
           </div>
+
+          <h4> Referral Code </h4>
+                  <div className="profile__container_header-copy">
+                    <h5 className="linkText">www.referrallink</h5>
+                    <h5 className="copy">Copy</h5>
+                  </div>
+                  
         </div>
             <div className="profile__container_form">
               <div className="form_group">
