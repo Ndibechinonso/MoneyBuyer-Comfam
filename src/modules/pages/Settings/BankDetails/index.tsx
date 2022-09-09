@@ -1,90 +1,83 @@
-import React, { useId, useState } from "react";
+import React, { useId, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../../../common/components/customButtons";
-import CustomForm from "../../../../common/components/customForms";
 import { useAppDispatch } from "../../../../common/components/redux/hooks";
-import { BankDetails } from "../../../../common/components/redux/types";
 import { setItem } from "../../../../https/storage";
 
 function BankDetail() {
   const id = useId();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  const initialFormState: any = {
-    bvn: "",
-    bankDetails: {
-      bank_name: "",
-      account_number: "",
-      account_name: "",
-    },
-  };
-
-  const [inputs, setInputs] = useState(initialFormState);
-  const [bvnumber, setBvn] = useState("")
-  const [bankName, setBankName] = useState("")
-  const [accountName, setAccountName] = useState("")
-  const [accountNumber, setAccountNumber] = useState("")
-
-
-
+  const [bvnumber, setBvn] = useState("");
+  const [bankName, setBankName] = useState("");
+  const [accountName, setAccountName] = useState("");
+  const [accountNumber, setAccountNumber] = useState("");
+  const [profilePayload, setprofilePayload] = useState<any>([])
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const validate =
-    bvnumber 
-    &&
-    accountNumber &&
-    bankName &&
-    accountName;
+  useEffect(() => {
+    const payload = localStorage.getItem("verification");
+    if (typeof payload === "string") {
+      const profilePayload = JSON.parse(payload);
+      setprofilePayload(profilePayload)
+      if (
+        !profilePayload.image ||
+        !profilePayload.first_name ||
+        !profilePayload.last_name ||
+        !profilePayload.state ||
+        !profilePayload.phone_number ||
+        !profilePayload.street_number ||
+        !profilePayload.street_name ||
+        !profilePayload.city ||
+        !profilePayload.local_gov
+      ) {
+        navigate("/setting/verification");
+      }
+    }else{
+      navigate("/setting/verification");  
+    }
+  }, []);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    // setInputs((values) => ({ ...values, [name]: value }));
-  };
+  const validate = bvnumber && accountNumber && bankName && accountName;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitted(true);
     if (!validate) return;
-    const payload = localStorage.getItem("verification")
-    console.log(payload, "payload")
-    
-    if (typeof payload === 'string') {
-       const payload2 = JSON.parse(payload)
-      //  const bvn = bvnumber  
-       const bank_name = bankName
-       const account_number = accountNumber
-       const account_name = accountName
-      //  const payload3 = {...payload2, bvn, bankDetails: {
-      //    bank_name, account_number, account_name
-      //  }  }
-       payload2.bvn = bvnumber
-       payload2.bankDetails = {
-        bank_name, account_number, account_name
-      } 
-       setItem("verification", JSON.stringify(payload2));
-       console.log(payload2, "payload2")
+    // const payload = localStorage.getItem("verification");
 
-       navigate(`/setting/notification`)
+    // if (typeof payload === "string") {
+    //   const profilePayload = JSON.parse(payload);
 
-    }
+      if (
+        !profilePayload.image ||
+        !profilePayload.first_name ||
+        !profilePayload.last_name ||
+        !profilePayload.state ||
+        !profilePayload.phone_number ||
+        !profilePayload.street_number ||
+        !profilePayload.street_name ||
+        !profilePayload.city ||
+        !profilePayload.local_gov
+      ) return;
 
+      const bank_name = bankName;
+      const account_number = accountNumber;
+      const account_name = accountName;
+      profilePayload.bvn = bvnumber;
+      profilePayload.bankDetails = {
+        bank_name,
+        account_number,
+        account_name,
+      };
 
-
-    // if(payload){
-    //   const payload2 = JSON.parse(payload)
-    //   const bvn = inputs.bvn
-    //   const updatedPayload = { {}, payload2, bvn }
-
+      setItem("verification", JSON.stringify(profilePayload));
+      navigate(`/setting/notification`);
     // }
-    // setItem("verification", JSON.stringify(inputs));
   };
 
   return (
     <div className="profile__container bank_container">
-      {/* <CustomForm formType="bank" /> */}
-
       <form onSubmit={handleSubmit}>
         <div className="profile__container_form">
           <div className="form_group">

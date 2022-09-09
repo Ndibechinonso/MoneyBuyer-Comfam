@@ -26,6 +26,9 @@ const CustomAlert = ({alertType}: customAlertProps) =>{
         case "profileupdated": template = (<ModalContent type="alert" alertIcon={success} header="Profile Updated" text="You profile have been updated successfully" />)
         break;
 
+        case "feedbackSent": template = (<ModalContent type="alert" alertIcon={success} header="Feedback Sent" text="Thank you for taking the time to help us serve you better!" />)
+        break;
+
         case "transactionaccepted": template = (<ModalContent type="alert" alertIcon={success} singleAction header="Transaction Accepted" text="The buyer would be notified to make payment" />)
         break;
 

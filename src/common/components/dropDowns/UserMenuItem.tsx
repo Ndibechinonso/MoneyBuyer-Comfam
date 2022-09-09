@@ -13,7 +13,7 @@ interface menuProps {}
 function UserMenuItem({}: menuProps) {
   const navigate = useNavigate();
 
-  const logoutHandler = (
+   const logoutHandler = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     clearUserDetails();

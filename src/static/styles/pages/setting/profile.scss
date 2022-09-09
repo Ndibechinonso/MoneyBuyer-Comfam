@@ -62,7 +62,7 @@
     }
     &-copy {
       display: flex;
-      width: 16.25rem;
+      min-width: 16.25rem;
       height: 3rem;
       border: 1px dashed var(--greyColorGrey2);
       align-items: center;
@@ -71,14 +71,15 @@
       background-color: #e5f6fe;
       border-radius: 0.625rem;
       margin-top: 1rem;
+      gap: 20px;
       .linkText {
         font-weight: 400;
-        font-size: 1rem;
+        font-size: 0.6rem;
         color: var(--greyColorGrey2);
       }
       .copy {
         font-weight: 500;
-        font-size: 0.75;
+        font-size: 0.75rem;
         color: var(--brandColorPrimary4);
       }
     }

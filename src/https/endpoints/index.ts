@@ -73,6 +73,10 @@ const ENDPOINTS = {
       url: (key: string) => `/file/get-upload-url?key=${key}`,
     },
   },
+  send_feedback: {
+    method: "POST",
+    url: "feedback",
+  },
 };
 
 export default ENDPOINTS;

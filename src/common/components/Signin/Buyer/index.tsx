@@ -38,7 +38,7 @@ const Form = () => {
     auth
       .loginBuyer(inputs)
       .then((res) => {
-        console.log(res, "me")
+        customtoast(res?.message)
         setIsSubmitted(false);
         storeUserToken(res.tokens.accessToken);
         storeUserDetails(res.user)
@@ -47,11 +47,11 @@ const Form = () => {
       .catch((err) => {
         setIsSubmitted(false);
         customtoast(err.message, true);
-        auth
-          .resendVerifyBuyer({ email: inputs.email })
-          .then((res) => customtoast(res.message))
-          .catch((err) => console.log(err));
-        navigate(`/verification?email=${inputs.email}`);
+        // auth
+        //   .resendVerifyBuyer({ email: inputs.email })
+        //   .then((res) => customtoast(res.message))
+        //   .catch((err) => console.log(err));
+        // navigate(`/verification?email=${inputs.email}`);
       })
       .finally(() => dispatch(loadingStop()));
   };

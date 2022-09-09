@@ -35,6 +35,7 @@ const auth =  {
     const { method, url } = ENDPOINTS.auth.complete_profile;
     return makeAuthorizedRequestWithHeadersAndPayload( method, url, body );
   },
+  
 };
 
 export default auth;
