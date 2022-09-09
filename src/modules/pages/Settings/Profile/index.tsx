@@ -1,62 +1,164 @@
-import React, { useId } from 'react'
+import React, { useId, useRef, useState } from 'react'
 import CustomButton from '../../../../common/components/customButtons'
 import CustomForm from '../../../../common/components/customForms';
 import NaijaFlag from '../../../../common/components/customIcons/NaijaFlag'
+import uploadImg from "../../../../static/images/uploadImg.svg";
+import admin from '../../../service/admin';
 // import userImg from "../../../../static/images/userImage.jpeg";
 
-type Props = {}
 
-function Profile({ }: Props) {
+function Profile() {
   const id = useId()
+
+  const [rawImage, setRawImage] = useState([]);
+  const [imageLoading, setImageLoading] = useState(false);
+  
+  const hiddenFileInput = useRef(null);
+  const openFilePicker = () => {
+    hiddenFileInput.current.click();
+  };
+
+  const changeHandler = (
+    e: React.ChangeEvent<HTMLInputElement> &
+      React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    if(imageLoading) return
+    const { files } = e.target;
+
+    if (files.length) {
+      setRawImage([files.item(0)]);
+      setImageLoading(true)
+      admin
+        .uploadImage(files.item(0))
+        .then((res) => {
+          setImageLoading(false)
+          console.log(res, "res");
+        })
+        .catch((err) => {console.log(err); setImageLoading(false)
+        });
+    }
+  };
+
+  const removeImageHandler = (file: any) => {
+    if(imageLoading) return
+    const temp = rawImage.filter(
+      (img) => img.lastModified !== file.lastModified
+    );
+    setRawImage([...temp]);
+  };
+
+
   return (
     <div className ='profile__container'>
-      <CustomForm formType="profile"/>
-      {/* <div>
-        <div className='profile__container_header'>
-          <div>
-            <img src ={userImg} alt='profile picture'  className='profile_picture'/>
-          </div>
-          <h4> Referral Code </h4>
-          <div className='profile__container_header-copy'> 
-            <h5 className='linkText'>www.referrallink</h5>
-            <h5 className='copy'>Copy</h5>
-          </div>
-        </div>
-        <div className='profile__container_form'>
-          <form>
-            <label htmlFor={`${id}-firstName`}> First Name </label>
-            <input className='profile__container_form_input' id={`${id}-firstName`} type='text' placeholder='First Name'/>
-          </form>
-          <form>
-            <label htmlFor={`${id}-lastName`}> Last Name </label>
-            <input className='profile__container_form_input' id={`${id}-lastName`} type='text' placeholder='Last Name'/>
-          </form>
-          <form>
-            <label htmlFor={`${id}-email`}> Email Address </label>
-            <input className='profile__container_form_input' id={`${id}-email`} type='email' placeholder='Email Address'/>
-          </form>
-          <form>
-            <label htmlFor={`${id}-phoneNumber`}> Phone Number </label>
-            <div className='profile__container_form_input flex'>
-              <div className='input_telephone'>
-                <NaijaFlag />
-                <span> +234 </span>
+        <form onSubmit={(e) => e.preventDefault()}>
+        <div className={`profile__container_header`}>
+          <div className={`profile_image_div cursor-pointer ${imageLoading ? "loading_state" : ""}`}>
+            {rawImage.length < 1 && (
+              <img
+                src={uploadImg}
+                alt="profile mugshot"
+                className="profile_picture_placeholder"
+                onClick={openFilePicker}
+              />
+            )}
+            <input
+              type="file"
+              name="images"
+              value=""
+              ref={hiddenFileInput}
+              accept="image/png, image/jpeg"
+              id={`${id}-product_image`}
+              onChange={changeHandler}
+            />
+
+            {rawImage.map((img, idx) => (
+              <div key={img?.lastModified} className="" >
+                <img
+                  onClick={() => removeImageHandler(img)}
+                  className="profile_picture"
+                  key={img?.lastModified}
+                  src={URL.createObjectURL(img)}
+                  alt={`product`}
+                />
               </div>
-              <input id={`${id}-phoneNumber`} type='tel' placeholder='0703-436-5367'/>
-            </div>
-          </form>
-          <form>
-            <label htmlFor={`${id}-password`}> Password </label>
-            <input className='profile__container_form_input' id={`${id}-password`} type='password' placeholder='Password'/>
-          </form>
-          <form>
-            <label htmlFor={`${id}-confirm_password`}> Confirm Password </label>
-            <input className='profile__container_form_input' id={`${id}-confirm_password`} type='password' placeholder='Confirm Password'/>
-          </form>
+            ))}
+            {rawImage.length > 0 && <p>Remove Image</p>}
+          </div>
         </div>
-        <CustomButton className="profile__cta"  action={() => console.log("profile updated")} actionText="Update Profile" />
-      </div> */}
-    </div>
+            <div className="profile__container_form">
+              <div className="form_group">
+                <label htmlFor={`${id}-firstName`}> First Name </label>
+                <input
+                  className="profile__container_form_input"
+                  id={`${id}-firstName`}
+                  type="text"
+                  placeholder="First Name"
+                />
+              </div>
+              <div className="form_group">
+                <label htmlFor={`${id}-lastName`}> Last Name </label>
+                <input
+                  className="profile__container_form_input"
+                  id={`${id}-lastName`}
+                  type="text"
+                  placeholder="Last Name"
+                />
+              </div>
+              <div className="form_group">
+                <label htmlFor={`${id}-email`}> Email Address </label>
+                <input
+                  className="profile__container_form_input"
+                  id={`${id}-email`}
+                  type="email"
+                  placeholder="Email Address"
+                />
+              </div>
+              <div className="form_group">
+                <label htmlFor={`${id}-phoneNumber`}> Phone Number </label>
+                <div className="profile__container_form_input flex">
+                  <div className="input_telephone">
+                    <NaijaFlag />
+                    <span> +234 </span>
+                  </div>
+                  <input
+                    id={`${id}-phoneNumber`}
+                    type="tel"
+                    placeholder="0703-436-5367"
+                  />
+                </div>
+              </div>
+                  <div className="form_group">
+                    <label htmlFor={`${id}-password`}> Password </label>
+                    <input
+                      className="profile__container_form_input"
+                      id={`${id}-password`}
+                      type="password"
+                      placeholder="Password"
+                    />
+                  </div>
+                  <div className="form_group">
+                    <label htmlFor={`${id}-confirm_password`}>
+                      {" "}
+                      Confirm Password{" "}
+                    </label>
+                    <input
+                      className="profile__container_form_input"
+                      id={`${id}-confirm_password`}
+                      type="password"
+                      placeholder="Confirm Password"
+                    />
+                  </div>
+
+            </div>
+           
+              <CustomButton
+                className="profile__cta"
+                action={() => console.log("profile updated")}
+                actionText="Update Profile"
+              />
+
+      </form>
+      </div>
   )
 }
 

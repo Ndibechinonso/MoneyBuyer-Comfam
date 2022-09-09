@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
-
+import { fetchUserDetails } from "../../../https/storage";
 
 function Settings() {
   return (
@@ -16,6 +16,7 @@ function Settings() {
             Profile
           </NavLink>
         </li>
+      { !fetchUserDetails().verified && 
         <li className="setting__navigation--item">
           <NavLink
             className={({ isActive }) =>
@@ -25,7 +26,8 @@ function Settings() {
           >
             Verification
           </NavLink>
-        </li>
+        </li> }
+        { !fetchUserDetails().verified &&   
         <li className="setting__navigation--item">
           <NavLink
             className={({ isActive }) =>
@@ -36,6 +38,7 @@ function Settings() {
             Bank Detail
           </NavLink>
         </li>
+}
         <li className="setting__navigation--item">
           <NavLink
             className={({ isActive }) =>

@@ -10,7 +10,8 @@ import { loadingStop } from '../../../../common/components/redux/apploader';
 import { useAppDispatch } from '../../../../common/components/redux/hooks';
 import { NotificationProps } from '../../../../common/components/redux/types';
 import auth from '../../../service/auth';
-
+import customtoast from '../../../../common/components/customToast';
+import { fetchUserDetails } from '../../../../https/storage';
 
 const initialFormState: NotificationProps = {
   sms: false,
@@ -37,6 +38,9 @@ function Notification() {
     event.preventDefault();
     setIsSubmitted(true);
     // if (!validate) return;
+if(fetchUserDetails().verified){
+  customtoast("verified")
+}else{
     const payload = localStorage.getItem("verification")
     
     if (typeof payload === 'string') {
@@ -45,15 +49,17 @@ function Notification() {
        const email = checks.email
        const email_subcription = checks.email_subcription
        const push_notifications = checks.push_notifications
-       const payload3 = {...payload2, notifcation: {
-        sms, email, email_subcription, push_notifications } }
-console.log(payload3)
+
+      payload2.notifcation = {
+          sms, email, email_subcription, push_notifications }
+      console.log(payload2)
         auth
-        .completeBuyerProfile(payload3)
-        .then((res) => { console.log(res, "res") })
-        .catch((err) => {  console.log(err.message)})
+        .completeBuyerProfile(payload2)
+        .then((res) => {customtoast(res.message) })
+        .catch((err) => {  customtoast(err.message)})
         .finally(() => dispatch(loadingStop()));
     }
+}
   };
 
 

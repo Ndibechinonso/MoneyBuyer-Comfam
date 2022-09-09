@@ -4,6 +4,10 @@
   // justify-content: center;
   align-items: center;
   padding: 32px 6.31rem;
+  .loading_state{
+    background: #000000;
+    // opacity: 0.5;
+  }
   &_header {
     text-align: center;
     display: flex;
@@ -34,7 +38,6 @@
         border-radius: 50%;
         width: 100%;
         object-fit: cover;
-        z-index: 9;
         background-color: var(--greyColorGrey2);
         opacity: 0.5;
       }
@@ -43,7 +46,6 @@
         z-index: 20;
         left: 0;
         right: 0;
-        // transform: translate(-50%,-50%);
         margin: auto;
         top: 70%;
         color: #ffffff;

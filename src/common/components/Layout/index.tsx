@@ -19,9 +19,9 @@ function Layout() {
   const { modal, modalType } = useAppSelector((state) => state.alert);
 
   useEffect(() => {
-    // if (fetchUserDetails().verified) {
-    //   setUserError(false);
-    // }
+    if (fetchUserDetails().verified) {
+      setUserError(false);
+    }
     // if (fetchUserToken()) {
     //   admin
     //     .getAllTransaction()

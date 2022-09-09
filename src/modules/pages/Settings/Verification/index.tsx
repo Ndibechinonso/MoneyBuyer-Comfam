@@ -11,6 +11,7 @@ import CustomImageInput from "../../../../common/components/CustomImageInput";
 import customtoast from "../../../../common/components/customToast";
 import admin from "../../../service/admin";
 // import CustomImageInput from "../../CustomImageInput";
+import { fetchUserDetails } from "../../../../https/storage";
 
 const initialFormState: VerificationProps = {
   image: "",
@@ -18,7 +19,7 @@ const initialFormState: VerificationProps = {
   last_name: "",
   state: "",
   phone_number: "",
-  street_number: null,
+  street_number: "",
   street_name: "",
   city: "",
   local_gov: "",
@@ -27,43 +28,49 @@ const initialFormState: VerificationProps = {
 function Verification() {
   const id = useId();
   const navigate = useNavigate();
+  const { email } = fetchUserDetails();
 
-  const [rawImages, setRawImages] = useState([]);
-  const [imageUrl, setImageUrl] = useState("")
-  const [state, setSelectState] = useState("");
+  const [rawImage, setRawImage] = useState([]);
+  const [imageLoading, setImageLoading] = useState(false);
+  const [unEditedstate, setSelectState] = useState("");
   const [local_gov, setLga] = useState("");
-
+  const [userEmail, setUserEmail] = useState(email);
   const [inputs, setInputs] = useState(initialFormState);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const hiddenFileInput = useRef(null)
-const openFilePicker = () =>{
-  hiddenFileInput.current.click()
-}
-useEffect(() =>{
-console.log(inputs);
+  const hiddenFileInput = useRef(null);
+  const openFilePicker = () => {
+    hiddenFileInput.current.click();
+  };
 
-}, [inputs])
   const changeHandler = (
     e: React.ChangeEvent<HTMLInputElement> &
       React.ChangeEvent<HTMLTextAreaElement>
   ) => {
+    if(imageLoading) return
     const { files } = e.target;
 
     if (files.length) {
-      setRawImages((prev) => [...prev, files.item(0)]);
+      setRawImage([files.item(0)]);
+      setImageLoading(true)
       admin
-        .uploadImage(files.item(0).name)
-        .then((res) => {customtoast(res.statusText); console.log(res, "res"); inputs.image = (res?.data?.url) })
-        .catch((err) => console.log(err));
+        .uploadImage(files.item(0))
+        .then((res) => {
+          setImageLoading(false)
+          console.log(res, "res");
+          inputs.image = res?.response.data.key;
+        })
+        .catch((err) => {console.log(err); setImageLoading(false)
+        });
     }
   };
 
   const removeImageHandler = (file: any) => {
-    const temp = rawImages.filter(
+    if(imageLoading) return
+    const temp = rawImage.filter(
       (img) => img.lastModified !== file.lastModified
     );
-    setRawImages([...temp]);
+    setRawImage([...temp]);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,7 +90,7 @@ console.log(inputs);
   };
 
   const validate =
-  inputs.image &&
+    inputs.image &&
     inputs.first_name &&
     inputs.last_name &&
     inputs.state &&
@@ -94,27 +101,31 @@ console.log(inputs);
     inputs.local_gov;
 
   useEffect(() => {
+    let state = String(unEditedstate).toLowerCase();
     setInputs({ ...inputs, state, local_gov });
-  }, [state, local_gov]);
+  }, [unEditedstate, local_gov]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitted(true);
     if (!validate) return;
+    console.log(inputs, "inputs");
     setItem("verification", JSON.stringify(inputs));
     navigate(`/setting/bank_detail`);
   };
   return (
     <div className="profile__container">
       <form onSubmit={handleSubmit}>
-        <div className="profile__container_header">
-          <div className="profile_image_div cursor-pointer">
-            {(rawImages.length < 1) && <img
-              src={uploadImg}
-              alt="profile mugshot"
-              className="profile_picture_placeholder"
-              onClick={openFilePicker}
-            /> }
+        <div className={`profile__container_header`}>
+          <div className={`profile_image_div cursor-pointer ${imageLoading ? "loading_state" : ""}`}>
+            {rawImage.length < 1 && (
+              <img
+                src={uploadImg}
+                alt="profile mugshot"
+                className="profile_picture_placeholder"
+                onClick={openFilePicker}
+              />
+            )}
             <input
               type="file"
               name="images"
@@ -125,8 +136,8 @@ console.log(inputs);
               onChange={changeHandler}
             />
 
-            {rawImages.map((img, idx) => (
-              <div key={img?.lastModified} className="">
+            {rawImage.map((img, idx) => (
+              <div key={img?.lastModified} className="" >
                 <img
                   onClick={() => removeImageHandler(img)}
                   className="profile_picture"
@@ -136,12 +147,12 @@ console.log(inputs);
                 />
               </div>
             ))}
-            {(rawImages.length > 0) && <p>Remove Image</p>}
+            {rawImage.length > 0 && <p>Remove Image</p>}
           </div>
         </div>
 
         <div className="profile__container_form">
-          <div className="form_group">
+              <div className="form_group">
             <label htmlFor={`${id}-firstName`}> First Name </label>
             <input
               className="profile__container_form_input"
@@ -183,7 +194,7 @@ console.log(inputs);
               className="profile__container_form_input"
               id={`${id}-email`}
               name="email"
-              // value={inputs.last_name}
+              value={userEmail}
               type="email"
               placeholder="Email Address"
             />
@@ -206,7 +217,12 @@ console.log(inputs);
                 type="tel"
                 name="phone_number"
                 value={inputs.phone_number}
-                onChange={handleChange}
+                onChange={(e) => {
+                  const value = e.target.value.trim();
+                  // if((!/\d+/.test(value) && value !== "") || value.length > 11 || !/\d+/.test(value))return
+                  if (!/^\d*[.]?\d*$/.test(value) || value.length > 11) return;
+                  handleChange(e);
+                }}
                 placeholder="0703-436-5367"
                 minLength={11}
                 maxLength={11}
@@ -224,10 +240,15 @@ console.log(inputs);
             <input
               className="profile__container_form_input"
               id={`${id}-street_number`}
-              type="number"
+              type="text"
               name="street_number"
               value={inputs.street_number}
-              onChange={handleChange}
+              onChange={(e) => {
+                const value = e.target.value.trim();
+                if ((!/\d+/.test(value) && value !== "") || value.length > 11)
+                  return;
+                handleChange(e);
+              }}
               placeholder="Enter Street Number"
             />
             {isSubmitted && !inputs.street_number && (
@@ -275,12 +296,12 @@ console.log(inputs);
 
           <div className="form_group">
             <Select
-              state={state}
+              state={unEditedstate}
               lga={local_gov}
               changeState={handleStateChange}
               changeLga={handleLgaChange}
             />
-            {isSubmitted && (!state || !local_gov) && (
+            {isSubmitted && (!unEditedstate || !local_gov) && (
               <small className="input_error text-red-1 text-xs">
                 *Required
               </small>
@@ -290,6 +311,7 @@ console.log(inputs);
         <CustomButton
           className="profile__cta"
           type="submit"
+          disabled={imageLoading}
           action={() => {}}
           actionText="Next"
         />
