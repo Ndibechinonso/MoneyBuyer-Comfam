@@ -13,6 +13,8 @@ import admin from "../../../service/admin";
 // import CustomImageInput from "../../CustomImageInput";
 import { fetchUserDetails } from "../../../../https/storage";
 
+
+
 const initialFormState: VerificationProps = {
   image: "",
   first_name: "",
@@ -28,7 +30,7 @@ const initialFormState: VerificationProps = {
 function Verification() {
   const id = useId();
   const navigate = useNavigate();
-  const { email } = fetchUserDetails();
+  const { email, first_name, last_name } = fetchUserDetails();
 
   const [rawImage, setRawImage] = useState([]);
   const [imageLoading, setImageLoading] = useState(false);
@@ -110,6 +112,8 @@ function Verification() {
     setIsSubmitted(true);
     if (!validate) return;
     console.log(inputs, "inputs");
+    inputs.first_name = first_name
+    inputs.last_name = last_name
     setItem("verification", JSON.stringify(inputs));
     navigate(`/setting/bank_detail`);
   };
@@ -158,8 +162,10 @@ function Verification() {
               className="profile__container_form_input"
               id={`${id}-firstName`}
               type="text"
+              disabled={true}
               name="first_name"
-              value={inputs.first_name}
+              // value={inputs.first_name}
+              defaultValue={first_name}
               onChange={handleChange}
               placeholder="First Name"
             />
@@ -175,9 +181,11 @@ function Verification() {
             <input
               className="profile__container_form_input"
               id={`${id}-lastName`}
+              disabled={true}
               type="text"
               name="last_name"
-              value={inputs.last_name}
+              // value={inputs.last_name}
+              defaultValue={last_name}
               onChange={handleChange}
               placeholder="Last Name"
             />
@@ -194,11 +202,12 @@ function Verification() {
               className="profile__container_form_input"
               id={`${id}-email`}
               name="email"
-              value={userEmail}
+              // value={userEmail}
+              defaultValue={userEmail}
               type="email"
               placeholder="Email Address"
             />
-            {isSubmitted && !inputs.first_name && (
+            {isSubmitted && userEmail && (
               <small className="input_error text-red-1 text-xs">
                 *Required
               </small>

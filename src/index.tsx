@@ -18,7 +18,7 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <App />
-        <ToastContainer />
+        <ToastContainer limit={3} autoClose={3000}/>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

@@ -34,14 +34,7 @@ export type VerificationProps ={
  city: string;
  local_gov: string;
 }
-export type BankDetails = {
- bvn: string;
- bankDetails: {
-    bank_name: string;
-    account_number: string;
-    account_name: string
- }
-}
+
 
 export type NotificationProps = {
  sms: boolean;
@@ -49,15 +42,9 @@ export type NotificationProps = {
  email_subcription: boolean;
  push_notifications: boolean;
 }
-
-export interface ProfileProps{
-    last_name: string;
-    first_name: string;
-    state: string;
-    phone_number: string;
-    street_name: string;
-    city: string;
-    local_gov: string;
-    bankDetails: BankDetails
-    notifcation: NotificationProps
+export type FeedbackProps ={
+  likes: string;
+    rating: string;
+    feature_request: string;
+    change_request: string;
 }

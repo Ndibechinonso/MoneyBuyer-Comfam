@@ -46,6 +46,10 @@ const admin = {
     const url = ENDPOINTS.file_handling.download_s3_image.url(file.name);
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
+  async sendFeedback(body: any) {
+    const { method, url } = ENDPOINTS.send_feedback;
+    return makeAuthorizedRequestWithHeadersAndPayload( method, url, body );
+  },
 };
 
 export default admin;

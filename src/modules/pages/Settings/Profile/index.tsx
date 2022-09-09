@@ -1,22 +1,34 @@
-import React, { useId, useRef, useState } from 'react'
+import React, { useEffect, useId, useRef, useState } from 'react'
 import CustomButton from '../../../../common/components/customButtons'
 import CustomForm from '../../../../common/components/customForms';
 import NaijaFlag from '../../../../common/components/customIcons/NaijaFlag'
+import { fetchUserDetails } from '../../../../https/storage';
 import uploadImg from "../../../../static/images/uploadImg.svg";
 import admin from '../../../service/admin';
-// import userImg from "../../../../static/images/userImage.jpeg";
-
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import customtoast from '../../../../common/components/customToast';
+import { useNavigate } from 'react-router-dom';
 
 function Profile() {
   const id = useId()
+  const navigate = useNavigate();
+  const userId = fetchUserDetails().id;
+const REACT_APP_FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL
+const { email, first_name, last_name, phone_number } = fetchUserDetails();
 
   const [rawImage, setRawImage] = useState([]);
   const [imageLoading, setImageLoading] = useState(false);
-  
+  const [copied, setCopied] = useState(false)
   const hiddenFileInput = useRef(null);
   const openFilePicker = () => {
     hiddenFileInput.current.click();
   };
+
+  useEffect(()=>{
+    if(!fetchUserDetails().verified){
+      navigate("/setting/verification");
+    }
+  }, [])
 
   const changeHandler = (
     e: React.ChangeEvent<HTMLInputElement> &
@@ -87,8 +99,12 @@ function Profile() {
 
           <h4> Referral Code </h4>
                   <div className="profile__container_header-copy">
-                    <h5 className="linkText">www.referrallink</h5>
-                    <h5 className="copy">Copy</h5>
+                    <h5 className="linkText">{`${REACT_APP_FRONTEND_URL}?referralId=${userId}`}</h5>
+                    <CopyToClipboard text={`${REACT_APP_FRONTEND_URL}?id=${userId}`}
+          onCopy={() => customtoast("Link copied")}>
+          <h5 className="copy">Copy</h5>
+        </CopyToClipboard>
+                    {/* <h5 className="copy">Copy</h5> */}
                   </div>
                   
         </div>
@@ -100,6 +116,8 @@ function Profile() {
                   id={`${id}-firstName`}
                   type="text"
                   placeholder="First Name"
+                  disabled={true}
+                  defaultValue={first_name}
                 />
               </div>
               <div className="form_group">
@@ -109,6 +127,8 @@ function Profile() {
                   id={`${id}-lastName`}
                   type="text"
                   placeholder="Last Name"
+                  defaultValue={last_name}
+                  disabled={true}
                 />
               </div>
               <div className="form_group">
@@ -118,6 +138,8 @@ function Profile() {
                   id={`${id}-email`}
                   type="email"
                   placeholder="Email Address"
+                  defaultValue={email}
+                  disabled={true}
                 />
               </div>
               <div className="form_group">
@@ -131,6 +153,7 @@ function Profile() {
                     id={`${id}-phoneNumber`}
                     type="tel"
                     placeholder="0703-436-5367"
+                    defaultValue={phone_number}
                   />
                 </div>
               </div>

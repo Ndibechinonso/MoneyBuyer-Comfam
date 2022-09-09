@@ -101,7 +101,7 @@ const ModalContent = ({
               <h3 className={`${header === "Reason" ? "selfStart" : ""}`}>
                 {header}
               </h3>
-              {!textArea && <p>{text}</p>}
+              {!textArea && <p style={{maxWidth: "299px", textAlign: "center"}}>{text}</p>}
               {textArea && <ReasonFormModal placeHolder={text} />}
               {alertIcon && singleAction ? (
                 <CustomButton
@@ -110,13 +110,13 @@ const ModalContent = ({
                   actionText="Done"
                 />
               ) : null}
-              {/* {alertIcon && confirmTransaction ? (
+              {alertIcon ? (
                 <CustomButton
                   className="alert_modal_btn"
                   action={() => dispatch(Alerts(""))}
                   actionText="Done"
                 />
-              ) : null} */}
+              ) : null}
 
               {confirmTransaction ? (
                 <div className="confirmation_btn_div">
@@ -138,7 +138,7 @@ const ModalContent = ({
                     className="cancel_btn"
                     action={() => dispatch(Alerts(""))}
                     actionText="Cancel"
-                  />{" "}
+                  />
                   <CustomButton
                     className="confirm_btn"
                     action={() => dispatch(Alerts("cancelreason"))}
