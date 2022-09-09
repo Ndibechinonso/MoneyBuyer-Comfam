@@ -52,16 +52,19 @@ function BankDetail() {
     
     if (typeof payload === 'string') {
        const payload2 = JSON.parse(payload)
-       const bvn = bvnumber  
+      //  const bvn = bvnumber  
        const bank_name = bankName
        const account_number = accountNumber
        const account_name = accountName
-       const payload3 = {...payload2, bvn, bankDetails: {
-         bank_name, account_number, account_name
-       }  }
-
-       setItem("verification", JSON.stringify(payload3));
-       console.log(payload3, "payload2")
+      //  const payload3 = {...payload2, bvn, bankDetails: {
+      //    bank_name, account_number, account_name
+      //  }  }
+       payload2.bvn = bvnumber
+       payload2.bankDetails = {
+        bank_name, account_number, account_name
+      } 
+       setItem("verification", JSON.stringify(payload2));
+       console.log(payload2, "payload2")
 
        navigate(`/setting/notification`)
 

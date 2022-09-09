@@ -29,7 +29,7 @@ function UserMenuItem({}: menuProps) {
         </button>
       </DropDownItem>
       <DropDownItem className="header__dropDownMenu--itm">
-        <button onClick={() => navigate("/setting/bank_detail")}>
+        <button onClick={() => navigate("/setting/profile")}>
           <SettingsIcon />
           Settings
         </button>

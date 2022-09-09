@@ -24,6 +24,7 @@ import ResetPassword from "./modules/pages/Auth/ResetPassword";
 import Breset from "./common/components/ResetPassword/Buyer";
 import Sreset from "./common/components/ResetPassword/Seller";
 import SignupVerification from "./modules/pages/Auth/SignupVerification";
+import { fetchUserDetails } from "./https/storage";
 
 function App() {
   return (
@@ -63,9 +64,13 @@ function App() {
         <Route path="notifications" element={<Notifications />} />
         <Route element={<Settings />}>
           <Route path="setting/profile" element={<Profile />} />
-          <Route path="setting/verification" element={<Verification />} />
-          <Route path="setting/bank_detail" element={<BankDetail />} />
-          <Route path="setting/notification" element={<Notification />} />
+      {!fetchUserDetails().verified &&
+            <>
+         <Route path="setting/verification" element={<Verification />} />
+         <Route path="setting/bank_detail" element={<BankDetail />} />
+         </>
+    }
+        <Route path="setting/notification" element={<Notification />} />
           <Route path="setting/give_feedback" element={<FeedBack />} />
         </Route>
       </Route>

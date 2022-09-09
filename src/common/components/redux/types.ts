@@ -24,10 +24,12 @@ export type NewTransaction = {
 }
 
 export type VerificationProps ={
+  image: string;
  last_name: string;
  first_name: string;
  state: string;
  phone_number: string;
+ street_number: string;
  street_name: string;
  city: string;
  local_gov: string;

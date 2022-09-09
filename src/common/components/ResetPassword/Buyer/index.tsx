@@ -34,6 +34,7 @@ const Form = () => {
 
   return (
     <div className="biodata_container">
+      {customtoast("hello")}
       <form onSubmit={handleSubmit}>
         <div className="seller_container_form">
           <div className="form_group">
