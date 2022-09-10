@@ -5,10 +5,11 @@ type Props = {
   changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: Array<any>;
   deleteHandler: (itm: any, idx:number) => void;
+  disabled?: boolean
 };
 
 function CustomImageInput(props: Props) {
-  const { label, changeHandler, value, deleteHandler } = props;
+  const { label, changeHandler, value, deleteHandler, disabled } = props;
   const id = React.useId();
 
   return (
@@ -20,7 +21,7 @@ function CustomImageInput(props: Props) {
           id={`${id}-product_image`}
           type="file"
           name="images"
-          disabled={value.length === 4}
+          disabled={value.length === 4 || disabled}
           placeholder="No file Chosen"
           accept="image/png, image/jpeg"
           onChange={changeHandler}

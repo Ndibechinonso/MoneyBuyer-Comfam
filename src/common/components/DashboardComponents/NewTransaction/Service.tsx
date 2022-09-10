@@ -2,12 +2,13 @@ import { useState, useId } from "react";
 import Milestone from "./Milestone";
 import addmilestone from "../../../../static/images/add_milestone.svg";
 import CustomImageInput from "../../CustomImageInput";
+import { useAppSelector } from "../../redux/hooks";
 
 interface Iservice {
   product_name: string;
-  product_price: string;
+  product_price: number;
   product_image: Array<any>;
-  product_quantity: string;
+  product_quantity: number;
   product_description: string;
   changeHandler: (
     e:
@@ -29,6 +30,7 @@ const Service = (props: Iservice) => {
   } = props;
   const id = useId();
   const [milestoneNumber, setMilestoneNumber] = useState(1);
+  const {isloading} = useAppSelector(state => state.isloading)
 
   return (
     <div>
@@ -42,6 +44,7 @@ const Service = (props: Iservice) => {
             type="text"
             placeholder="UI Design"
             name="ProductName"
+            disabled={isloading}
             value={product_name}
             onChange={changeHandler}
           />
@@ -55,6 +58,7 @@ const Service = (props: Iservice) => {
             type="text"
             placeholder="e.g 10"
             name="qauntity"
+            disabled={isloading}
             value={product_quantity}
             onChange={changeHandler}
           />
@@ -70,6 +74,7 @@ const Service = (props: Iservice) => {
             type="text"
             placeholder="e.g 1000"
             name="price"
+            disabled={isloading}
             value={product_price}
             onChange={changeHandler}
           />
@@ -87,6 +92,7 @@ const Service = (props: Iservice) => {
           changeHandler={changeHandler}
           deleteHandler={removeImageHandler}
           value={product_image}
+          disabled={isloading}
           label="Service Photo"
         />
       </div>
@@ -98,6 +104,7 @@ const Service = (props: Iservice) => {
           id={`${id}-product_description`}
           placeholder="Enter product’s description"
           name="description"
+          disabled={isloading}
           value={product_description}
           onChange={changeHandler}
         />
