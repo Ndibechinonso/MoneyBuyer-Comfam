@@ -1,7 +1,7 @@
 import React from "react";
 import img from "../../../static/images/unsplash.png";
 import closemodal from "../../../static/images/dashboard_modal_close.svg";
-import ArrowLeft from "../customIcons/ArrowLeft";
+import ArrowLeft from "../CustomIcons/ArrowLeft";
 import { useAppDispatch } from "../redux/hooks";
 import { Alerts } from "../redux/alert/alertActions";
 

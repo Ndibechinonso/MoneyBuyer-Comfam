@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { clearUserDetails } from "../../../https/storage";
-import LogoutIcon from "../customIcons/LogoutIcon";
-import ReminderIcon from "../customIcons/ReminderIcon";
-import SettingsIcon from "../customIcons/SettingsIcon";
-import UserIcon from "../customIcons/UserIcon";
+import LogoutIcon from "../CustomIcons/LogoutIcon";
+import ReminderIcon from "../CustomIcons/ReminderIcon";
+import SettingsIcon from "../CustomIcons/SettingsIcon";
+import UserIcon from "../CustomIcons/UserIcon";
 import DropDownItem from "./primitive/DropDownItem";
 import DropDownMenuContent from "./primitive/DropDownMenuContent";
 

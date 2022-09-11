@@ -1,6 +1,6 @@
 import React from "react";
 import userImg from "../../../../static/images/userImage.jpeg";
-import DropDownIcon from "../../customIcons/DropDownIcon";
+import DropDownIcon from "../../CustomIcons/DropDownIcon";
 
 interface userMenuProps {
   // dropDownHandler: () => void;

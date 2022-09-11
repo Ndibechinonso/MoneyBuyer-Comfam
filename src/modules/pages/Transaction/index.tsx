@@ -1,6 +1,6 @@
 // import NewUserCard from "../../../common/components/sharedCards/NewUserCard"
 
-import Table from "../../../common/components/customTable/Table"
+import Table from "../../../common/components/CustomTable/Table"
 import { sellersTransactions } from "../../../fakeData"
 
 

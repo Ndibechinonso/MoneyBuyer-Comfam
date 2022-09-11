@@ -1,10 +1,10 @@
 import React, { useId, useState } from "react";
-import CustomButton from "../../customButtons";
+import CustomButton from "../../CustomButtons";
 // import { Signup } from "../../redux/signup/signupActions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import auth from "../../../../modules/service/auth";
 import { useNavigate } from "react-router-dom";
-import customtoast from "../../customToast";
+import customtoast from "../../CustomToast";
 import { loadingStart, loadingStop } from "../../redux/apploader";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { validateEmail, validatePassword } from "../../../utils";

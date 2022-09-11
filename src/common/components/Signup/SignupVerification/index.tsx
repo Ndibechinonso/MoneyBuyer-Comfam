@@ -4,7 +4,7 @@ import { useAppDispatch } from "../../redux/hooks";
 import { Signup } from "../../redux/signup/signupActions";
 import styled from "styled-components";
 import ReactInputVerificationCode from "react-input-verification-code";
-import CustomButton from "../../customButtons";
+import CustomButton from "../../CustomButtons";
 import successIcon from "../../../../static/images/success.svg";
 
 export const StyledSeconds = styled.div`

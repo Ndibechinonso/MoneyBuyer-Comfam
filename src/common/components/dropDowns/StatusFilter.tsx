@@ -1,4 +1,4 @@
-import CustomButton from "../customButtons";
+import CustomButton from "../CustomButtons";
 import CustomSelector from "../customSelector";
 import DropDownItem from "./primitive/DropDownItem";
 import DropDownMenuContent from "./primitive/DropDownMenuContent";

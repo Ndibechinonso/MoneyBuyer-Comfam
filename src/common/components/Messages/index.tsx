@@ -1,5 +1,5 @@
 import React from "react";
-import SearchIcon from "../customIcons/SearchIcon";
+import SearchIcon from "../CustomIcons/SearchIcon";
 import MessageCard from "./MessageCard";
 
 type Props = {};

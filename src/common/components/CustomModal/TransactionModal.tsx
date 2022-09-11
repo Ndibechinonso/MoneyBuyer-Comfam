@@ -1,8 +1,8 @@
-import CustomButton from "../customButtons";
-import CloseIcon from "../customIcons/CloseIcon";
-import IndicatorIcon from "../customIcons/IndicatorIcon";
-import ThreeDotIcon from "../customIcons/ThreeDot";
-import SellerTag from "../customTags/SellerTags";
+import CustomButton from "../CustomButtons";
+import CloseIcon from "../CustomIcons/CloseIcon";
+import IndicatorIcon from "../CustomIcons/IndicatorIcon";
+import ThreeDotIcon from "../CustomIcons/ThreeDot";
+import SellerTag from "../CustomTags/SellerTags";
 import { Alerts } from "../redux/alert/alertActions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 

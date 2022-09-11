@@ -1,10 +1,10 @@
 import React from "react";
-import ThreeDotIcon from "../customIcons/ThreeDot";
-import Tag from "../customTags";
+import ThreeDotIcon from "../CustomIcons/ThreeDot";
+import Tag from "../CustomTags";
 import DropDown from "../dropDowns/primitive";
 import TableItem from "../dropDowns/TableItem";
 import { TObj } from "./types";
-import ArrowRight from "../customIcons/ArrowRight";
+import ArrowRight from "../CustomIcons/ArrowRight";
 import clientImg from "../../../static/images/client_img.svg"
 import { formatMoney } from "../../utils";
 function TableInfo({ headers, data, activeOrder, recentTransacionHistory }: TObj) {

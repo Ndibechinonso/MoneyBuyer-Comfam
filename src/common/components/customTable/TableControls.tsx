@@ -1,8 +1,8 @@
 import React from "react";
-import CalenderIcon from "../customIcons/CalenderIcon";
-import CaretRight from "../customIcons/CaretRight";
-import SearchIcon from "../customIcons/SearchIcon";
-import SortIcon from "../customIcons/SortIcon";
+import CalenderIcon from "../CustomIcons/CalenderIcon";
+import CaretRight from "../CustomIcons/CaretRight";
+import SearchIcon from "../CustomIcons/SearchIcon";
+import SortIcon from "../CustomIcons/SortIcon";
 import { DatePicker } from "../customInput/datePicker/DatePicker";
 import { ifState } from "./types";
 import StatusFilter, { Ioptions } from "../dropDowns/StatusFilter";

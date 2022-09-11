@@ -1,6 +1,6 @@
 import React, { useId, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import CustomButton from "../../../../common/components/customButtons";
+import CustomButton from "../../../../common/components/CustomButtons";
 import { useAppDispatch } from "../../../../common/components/redux/hooks";
 import { setItem } from "../../../../https/storage";
 
@@ -152,7 +152,7 @@ function BankDetail() {
             className="profile__cta"
             type="submit"
             action={() => null}
-            actionText="Verify"
+            actionText="Update Bank Details"
           />
         </div>
       </form>

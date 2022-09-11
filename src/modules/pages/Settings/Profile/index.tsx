@@ -1,12 +1,12 @@
 import React, { useEffect, useId, useRef, useState } from 'react'
-import CustomButton from '../../../../common/components/customButtons'
-import CustomForm from '../../../../common/components/customForms';
-import NaijaFlag from '../../../../common/components/customIcons/NaijaFlag'
+import CustomButton from '../../../../common/components/CustomButtons'
+import CustomForm from '../../../../common/components/CustomForms';
+import NaijaFlag from '../../../../common/components/CustomIcons/NaijaFlag'
 import { fetchUserDetails } from '../../../../https/storage';
 import uploadImg from "../../../../static/images/uploadImg.svg";
 import admin from '../../../service/admin';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import customtoast from '../../../../common/components/customToast';
+import customtoast from '../../../../common/components/CustomToast';
 import { useNavigate } from 'react-router-dom';
 
 function Profile() {

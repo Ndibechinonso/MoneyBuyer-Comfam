@@ -1,5 +1,5 @@
-import ThrashIcon from "../customIcons/DeleteIcon";
-import EyeIcon from "../customIcons/EyeIcon";
+import ThrashIcon from "../CustomIcons/DeleteIcon";
+import EyeIcon from "../CustomIcons/EyeIcon";
 import DropDownItem from "./primitive/DropDownItem";
 import DropDownMenuContent from "./primitive/DropDownMenuContent";
 import { useAppDispatch } from "../redux/hooks";

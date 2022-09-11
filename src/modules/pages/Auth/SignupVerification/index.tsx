@@ -2,8 +2,8 @@ import { useState, FormEvent } from "react";
 import ReactInputVerificationCode from "react-input-verification-code";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
-import CustomButton from "../../../../common/components/customButtons";
-import customtoast from "../../../../common/components/customToast";
+import CustomButton from "../../../../common/components/CustomButtons";
+import customtoast from "../../../../common/components/CustomToast";
 import {
   loadingStart,
   loadingStop,

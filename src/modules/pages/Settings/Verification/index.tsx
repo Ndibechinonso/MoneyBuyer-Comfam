@@ -1,6 +1,6 @@
 import React, { useEffect, useId, useState, useRef } from "react";
-import CustomButton from "../../../../common/components/customButtons";
-import NaijaFlag from "../../../../common/components/customIcons/NaijaFlag";
+import CustomButton from "../../../../common/components/CustomButtons";
+import NaijaFlag from "../../../../common/components/CustomIcons/NaijaFlag";
 import uploadImg from "../../../../static/images/uploadImg.svg";
 import { Select } from "react-select-states-and-lga-in-nigeria";
 import "react-select-states-and-lga-in-nigeria/dist/index.css";
@@ -8,10 +8,11 @@ import { VerificationProps } from "../../../../common/components/redux/types";
 import { setItem } from "../../../../https/storage";
 import { useNavigate } from "react-router-dom";
 import CustomImageInput from "../../../../common/components/CustomImageInput";
-import customtoast from "../../../../common/components/customToast";
+import customtoast from "../../../../common/components/CustomToast";
 import admin from "../../../service/admin";
 // import CustomImageInput from "../../CustomImageInput";
 import { fetchUserDetails } from "../../../../https/storage";
+import Pulse from "../../../../common/components/CustomIcons/Pulse";
 
 
 
@@ -62,7 +63,7 @@ function Verification() {
           console.log(res, "res");
           inputs.image = res?.response.data.key;
         })
-        .catch((err) => {console.log(err); setImageLoading(false)
+        .catch((err) => {console.log(err); setImageLoading(false); removeImageHandler(rawImage[0])
         });
     }
   };
@@ -83,24 +84,11 @@ function Verification() {
 
   const handleStateChange = (e: any) => {
     setSelectState(e.target.value);
-    console.log(e.target.value, "state");
   };
 
   const handleLgaChange = (e: any) => {
     setLga(e.target.value);
-    console.log(e.target.value, "lga");
   };
-
-  const validate =
-    inputs.image &&
-    inputs.first_name &&
-    inputs.last_name &&
-    inputs.state &&
-    inputs.phone_number &&
-    inputs.street_number &&
-    inputs.street_name &&
-    inputs.city &&
-    inputs.local_gov;
 
   useEffect(() => {
     let state = String(unEditedstate).toLowerCase();
@@ -108,14 +96,22 @@ function Verification() {
   }, [unEditedstate, local_gov]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsSubmitted(true);
-    if (!validate) return;
-    console.log(inputs, "inputs");
     inputs.first_name = first_name
     inputs.last_name = last_name
-    setItem("verification", JSON.stringify(inputs));
-    navigate(`/setting/bank_detail`);
+    event.preventDefault();
+    setIsSubmitted(true);
+    if ( inputs.image &&
+      inputs.first_name &&
+      inputs.last_name &&
+      inputs.state &&
+      inputs.phone_number &&
+      inputs.street_number &&
+      inputs.street_name &&
+      inputs.city &&
+      inputs.local_gov){
+      setItem("verification", JSON.stringify(inputs));
+      navigate(`/setting/bank_detail`);
+    }
   };
   return (
     <div className="profile__container">
@@ -151,7 +147,8 @@ function Verification() {
                 />
               </div>
             ))}
-            {rawImage.length > 0 && <p>Remove Image</p>}
+            {rawImage.length > 0 && !imageLoading && <p>Remove Image</p>}
+            {imageLoading && <Pulse /> }
           </div>
         </div>
 
@@ -204,14 +201,15 @@ function Verification() {
               name="email"
               // value={userEmail}
               defaultValue={userEmail}
+              disabled={true}
               type="email"
               placeholder="Email Address"
             />
-            {isSubmitted && userEmail && (
+            {/* {isSubmitted && userEmail && (
               <small className="input_error text-red-1 text-xs">
                 *Required
               </small>
-            )}
+            )} */}
           </div>
 
           <div className="form_group">
@@ -229,7 +227,8 @@ function Verification() {
                 onChange={(e) => {
                   const value = e.target.value.trim();
                   // if((!/\d+/.test(value) && value !== "") || value.length > 11 || !/\d+/.test(value))return
-                  if (!/^\d*[.]?\d*$/.test(value) || value.length > 11) return;
+                  // if (!/^\d*[.]?\d*$/.test(value) || value.length > 11) return;
+                  if (!/^[0-9]*$/.test(value) || value.length > 11) return;
                   handleChange(e);
                 }}
                 placeholder="0703-436-5367"
@@ -321,7 +320,7 @@ function Verification() {
           className="profile__cta"
           type="submit"
           disabled={imageLoading}
-          action={() => {}}
+          action={() => null}
           actionText="Next"
         />
       </form>

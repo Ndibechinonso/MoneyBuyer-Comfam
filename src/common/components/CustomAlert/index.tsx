@@ -1,4 +1,4 @@
-import ModalContent from "./modalContent"
+import ModalContent from "./ModalContent"
 import { ReactElement } from "react";
 import info from "../../../static/images/info.svg";
 import success from "../../../static/images/success.svg";

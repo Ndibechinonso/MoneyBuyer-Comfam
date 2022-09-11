@@ -1,5 +1,5 @@
 import React, { useId, useState } from "react";
-import CustomButton from "../../customButtons";
+import CustomButton from "../../CustomButtons";
 import bvnInfo from "../../../../static/images/bvn_info.png";
 import { Signup } from "../../redux/signup/signupActions";
 import { useAppDispatch } from "../../redux/hooks";

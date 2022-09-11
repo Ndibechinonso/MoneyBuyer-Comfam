@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import CustomButton from "../../../../common/components/customButtons";
+import CustomButton from "../../../../common/components/CustomButtons";
 import { useAppDispatch, useAppSelector } from "../../../../common/components/redux/hooks";
 import { FeedbackProps } from "../../../../common/components/redux/types";
 import { Alerts } from "../../../../common/components/redux/alert/alertActions";
 import admin from "../../../service/admin";
-import customtoast from "../../../../common/components/customToast";
+import customtoast from "../../../../common/components/CustomToast";
 import { loadingStart, loadingStop } from "../../../../common/components/redux/apploader";
 
 const initialFormState: FeedbackProps = {
