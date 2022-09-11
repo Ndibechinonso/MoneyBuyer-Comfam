@@ -43,9 +43,11 @@
   }
 }
 .tags {
-font-size: 0.875rem;
+  text-transform: capitalize;
+  height: 24px;
+  font-size: 0.875rem;
   font-weight: 500;
-  line-height: 1.05rem;
+  // line-height: 1.05rem;
   padding: 0.25rem 0.75rem;
   border-radius: 2.5rem;
   &__brown {
@@ -174,7 +176,7 @@ font-size: 0.875rem;
   }
 }
 
-.message_input{
+.message_input {
   border: 1px solid var(--greyColorGrey4);
   border-radius: 0.25rem;
   width: 100%;

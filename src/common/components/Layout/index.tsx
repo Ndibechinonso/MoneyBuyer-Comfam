@@ -6,10 +6,11 @@ import NewUserCard from "../sharedCards/NewUserCard";
 import SideNav from "../SideNav";
 import Notice from "./Notice";
 import CustomAlert from "../CustomAlert";
-import { useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import Messages from "../Messages";
 import { fetchUserDetails, fetchUserToken } from "../../../https/storage";
 import admin from "../../../modules/service/admin";
+import { loadStart, loadStop } from "../redux/apploader";
 
 function Layout() {
   const { pathname } = useLocation();
@@ -17,20 +18,23 @@ function Layout() {
   const [newUser, setNewUser] = useState(true);
   const value = getObject(getFirstLevelPath(pathname));
   const { modal, modalType } = useAppSelector((state) => state.alert);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (fetchUserDetails().verified) {
       setUserError(false);
     }
-    // if (fetchUserToken()) {
-    //   admin
-    //     .getAllTransaction()
-    //     .then((res) => (res.data !== 0 ? setNewUser(true) : setNewUser(false)))
-    //     .catch((err) => console.log(err));
-    // }
+    if (fetchUserToken()) {
+      dispatch(loadStart());
+      admin
+        .getAllTransaction()
+        .then((res) => (res.count === 0 ? setNewUser(true) : setNewUser(false)))
+        .catch((err) => console.log(err))
+        .finally(() => dispatch(loadStop()));
+    }
   }, []);
 
-  if (!fetchUserToken() || fetchUserDetails() === false ) {
+  if (!fetchUserToken() || fetchUserDetails() === false) {
     return <Navigate replace to="/signin/buyer" />;
   }
 

@@ -46,7 +46,11 @@ function Tag({ value }: tagsProps) {
     }
   }
 
-  return <span className={`tags tags__${defClassName}`}>{value}</span>;
+  return (
+    <span className={`tags tags__${defClassName}`}>
+      {value.split("-").join(" ").toLowerCase()}
+    </span>
+  );
 }
 
 export default Tag;

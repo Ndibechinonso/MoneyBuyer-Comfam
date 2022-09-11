@@ -222,23 +222,23 @@ export const sellersTransactions = {
   columns: [
     {
       title: "Transaction ID",
-      dataIndex: "transactionId",
-      key: "transactionId",
+      dataIndex: "id",
+      key: "id",
     },
     {
-      title: "Buyer",
-      dataIndex: "buyer",
-      key: "buyer",
+      title: "Seller",
+      dataIndex: "seller",
+      key: "seller",
     },
     {
       title: "Amount",
-      dataIndex: "amount",
-      key: "amount",
+      dataIndex: "transactionFee",
+      key: "transactionFee",
     },
     {
       title: "Date",
-      dataIndex: "date",
-      key: "date",
+      dataIndex: "createdAt",
+      key: "createdAt",
     },
     {
       title: "Status",

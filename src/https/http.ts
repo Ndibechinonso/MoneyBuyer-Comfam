@@ -18,6 +18,7 @@ export interface HTTPResponse<T = any> {
   tokens?: any;
   user?: any;
   message?: string;
+  count?: number
 }
 
 /** general headers **/
@@ -95,7 +96,7 @@ export const makeAuthorizedRequestWithHeadersAndPayload = async (
   url: string,
   data: any = {}
 ) => {
-  const response = await instance.request({
+  const response :HTTPResponse  = await instance.request({
     method,
     url: url,
     data,
