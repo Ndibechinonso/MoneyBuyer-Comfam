@@ -84,6 +84,7 @@ const NewTransaction = () => {
       case "images":
         if (files.length) {
           setRawImages((prev) => [...prev, files.item(0)]);
+          dispatch(loadStart());
           admin
             .uploadImage(files.item(0))
             .then((res) =>
@@ -92,7 +93,10 @@ const NewTransaction = () => {
                 images: [...prev.images, res.response.data.key],
               }))
             )
-            .catch((err) => console.log(err));
+            .catch((err) =>
+              customtoast("Error Encountered while Uploading Image", true)
+            )
+            .finally(() => dispatch(loadStop()));
         }
         break;
       default:
@@ -267,7 +271,8 @@ const NewTransaction = () => {
           <>
             <h5>Consultant Information</h5>
 
-            <div className="form_row">xxx
+            <div className="form_row">
+              xxx
               <div className="form_group">
                 <label htmlFor={`${id}-consultant_email`}>
                   Consultant ID/Email
