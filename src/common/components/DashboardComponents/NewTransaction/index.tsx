@@ -6,19 +6,19 @@ import ArrowLeft from "../../CustomIcons/ArrowLeft";
 // import addProduct from "../../../../static/images/add_product.svg";
 import info from "../../../../static/images/insurance_info.svg";
 import { Alerts } from "../../../components/redux/alert/alertActions";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Product from "./Product";
 import Service from "./Service";
-import { toNaira } from "../../../utils/helpers";
-import Calender from "../../CustomDate";
+import { confamFeesCalc, toNaira } from "../../../utils/helpers";
+import Calender from "../../customDate";
 import admin from "../../../../modules/service/admin";
-import customtoast from "../../CustomToast";
+import customtoast from "../../customToast";
+import { loadStart, loadStop } from "../../redux/apploader";
 
 const NewTransaction = () => {
   const id = useId();
+  const { isloading } = useAppSelector((state) => state.isloading);
   const dispatch = useAppDispatch();
-  // const [isModal, setModal] = useState(true);
-  // const [inputs.type, setHeaderTitle] = useState("NEW_TRANSACTION");
   const initialState = {
     type: "NEW_TRANSACTION",
     sellerDetails: {
@@ -26,23 +26,22 @@ const NewTransaction = () => {
       phone_number: "08029326711",
     },
     ProductName: "Green",
-    quantity: "2",
+    quantity: 2,
     description: "Clean and sleek",
     productModel: "X",
     images: [],
-    completionDueDate: "january 24th",
-    price: "3000",
+    completionDueDate: new Date().toISOString(),
+    price: 3000,
     deliveryAddress: "Lagos",
-    transactionFee: "1300",
+    transactionFee: 1300,
+    insuranceRequested: false,
   };
 
   const [inputs, setInputs] = useState(initialState);
-  const [startDate, setStartDate] = useState(new Date());
+  // const [startDate, setStartDate] = useState(new Date());
   const [rawImages, setRawImages] = useState([]);
   // const [productNumber, setProductNumber] = useState(1);
   // const [serviceNumber, setServiceNumber] = useState(1);
-
-  const regex = new RegExp("^[0-9]*$");
 
   // const changeFormState = (state: string) => {
   //   setHeaderTitle(state);
@@ -52,44 +51,53 @@ const NewTransaction = () => {
     e: React.ChangeEvent<HTMLInputElement> &
       React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    const {
-      name,
-      value,
-      files,
-      dataset: { cat, type },
-    } = e.target;
+    const regex = new RegExp("^[0-9]*$");
+    const { name, value, files } = e.target;
 
-    if (!files) {
-      if (!cat && type === "numeric" && regex.test(value)) {
-        setInputs((prev) => ({ ...prev, [name]: value }));
-      }
-      if (!cat && type !== "numeric") {
-        setInputs((prev) => ({ ...prev, [name]: value }));
-      }
-      if (cat && name !== "phone_number") {
-        setInputs((prev) => ({
-          ...prev,
-          sellerDetails: { ...prev.sellerDetails, [name]: value },
-        }));
-      }
-      if (cat && name === "phone_number" && regex.test(value)) {
-        setInputs((prev) => ({
-          ...prev,
-          sellerDetails: { ...prev.sellerDetails, [name]: value },
-        }));
-      }
-    }
-    if (files.length) {
-      setRawImages((prev) => [...prev, files.item(0)]);
-      admin
-        .uploadImage(files.item(0))
-        .then((res) =>
+    switch (name) {
+      case "phone_number":
+        if (regex.test(value)) {
           setInputs((prev) => ({
             ...prev,
-            images: [...prev.images, res.response.data.key],
-          }))
-        )
-        .catch((err) => console.log(err));
+            sellerDetails: { ...prev.sellerDetails, [name]: value },
+          }));
+        }
+        break;
+      case "email":
+        setInputs((prev) => ({
+          ...prev,
+          sellerDetails: { ...prev.sellerDetails, [name]: value },
+        }));
+        break;
+      case "insuranceRequested":
+        setInputs((prev) => ({ ...prev, [name]: !prev[name] }));
+        break;
+      case "quantity":
+      case "price":
+        if (regex.test(value)) {
+          setInputs((prev) => ({
+            ...prev,
+            [name]: value,
+          }));
+        }
+        break;
+      case "images":
+        if (files.length) {
+          setRawImages((prev) => [...prev, files.item(0)]);
+          admin
+            .uploadImage(files.item(0))
+            .then((res) =>
+              setInputs((prev) => ({
+                ...prev,
+                images: [...prev.images, res.response.data.key],
+              }))
+            )
+            .catch((err) => console.log(err));
+        }
+        break;
+      default:
+        setInputs((prev) => ({ ...prev, [name]: value }));
+        break;
     }
   };
 
@@ -102,9 +110,11 @@ const NewTransaction = () => {
     setInputs((prev) => ({ ...prev, images: [...temp1] }));
   };
 
-  const dateChange = (date: any) => {
-    setStartDate(date);
-    setInputs((prev) => ({ ...prev, completionDueDate: date }));
+  const dateChange = (date: Date) => {
+    setInputs((prev) => ({
+      ...prev,
+      completionDueDate: date.toISOString(),
+    }));
   };
 
   const changeType = (type: string) => {
@@ -114,24 +124,27 @@ const NewTransaction = () => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // admin
-    //   .uploadImage(rawImages[0].name)
-    //   .then((res) => customtoast("it worked"))
-    //   .catch((err) => console.log(err));
+    dispatch(loadStart());
+    admin
+      .newTransaction(inputs)
+      .then((res) => dispatch(Alerts("newtransactioncreated")))
+      .catch((err) => customtoast(err.message, true))
+      .finally(() => dispatch(loadStop()));
   };
 
   return (
     <section className="new_transaction_container">
       <header className="new_transaction_header">
         {inputs.type !== "NEW_TRANSACTION" ? (
-          <div
+          <button
             className="cursor-pointer"
+            disabled={isloading}
             onClick={() => {
               setInputs(initialState);
             }}
           >
             <ArrowLeft />
-          </div>
+          </button>
         ) : null}
         <div className="new_transaction_header_title">
           {inputs.type === "PRODUCT" && <h4>Product Purchase</h4>}
@@ -143,7 +156,7 @@ const NewTransaction = () => {
             </>
           )}
         </div>
-        <div className="close_div">
+        <button className="close_div">
           <img
             src={closemodal}
             alt="close modal"
@@ -153,7 +166,7 @@ const NewTransaction = () => {
             }}
             className="cursor-pointer"
           />
-        </div>
+        </button>
       </header>
 
       <form onSubmit={submitHandler}>
@@ -190,7 +203,7 @@ const NewTransaction = () => {
                   type="email"
                   name="email"
                   placeholder="james@email.com"
-                  data-cat="sellerDetails"
+                  disabled={isloading}
                   value={inputs.sellerDetails.email}
                   onChange={changeHandler}
                 />
@@ -203,8 +216,8 @@ const NewTransaction = () => {
                   id={`${id}-phoneNumber`}
                   type="tel"
                   name="phone_number"
-                  data-cat="sellerDetails"
                   placeholder="070-123-432-11"
+                  disabled={isloading}
                   value={inputs.sellerDetails.phone_number}
                   onChange={changeHandler}
                 />
@@ -214,18 +227,11 @@ const NewTransaction = () => {
             <div className="form_row">
               <div className="form_group">
                 <label htmlFor={`${id}-due_date`}> Payment Due Date </label>
-                {/* <input
-                  className="new_transaction_form_input"
-                  id={`${id}-due_date`}
-                  type="date"
-                  placeholder="1805/2020"
-                  value={inputs.completionDueDate}
-                  onChange={changeHandler}
-                /> */}
                 <Calender
                   onChange={dateChange}
+                  disable={isloading}
                   type="picker"
-                  startDate={startDate}
+                  startDate={new Date(inputs.completionDueDate)}
                 />
               </div>
               <div className="form_group">
@@ -237,6 +243,8 @@ const NewTransaction = () => {
                   id={`${id}-delivery_address`}
                   type="text"
                   placeholder="Lagos Nigeria"
+                  name="deliveryAddress"
+                  disabled={isloading}
                   value={inputs.deliveryAddress}
                   onChange={changeHandler}
                 />
@@ -244,6 +252,7 @@ const NewTransaction = () => {
             </div>
 
             <Product
+              insuranceRequested={inputs.insuranceRequested}
               product_description={inputs.description}
               product_image={rawImages}
               product_name={inputs.ProductName}
@@ -258,7 +267,7 @@ const NewTransaction = () => {
           <>
             <h5>Consultant Information</h5>
 
-            <div className="form_row">
+            <div className="form_row">xxx
               <div className="form_group">
                 <label htmlFor={`${id}-consultant_email`}>
                   Consultant ID/Email
@@ -268,6 +277,10 @@ const NewTransaction = () => {
                   id={`${id}-consultant_email`}
                   type="text"
                   placeholder="Confam money ID or Email"
+                  name="email"
+                  disabled={isloading}
+                  value={inputs.sellerDetails.email}
+                  onChange={changeHandler}
                 />
               </div>
               <div className="form_group">
@@ -279,6 +292,10 @@ const NewTransaction = () => {
                   id={`${id}-phoneNumber`}
                   type="tel"
                   placeholder="e.g. 070-123-432-11"
+                  name="phone_number"
+                  disabled={isloading}
+                  value={inputs.sellerDetails.phone_number}
+                  onChange={changeHandler}
                 />
               </div>
             </div>
@@ -288,7 +305,8 @@ const NewTransaction = () => {
                 <Calender
                   onChange={dateChange}
                   type="picker"
-                  startDate={startDate}
+                  disable={isloading}
+                  startDate={new Date(inputs.completionDueDate)}
                 />
               </div>
               <div className="form_group">
@@ -300,6 +318,10 @@ const NewTransaction = () => {
                   id={`${id}-delivery_address`}
                   type="text"
                   placeholder="e.g 18 Akoka, Lagos"
+                  name="deliveryAddress"
+                  disabled={isloading}
+                  value={inputs.deliveryAddress}
+                  onChange={changeHandler}
                 />
               </div>
             </div>
@@ -321,23 +343,38 @@ const NewTransaction = () => {
                 <img src={info} alt="insurance info" />
               </span>
               <div>
-                {/* <p>
+                <p>
                   Transaction fee:{" "}
-                  <span className="price">{toNaira(inputs.price)}</span>
-                </p> */}
+                  <span className="price">
+                    {toNaira(
+                      confamFeesCalc(
+                        inputs.price,
+                        inputs.quantity
+                      ).transactionFee.toString()
+                    )}
+                  </span>
+                </p>
 
-                {/* {inputs.type === "SERVICE" ? (
+                {inputs.type === "SERVICE" ? (
                   <p>
-                    VAT: <span className="vat">₦450</span>
+                    VAT:{" "}
+                    <span className="vat">
+                      {toNaira(
+                        confamFeesCalc(
+                          inputs.price,
+                          inputs.quantity
+                        ).vat.toString()
+                      )}
+                    </span>
                   </p>
-                ) : null} */}
+                ) : null}
               </div>
             </div>
 
             <CustomButton
               type="submit"
               className="profile__cta"
-              action={() => alert("Send Transaction")}
+              action={() => null}
               actionText="Send Transaction"
             />
           </footer>

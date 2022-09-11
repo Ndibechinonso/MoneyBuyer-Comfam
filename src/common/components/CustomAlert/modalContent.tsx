@@ -110,7 +110,7 @@ const ModalContent = ({
                   actionText="Done"
                 />
               ) : null}
-              {alertIcon ? (
+              {alertIcon && !singleAction ? (
                 <CustomButton
                   className="alert_modal_btn"
                   action={() => dispatch(Alerts(""))}

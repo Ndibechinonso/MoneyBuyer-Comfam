@@ -146,7 +146,8 @@
         @include flexRow;
         gap: 7px;
         align-items: center;
-        color: #044da1;
+        color: var(--greyColorGrey3);
+        @include smallTextRegular;
       }
       .add_product {
         justify-content: flex-end;
@@ -181,6 +182,11 @@
         color: #333333;
         width: 100%;
         text-align: center;
+      }
+
+      button{
+        background-color: transparent;
+
       }
       // .close_div {
       // @include flexRow;

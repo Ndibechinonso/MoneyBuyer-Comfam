@@ -7,9 +7,10 @@ interface Icalendar {
   endDate?: Date | null;
   onChange: (e: any) => void;
   type: "range" | "picker";
+  disable?: boolean;
 }
 
-function Calender({ startDate, endDate, onChange, type }: Icalendar) {
+function Calender({ startDate, endDate, onChange, type, disable }: Icalendar) {
   let template;
   switch (type) {
     case "picker":
@@ -71,6 +72,7 @@ function Calender({ startDate, endDate, onChange, type }: Icalendar) {
           selected={startDate}
           onChange={onChange}
           monthsShown={2}
+          disabled={disable}
         />
       );
       break;
@@ -136,6 +138,7 @@ function Calender({ startDate, endDate, onChange, type }: Icalendar) {
           endDate={endDate}
           selectsRange
           monthsShown={2}
+          disabled={disable}
         />
       );
       break;

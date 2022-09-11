@@ -30,7 +30,7 @@ function Layout() {
     // }
   }, []);
 
-  if (!fetchUserToken()) {
+  if (!fetchUserToken() || fetchUserDetails() === false ) {
     return <Navigate replace to="/signin/buyer" />;
   }
 
