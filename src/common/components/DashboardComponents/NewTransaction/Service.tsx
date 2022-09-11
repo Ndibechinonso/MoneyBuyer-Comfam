@@ -39,6 +39,7 @@ const Service = (props: Iservice) => {
         <div className="form_group">
           <label htmlFor={`${id}-service_name`}> Service Name</label>
           <input
+            required
             className="new_transaction_form_input"
             id={`${id}-service_name`}
             type="text"
@@ -53,6 +54,7 @@ const Service = (props: Iservice) => {
         <div className="form_group">
           <label htmlFor={`${id}-service_quantity`}> Service Quantity </label>
           <input
+            required
             className="new_transaction_form_input"
             id={`${id}-service_quantity`}
             type="text"
@@ -69,6 +71,7 @@ const Service = (props: Iservice) => {
         <div className="form_group">
           <label htmlFor={`${id}-service_price`}> Service Price </label>
           <input
+            required
             className="new_transaction_form_input"
             id={`${id}-service_price`}
             type="text"
@@ -79,15 +82,7 @@ const Service = (props: Iservice) => {
             onChange={changeHandler}
           />
         </div>
-        {/* <div className="form_group">
-          <label htmlFor={`${id}-product_image`}> Service Photo </label>
-          <input
-            className="new_transaction_form_input"
-            id={`${id}-product_image`}
-            type="file"
-            placeholder="No file Chosen"
-          />
-        </div> */}
+
         <CustomImageInput
           changeHandler={changeHandler}
           deleteHandler={removeImageHandler}

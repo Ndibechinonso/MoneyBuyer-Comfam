@@ -11,7 +11,7 @@ interface Icalendar {
 }
 
 function Calender({ startDate, endDate, onChange, type, disable }: Icalendar) {
-  let template;
+  let template: any;
   switch (type) {
     case "picker":
       template = (
@@ -73,6 +73,7 @@ function Calender({ startDate, endDate, onChange, type, disable }: Icalendar) {
           onChange={onChange}
           monthsShown={2}
           disabled={disable}
+          required
         />
       );
       break;
@@ -139,6 +140,7 @@ function Calender({ startDate, endDate, onChange, type, disable }: Icalendar) {
           selectsRange
           monthsShown={2}
           disabled={disable}
+          required
         />
       );
       break;

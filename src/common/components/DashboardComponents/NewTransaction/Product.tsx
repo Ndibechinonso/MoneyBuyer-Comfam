@@ -39,6 +39,7 @@ const Product = ({
         <div className="form_group">
           <label htmlFor={`${id}-product_name`}> Product Name </label>
           <input
+            required
             className="new_transaction_form_input"
             id={`${id}-product_name`}
             type="text"
@@ -52,6 +53,7 @@ const Product = ({
         <div className="form_group">
           <label htmlFor={`${id}-product_price`}> Product Price </label>
           <input
+            required
             type="tel"
             className="new_transaction_form_input"
             id={`${id}-product_price`}
@@ -75,6 +77,7 @@ const Product = ({
         <div className="form_group">
           <label htmlFor={`${id}-product_quantity`}>Product Quantity</label>
           <input
+            required
             className="new_transaction_form_input"
             id={`${id}-product_quantity`}
             type="text"
@@ -89,6 +92,7 @@ const Product = ({
       <div className="form_group">
         <label htmlFor={`${id}-product_description`}>Product Description</label>
         <textarea
+          required
           className="new_transaction_form_input new_transaction_description"
           name="description"
           id={`${id}-product_description`}

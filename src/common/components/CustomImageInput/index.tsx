@@ -4,8 +4,8 @@ type Props = {
   label: string;
   changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: Array<any>;
-  deleteHandler: (itm: any, idx:number) => void;
-  disabled?: boolean
+  deleteHandler: (itm: any, idx: number) => void;
+  disabled?: boolean;
 };
 
 function CustomImageInput(props: Props) {
@@ -17,6 +17,7 @@ function CustomImageInput(props: Props) {
       <label htmlFor={`${id}-product_image`}> {label} </label>
       <div className="product_image">
         <input
+          required
           className="new_transaction_form_input"
           id={`${id}-product_image`}
           type="file"

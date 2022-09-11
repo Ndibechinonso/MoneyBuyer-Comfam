@@ -83,16 +83,16 @@ const NewTransaction = () => {
         break;
       case "images":
         if (files.length) {
-          setRawImages((prev) => [...prev, files.item(0)]);
           dispatch(loadStart());
           admin
             .uploadImage(files.item(0))
-            .then((res) =>
+            .then((res) => {
+              setRawImages((prev) => [...prev, files.item(0)]);
               setInputs((prev) => ({
                 ...prev,
                 images: [...prev.images, res.response.data.key],
-              }))
-            )
+              }));
+            })
             .catch((err) =>
               customtoast("Error Encountered while Uploading Image", true)
             )
@@ -132,7 +132,7 @@ const NewTransaction = () => {
     admin
       .newTransaction(inputs)
       .then((res) => dispatch(Alerts("newtransactioncreated")))
-      .catch((err) => customtoast(err.message, true))
+      .catch((err) => customtoast(err.message[0], true))
       .finally(() => dispatch(loadStop()));
   };
 
@@ -202,6 +202,7 @@ const NewTransaction = () => {
               <div className="form_group">
                 <label htmlFor={`${id}-buyer_email`}> Seller ID/ Email </label>
                 <input
+                  required
                   className="new_transaction_form_input"
                   id={`${id}-buyer_email`}
                   type="email"
@@ -216,6 +217,7 @@ const NewTransaction = () => {
               <div className="form_group">
                 <label htmlFor={`${id}-phoneNumber`}>Seller Phone Number</label>
                 <input
+                  required
                   className="new_transaction_form_input"
                   id={`${id}-phoneNumber`}
                   type="tel"
@@ -243,6 +245,7 @@ const NewTransaction = () => {
                   Delivery Address
                 </label>
                 <input
+                  required
                   className="new_transaction_form_input"
                   id={`${id}-delivery_address`}
                   type="text"
@@ -272,12 +275,12 @@ const NewTransaction = () => {
             <h5>Consultant Information</h5>
 
             <div className="form_row">
-              xxx
               <div className="form_group">
                 <label htmlFor={`${id}-consultant_email`}>
                   Consultant ID/Email
                 </label>
                 <input
+                  required
                   className="new_transaction_form_input"
                   id={`${id}-consultant_email`}
                   type="text"
@@ -293,6 +296,7 @@ const NewTransaction = () => {
                   Consultant Phone Number
                 </label>
                 <input
+                  required
                   className="new_transaction_form_input"
                   id={`${id}-phoneNumber`}
                   type="tel"
@@ -319,6 +323,7 @@ const NewTransaction = () => {
                   Delivery Address (Optional)
                 </label>
                 <input
+                  required
                   className="new_transaction_form_input"
                   id={`${id}-delivery_address`}
                   type="text"
