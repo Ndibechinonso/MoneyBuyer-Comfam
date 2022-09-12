@@ -7,12 +7,12 @@ import {
 } from "../../utils/helpers";
 import CustomButton from "../CustomButtons";
 import NotificationIcon from "../CustomIcons/NotificationIcon";
-import DropDown from "../dropDowns/primitive";
-import UserMenuItem from "../dropDowns/UserMenuItem";
+import DropDown from "../DropDowns/primitive";
+import UserMenuItem from "../DropDowns/UserMenuItem";
 import UserMenuTrigger from "./UserMenuTrigger";
 import { useAppDispatch } from "../redux/hooks";
 import { Alerts } from "../redux/alert/alertActions";
-import steve from "../../../static/images/steve.svg";
+// import steve from "../../../static/images/steve.svg";
 import statusIndicator from "../../../static/images/status_indicator.svg";
 import HandWave from "../CustomIcons/HandWave";
 import { fetchUserDetails } from "../../../https/storage";

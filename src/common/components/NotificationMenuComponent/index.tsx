@@ -1,7 +1,7 @@
 import React from "react";
 import ThreeDotIcon from "../CustomIcons/ThreeDot";
-import DropDown from "../dropDowns/primitive";
-import NotificationDropDownItem from "../dropDowns/NotificationItem";
+import DropDown from "../DropDowns/primitive";
+import NotificationDropDownItem from "../DropDowns/NotificationItem";
 
 type Props = {
     status: boolean;

@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import admin from "../../../modules/service/admin";
 import { removeHypen, toNaira, transactionModalTitleHandler } from "../../utils/helpers";
 import CustomButton from "../CustomButtons";
-import CloseIcon from "../customIcons/CloseIcon";
-import IndicatorIcon from "../customIcons/IndicatorIcon";
-import ThreeDotIcon from "../customIcons/ThreeDot";
-import Tag from "../customTags";
+import CloseIcon from "../CustomIcons/CloseIcon";
+import IndicatorIcon from "../CustomIcons/IndicatorIcon";
+import ThreeDotIcon from "../CustomIcons/ThreeDot";
+import Tag from "../CustomTags";
 // import SellerTag from "../customTags/SellerTags";
 import img from "../../../static/images/unsplash.png";
 import { Alerts } from "../redux/alert/alertActions";
@@ -31,7 +31,7 @@ function TransactionModal() {
           .catch((err) => console.log(err));
       });
     }
-  }, []);
+  }, [images.length]); //eslint-disable-line
 
   console.log(images)
 

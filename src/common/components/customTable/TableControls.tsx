@@ -3,10 +3,10 @@ import CalenderIcon from "../CustomIcons/CalenderIcon";
 import CaretRight from "../CustomIcons/CaretRight";
 import SearchIcon from "../CustomIcons/SearchIcon";
 import SortIcon from "../CustomIcons/SortIcon";
-import { DatePicker } from "../customInput/datePicker/DatePicker";
+import { DatePicker } from "../CustomInput/datePicker/DatePicker";
 import { ifState } from "./types";
-import StatusFilter, { Ioptions } from "../dropDowns/StatusFilter";
-import DropDown from "../dropDowns/primitive";
+import StatusFilter, { Ioptions } from "../DropDowns/StatusFilter";
+import DropDown from "../DropDowns/primitive";
 
 type Props = {
   formState: ifState;

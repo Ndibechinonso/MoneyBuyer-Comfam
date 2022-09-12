@@ -1,7 +1,7 @@
 import { useState, useId } from "react";
 import CustomButton from "../../CustomButtons";
 import closemodal from "../../../../static/images/dashboard_modal_close.svg";
-import ArrowLeft from "../../customIcons/ArrowLeft";
+import ArrowLeft from "../../CustomIcons/ArrowLeft";
 // import addProduct from "../../../../static/images/add_product.svg";
 import info from "../../../../static/images/insurance_info.svg";
 import { Alerts } from "../../../components/redux/alert/alertActions";
@@ -9,9 +9,9 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Product from "./Product";
 import Service from "./Service";
 import { confamFeesCalc, toNaira } from "../../../utils/helpers";
-import Calender from "../../customDate";
+import Calender from "../../CustomDate";
 import admin from "../../../../modules/service/admin";
-import customtoast from "../../customToast";
+import customtoast from "../../CustomToast";
 import { loadStart, loadStop } from "../../redux/apploader";
 
 const NewTransaction = () => {

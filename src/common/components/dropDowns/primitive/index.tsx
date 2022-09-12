@@ -1,10 +1,10 @@
-import React from 'react'
-import { DropdownMenu, DropdownMenuTrigger } from './DropDownMenuContent'
+import React from "react";
+import { DropdownMenu, DropdownMenuTrigger } from "./DropDownMenuContent";
 
 type Props = {
-    children: React.ReactNode;
-    content: React.ReactElement;
-}
+  children: React.ReactNode;
+  content: React.ReactElement;
+};
 
 function DropDown({ children, content }: Props) {
   return (
@@ -14,7 +14,7 @@ function DropDown({ children, content }: Props) {
       </DropdownMenuTrigger>
       {content}
     </DropdownMenu>
-  )
+  );
 }
 
-export default DropDown
+export default DropDown;

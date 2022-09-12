@@ -8,12 +8,10 @@ import UserIcon from "../CustomIcons/UserIcon";
 import DropDownItem from "./primitive/DropDownItem";
 import DropDownMenuContent from "./primitive/DropDownMenuContent";
 
-interface menuProps {}
-
-function UserMenuItem({}: menuProps) {
+function UserMenuItem() {
   const navigate = useNavigate();
 
-   const logoutHandler = (
+  const logoutHandler = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     clearUserDetails();

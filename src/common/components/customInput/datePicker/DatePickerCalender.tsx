@@ -3,7 +3,7 @@ import { Dayjs } from "dayjs";
 import clsx from "clsx";
 
 import { getCalendarRows } from "./utils/utils";
-import DropDownItem from "../../dropDowns/primitive/DropDownItem";
+import DropDownItem from "../../DropDowns/primitive/DropDownItem";
 
 export interface IDatePickerCalendarProps {
   shownDate: Dayjs;

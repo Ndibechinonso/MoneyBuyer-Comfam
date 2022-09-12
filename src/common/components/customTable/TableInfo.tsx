@@ -1,10 +1,10 @@
 import React from "react";
-import ThreeDotIcon from "../customIcons/ThreeDot";
-import Tag from "../customTags";
-import DropDown from "../dropDowns/primitive";
-import TableItem from "../dropDowns/TableItem";
+import ThreeDotIcon from "../CustomIcons/ThreeDot";
+import Tag from "../CustomTags";
+import DropDown from "../DropDowns/primitive";
+import TableItem from "../DropDowns/TableItem";
 import { TObj } from "./types";
-import ArrowRight from "../customIcons/ArrowRight";
+import ArrowRight from "../CustomIcons/ArrowRight";
 import clientImg from "../../../static/images/client_img.svg";
 import { toNaira } from "../../utils/helpers";
 

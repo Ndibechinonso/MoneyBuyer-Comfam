@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import type { Dayjs } from "dayjs";
 import { DatePickerCalendar } from "./DatePickerCalender";
 import { DatePickerSelector } from "./DatePickerSelector";
-import DropDownMenuContent from "../../dropDowns/primitive/DropDownMenuContent";
+import DropDownMenuContent from "../../DropDowns/primitive/DropDownMenuContent";
 
 export interface IDatePickerProps {
   selectedDate: Dayjs;

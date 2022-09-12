@@ -4,9 +4,8 @@ import DoneAllIcon from "../CustomIcons/DoneAllIcon";
 import DropDownItem from "./primitive/DropDownItem";
 import DropDownMenuContent from "./primitive/DropDownMenuContent";
 
-type Props = {};
 
-function NotificationDropDownItem({}: Props) {
+function NotificationDropDownItem() {
   return (
     <DropDownMenuContent className="notifications__item--dropdown">
       <DropDownItem>

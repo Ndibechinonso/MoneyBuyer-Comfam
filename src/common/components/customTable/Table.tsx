@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import React from "react";
-import { Ioptions } from "../dropDowns/StatusFilter";
-import TableInfo from "./TableInfo";
-import TableControls from "./TableControls";
+import { Ioptions } from "../DropDowns/StatusFilter";
+import TableInfo from './TableInfo'
+import TableControls from './TableControls'
 
 type headerObj = {
   title: string;

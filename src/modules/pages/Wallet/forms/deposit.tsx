@@ -1,7 +1,7 @@
 import React from 'react'
 import CustomButton from '../../../../common/components/CustomButtons';
 import InfoIcon from '../../../../common/components/CustomIcons/Info';
-import CustomTextFields from '../../../../common/components/customInput';
+import CustomTextFields from '../../../../common/components/CustomInput';
 import CustomSelector from '../../../../common/components/CustomSelector';
 
 
@@ -14,7 +14,7 @@ function Deposit() {
   };
   const [formState, setFormState] = React.useState(initialState);
   const [confirm, setConfirm] = React.useState(false);
-  const [switchTabs, setSwitchTabs] = React.useState(false);
+  // const [switchTabs, setSwitchTabs] = React.useState(false);
   const refEl = React.useRef<HTMLDivElement>(null);
 
   const confirmFormHandler = () => {
