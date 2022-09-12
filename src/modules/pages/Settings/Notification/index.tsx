@@ -10,8 +10,8 @@ import {
 import { useAppDispatch, useAppSelector } from "../../../../common/components/redux/hooks";
 import { NotificationProps } from "../../../../common/components/redux/types";
 import auth from "../../../service/auth";
-import customtoast from "../../../../common/components/CustomToast";
 import { fetchUserDetails, storeUserDetails } from "../../../../https/storage";
+import CustomToast from "../../../../common/components/CustomToast";
 
 const initialFormState: NotificationProps = {
   sms: false,
@@ -67,7 +67,7 @@ function Notification() {
     event.preventDefault();
 
     if (fetchUserDetails().verified) {
-      customtoast("verified");
+      CustomToast("verified");
     } else {
       // const payload = localStorage.getItem("verification");
       // if (typeof payload === "string") {
@@ -109,7 +109,7 @@ function Notification() {
             console.log(res, "res")
           })
           .catch((err) => {
-            customtoast(err.message);
+            CustomToast(err.message);
           })
           .finally(() => dispatch(loadingStop()));
       }

@@ -8,7 +8,6 @@ import { VerificationProps } from "../../../../common/components/redux/types";
 import { setItem } from "../../../../https/storage";
 import { useNavigate } from "react-router-dom";
 import CustomImageInput from "../../../../common/components/CustomImageInput";
-import customtoast from "../../../../common/components/CustomToast";
 import admin from "../../../service/admin";
 // import CustomImageInput from "../../CustomImageInput";
 import { fetchUserDetails } from "../../../../https/storage";

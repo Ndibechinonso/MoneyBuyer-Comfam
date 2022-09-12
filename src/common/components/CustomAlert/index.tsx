@@ -1,7 +1,7 @@
-import ModalContent from "./ModalContent"
 import { ReactElement } from "react";
 import info from "../../../static/images/info.svg";
 import success from "../../../static/images/success.svg";
+import ModalContent from "./ModalContent";
 
 type customAlertProps = {
   alertType: String;
