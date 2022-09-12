@@ -1,9 +1,9 @@
 import React, { useId } from "react";
-import CustomButton from "../customButtons";
-import NaijaFlag from "../../../common/components/customIcons/NaijaFlag";
+import CustomButton from "../CustomButtons";
+import NaijaFlag from "../CustomIcons/NaijaFlag";
 import uploadImg from "../../../static/images/uploadImg.svg";
-import InfoIcon from "../customIcons/Info";
-import {Alerts} from '../../components/redux/alert/alertActions' 
+import InfoIcon from "../CustomIcons/Info";
+import {Alerts} from '../redux/alert/alertActions' 
 import { useAppDispatch } from "../redux/hooks";
 
 type CustomFormProps = {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import admin from "../../../modules/service/admin";
 import { removeHypen, toNaira, transactionModalTitleHandler } from "../../utils/helpers";
-import CustomButton from "../customButtons";
+import CustomButton from "../CustomButtons";
 import CloseIcon from "../customIcons/CloseIcon";
 import IndicatorIcon from "../customIcons/IndicatorIcon";
 import ThreeDotIcon from "../customIcons/ThreeDot";

@@ -1,6 +1,5 @@
 import { useState, useId } from "react";
-// import CustomModal from "../../CustomModal";
-import CustomButton from "../../customButtons";
+import CustomButton from "../../CustomButtons";
 import closemodal from "../../../../static/images/dashboard_modal_close.svg";
 import ArrowLeft from "../../customIcons/ArrowLeft";
 // import addProduct from "../../../../static/images/add_product.svg";
@@ -94,7 +93,7 @@ const NewTransaction = () => {
               }));
             })
             .catch((err) =>
-              customtoast("Error Encountered while Uploading Image", true)
+            customtoast("Error Encountered while Uploading Image", true)
             )
             .finally(() => dispatch(loadStop()));
         }
@@ -132,7 +131,7 @@ const NewTransaction = () => {
     admin
       .newTransaction(inputs)
       .then((res) => dispatch(Alerts("newtransactioncreated")))
-      .catch((err) => customtoast(err.message[0], true))
+      .catch((err) => customtoast(err.message, true))
       .finally(() => dispatch(loadStop()));
   };
 

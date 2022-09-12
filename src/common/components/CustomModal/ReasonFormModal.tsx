@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CustomButton from "../customButtons";
+import CustomButton from "../CustomButtons";
 import { Alerts } from "../redux/alert/alertActions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 

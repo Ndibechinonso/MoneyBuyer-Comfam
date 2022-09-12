@@ -1,10 +1,10 @@
 import React, { useId, useState } from "react";
-import CustomButton from "../../customButtons";
+import CustomButton from "../../CustomButtons";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Alerts } from "../../redux/alert/alertActions";
 import auth from "../../../../modules/service/auth";
 import { loadingStart, loadingStop } from "../../redux/apploader";
-import customtoast from "../../customToast";
+import customtoast from "../../CustomToast";
 
 const Form = () => {
   const id = useId();

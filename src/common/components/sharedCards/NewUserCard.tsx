@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { getFirstLevelPath } from "../../utils/helpers";
-import CustomButton from "../customButtons";
+import CustomButton from "../CustomButtons";
 import { Alerts } from "../redux/alert/alertActions";
 import { useAppDispatch } from "../redux/hooks";
 

@@ -1,8 +1,8 @@
 import React from 'react'
-import CustomButton from '../../../../common/components/customButtons';
-import InfoIcon from '../../../../common/components/customIcons/Info';
+import CustomButton from '../../../../common/components/CustomButtons';
+import InfoIcon from '../../../../common/components/CustomIcons/Info';
 import CustomTextFields from '../../../../common/components/customInput';
-import CustomSelector from '../../../../common/components/customSelector';
+import CustomSelector from '../../../../common/components/CustomSelector';
 
 
 function Withdraw() {

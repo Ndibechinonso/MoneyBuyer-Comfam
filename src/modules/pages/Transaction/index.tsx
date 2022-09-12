@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Table from "../../../common/components/customTable/Table";
+import Table from "../../../common/components/CustomTable/Table";
 import {
   loadStart,
   loadStop,

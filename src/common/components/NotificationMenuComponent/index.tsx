@@ -1,5 +1,5 @@
 import React from "react";
-import ThreeDotIcon from "../customIcons/ThreeDot";
+import ThreeDotIcon from "../CustomIcons/ThreeDot";
 import DropDown from "../dropDowns/primitive";
 import NotificationDropDownItem from "../dropDowns/NotificationItem";
 

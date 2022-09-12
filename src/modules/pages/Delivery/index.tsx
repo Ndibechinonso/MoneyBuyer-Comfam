@@ -1,5 +1,5 @@
 import React from "react";
-import Tabs from "../../../common/components/customTable/Table";
+import Tabs from "../../../common/components/CustomTable/Table";
 import { deliveryTable } from "../../../fakeData";
 
 function Delivery() {

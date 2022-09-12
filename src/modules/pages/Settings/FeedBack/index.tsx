@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import CustomButton from "../../../../common/components/customButtons";
+import CustomButton from "../../../../common/components/CustomButtons";
 import { useAppDispatch, useAppSelector } from "../../../../common/components/redux/hooks";
 import { FeedbackProps } from "../../../../common/components/redux/types";
 import { Alerts } from "../../../../common/components/redux/alert/alertActions";
 import admin from "../../../service/admin";
-import customtoast from "../../../../common/components/customToast";
 import { loadingStart, loadingStop } from "../../../../common/components/redux/apploader";
+import CustomToast from "../../../../common/components/CustomToast";
 
 const initialFormState: FeedbackProps = {
   likes: "",
@@ -53,7 +53,7 @@ const {isloading} = useAppSelector((state) => state.isloading)
     admin
     .sendFeedback(inputs)
     .then((res) => {dispatch(Alerts("feedbackSent")) })
-    .catch((err) => {  customtoast(err.message)})
+    .catch((err) => {  CustomToast(err.message)})
     .finally(() => dispatch(loadingStop()));
     
     console.log(inputs)
