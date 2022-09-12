@@ -1,5 +1,5 @@
 import React from "react";
-import DropDownIcon from "../customIcons/DropDownIcon";
+import DropDownIcon from "../CustomIcons/DropDownIcon";
 // import Dropdown from "react-dropdown";
 // import "react-dropdown/style.css";
 

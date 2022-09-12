@@ -1,12 +1,12 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 // import ConfirmMoneyIcon from "../customIcons/ConfamMoney";
 import { language } from "../../utils/language/en";
-import DashboardIcon from "../customIcons/DashBoardIcon";
-import WalletIcon from "../customIcons/WalletIcon";
-import TransactionIcon from "../customIcons/TransactionIcon";
+import DashboardIcon from "../CustomIcons/DashBoardIcon";
+import WalletIcon from "../CustomIcons/WalletIcon";
+import TransactionIcon from "../CustomIcons/TransactionIcon";
 // import DeliveryIcon from "../customIcons/DeliveryIcon";
-import MessagesIcon from "../customIcons/MessagesIcon";
-import DisputeIcon from "../customIcons/DisputeIcon";
+import MessagesIcon from "../CustomIcons/MessagesIcon";
+import DisputeIcon from "../CustomIcons/DisputeIcon";
 
 const { navigation: PageDictionary } = language.layout;
 

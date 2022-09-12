@@ -1,13 +1,13 @@
 import React, { useEffect, useId, useRef, useState } from 'react'
-import CustomButton from '../../../../common/components/customButtons'
-import CustomForm from '../../../../common/components/customForms';
-import NaijaFlag from '../../../../common/components/customIcons/NaijaFlag'
+import CustomButton from '../../../../common/components/CustomButtons'
+import CustomForm from '../../../../common/components/CustomForms';
+import NaijaFlag from '../../../../common/components/CustomIcons/NaijaFlag'
 import { fetchUserDetails } from '../../../../https/storage';
 import uploadImg from "../../../../static/images/uploadImg.svg";
 import admin from '../../../service/admin';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import customtoast from '../../../../common/components/customToast';
 import { useNavigate } from 'react-router-dom';
+import CustomToast from '../../../../common/components/CustomToast';
 
 function Profile() {
   const id = useId()
@@ -101,7 +101,7 @@ const { email, first_name, last_name, phone_number } = fetchUserDetails();
                   <div className="profile__container_header-copy">
                     <h5 className="linkText">{`${REACT_APP_FRONTEND_URL}?referralId=${userId}`}</h5>
                     <CopyToClipboard text={`${REACT_APP_FRONTEND_URL}?id=${userId}`}
-          onCopy={() => customtoast("Link copied")}>
+          onCopy={() => CustomToast("Link copied")}>
           <h5 className="copy">Copy</h5>
         </CopyToClipboard>
                     {/* <h5 className="copy">Copy</h5> */}

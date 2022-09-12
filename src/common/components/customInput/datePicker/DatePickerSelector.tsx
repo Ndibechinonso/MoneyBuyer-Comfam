@@ -2,8 +2,8 @@ import React from "react";
 import { Dayjs } from "dayjs";
 import { changeDateMonth } from "./utils/utilsFun";
 import clsx from "clsx";
-import CaretLeft from "../../customIcons/CaretLeft";
-import CaretRight from "../../customIcons/CaretRight";
+import CaretLeft from "../../CustomIcons/CaretLeft";
+import CaretRight from "../../CustomIcons/CaretRight";
 
 export interface IDatePickerSelectorProps {
   shownDate: Dayjs;

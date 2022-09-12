@@ -1,5 +1,5 @@
 import clientImg from "../../../../static/images/client_img.svg";
-import CustomButton from "../../customButtons";
+import CustomButton from "../../CustomButtons";
 
 const ClientContact = () => {
   return (

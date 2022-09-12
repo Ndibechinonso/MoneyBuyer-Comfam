@@ -1,5 +1,5 @@
 import React from "react";
-import PaperclipIcon from "../customIcons/PaperclipIcon";
+import PaperclipIcon from "../CustomIcons/PaperclipIcon";
 
 type Props = {};
 

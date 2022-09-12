@@ -1,6 +1,6 @@
 import React from "react";
-import ThrashIcon from "../customIcons/DeleteIcon";
-import DoneAllIcon from "../customIcons/DoneAllIcon";
+import ThrashIcon from "../CustomIcons/DeleteIcon";
+import DoneAllIcon from "../CustomIcons/DoneAllIcon";
 import DropDownItem from "./primitive/DropDownItem";
 import DropDownMenuContent from "./primitive/DropDownMenuContent";
 

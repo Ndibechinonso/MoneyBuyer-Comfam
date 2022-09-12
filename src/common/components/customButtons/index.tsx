@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { CustomButtonProps } from "./types"
+import { CustomButtonProps } from "./types";
 
 function CustomButton(props: CustomButtonProps) {
   const {

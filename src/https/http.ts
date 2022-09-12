@@ -61,7 +61,7 @@ instance.interceptors.response.use(
     }
 
     return Promise.reject(
-      error ? (error.response ? error.response.data : error.response) : null
+      error ? (error.response ? error.response.data : error.response) : "Something Went wrong!!!"
       // : Language.NetworkErrorMessage.errorMessage
     );
   }

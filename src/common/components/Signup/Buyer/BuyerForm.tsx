@@ -1,13 +1,13 @@
 import React, { useId, useState } from "react";
-import CustomButton from "../../customButtons";
+import CustomButton from "../../CustomButtons";
 // import { Signup } from "../../redux/signup/signupActions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import auth from "../../../../modules/service/auth";
 import { useNavigate } from "react-router-dom";
-import customtoast from "../../customToast";
 import { loadingStart, loadingStop } from "../../redux/apploader";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { validateEmail, validatePassword } from "../../../utils";
+import CustomToast from "../../CustomToast";
 
 const BuyerForm = () => {
   const id = useId();
@@ -67,7 +67,7 @@ const handleShowPassword = () => {
     auth
       .registerBuyer(inputs)
       .then((res) => { setIsSubmitted(false); navigate(`/verification?email=${inputs.email}`) })
-      .catch((err) => {  setIsSubmitted(false); customtoast(err.message)})
+      .catch((err) => {  setIsSubmitted(false); CustomToast(err.message)})
       .finally(() => dispatch(loadingStop()));
   };
 

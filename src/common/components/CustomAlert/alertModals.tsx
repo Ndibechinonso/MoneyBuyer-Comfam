@@ -1,8 +1,8 @@
-import CustomButton from "../customButtons";
+import CustomButton from "../CustomButtons";
 import closemodal from "../../../static/images/modal_close.svg";
 import CustomModal from "../CustomModal";
 import { useState } from "react";
-import {Alerts} from '../../components/redux/alert/alertActions' 
+import {Alerts} from '../redux/alert/alertActions' 
 import { useAppDispatch } from "../redux/hooks";
 
 type alertModalProps = {

@@ -1,5 +1,5 @@
 import React, { useId, useState } from "react";
-import CustomButton from "../../customButtons";
+import CustomButton from "../../CustomButtons";
 import { Signup } from "../../redux/signup/signupActions";
 import { useAppDispatch } from "../../redux/hooks";
 import { BsEyeSlash, BsEye } from "react-icons/bs";

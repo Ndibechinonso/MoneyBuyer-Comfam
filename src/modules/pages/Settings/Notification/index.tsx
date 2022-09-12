@@ -1,7 +1,7 @@
 import React, { useEffect, useId, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CustomButton from "../../../../common/components/customButtons";
-import InfoIcon from "../../../../common/components/customIcons/Info";
+import CustomButton from "../../../../common/components/CustomButtons";
+import InfoIcon from "../../../../common/components/CustomIcons/Info";
 import { Alerts } from "../../../../common/components/redux/alert/alertActions";
 import {
   loadingStart,
@@ -10,8 +10,8 @@ import {
 import { useAppDispatch, useAppSelector } from "../../../../common/components/redux/hooks";
 import { NotificationProps } from "../../../../common/components/redux/types";
 import auth from "../../../service/auth";
-import customtoast from "../../../../common/components/customToast";
 import { fetchUserDetails, storeUserDetails } from "../../../../https/storage";
+import CustomToast from "../../../../common/components/CustomToast";
 
 const initialFormState: NotificationProps = {
   sms: false,
@@ -67,7 +67,7 @@ function Notification() {
     event.preventDefault();
 
     if (fetchUserDetails().verified) {
-      customtoast("verified");
+      CustomToast("verified");
     } else {
       // const payload = localStorage.getItem("verification");
       // if (typeof payload === "string") {
@@ -105,11 +105,11 @@ function Notification() {
           .completeBuyerProfile(profilePayload)
           .then((res) => {
             dispatch(Alerts("profileupdated"))
-            // storeUserDetails(res?.result)
+            storeUserDetails(res?.data)
             console.log(res, "res")
           })
           .catch((err) => {
-            customtoast(err.message);
+            CustomToast(err.message);
           })
           .finally(() => dispatch(loadingStop()));
       }
@@ -217,14 +217,21 @@ function Notification() {
               </div>
             </div>
 
-            <CustomButton
+            {!fetchUserDetails().verified  ? <CustomButton
               className="profile__cta"
               type="submit"
               disabled={isloading}
               action={() => null}
               // action={() => dispatch(Alerts("progress"))}
-              actionText="Save"
-            />
+              actionText="Update Profile"
+            /> : <CustomButton
+            className="profile__cta"
+            type="submit"
+            disabled={isloading}
+            action={() => null}
+            // action={() => dispatch(Alerts("progress"))}
+            actionText="Update"
+          /> }
           </div>
         </div>
       </form>
