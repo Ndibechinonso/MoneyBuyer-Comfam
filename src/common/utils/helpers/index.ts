@@ -125,3 +125,41 @@ export const confamFeesCalc = (
     transactionFee,
   };
 };
+
+export const removeHypen = (text: string) =>
+  text.split("-").join(" ").toLocaleLowerCase();
+
+export const transactionModalTitleHandler = (data: any) => {
+  let template: any;
+
+  switch (removeHypen(data?.status)) {
+    case "awaiting confirmation":
+      template = "Awaiting sellers confirmation";
+      break;
+    case "pending payment":
+      template = `Transaction has been accepted, You have a pending payment of ${toNaira(
+        data?.amount
+      )}`;
+      break;
+    case "awaiting delivery":
+      template = `This product is Awaiting delivery`;
+      break;
+    case "pending confirmation":
+      template = `This is a new transaction pending your confirmation`;
+      break;
+    case "completed":
+      template = `This Transaction has been completed`;
+      break;
+    case "cancelled":
+      template = `This transaction has been cancelled`;
+      break;
+    case "refunded":
+      template = `This Transaction was disputed and money has been  refunded`;
+      break;
+
+    default:
+      break;
+  }
+
+  return template;
+};

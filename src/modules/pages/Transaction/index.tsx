@@ -12,17 +12,14 @@ import { sellersTransactions } from "../../../fakeData";
 import admin from "../../service/admin";
 
 function Transaction() {
-  // sellersTransactions
-
-  const { isloading } = useAppSelector((state) => state.isloading);
+  const { isloading, initiator } = useAppSelector((state) => state.isloading);
   const [data, setData] = useState([]);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(loadStart());
+    dispatch(loadStart("fetching_all_transactions"));
     admin
       .getAllTransaction()
-      // .then((res) => console.log(res.data))
       .then((res) => setData(res.data))
       .catch((err) => console.log(err))
       .finally(() => dispatch(loadStop()));
@@ -30,11 +27,9 @@ function Transaction() {
 
   return (
     <>
-      {/* <NewUserCard
-        completedRegistration={false}
-        message={"You currently don’t have any active Transaction."}
-      /> */}
-      <Table data={data} headers={sellersTransactions.columns} />
+      {!isloading && (
+        <Table data={data} headers={sellersTransactions.columns} />
+      )}
     </>
   );
 }

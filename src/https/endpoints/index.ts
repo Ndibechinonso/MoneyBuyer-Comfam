@@ -70,7 +70,7 @@ const ENDPOINTS = {
     },
     download_s3_image: {
       method: "GET",
-      url: (key: string) => `/file/get-upload-url?key=${key}`,
+      url: (key: string) => `/file/download-url?key=${key}`,
     },
   },
   send_feedback: {

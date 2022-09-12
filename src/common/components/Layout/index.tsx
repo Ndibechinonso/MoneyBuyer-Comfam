@@ -18,6 +18,7 @@ function Layout() {
   const [newUser, setNewUser] = useState(true);
   const value = getObject(getFirstLevelPath(pathname));
   const { modal, modalType } = useAppSelector((state) => state.alert);
+  const { isloading, initiator } = useAppSelector((state) => state.isloading);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -25,7 +26,7 @@ function Layout() {
       setUserError(false);
     }
     if (fetchUserToken()) {
-      dispatch(loadStart());
+      dispatch(loadStart("newuser_check"));
       admin
         .getAllTransaction()
         .then((res) => (res.count === 0 ? setNewUser(true) : setNewUser(false)))
@@ -58,13 +59,16 @@ function Layout() {
             )} content__${userError ? "userError" : "clean"}`}
           >
             {newUser && getFirstLevelPath(pathname) !== "setting" ? (
-              <>
-                {userError && <Notice />}
-                <NewUserCard
-                  completedRegistration={userError}
-                  message={value?.newUser.message}
-                />
-              </>
+              !isloading &&
+              initiator === "newuser_check" && (
+                <>
+                  {userError && <Notice />}
+                  <NewUserCard
+                    completedRegistration={userError}
+                    message={value?.newUser.message}
+                  />
+                </>
+              )
             ) : (
               <section className={`${getFirstLevelPath(pathname)}`}>
                 <Outlet />

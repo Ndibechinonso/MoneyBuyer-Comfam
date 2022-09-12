@@ -1,5 +1,5 @@
 import { BASE_URL } from "./constant";
-import { clearData, clearUserDetails, fetchUserToken } from "./storage";
+import { clearData, fetchUserToken } from "./storage";
 import axios from "axios";
 
 // interface HTTPParams {
@@ -18,7 +18,7 @@ export interface HTTPResponse<T = any> {
   tokens?: any;
   user?: any;
   message?: string;
-  count?: number
+  count?: number;
 }
 
 /** general headers **/
@@ -29,7 +29,7 @@ const headers = {
 };
 
 const setAuthorization = () => ({
-  "Authorization": `Bearer ${fetchUserToken()}`,
+  Authorization: `Bearer ${fetchUserToken()}`,
 });
 
 /** axios instance **/
@@ -96,7 +96,7 @@ export const makeAuthorizedRequestWithHeadersAndPayload = async (
   url: string,
   data: any = {}
 ) => {
-  const response :HTTPResponse  = await instance.request({
+  const response: HTTPResponse = await instance.request({
     method,
     url: url,
     data,
@@ -120,6 +120,20 @@ export const makeAuthorizedImageUpload = async (url: string, data: any) => {
   const res = await axios.put(response.data.url, [data]);
 
   return { response, res };
+};
+export const makeAuthorizedImageDownload = async (url: string) => {
+  const response = await instance.request({
+    method: "GET",
+    url: url,
+    headers: {
+      ...headers,
+      ...setAuthorization(),
+    },
+  });
+
+  const res = await axios.get(response.data.url);
+
+  return res;
 };
 
 /** make an axios request to submit a file for a logged in user **/

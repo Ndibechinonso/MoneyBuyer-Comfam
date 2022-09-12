@@ -1,59 +1,60 @@
+import { useEffect, useState } from "react";
+import admin from "../../../modules/service/admin";
+import { removeHypen, toNaira, transactionModalTitleHandler } from "../../utils/helpers";
 import CustomButton from "../customButtons";
 import CloseIcon from "../customIcons/CloseIcon";
 import IndicatorIcon from "../customIcons/IndicatorIcon";
 import ThreeDotIcon from "../customIcons/ThreeDot";
-import SellerTag from "../customTags/SellerTags";
+import Tag from "../customTags";
+// import SellerTag from "../customTags/SellerTags";
+import img from "../../../static/images/unsplash.png";
 import { Alerts } from "../redux/alert/alertActions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 function TransactionModal() {
   const data = useAppSelector((state) => state.tableItem.itm);
+  const [images, setImages] = useState([]);
   const dispatch = useAppDispatch();
+
+  // URL.createObjectURL(img)
+
+  useEffect(() => {
+    if (images.length === 0) {
+      data.images.forEach((imageKey: string) => {
+        admin
+          .getImage(imageKey)
+          .then((res) => {
+            console.log(res.data)
+            setImages((prev) => [...prev, ...res.data]);
+            // setImages((prev) => [...prev, URL.createObjectURL(res.data)]);
+          })
+          .catch((err) => console.log(err));
+      });
+    }
+  }, []);
+
+  console.log(images)
 
   return (
     <>
       <div className="transactionModal">
         <div
-          className={`transactionModal__title transactionModal__title--${data?.status
-            .split(" ")
-            .join("-")}`}
+          className={`transactionModal__title transactionModal__title--${data?.status.toLocaleLowerCase()}`}
         >
           <IndicatorIcon />
-          <span>
-            {data?.status === "Awaiting confirmation"
-              ? "Awaiting Buyer’s confirmation"
-              : null}
-            {data?.status === "Awaiting payment"
-              ? `Transaction has been accepted, awiating the payment of ${data?.amount}`
-              : null}
-            {data?.status === "Cancelled"
-              ? `This transaction has been cancelled`
-              : null}
-            {data?.status === "Pending confirmation"
-              ? `Pending Seller’s confirmation`
-              : null}
-            {data?.status === "Pending delivery"
-              ? `This Transaction is Pending delivery`
-              : null}
-            {data?.status === "Completed"
-              ? `This Transaction has been completed`
-              : null}
-            {data?.status === "Awaiting delivery"
-              ? `This Transaction is Awaiting buyers’ to confirm delivery`
-              : null}
-          </span>
+          <span>{transactionModalTitleHandler(data)}</span>
         </div>
         <div className="transactionModal__body">
           <div className="transactionModal__body--head">
             <h4>Transaction Details</h4>
-            <SellerTag value={data?.status} />
+            <Tag value={data?.status} />
             <ThreeDotIcon />
           </div>
           <section className="section">
             <div className="section__head">
-              <h5 className="section__head--title">Buyer’s Information</h5>
-              {(data?.status === "Completed" ||
-                data?.status === "Cancelled") && (
+              <h5 className="section__head--title">Seller’s Information</h5>
+              {(removeHypen(data?.status) === "completed" ||
+                removeHypen(data?.status) === "cancelled") && (
                 <p className="section__head--date">
                   {data?.transactionDetails?.buyerInfo?.paymentDueDate}
                 </p>
@@ -61,29 +62,25 @@ function TransactionModal() {
             </div>
             <div className="section__body">
               <div className="section__body--itm">
-                <h6 className="section__body--itm__title">Buyer ID/Email</h6>
-                <p className="section__body--itm__body">
-                  {data?.transactionDetails?.buyerInfo?.email}
-                </p>
+                <h6 className="section__body--itm__title">Seller ID/Email</h6>
+                <p className="section__body--itm__body">{data?.seller}</p>
               </div>
               <div className="section__body--itm">
                 <h6 className="section__body--itm__title">Payment Due Date</h6>
                 <p className="section__body--itm__body">
-                  {data?.transactionDetails?.buyerInfo?.paymentDueDate}
+                  {new Date(data?.completionDueDate).toDateString()}
                 </p>
               </div>
               <div className="section__body--itm">
                 <h6 className="section__body--itm__title">
-                  Buyer Phone Number
+                  Seller Phone Number
                 </h6>
-                <p className="section__body--itm__body">
-                  {data?.transactionDetails?.buyerInfo?.phoneNumber}
-                </p>
+                <p className="section__body--itm__body">{data?.seller}</p>
               </div>
               <div className="section__body--itm">
                 <h6 className="section__body--itm__title">Delivery Address</h6>
                 <p className="section__body--itm__body">
-                  {data?.transactionDetails?.buyerInfo?.deliveryAddress}
+                  {data.deliveryAddress}
                 </p>
               </div>
             </div>
@@ -95,31 +92,32 @@ function TransactionModal() {
             <div className="section__body">
               <div className="section__body--itm">
                 <h6 className="section__body--itm__title">Product Name</h6>
-                <p className="section__body--itm__body">
-                  {data?.transactionDetails?.productInfo?.productName}
-                </p>
+                <p className="section__body--itm__body">{data.productName}</p>
               </div>
               <div className="section__body--itm">
                 <h6 className="section__body--itm__title">Product Image</h6>
-                <p className="section__body--itm__body">
-                  <img
-                    src={data?.transactionDetails?.productInfo?.productImage}
-                    alt="displayed product"
-                  />
-                </p>
+                <div className="section__body--itm__body section__body--itm_img">
+                  {images.map((imageObject, idx) => (
+                    <img
+                      key={idx}
+                      // src={URL.createObjectURL(imageObject)}
+                      src={img}
+                      alt={`product ${idx + 1}`}
+                    />
+                  ))}
+                  
+                </div>
               </div>
               <div className="section__body--itm">
                 <h6 className="section__body--itm__title">Product Quantity</h6>
-                <p className="section__body--itm__body">
-                  {data?.transactionDetails?.productInfo?.productQuantity}
-                </p>
+                <p className="section__body--itm__body">{data.quantity}</p>
               </div>
               <div className="section__body--itm">
                 <h6 className="section__body--itm__title">
                   Product Description
                 </h6>
                 <p className="section__body--itm__body transactionModal__productDesc">
-                  {data?.transactionDetails?.productInfo?.productDesc}
+                  {data.description}
                 </p>
               </div>
             </div>
@@ -135,7 +133,7 @@ function TransactionModal() {
                 </h6>
                 <p className="transactionModal__payment--cost__body">
                   {/* <span>₦</span>12,500 */}
-                  {data?.transactionDetails?.pricingAndPayment?.productCost}
+                  {toNaira(data.price)}
                 </p>
               </div>
               <div className="transactionModal__payment--fee">
@@ -144,7 +142,7 @@ function TransactionModal() {
                 </h6>
                 <p className="transactionModal__payment--fee__body">
                   {/* <span>₦</span>1,000 */}
-                  {data?.transactionDetails?.pricingAndPayment?.transactionFee}
+                  {toNaira(data.transactionFee)}
                 </p>
               </div>
               <div className="transactionModal__payment--total">
@@ -154,7 +152,7 @@ function TransactionModal() {
                   </h6>
                   <p className="transactionModal__payment--totalSub__body">
                     {/* <span>₦</span>12,500 + <span>₦</span>1,000 Transaction fee */}
-                    {data?.transactionDetails?.pricingAndPayment?.subTotal}
+                    {`${toNaira(data.price)} + ${toNaira(data.transactionFee)} Transaction fee`}
                   </p>
                 </div>
                 <div className="transactionModal__payment--totalCost">
@@ -163,25 +161,25 @@ function TransactionModal() {
                   </h6>
                   <p className="transactionModal__payment--totalCost__body">
                     {/* <span>₦</span>13,500 */}
-                    {data?.transactionDetails?.pricingAndPayment?.totalCost}
+                    {toNaira(data.price + data.transactionFee)}
                   </p>
                 </div>
               </div>
             </div>
           </section>
-          {data?.status === "Pending delivery" && (
+          {removeHypen(data?.status) === "pending delivery" && (
             <CustomButton
               actionText="Completed"
               action={() => dispatch(Alerts("confirmtransaction"))}
             />
           )}
-          {data?.status === "Awaiting confirmation" && (
+          {removeHypen(data?.status) === "awaiting confirmation" && (
             <CustomButton
               actionText="Cancel transaction"
               action={() => dispatch(Alerts("canceltransaction"))}
             />
           )}
-          {data?.status === "Pending confirmation" && (
+          {removeHypen(data?.status) === "pending confirmation" && (
             <div className="btnWrapper">
               <CustomButton
                 variant="OUTLINE"

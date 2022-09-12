@@ -165,7 +165,6 @@ const NewTransaction = () => {
             src={closemodal}
             alt="close modal"
             onClick={() => {
-              // setModal(false);
               dispatch(Alerts(""));
             }}
             className="cursor-pointer"
@@ -382,6 +381,7 @@ const NewTransaction = () => {
             </div>
 
             <CustomButton
+              disabled={isloading}
               type="submit"
               className="profile__cta"
               action={() => null}

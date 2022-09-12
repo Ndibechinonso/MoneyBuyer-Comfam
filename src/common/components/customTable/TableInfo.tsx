@@ -14,7 +14,7 @@ function TableInfo({
   activeOrder,
   recentTransacionHistory,
 }: TObj) {
-  const tableContentHandler = (row, col) => {
+  const tableContentHandler = (row: any, col: any) => {
     let template: any;
 
     switch (col.key) {
@@ -67,23 +67,7 @@ function TableInfo({
           return (
             <tr key={idx}>
               {headers.map((col, id) => (
-                <td key={id}>
-                  {tableContentHandler(row, col)}
-                  {/* <span className="client_div">
-                    {col.key === "clients" ? (
-                      <span className="client_img">
-                        <img src={clientImg} alt="alt image" />
-                      </span>
-                    ) : null}
-                    {col.key === "status" ? (
-                      <Tag value={row[col.key]} />
-                    ) : col.key === "createdAt" ? (
-                      new Date(row[col.key]).toDateString()
-                    ) : (
-                      row[col.key]
-                    )}
-                  </span> */}
-                </td>
+                <td key={id}>{tableContentHandler(row, col)}</td>
               ))}
               <td>
                 {!activeOrder || recentTransacionHistory ? (
