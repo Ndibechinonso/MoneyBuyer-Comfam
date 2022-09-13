@@ -107,7 +107,35 @@ export const makeAuthorizedRequestWithHeadersAndPayload = async (
   });
   return response;
 };
-export const makeAuthorizedImageUpload = async (url: string, data: any) => {
+export const makeAuthorizedImageUpload = async (url: string, data: FileList) => {
+  // const response = await instance.request({
+  //   method: "GET",
+  //   url: url,
+  //   headers: {
+  //     ...headers,
+  //     ...setAuthorization(),
+  //   },
+  // });
+  let formData = new FormData();
+
+  let headers = {
+    "Content-Type": "multipart/form-data",
+  };
+
+  /** loop through and append all data to formdata object **/
+  for (const key in data) {
+    if (data.hasOwnProperty(key)) {
+      let fieldData = data[key];
+      formData.append(key, fieldData);
+      console.log(key, fieldData, "fieldData");
+      
+    }
+  }
+
+  // if (authorized) {
+  //   headers = { ...headers, ...setAuthorization() };
+  // }
+
   const response = await instance.request({
     method: "GET",
     url: url,
@@ -115,12 +143,17 @@ export const makeAuthorizedImageUpload = async (url: string, data: any) => {
       ...headers,
       ...setAuthorization(),
     },
+    data: formData,
   });
 
-  const res = await axios.put(response.data.url, [data]);
+console.log(data, "data");
+console.log(response, "response");
+
+  const res = await axios.put(response.data.url, data);
 
   return { response, res };
 };
+
 export const makeAuthorizedImageDownload = async (url: string) => {
   const response = await instance.request({
     method: "GET",
@@ -131,8 +164,10 @@ export const makeAuthorizedImageDownload = async (url: string) => {
     },
   });
 
-  const res = await axios.get(response.data.url);
+  // console.log(response.data.url, "response")
 
+  const res = await axios.get(response.data.url);
+// console.log(res, "httpres")
   return res;
 };
 

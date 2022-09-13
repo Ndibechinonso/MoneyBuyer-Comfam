@@ -42,7 +42,9 @@ const admin = {
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
   async uploadImage(file: any) {
-    const url = ENDPOINTS.file_handling.upload_s3_image.url(file.name);
+    const url = ENDPOINTS.file_handling.upload_s3_image.url(file.item(0).name);
+    console.log(file[0], "james");
+    
     return makeAuthorizedImageUpload(url, file);
   },
   async getImage(fileName: string) {
