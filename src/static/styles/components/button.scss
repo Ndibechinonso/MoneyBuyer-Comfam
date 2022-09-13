@@ -11,28 +11,28 @@
     &__normal {
         padding: 0.75rem 2rem;
         @include normalTextMedium; //18
-        height: 3.5rem;
+        // height: 3.5rem;
     }
     &__tiny{
         padding: 0.375rem 0.5rem;
         @include smallerText; //14
-        height: 2rem;
+        // height: 2rem;
     }
 
     &__small {
         padding: 0.5rem 0.875rem;
         @include smallTextMedium; //16
-        height: 3rem;
+        // height: 3rem;
     }
     &__medium {
         padding: 0.75rem 2rem;
         @include mediumTextMedium; //20
-        height: 3.75rem;
+        // height: 3.75rem;
     }
     &__large {
         padding: 0.75rem 2rem;
         @include largeTextMedium; //24
-        height: 4rem;
+        // height: 4rem;
     }
 
     &__normal, &__medium,
