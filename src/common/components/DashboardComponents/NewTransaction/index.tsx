@@ -84,7 +84,7 @@ const NewTransaction = () => {
         if (files.length) {
           dispatch(loadStart());
           admin
-            .uploadImage(files.item(0))
+            .uploadImage(files)
             .then((res) => {
               setRawImages((prev) => [...prev, files.item(0)]);
               setInputs((prev) => ({

@@ -40,14 +40,14 @@ const { email, first_name, last_name, phone_number } = fetchUserDetails();
     if (files.length) {
       setRawImage([files.item(0)]);
       setImageLoading(true)
-      admin
-        .uploadImage(files.item(0))
-        .then((res) => {
-          setImageLoading(false)
-          console.log(res, "res");
-        })
-        .catch((err) => {console.log(err); setImageLoading(false)
-        });
+      // admin
+      //   .uploadImage(files.item(0))
+      //   .then((res) => {
+      //     setImageLoading(false)
+      //     console.log(res, "res");
+      //   })
+      //   .catch((err) => {console.log(err); setImageLoading(false)
+      //   });
     }
   };
 
