@@ -62,7 +62,11 @@ instance.interceptors.response.use(
     }
 
     return Promise.reject(
-      error ? (error.response ? error.response.data : error.response) : "Something Went wrong!!!"
+      error
+        ? error.response
+          ? error.response.data
+          : error.response
+        : "Something Went wrong!!!"
       // : Language.NetworkErrorMessage.errorMessage
     );
   }
@@ -107,35 +111,10 @@ export const makeAuthorizedRequestWithHeadersAndPayload = async (
   });
   return response;
 };
-export const makeAuthorizedImageUpload = async (url: string, data: FileList) => {
-  // const response = await instance.request({
-  //   method: "GET",
-  //   url: url,
-  //   headers: {
-  //     ...headers,
-  //     ...setAuthorization(),
-  //   },
-  // });
-  let formData = new FormData();
-
-  let headers = {
-    "Content-Type": "multipart/form-data",
-  };
-
-  /** loop through and append all data to formdata object **/
-  for (const key in data) {
-    if (data.hasOwnProperty(key)) {
-      let fieldData = data[key];
-      formData.append(key, fieldData);
-      console.log(key, fieldData, "fieldData");
-      
-    }
-  }
-
-  // if (authorized) {
-  //   headers = { ...headers, ...setAuthorization() };
-  // }
-
+export const makeAuthorizedImageUpload = async (
+  url: string,
+  data: FileList
+) => {
   const response = await instance.request({
     method: "GET",
     url: url,
@@ -143,13 +122,14 @@ export const makeAuthorizedImageUpload = async (url: string, data: FileList) => 
       ...headers,
       ...setAuthorization(),
     },
-    data: formData,
   });
 
-console.log(data, "data");
-console.log(response, "response");
-
-  const res = await axios.put(response.data.url, data);
+  const res = await axios({
+    method: "PUT",
+    url: response.data.url,
+    data: data.item(0),
+    headers: { "Content-Type": data.item(0).type },
+  });
 
   return { response, res };
 };
@@ -167,7 +147,7 @@ export const makeAuthorizedImageDownload = async (url: string) => {
   // console.log(response.data.url, "response")
 
   const res = await axios.get(response.data.url);
-// console.log(res, "httpres")
+  // console.log(res, "httpres")
   return res;
 };
 

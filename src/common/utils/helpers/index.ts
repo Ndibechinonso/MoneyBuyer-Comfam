@@ -95,11 +95,11 @@ interface IconfamFees {
 }
 
 export const confamFeesCalc = (
-  transactionPrice: number,
-  quantity: number,
+  transactionPrice: string,
+  quantity: string,
   insuranced?: boolean
 ): IconfamFees => {
-  const totalPrice = transactionPrice * quantity;
+  const totalPrice = parseInt(transactionPrice) * parseInt(quantity);
   let markeupPercent = 0;
   switch (true) {
     case totalPrice <= 1999999:

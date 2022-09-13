@@ -25,14 +25,14 @@ const NewTransaction = () => {
       phone_number: "08029326711",
     },
     ProductName: "Green",
-    quantity: 2,
+    quantity: "2",
     description: "Clean and sleek",
     productModel: "X",
     images: [],
     completionDueDate: new Date().toISOString(),
-    price: 3000,
+    price: "3000",
     deliveryAddress: "Lagos",
-    transactionFee: 1300,
+    transactionFee: "1300",
     insuranceRequested: false,
   };
 

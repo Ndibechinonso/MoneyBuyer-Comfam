@@ -6,9 +6,9 @@ import { useAppSelector } from "../../redux/hooks";
 
 interface Iservice {
   product_name: string;
-  product_price: number;
+  product_price: string;
   product_image: Array<any>;
-  product_quantity: number;
+  product_quantity: string;
   product_description: string;
   changeHandler: (
     e:

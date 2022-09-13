@@ -24,9 +24,9 @@ function TransactionModal() {
         admin
           .getImage(imageKey)
           .then((res) => {
-            console.log(res.data)
-            setImages((prev) => [...prev, ...res.data]);
-            // setImages((prev) => [...prev, URL.createObjectURL(res.data)]);
+            // console.log((res.data))
+            // setImages((prev) => [...prev, ...res.data]);
+            setImages((prev) => [...prev, URL.createObjectURL(res.data)]);
           })
           .catch((err) => console.log(err));
       });
