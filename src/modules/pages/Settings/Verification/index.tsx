@@ -55,15 +55,15 @@ function Verification() {
     if (files.length) {
       setRawImage([files.item(0)]);
       setImageLoading(true)
-      admin
-        .uploadImage(files.item(0))
-        .then((res) => {
-          setImageLoading(false)
-          console.log(res, "res");
-          inputs.image = res?.response.data.key;
-        })
-        .catch((err) => {console.log(err); setImageLoading(false); removeImageHandler(rawImage[0])
-        });
+      // admin
+      //   .uploadImage(files.item(0))
+      //   .then((res) => {
+      //     setImageLoading(false)
+      //     console.log(res, "res");
+      //     inputs.image = res?.response.data.key;
+      //   })
+      //   .catch((err) => {console.log(err); setImageLoading(false); removeImageHandler(rawImage[0])
+      //   });
     }
   };
 
