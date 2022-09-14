@@ -15,6 +15,7 @@ interface Iproduct {
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => void;
   removeImageHandler: (file: any, idx: number) => void;
+  blurHandler: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 const Product = ({
@@ -26,11 +27,10 @@ const Product = ({
   product_description,
   changeHandler,
   removeImageHandler,
+  blurHandler,
 }: Iproduct) => {
   const { isloading } = useAppSelector((state) => state.isloading);
   const id = useId();
-
-  // URL.createObjectURL(file)
 
   return (
     <div>
@@ -40,11 +40,12 @@ const Product = ({
           <label htmlFor={`${id}-product_name`}> Product Name </label>
           <input
             required
+            autoComplete="off"
             className="new_transaction_form_input"
             id={`${id}-product_name`}
             type="text"
             name="ProductName"
-            placeholder="Laptop"
+            placeholder="e.g Laptop"
             disabled={isloading}
             onChange={changeHandler}
             value={product_name}
@@ -54,6 +55,7 @@ const Product = ({
           <label htmlFor={`${id}-product_price`}> Product Price </label>
           <input
             required
+            autoComplete="off"
             type="tel"
             className="new_transaction_form_input"
             id={`${id}-product_price`}
@@ -62,7 +64,9 @@ const Product = ({
             data-type="numeric"
             disabled={isloading}
             value={product_price}
+            placeholder="e.g 1000"
             onChange={changeHandler}
+            onBlur={blurHandler}
           />
         </div>
       </div>
@@ -78,21 +82,25 @@ const Product = ({
           <label htmlFor={`${id}-product_quantity`}>Product Quantity</label>
           <input
             required
+            autoComplete="off"
             className="new_transaction_form_input"
             id={`${id}-product_quantity`}
             type="text"
             name="quantity"
-            placeholder="0"
+            placeholder="e.g 5"
             disabled={isloading}
             value={product_quantity}
             onChange={changeHandler}
+            onBlur={blurHandler}
           />
         </div>
       </div>
+      <div className="form_row">
       <div className="form_group">
         <label htmlFor={`${id}-product_description`}>Product Description</label>
         <textarea
           required
+          autoComplete="off"
           className="new_transaction_form_input new_transaction_description"
           name="description"
           id={`${id}-product_description`}
@@ -101,6 +109,7 @@ const Product = ({
           disabled={isloading}
           onChange={changeHandler}
         />
+      </div>
       </div>
       <div className="insurance_div">
         <div className="check_div">

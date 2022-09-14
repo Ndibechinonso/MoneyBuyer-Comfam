@@ -15,7 +15,7 @@ import { loadStart, loadStop } from "../redux/apploader";
 function Layout() {
   const { pathname } = useLocation();
   const [userError, setUserError] = useState(true);
-  const [newUser, setNewUser] = useState(true);
+  const [newUser, setNewUser] = useState(false);
   const value = getObject(getFirstLevelPath(pathname));
   const { modal, modalType } = useAppSelector((state) => state.alert);
   const { isloading, initiator } = useAppSelector((state) => state.isloading);
@@ -59,17 +59,17 @@ function Layout() {
             )} content__${userError ? "userError" : "clean"}`}
           >
             {newUser && getFirstLevelPath(pathname) !== "setting" ? (
-              !isloading &&
-              initiator === "newuser_check" && (
-                <>
-                  {userError && <Notice />}
-                  <NewUserCard
-                    completedRegistration={userError}
-                    message={value?.newUser.message}
-                  />
-                </>
-              )
+              // !isloading &&
+              // initiator === "newuser_check" && (
+              <>
+                {userError && <Notice />}
+                <NewUserCard
+                  completedRegistration={userError}
+                  message={value?.newUser.message}
+                />
+              </>
             ) : (
+              // )
               <section className={`${getFirstLevelPath(pathname)}`}>
                 <Outlet />
               </section>

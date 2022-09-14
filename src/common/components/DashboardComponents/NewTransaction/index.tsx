@@ -2,7 +2,7 @@ import { useState, useId } from "react";
 import CustomButton from "../../CustomButtons";
 import closemodal from "../../../../static/images/dashboard_modal_close.svg";
 import ArrowLeft from "../../CustomIcons/ArrowLeft";
-// import addProduct from "../../../../static/images/add_product.svg";
+import tempimage from "../../../../static/images/aloop.gif";
 import info from "../../../../static/images/insurance_info.svg";
 import { Alerts } from "../../../components/redux/alert/alertActions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -17,34 +17,35 @@ import { loadStart, loadStop } from "../../redux/apploader";
 const NewTransaction = () => {
   const id = useId();
   const { isloading } = useAppSelector((state) => state.isloading);
+  const [imgUploading, setImgUploading] = useState(false);
   const dispatch = useAppDispatch();
   const initialState = {
     type: "NEW_TRANSACTION",
     sellerDetails: {
-      email: "kirtugoyde@vusra.com",
-      phone_number: "08029326711",
+      email: "",
+      phone_number: "",
     },
-    ProductName: "Green",
-    quantity: "2",
-    description: "Clean and sleek",
-    productModel: "X",
+    ProductName: "",
+    quantity: "",
+    description: "",
+    productModel: "yellow",
     images: [],
     completionDueDate: new Date().toISOString(),
-    price: "3000",
-    deliveryAddress: "Lagos",
-    transactionFee: "1300",
+    price: "",
+    deliveryAddress: "",
+    transactionFee: "",
     insuranceRequested: false,
   };
 
   const [inputs, setInputs] = useState(initialState);
-  // const [startDate, setStartDate] = useState(new Date());
+  const disableSubmitButton = Object.values(inputs)
+    .map((variables) =>
+      typeof variables === "string" ? variables : Object.values(variables)
+    )
+    .flatMap((itm) => itm)
+    .filter((itm) => itm === "");
+  console.log(disableSubmitButton);
   const [rawImages, setRawImages] = useState([]);
-  // const [productNumber, setProductNumber] = useState(1);
-  // const [serviceNumber, setServiceNumber] = useState(1);
-
-  // const changeFormState = (state: string) => {
-  //   setHeaderTitle(state);
-  // };
 
   const changeHandler = (
     e: React.ChangeEvent<HTMLInputElement> &
@@ -82,24 +83,51 @@ const NewTransaction = () => {
         break;
       case "images":
         if (files.length) {
-          dispatch(loadStart());
+          setImgUploading((prev) => !prev);
+          setRawImages((prev) => [...prev, tempimage]);
           admin
             .uploadImage(files)
             .then((res) => {
-              setRawImages((prev) => [...prev, files.item(0)]);
+              const rmTempImg = rawImages.filter((img) => img !== tempimage);
+              setRawImages([...rmTempImg, files.item(0)]);
               setInputs((prev) => ({
                 ...prev,
                 images: [...prev.images, res.response.data.key],
               }));
             })
-            .catch((err) =>
-            customtoast("Error Encountered while Uploading Image", true)
-            )
-            .finally(() => dispatch(loadStop()));
+            .catch((err) => {
+              const rmTempImg = rawImages.filter((img) => img !== tempimage);
+              setRawImages([...rmTempImg]);
+              customtoast(err.message, true);
+            })
+            .finally(() => setImgUploading((prev) => !prev));
         }
         break;
       default:
         setInputs((prev) => ({ ...prev, [name]: value }));
+        break;
+    }
+  };
+
+  const blurHandler = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name } = e.target;
+    switch (name) {
+      case "quantity":
+      case "price":
+      case "insuranceRequested":
+        setInputs((prev) => ({
+          ...prev,
+          transactionFee: confamFeesCalc(
+            inputs.price,
+            inputs.quantity,
+            inputs.insuranceRequested
+          ).transactionCost.toString(),
+        }));
+        break;
+      case "email":
+        
+        break;
+      default:
         break;
     }
   };
@@ -171,7 +199,7 @@ const NewTransaction = () => {
         </button>
       </header>
 
-      <form onSubmit={submitHandler}>
+      <form autoComplete="off" onSubmit={submitHandler}>
         {inputs.type === "NEW_TRANSACTION" ? (
           <div className="transaction_cards_container">
             <div
@@ -201,11 +229,12 @@ const NewTransaction = () => {
                 <label htmlFor={`${id}-buyer_email`}> Seller ID/ Email </label>
                 <input
                   required
+                  autoComplete="off"
                   className="new_transaction_form_input"
                   id={`${id}-buyer_email`}
                   type="email"
                   name="email"
-                  placeholder="james@email.com"
+                  placeholder="e.g james@email.com"
                   disabled={isloading}
                   value={inputs.sellerDetails.email}
                   onChange={changeHandler}
@@ -216,11 +245,12 @@ const NewTransaction = () => {
                 <label htmlFor={`${id}-phoneNumber`}>Seller Phone Number</label>
                 <input
                   required
+                  autoComplete="off"
                   className="new_transaction_form_input"
                   id={`${id}-phoneNumber`}
                   type="tel"
                   name="phone_number"
-                  placeholder="070-123-432-11"
+                  placeholder="e.g 070-123-432-11"
                   disabled={isloading}
                   value={inputs.sellerDetails.phone_number}
                   onChange={changeHandler}
@@ -244,10 +274,11 @@ const NewTransaction = () => {
                 </label>
                 <input
                   required
+                  autoComplete="off"
                   className="new_transaction_form_input"
                   id={`${id}-delivery_address`}
                   type="text"
-                  placeholder="Lagos Nigeria"
+                  placeholder="e.g Lagos, Nigeria"
                   name="deliveryAddress"
                   disabled={isloading}
                   value={inputs.deliveryAddress}
@@ -265,6 +296,7 @@ const NewTransaction = () => {
               product_quantity={inputs.quantity}
               changeHandler={changeHandler}
               removeImageHandler={removeImageHandler}
+              blurHandler={blurHandler}
             />
           </>
         ) : null}
@@ -279,10 +311,11 @@ const NewTransaction = () => {
                 </label>
                 <input
                   required
+                  autoComplete="off"
                   className="new_transaction_form_input"
                   id={`${id}-consultant_email`}
-                  type="text"
-                  placeholder="Confam money ID or Email"
+                  type="email"
+                  placeholder="e.g joy@email.com"
                   name="email"
                   disabled={isloading}
                   value={inputs.sellerDetails.email}
@@ -295,6 +328,7 @@ const NewTransaction = () => {
                 </label>
                 <input
                   required
+                  autoComplete="off"
                   className="new_transaction_form_input"
                   id={`${id}-phoneNumber`}
                   type="tel"
@@ -322,6 +356,7 @@ const NewTransaction = () => {
                 </label>
                 <input
                   required
+                  autoComplete="off"
                   className="new_transaction_form_input"
                   id={`${id}-delivery_address`}
                   type="text"
@@ -341,46 +376,54 @@ const NewTransaction = () => {
               product_quantity={inputs.quantity}
               changeHandler={changeHandler}
               removeImageHandler={removeImageHandler}
+              blurHandler={blurHandler}
             />
           </>
         ) : null}
         {inputs.type !== "NEW_TRANSACTION" ? (
           <footer className="new_transaction_footer">
             <div className="insurance_break-down">
-              <span>
-                <img src={info} alt="insurance info" />
-              </span>
-              <div>
-                <p>
-                  Transaction fee:{" "}
-                  <span className="price">
-                    {toNaira(
-                      confamFeesCalc(
-                        inputs.price,
-                        inputs.quantity
-                      ).transactionFee.toString()
-                    )}
+              {inputs.price && inputs.quantity && (
+                <>
+                  <span>
+                    <img src={info} alt="insurance info" />
                   </span>
-                </p>
+                  <div>
+                    <p>
+                      Transaction fee:{" "}
+                      <span className="price">
+                        {toNaira(
+                          confamFeesCalc(
+                            inputs.price,
+                            inputs.quantity
+                          ).transactionCost.toString()
+                        )}
+                      </span>
+                    </p>
 
-                {inputs.type === "SERVICE" ? (
-                  <p>
-                    VAT:{" "}
-                    <span className="vat">
-                      {toNaira(
-                        confamFeesCalc(
-                          inputs.price,
-                          inputs.quantity
-                        ).vat.toString()
-                      )}
-                    </span>
-                  </p>
-                ) : null}
-              </div>
+                    <p>
+                      VAT:{" "}
+                      <span className="vat">
+                        {toNaira(
+                          confamFeesCalc(
+                            inputs.price,
+                            inputs.quantity
+                          ).vat.toString()
+                        )}
+                      </span>
+                    </p>
+                  </div>
+                </>
+              )}
             </div>
 
             <CustomButton
-              disabled={isloading}
+              disabled={
+                isloading ||
+                imgUploading ||
+                disableSubmitButton.length > 0 ||
+                inputs.quantity === "0"
+              }
               type="submit"
               className="profile__cta"
               action={() => null}
