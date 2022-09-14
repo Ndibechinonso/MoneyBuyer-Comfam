@@ -1,8 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+type loadingInitiator =
+  | ""
+  | "fetching_all_transactions"
+  | "created_new_transaction"
+  | "newuser_check"
+  | "verify_code"
+  | "resend_code";
+
 interface loadingState {
   isloading: boolean;
-  initiator: string;
+  initiator?: loadingInitiator;
 }
 
 const initialState: loadingState = {
@@ -14,7 +22,7 @@ export const loadingSlice = createSlice({
   name: "loadingstate",
   initialState,
   reducers: {
-    loadingStart: (state, action: PayloadAction<string>) => {
+    loadingStart: (state, action: PayloadAction<loadingInitiator>) => {
       state.isloading = true;
       state.initiator = action.payload;
     },
@@ -27,7 +35,7 @@ export const loadingSlice = createSlice({
 
 export const { loadingStart, loadingStop } = loadingSlice.actions;
 
-export const loadStart = (init?: string) => {
+export const loadStart = (init?: loadingInitiator) => {
   return loadingStart(init);
 };
 export const loadStop = () => {

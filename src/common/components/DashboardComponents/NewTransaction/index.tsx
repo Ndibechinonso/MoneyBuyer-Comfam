@@ -153,7 +153,7 @@ const NewTransaction = () => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    dispatch(loadStart());
+    dispatch(loadStart("created_new_transaction"));
     admin
       .newTransaction(inputs)
       .then((res) => dispatch(Alerts("newtransactioncreated")))
