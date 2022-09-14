@@ -146,9 +146,9 @@ export const makeAuthorizedImageDownload = async (url: string) => {
 
   // console.log(response.data.url, "response")
 
-  const res = await axios.get(response.data.url);
+  // const res = await axios.get(response.data.url);
   // console.log(res, "httpres")
-  return res;
+  return response.data.url;
 };
 
 /** make an axios request to submit a file for a logged in user **/

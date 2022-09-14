@@ -3,7 +3,7 @@ import { STORAGE_KEYS } from "../constant";
 export const getItem = (key: string) => {
   return localStorage.getItem(key) || null;
 };
-const removeItem = (key: string) => {
+export const removeItem = (key: string) => {
   return localStorage.removeItem(key);
 };
 

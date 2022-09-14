@@ -43,9 +43,19 @@
         background-color: var(--greyColorGrey2);
         opacity: 0.5;
       }
+     .profile__container__image {
+      position: absolute;
+      left: 0;
+      top: 0;
+        width: 6.25rem;
+        height: 6.25rem;
+        object-fit: cover;
+        object-position: top;
+        border-radius: 50%;
+      }
       p {
         position: absolute;
-        z-index: 20;
+        z-index: 1;
         left: 0;
         right: 0;
         margin: auto;
@@ -53,6 +63,22 @@
         color: #ffffff;
         font-weight: 500;
         font-size: 14px;
+      }
+      .center_place{
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        place-content: center;
+        place-items: center;
+        left: 0;
+        top: 0;
+        width: 6.25rem;
+        height: 6.25rem;
+      }
+      .profile_image_overlay{
+        border-radius: 50%;
+        background-color: var(--greyColorGrey2);
+        opacity: 0.5;
       }
     }
     h4 {

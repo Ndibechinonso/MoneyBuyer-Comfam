@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 import * as AlertTypes from "./alertTypes"
 
-type iAlert = "progress"| "profileupdated" | "accountverified" | "verificationfailed" | "confirmtransaction"|"canceltransaction" | "transactionitem"| "transactionaccepted" | "transactioncancelled" | "cancelreason" | "newtransaction" | "disputeitem" |"resetpassword" | "" | "feedbackSent"| "newtransactioncreated";
+type iAlert = "progress"| "profileupdated" | "accountverified" | "verificationfailed" | "confirmtransaction"|"canceltransaction" | "transactionitem"| "transactionaccepted" | "transactioncancelled" | "cancelreason" | "newtransaction" | "disputeitem" |"resetpassword" | "" | "feedbackSent"| "newtransactioncreated" | "notificationupdated";
 type modalInitiator = undefined | "pendingconfirmation" | "awaitingconfirmation" | "pendingdelivery"
 
 
@@ -10,6 +10,7 @@ export const Alerts = (alertType: iAlert, initiator?:modalInitiator) => async(di
         case "progress" : return  dispatch({type: AlertTypes.PROGRESS_MODAL,});
         case "resetpassword" : return  dispatch({type: AlertTypes.RESETPASSWORD_MODAL,});
         case "profileupdated" : return  dispatch({type: AlertTypes.PROFILEUPDATED_MODAL,});
+        case "notificationupdated" : return  dispatch({type: AlertTypes.NOTIFICATIONUPDATED_MODAL,});
         case "feedbackSent" : return  dispatch({type: AlertTypes.FEEDBACKSENT_MODAL,});
         case "accountverified" : return  dispatch({type: AlertTypes.ACCOUNTVERIFIED_MODAL,});
         case "verificationfailed" : return  dispatch({type: AlertTypes.VERIFICATIONFAILED_MODAL,});

@@ -7,13 +7,10 @@ import "react-select-states-and-lga-in-nigeria/dist/index.css";
 import { VerificationProps } from "../../../../common/components/redux/types";
 import { setItem } from "../../../../https/storage";
 import { useNavigate } from "react-router-dom";
-import CustomImageInput from "../../../../common/components/CustomImageInput";
 import admin from "../../../service/admin";
-// import CustomImageInput from "../../CustomImageInput";
 import { fetchUserDetails } from "../../../../https/storage";
 import Pulse from "../../../../common/components/CustomIcons/Pulse";
-
-
+import CustomToast from "../../../../common/components/CustomToast";
 
 const initialFormState: VerificationProps = {
   image: "",
@@ -51,19 +48,16 @@ function Verification() {
   ) => {
     if(imageLoading) return
     const { files } = e.target;
-
     if (files.length) {
-      setRawImage([files.item(0)]);
       setImageLoading(true)
-      // admin
-      //   .uploadImage(files.item(0))
-      //   .then((res) => {
-      //     setImageLoading(false)
-      //     console.log(res, "res");
-      //     inputs.image = res?.response.data.key;
-      //   })
-      //   .catch((err) => {console.log(err); setImageLoading(false); removeImageHandler(rawImage[0])
-      //   });
+      admin
+        .uploadImage(files)
+        .then((res) => {
+          setRawImage((prev) => [...prev, files.item(0)]);
+          inputs.image = res?.response.data.key;
+        })
+        .catch((err) => CustomToast(err.message, true))
+        .finally(() => setImageLoading(false))
     }
   };
 
@@ -128,7 +122,6 @@ function Verification() {
             <input
               type="file"
               name="images"
-              value=""
               ref={hiddenFileInput}
               accept="image/png, image/jpeg"
               id={`${id}-product_image`}
@@ -149,6 +142,11 @@ function Verification() {
             {rawImage.length > 0 && !imageLoading && <p>Remove Image</p>}
             {imageLoading && <Pulse /> }
           </div>
+          {isSubmitted && !inputs.image && (
+              <small className="input_error text-red-1 text-xs">
+                *Profile Image Required
+              </small>
+            )}
         </div>
 
         <div className="profile__container_form">
@@ -204,11 +202,6 @@ function Verification() {
               type="email"
               placeholder="Email Address"
             />
-            {/* {isSubmitted && userEmail && (
-              <small className="input_error text-red-1 text-xs">
-                *Required
-              </small>
-            )} */}
           </div>
 
           <div className="form_group">

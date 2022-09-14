@@ -33,8 +33,6 @@ function TransactionModal() {
     }
   }, [images.length]); //eslint-disable-line
 
-  console.log(images)
-
   return (
     <>
       <div className="transactionModal">

@@ -30,7 +30,6 @@ const {isloading} = useAppSelector((state) => state.isloading)
 
   const changeHandler = (e: any) => {
     // const name = e.target.name;
-    console.log(e.target.type);
     if (e.target.type === "radio") {
       setInputs((inputs) => ({ ...inputs, rating: e.target.value }));
     } else {

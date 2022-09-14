@@ -15,31 +15,20 @@ function UserMenuTrigger({}: userMenuProps) {
     if (fetchUserDetails().verified && !userAvatar) {
       const image = fetchUserDetails().image;
       // setUserAvartar(image);
-      // admin
-      //     .getImage(image)
-      //     .then((res) => {console.log(res, res, "res"); 
-      //     const splitImage = res.split("?")[0]
-      //     console.log(splitImage);
-      //     setUserAvartar(res)
-      //     // setUserAvartar((prev) => [...prev, URL.createObjectURL(res)]);
-      //   })
-      //     .catch((err) => console.log(err, "error"));
+      admin
+          .getImage(image)
+          .then((res) => {
+          setUserAvartar(res)
+          // setUserAvartar((prev) => [...prev, URL.createObjectURL(res)]);
+        })
+          .catch((err) => console.log(err, "error"));
     }
   }, []);
-
-  useEffect(() => {
-  //   admin
-  //     .getImage(userAvatar)
-  //     .then((res) => console.log(res, res.data, "res"))
-  //     .catch((err) => console.log(err, "error"));
-  console.log(userAvatar, "userAvatar");
-  
-  }, [userAvatar]);
 
   return (
     <div className="userMenu">
       {/* <img className="userMenu__image" src={userImg} alt="user profile" /> */}
-     {userAvatar && <img src={userAvatar} alt="" /> }
+     {userAvatar ? <img src={userAvatar} alt="" className="userMenu__image" /> : <div className="userMenu__image_placeholder"></div> }
       <DropDownIcon className={`userMenu__icon`} />
     </div>
   );

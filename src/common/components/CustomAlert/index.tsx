@@ -48,7 +48,7 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
           type="alert"
           alertIcon={success}
           header="Account Verified"
-          text="You account have been verified successfully"
+          text="Your account have been verified successfully"
         />
       );
       break;
@@ -59,10 +59,21 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
           type="alert"
           alertIcon={success}
           header="Profile Updated"
-          text="You profile have been updated successfully"
+          text="Your profile have been updated successfully"
         />
       );
       break;
+
+      case "notificationupdated":
+        template = (
+          <ModalContent
+            type="alert"
+            alertIcon={success}
+            header="Notification Settings Updated"
+            text="Your notification settings have been updated successfully"
+          />
+        );
+        break;
 
     case "feedbackSent":
       template = (

@@ -33,7 +33,6 @@ const Form = () => {
     event.preventDefault();
     setIsSubmitted(true);
     if (!validate) return;
-    console.log(inputs);
     dispatch(loadingStart(""));
     auth
       .loginBuyer(inputs)

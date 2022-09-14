@@ -98,7 +98,6 @@ const SignupVerification = () => {
     auth
       .verifyBuyer(value)
       .then((res) => {
-        console.log(res);
         setSuccess((prev) => !prev);
       })
       .catch((err) => {

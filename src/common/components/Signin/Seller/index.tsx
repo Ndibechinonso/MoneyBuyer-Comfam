@@ -24,7 +24,6 @@ const Form = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(inputs);
     setInputs(initialFormState);
     dispatch(Signup("verification"));
   };

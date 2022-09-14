@@ -43,7 +43,6 @@ const admin = {
   },
   async uploadImage(file: FileList) {
     const url = ENDPOINTS.file_handling.upload_s3_image.url(file.item(0).name);
-
     return makeAuthorizedImageUpload(url, file);
   },
   async getImage(fileName: string) {
@@ -54,6 +53,18 @@ const admin = {
     const { method, url } = ENDPOINTS.send_feedback;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
+  async changePasswordLoggedIn(body: any)  {
+    const { method, url } = ENDPOINTS.auth.update_password;
+    return makeAuthorizedRequestWithHeadersAndPayload( method, url, body );
+  },
+  async updateProfileImage(body: any)  {
+    const { method, url } = ENDPOINTS.auth.update_profile_image;
+    return makeAuthorizedRequestWithHeadersAndPayload( method, url, body );
+  },
+  async updateNotification(body: any)  {
+    const { method, url } = ENDPOINTS.auth.update_notification_settings;
+    return makeAuthorizedRequestWithHeadersAndPayload( method, url, body );
+  }
 };
 
 export default admin;

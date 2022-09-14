@@ -59,8 +59,9 @@ function Layout() {
             )} content__${userError ? "userError" : "clean"}`}
           >
             {newUser && getFirstLevelPath(pathname) !== "setting" ? (
-              !isloading &&
-              initiator === "newuser_check" && (
+              // !isloading &&
+              // initiator === "newuser_check" &&
+               (
                 <>
                   {userError && <Notice />}
                   <NewUserCard

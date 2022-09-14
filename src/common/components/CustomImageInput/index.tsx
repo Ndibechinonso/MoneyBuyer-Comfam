@@ -25,7 +25,7 @@ function CustomImageInput(props: Props) {
           disabled={value.length === 4 || disabled}
           placeholder="No file Chosen"
           accept="image/png, image/jpeg"
-          onChange={changeHandler}
+          // onChange={changeHandler}
         />
         <span>Choose File</span>
         <div className="image_container">
