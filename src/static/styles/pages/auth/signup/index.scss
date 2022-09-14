@@ -36,7 +36,7 @@
     height: 2px;
     width: 100%;
     position: absolute;
-    top: 20px;
+    top: 28px;
   }
 
   &_tabs {
@@ -47,7 +47,6 @@
   &_active_tab {
     border-bottom: 4px solid #00003d !important;
     color: var(--brandColorPrimary1);
-    padding-bottom: 3rem;
   }
 }
 .verification_container {
