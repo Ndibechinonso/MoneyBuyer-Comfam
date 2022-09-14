@@ -34,7 +34,7 @@ function Layout() {
         .catch((err) => console.log(err))
         .finally(() => dispatch(loadStop()));
     }
-  }, []);
+  }, []); // eslint-disable-line
 
   if (!fetchUserToken() || fetchUserDetails() === false) {
     return <Navigate replace to="/signin/buyer" />;

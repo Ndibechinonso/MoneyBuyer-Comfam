@@ -1,16 +1,20 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "../../../static/styles/components/datePicker.scss";
+import { Icalendar } from "./type";
 
-interface Icalendar {
-  startDate: Date;
-  endDate?: Date | null;
-  onChange: (e: any) => void;
-  type: "range" | "picker";
-  disable?: boolean;
-}
 
-function Calender({ startDate, endDate, onChange, type, disable }: Icalendar) {
+
+function CustomDate({
+  startDate,
+  endDate,
+  onChange,
+  type,
+  disable,
+  minDate,
+  placeholder,
+}: Icalendar) {
   let template: any;
   switch (type) {
     case "picker":
@@ -22,7 +26,7 @@ function Calender({ startDate, endDate, onChange, type, disable }: Icalendar) {
             decreaseMonth,
             increaseMonth,
           }) => (
-            <div>
+            <div className="calender_header">
               <button
                 type="button"
                 aria-label="Previous Month"
@@ -73,6 +77,8 @@ function Calender({ startDate, endDate, onChange, type, disable }: Icalendar) {
           onChange={onChange}
           monthsShown={2}
           disabled={disable}
+          minDate={minDate && new Date()}
+          placeholderText={placeholder}
           required
         />
       );
@@ -86,7 +92,7 @@ function Calender({ startDate, endDate, onChange, type, disable }: Icalendar) {
             decreaseMonth,
             increaseMonth,
           }) => (
-            <div>
+            <div className="calender_header">
               <button
                 type="button"
                 aria-label="Previous Month"
@@ -139,7 +145,11 @@ function Calender({ startDate, endDate, onChange, type, disable }: Icalendar) {
           endDate={endDate}
           selectsRange
           monthsShown={2}
+          minDate={minDate && new Date()}
           disabled={disable}
+          placeholderText={placeholder}
+          className="test"
+          wrapperClassName="tester"
           required
         />
       );
@@ -152,6 +162,6 @@ function Calender({ startDate, endDate, onChange, type, disable }: Icalendar) {
   return template;
 }
 
-const MemCalendar = React.memo(Calender);
+// const MemCalendar = React.memo(CustomDate);
 
-export default MemCalendar;
+export default CustomDate;

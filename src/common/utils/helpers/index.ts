@@ -117,9 +117,9 @@ export const confamFeesCalc = (
   }
   const transactionCost = (markeupPercent * totalPrice) / 100;
 
-  let insurance = 0;
+  let insurance = 0; 
   if (insuranced) {
-    insurance = (1.0 * totalPrice) / 100;
+    insurance = (1.0 * totalPrice) / 100; // eslint-disable-line
   }
   const vat = (7.5 * totalPrice) / 100;
   // const transactionFee = transactionCost + totalPrice + insurance + vat;

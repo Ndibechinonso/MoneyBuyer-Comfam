@@ -3,11 +3,23 @@
 }
 .table__input {
   position: relative;
+  width: 100%;
+
+  &:first-child {
+    flex: 1;
+  }
+  &:last-child {
+    flex: 1;
+    &,
+    &:hover {
+      cursor: pointer;
+    }
+  }
 
   input {
-    all: unset;
-    padding: 0.75rem 0.75rem 0.6875rem 2.8125rem;
-    width: 18rem;
+    // all: unset;
+    padding: 0.875rem 0.75rem 0.6875rem 2rem;
+    width: 100%;
     border-radius: 0.5rem;
     border: 1px solid #cdcdd0;
     background-color: var(--blackColorWhite);
@@ -35,6 +47,7 @@
     width: 1.5rem;
     height: 1.5rem;
     inset: 0.625rem auto auto 0.625rem;
+    z-index: 1;
   }
 }
 
@@ -58,7 +71,7 @@
       color: var(--tagCl5);
     }
   }
-  &__body{
+  &__body {
     height: 11.25rem;
     overflow-y: scroll;
   }

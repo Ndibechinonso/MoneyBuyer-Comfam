@@ -10,7 +10,7 @@ import NotificationIcon from "../CustomIcons/NotificationIcon";
 import DropDown from "../DropDowns/primitive";
 import UserMenuItem from "../DropDowns/UserMenuItem";
 import UserMenuTrigger from "./UserMenuTrigger";
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { Alerts } from "../redux/alert/alertActions";
 // import steve from "../../../static/images/steve.svg";
 import statusIndicator from "../../../static/images/status_indicator.svg";
@@ -25,6 +25,7 @@ type Iheader = {
 function Header({ newUser, inCompleteReg }: Iheader) {
   const { pathname } = useLocation();
   const { first_name } = fetchUserDetails();
+  const { isloading } = useAppSelector((state) => state.isloading);
   // console.log(pathname);
 
   const navigate = useNavigate();
@@ -76,6 +77,7 @@ function Header({ newUser, inCompleteReg }: Iheader) {
           )}
           {displayHeaderBtn(pathname, newUser, inCompleteReg) ? (
             <CustomButton
+              disabled={isloading}
               className="titleBar__cta"
               action={() => dispatch(Alerts("newtransaction"))}
               actionText="New Transaction"

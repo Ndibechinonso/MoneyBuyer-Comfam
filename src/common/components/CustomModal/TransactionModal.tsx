@@ -12,7 +12,7 @@ import IndicatorIcon from "../CustomIcons/IndicatorIcon";
 import ThreeDotIcon from "../CustomIcons/ThreeDot";
 import Tag from "../CustomTags";
 // import SellerTag from "../customTags/SellerTags";
-import img from "../../../static/images/unsplash.png";
+// import img from "../../../static/images/unsplash.png";
 import { Alerts } from "../redux/alert/alertActions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 

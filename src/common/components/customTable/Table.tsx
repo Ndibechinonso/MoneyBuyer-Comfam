@@ -1,8 +1,8 @@
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 import React from "react";
 import { Ioptions } from "../DropDowns/StatusFilter";
-import TableInfo from './TableInfo'
-import TableControls from './TableControls'
+import TableInfo from "./TableInfo";
+import TableControls from "./TableControls";
 
 type headerObj = {
   title: string;
@@ -21,22 +21,24 @@ type headerObj = {
 type Props = {
   headers: Array<headerObj>;
   data: Array<any>;
-  activeOrder? : any;
-  recentTransacionHistory?: any
+  activeOrder?: any;
+  recentTransacionHistory?: any;
 };
 
 type ifState = {
   search: string;
-  date: dayjs.Dayjs;
+  date: Array<any>;
   filter: string[];
 };
 
 function Table({ headers, data, activeOrder, recentTransacionHistory }: Props) {
   const [formState, setFormState] = React.useState<ifState>({
     search: "",
-    date: dayjs(),
+    date: [],
     filter: [],
   });
+
+  // const [dateState, setDateState] = React.useState([null, null]);
 
   // const onChangeHandler = React.useCallback(
   //   () => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,6 +52,7 @@ function Table({ headers, data, activeOrder, recentTransacionHistory }: Props) {
   //   const { name, value } = e.target;
   //   setFormState((prev) => ({ ...prev, [name]: value }));
   // };
+
 
   const convertStatusFilter = (input: Array<any>): Ioptions[] => {
     const result: any = {};

@@ -44,7 +44,6 @@ const NewTransaction = () => {
     )
     .flatMap((itm) => itm)
     .filter((itm) => itm === "");
-  console.log(disableSubmitButton);
   const [rawImages, setRawImages] = useState([]);
 
   const changeHandler = (
@@ -125,7 +124,6 @@ const NewTransaction = () => {
         }));
         break;
       case "email":
-        
         break;
       default:
         break;
