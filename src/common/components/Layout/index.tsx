@@ -11,11 +11,12 @@ import Messages from "../Messages";
 import { fetchUserDetails, fetchUserToken } from "../../../https/storage";
 import admin from "../../../modules/service/admin";
 import { loadStart, loadStop } from "../redux/apploader";
+import CustomLoader from "../CustomLoader";
 
 function Layout() {
   const { pathname } = useLocation();
   const [userError, setUserError] = useState(true);
-  const [newUser, setNewUser] = useState(true);
+  const [newUser, setNewUser] = useState(false);
   const value = getObject(getFirstLevelPath(pathname));
   const { modal, modalType } = useAppSelector((state) => state.alert);
   const { isloading, initiator } = useAppSelector((state) => state.isloading);
@@ -33,7 +34,7 @@ function Layout() {
         .catch((err) => console.log(err))
         .finally(() => dispatch(loadStop()));
     }
-  }, []);
+  }, []); // eslint-disable-line
 
   if (!fetchUserToken() || fetchUserDetails() === false) {
     return <Navigate replace to="/signin/buyer" />;
@@ -58,18 +59,18 @@ function Layout() {
               pathname
             )} content__${userError ? "userError" : "clean"}`}
           >
-            {newUser && getFirstLevelPath(pathname) !== "setting" ? (
-              // !isloading &&
-              // initiator === "newuser_check" &&
-               (
-                <>
-                  {userError && <Notice />}
-                  <NewUserCard
-                    completedRegistration={userError}
-                    message={value?.newUser.message}
-                  />
-                </>
-              )
+            {isloading && initiator === "newuser_check" ? (
+              <div style={{ height: "50vh", gridColumn: "1/-1" }}>
+                <CustomLoader size={10} />
+              </div>
+            ) : newUser && getFirstLevelPath(pathname) !== "setting" ? (
+              <>
+                {userError && <Notice />}
+                <NewUserCard
+                  completedRegistration={userError}
+                  message={value?.newUser.message}
+                />
+              </>
             ) : (
               <section className={`${getFirstLevelPath(pathname)}`}>
                 <Outlet />

@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import { Ioptions } from "../DropDowns/StatusFilter";
 
 export type TheaderObj = {
     title: string;
@@ -23,6 +23,16 @@ export type TheaderObj = {
   
   export type ifState = {
     search: string;
-    date: dayjs.Dayjs;
+    date: Array<any>;
     filter: string[];
+  };
+
+  export type TControls = {
+    formState: ifState;
+    inputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    dateChange: (data: any) => void;
+    filterSubmitHandler: () => void;
+    resetFilterHandler: () => void;
+    filteSelectHandler: (itm: Ioptions, id: number) => void;
+    filterOptions: Ioptions[];
   };

@@ -29,19 +29,33 @@ function CustomImageInput(props: Props) {
         />
         <span>Choose File</span>
         <div className="image_container">
-          {value.map((img, idx) => (
-            <div key={img?.lastModified} className="product_img">
-              <img
-                onClick={() => deleteHandler(img, idx)}
-                className="product_img"
-                key={img?.lastModified}
-                src={URL.createObjectURL(img)}
-                alt={`product`}
-              />
-            </div>
+          {value.map(
+            (img, idx) =>
+              img?.lastModified ? (
+                <div key={img?.lastModified} className="product_img">
+                  <img
+                    onClick={() => deleteHandler(img, idx)}
+                    className="product_img"
+                    key={img?.lastModified}
+                    src={URL.createObjectURL(img)}
+                    alt={`product`}
+                  />
+                </div>
+              ) : (
+                <div key={img} className="product_img">
+                  <img
+                    onClick={() => deleteHandler(img, idx)}
+                    className="product_img"
+                    key={img?.lastModified}
+                    src={img}
+                    alt={`product`}
+                  />
+                </div>
+              )
+
             //   {`img-${idx + 1}`}
             // </span>
-          ))}
+          )}
         </div>
       </div>
     </div>

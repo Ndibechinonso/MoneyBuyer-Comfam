@@ -15,7 +15,8 @@ interface Iservice {
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => void;
-  removeImageHandler: (file: any, idx:number) => void;
+  removeImageHandler: (file: any, idx: number) => void;
+  blurHandler: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 const Service = (props: Iservice) => {
@@ -27,10 +28,11 @@ const Service = (props: Iservice) => {
     product_price,
     product_quantity,
     removeImageHandler,
+    blurHandler,
   } = props;
   const id = useId();
   const [milestoneNumber, setMilestoneNumber] = useState(1);
-  const {isloading} = useAppSelector(state => state.isloading)
+  const { isloading } = useAppSelector((state) => state.isloading);
 
   return (
     <div>
@@ -40,10 +42,11 @@ const Service = (props: Iservice) => {
           <label htmlFor={`${id}-service_name`}> Service Name</label>
           <input
             required
+            autoComplete="off"
             className="new_transaction_form_input"
             id={`${id}-service_name`}
             type="text"
-            placeholder="UI Design"
+            placeholder="e.g UI Design"
             name="ProductName"
             disabled={isloading}
             value={product_name}
@@ -55,14 +58,16 @@ const Service = (props: Iservice) => {
           <label htmlFor={`${id}-service_quantity`}> Service Quantity </label>
           <input
             required
+            autoComplete="off"
             className="new_transaction_form_input"
             id={`${id}-service_quantity`}
             type="text"
             placeholder="e.g 10"
-            name="qauntity"
+            name="quantity"
             disabled={isloading}
             value={product_quantity}
             onChange={changeHandler}
+            onBlur={blurHandler}
           />
         </div>
       </div>
@@ -72,6 +77,7 @@ const Service = (props: Iservice) => {
           <label htmlFor={`${id}-service_price`}> Service Price </label>
           <input
             required
+            autoComplete="off"
             className="new_transaction_form_input"
             id={`${id}-service_price`}
             type="text"
@@ -80,6 +86,7 @@ const Service = (props: Iservice) => {
             disabled={isloading}
             value={product_price}
             onChange={changeHandler}
+            onBlur={blurHandler}
           />
         </div>
 
@@ -92,17 +99,22 @@ const Service = (props: Iservice) => {
         />
       </div>
 
-      <div className="form_group">
-        <label htmlFor={`${id}-product_description`}>Service Description</label>
-        <textarea
-          className="new_transaction_form_input new_transaction_description"
-          id={`${id}-product_description`}
-          placeholder="Enter product’s description"
-          name="description"
-          disabled={isloading}
-          value={product_description}
-          onChange={changeHandler}
-        />
+      <div className="form_row">
+        <div className="form_group">
+          <label htmlFor={`${id}-product_description`}>
+            Service Description
+          </label>
+          <textarea
+            autoComplete="off"
+            className="new_transaction_form_input new_transaction_description"
+            id={`${id}-product_description`}
+            placeholder="Enter product’s description"
+            name="description"
+            disabled={isloading}
+            value={product_description}
+            onChange={changeHandler}
+          />
+        </div>
       </div>
 
       <div className="milestone">

@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import admin from "../../../modules/service/admin";
-import { removeHypen, toNaira, transactionModalTitleHandler } from "../../utils/helpers";
+import {
+  confamFeesCalc,
+  removeHypen,
+  toNaira,
+  transactionModalTitleHandler,
+} from "../../utils/helpers";
 import CustomButton from "../CustomButtons";
 import CloseIcon from "../CustomIcons/CloseIcon";
 import IndicatorIcon from "../CustomIcons/IndicatorIcon";
 import ThreeDotIcon from "../CustomIcons/ThreeDot";
 import Tag from "../CustomTags";
 // import SellerTag from "../customTags/SellerTags";
-import img from "../../../static/images/unsplash.png";
+// import img from "../../../static/images/unsplash.png";
 import { Alerts } from "../redux/alert/alertActions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
@@ -16,18 +21,20 @@ function TransactionModal() {
   const [images, setImages] = useState([]);
   const dispatch = useAppDispatch();
 
-  // URL.createObjectURL(img)
+  const { totalPrice: price, transactionCost: cost } = confamFeesCalc(
+    data.price,
+    data.quantity
+  );
+
+  const totalPrice = price.toString();
+  const transactionCost = cost.toString();
 
   useEffect(() => {
     if (images.length === 0) {
       data.images.forEach((imageKey: string) => {
         admin
           .getImage(imageKey)
-          .then((res) => {
-            // console.log((res.data))
-            // setImages((prev) => [...prev, ...res.data]);
-            setImages((prev) => [...prev, URL.createObjectURL(res.data)]);
-          })
+          .then((res) => setImages((prev) => [...prev, res]))
           .catch((err) => console.log(err));
       });
     }
@@ -90,20 +97,14 @@ function TransactionModal() {
             <div className="section__body">
               <div className="section__body--itm">
                 <h6 className="section__body--itm__title">Product Name</h6>
-                <p className="section__body--itm__body">{data.productName}</p>
+                <p className="section__body--itm__body">{data.ProductName}</p>
               </div>
               <div className="section__body--itm">
                 <h6 className="section__body--itm__title">Product Image</h6>
                 <div className="section__body--itm__body section__body--itm_img">
-                  {images.map((imageObject, idx) => (
-                    <img
-                      key={idx}
-                      // src={URL.createObjectURL(imageObject)}
-                      src={img}
-                      alt={`product ${idx + 1}`}
-                    />
+                  {images.map((image, idx) => (
+                    <img key={idx} src={image} alt={`product ${idx + 1}`} />
                   ))}
-                  
                 </div>
               </div>
               <div className="section__body--itm">
@@ -130,8 +131,7 @@ function TransactionModal() {
                   Product Cost
                 </h6>
                 <p className="transactionModal__payment--cost__body">
-                  {/* <span>₦</span>12,500 */}
-                  {toNaira(data.price)}
+                  {toNaira(totalPrice)}
                 </p>
               </div>
               <div className="transactionModal__payment--fee">
@@ -139,8 +139,7 @@ function TransactionModal() {
                   Transaction Fee
                 </h6>
                 <p className="transactionModal__payment--fee__body">
-                  {/* <span>₦</span>1,000 */}
-                  {toNaira(data.transactionFee)}
+                  {toNaira(transactionCost)}
                 </p>
               </div>
               <div className="transactionModal__payment--total">
@@ -149,8 +148,9 @@ function TransactionModal() {
                     Sub total
                   </h6>
                   <p className="transactionModal__payment--totalSub__body">
-                    {/* <span>₦</span>12,500 + <span>₦</span>1,000 Transaction fee */}
-                    {`${toNaira(data.price)} + ${toNaira(data.transactionFee)} Transaction fee`}
+                    {`${toNaira(totalPrice)} + ${toNaira(
+                      transactionCost
+                    )} Transaction fee`}
                   </p>
                 </div>
                 <div className="transactionModal__payment--totalCost">
@@ -158,8 +158,7 @@ function TransactionModal() {
                     Total cost
                   </h6>
                   <p className="transactionModal__payment--totalCost__body">
-                    {/* <span>₦</span>13,500 */}
-                    {toNaira(data.price + data.transactionFee)}
+                    {toNaira((price + cost).toString())}
                   </p>
                 </div>
               </div>

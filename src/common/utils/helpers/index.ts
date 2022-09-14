@@ -91,7 +91,8 @@ export const toNaira = (amount: string) =>
 
 interface IconfamFees {
   vat: number;
-  transactionFee: number;
+  totalPrice: number;
+  transactionCost: number;
 }
 
 export const confamFeesCalc = (
@@ -99,7 +100,9 @@ export const confamFeesCalc = (
   quantity: string,
   insuranced?: boolean
 ): IconfamFees => {
-  const totalPrice = parseInt(transactionPrice) * parseInt(quantity);
+  const totalPrice =
+    parseInt(transactionPrice === "" ? "0" : transactionPrice) *
+    parseInt(quantity === "" ? "0" : quantity);
   let markeupPercent = 0;
   switch (true) {
     case totalPrice <= 1999999:
@@ -114,15 +117,17 @@ export const confamFeesCalc = (
   }
   const transactionCost = (markeupPercent * totalPrice) / 100;
 
-  let insurance = 0;
+  let insurance = 0; 
   if (insuranced) {
-    insurance = (1.0 * totalPrice) / 100;
+    insurance = (1.0 * totalPrice) / 100; // eslint-disable-line
   }
   const vat = (7.5 * totalPrice) / 100;
-  const transactionFee = transactionCost + totalPrice + insurance + vat;
+  // const transactionFee = transactionCost + totalPrice + insurance + vat;
+  // const transactionFee = (markeupPercent * totalPrice) / 100;
   return {
     vat,
-    transactionFee,
+    totalPrice,
+    transactionCost,
   };
 };
 

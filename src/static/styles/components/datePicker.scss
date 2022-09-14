@@ -75,3 +75,92 @@
     }
   }
 }
+
+.react-datepicker {
+  padding: 1.5rem 1.25rem 2.25rem 1.25rem;
+  box-shadow: 0px 2px 0.75rem 0px #5b5b5b26;
+  border: none;
+  display: flex;
+  column-gap: 18px;
+}
+
+.react-datepicker__header {
+  background-color: var(--blackColorWhite);
+  border: none;
+  padding: 0;
+
+  .calender_header {
+    padding: 0.25rem 0px 0.75rem 0px;
+    border-bottom: 1px solid var(--greyColorGrey4);
+    margin-bottom: 0.625rem;
+  }
+}
+.react-datepicker__navigation-icon::before {
+  border-width: 1px 1px 0 0;
+  border-color: #67676a;
+}
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  font-size: 0.5625rem;
+  width: 1.75rem;
+  line-height: 1.75rem;
+  margin: 0 !important;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-selecting-range,
+// .react-datepicker__day--in-range,
+.react-datepicker__month-text--selected,
+.react-datepicker__month-text--in-selecting-range,
+.react-datepicker__month-text--in-range,
+.react-datepicker__quarter-text--selected,
+.react-datepicker__quarter-text--in-selecting-range,
+.react-datepicker__quarter-text--in-range,
+.react-datepicker__year-text--selected,
+.react-datepicker__year-text--in-selecting-range,
+.react-datepicker__year-text--in-range {
+  background-color: var(--brandColorPrimary1);
+  color: var(--blackColorWhite);
+}
+
+.react-datepicker__day--selected:hover,
+.react-datepicker__day--in-selecting-range:hover,
+.react-datepicker__day--in-range {
+  border: none;
+  border-radius: 0;
+  background-color: var(--brandColorPrimary9);
+  color: #363636;
+}
+
+.react-datepicker__day--in-range:hover,
+.react-datepicker__day--range-end,
+.react-datepicker__day--range-start {
+  background-color: var(--brandColorPrimary1);
+  color: var(--blackColorWhite);
+}
+
+.react-datepicker__day--range-start {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+.react-datepicker__day--range-end {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range) {
+  border: none;
+  border-radius: 0;
+
+  background-color: var(--brandColorPrimary9);
+  color: #363636;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__current-month {
+  font-weight: 500;
+}
+
+.react-datepicker__month-container {
+  padding: 0 0.5rem;
+}

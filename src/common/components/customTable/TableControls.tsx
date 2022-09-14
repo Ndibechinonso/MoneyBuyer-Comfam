@@ -3,20 +3,10 @@ import CalenderIcon from "../CustomIcons/CalenderIcon";
 import CaretRight from "../CustomIcons/CaretRight";
 import SearchIcon from "../CustomIcons/SearchIcon";
 import SortIcon from "../CustomIcons/SortIcon";
-import { DatePicker } from "../CustomInput/datePicker/DatePicker";
-import { ifState } from "./types";
-import StatusFilter, { Ioptions } from "../DropDowns/StatusFilter";
+import { TControls } from "./types";
+import StatusFilter from "../DropDowns/StatusFilter";
 import DropDown from "../DropDowns/primitive";
-
-type Props = {
-  formState: ifState;
-  inputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  dateChange: (data: any) => void;
-  filterSubmitHandler: () => void;
-  resetFilterHandler: () => void;
-  filteSelectHandler: (itm: Ioptions, id: number) => void;
-  filterOptions: Ioptions[];
-};
+import CustomDate from "../CustomDate";
 
 function TableControls({
   filterOptions,
@@ -26,7 +16,7 @@ function TableControls({
   filterSubmitHandler,
   resetFilterHandler,
   filteSelectHandler,
-}: Props) {
+}: TControls) {
   return (
     <div className="table__control">
       <span className="table__control--btn">
@@ -45,19 +35,16 @@ function TableControls({
           <SearchIcon />
         </div>
 
-        <DropDown
-          content={
-            <DatePicker selectedDate={formState.date} onChange={dateChange} />
-          }
-        >
-          <div className="popup_date table__input">
-            <div className="input__date">
-              {formState.date.format("DD/MM/YYYY")}
-            </div>
-
-            <CalenderIcon className="calIcn" />
-          </div>
-        </DropDown>
+        <div className="table__input">
+          <CalenderIcon className="calIcn" />
+          <CustomDate
+            type="range"
+            startDate={formState.date[0]}
+            endDate={formState.date[1]}
+            onChange={dateChange}
+            placeholder="Select Date"
+          />
+        </div>
       </form>
       <DropDown
         content={
