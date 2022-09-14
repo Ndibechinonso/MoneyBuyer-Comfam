@@ -38,7 +38,6 @@ const SellerForm = () => {
 
   const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(inputs);
     setInputs(initialFormState);
     dispatch(Signup("verification"));
   };

@@ -32,6 +32,18 @@ const ENDPOINTS = {
       method: "POST",
       url: "auth/complete-profile",
     },
+    update_password: {
+      method: "PUT",
+      url: "auth/update-password",
+    },
+    update_profile_image: {
+      method: "PUT",
+      url: "auth/update-image",
+    },
+    update_notification_settings: {
+      method: "PUT",
+      url: "auth/update-notification",
+    },
   },
   transaction: {
     new_transaction: {

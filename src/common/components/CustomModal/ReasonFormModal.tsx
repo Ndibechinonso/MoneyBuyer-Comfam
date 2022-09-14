@@ -13,7 +13,6 @@ function ReasonFormModal({ placeHolder }: IReasonFormProps) {
   const dispatch = useAppDispatch();
   const modalNavHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(inputContent);
     setInputContent("");
     if (direction === "cancel") {
       dispatch(Alerts("transactioncancelled"));

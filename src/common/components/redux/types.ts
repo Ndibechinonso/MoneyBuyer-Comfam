@@ -42,9 +42,15 @@ export type NotificationProps = {
  email_subcription: boolean;
  push_notifications: boolean;
 }
+
 export type FeedbackProps ={
   likes: string;
     rating: string;
     feature_request: string;
     change_request: string;
+}
+
+export type PasswordChangeProps = {
+  oldPassword: string;
+  newPassword: string
 }

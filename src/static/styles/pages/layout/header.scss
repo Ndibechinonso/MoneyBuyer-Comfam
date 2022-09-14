@@ -11,7 +11,7 @@
     justify-self: center;
   }
   
-  [data-state="open"] {
+  [data-state="closed"] {
     .userMenu {
       &__icon {
         transform: rotate(0deg);
@@ -83,12 +83,17 @@
     align-items: center;
     column-gap: 0.5rem;
     cursor: pointer;
-
     &__image {
       width: 3.125rem;
       height: 3.125rem;
       object-fit: cover;
       object-position: top;
+      border-radius: 50%;
+    }
+    &__image_placeholder{
+      width: 3.125rem;
+      height: 3.125rem;
+      background-color: var(--greyColorGrey2);
       border-radius: 50%;
     }
     &__icon {

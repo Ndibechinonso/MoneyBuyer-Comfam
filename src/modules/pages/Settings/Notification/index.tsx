@@ -12,6 +12,9 @@ import { NotificationProps } from "../../../../common/components/redux/types";
 import auth from "../../../service/auth";
 import { fetchUserDetails, storeUserDetails } from "../../../../https/storage";
 import CustomToast from "../../../../common/components/CustomToast";
+import admin from "../../../service/admin";
+import { removeItem } from "../../../../https/storage";
+
 
 const initialFormState: NotificationProps = {
   sms: false,
@@ -26,7 +29,7 @@ function Notification() {
   const navigate = useNavigate();
 
   const [profilePayload, setprofilePayload] = useState<any>([])
-  const [checks, setCheckes] = useState(initialFormState);
+  const [checks, setChecks] = useState(initialFormState);
   const {isloading} = useAppSelector((state) => state.isloading)
 
 
@@ -54,25 +57,37 @@ function Notification() {
     }else{
       navigate("/setting/verification");
     }
+  }else{
+    setChecks(fetchUserDetails().notification)
+    console.log(fetchUserDetails().notification);
+    
   }
 
   }, []);
 
   const changeHandler = (e: any) => {
     const { name, checked } = e.target;
-    setCheckes((checks) => ({ ...checks, [name]: e.target.checked }));
+    setChecks((checks) => ({ ...checks, [name]: e.target.checked }));
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    dispatch(loadingStart(""))
+
+    const sms = checks.sms;
+    const email = checks.email;
+    const email_subcription = checks.email_subcription;
+    const push_notifications = checks.push_notifications;
 
     if (fetchUserDetails().verified) {
-      CustomToast("verified");
+      admin.updateNotification({sms, email, email_subcription, push_notifications})
+      .then((res) => {
+        dispatch(Alerts("notificationupdated"))
+        storeUserDetails(res?.data)
+      })
+      .catch((err) => CustomToast(err.message))
+      .finally(() => dispatch(loadingStop()));
     } else {
-      // const payload = localStorage.getItem("verification");
-      // if (typeof payload === "string") {
-      //   const completePayload = JSON.parse(payload);
-
         if (
           !profilePayload.image ||
           !profilePayload.first_name ||
@@ -87,26 +102,20 @@ function Notification() {
           !profilePayload.bankDetails?.account_number ||
           !profilePayload.bankDetails?.account_name
         ) return;
-
-        const sms = checks.sms;
-        const email = checks.email;
-        const email_subcription = checks.email_subcription;
-        const push_notifications = checks.push_notifications;
-
-        profilePayload.notifcation = {
+        profilePayload.notification = {
           sms,
           email,
           email_subcription,
           push_notifications,
         };
-        dispatch(loadingStart(""))
         console.log(profilePayload);
         auth
           .completeBuyerProfile(profilePayload)
           .then((res) => {
             dispatch(Alerts("profileupdated"))
+            removeItem("verification")
             storeUserDetails(res?.data)
-            console.log(res, "res")
+            navigate("/dashboard");
           })
           .catch((err) => {
             CustomToast(err.message);
@@ -176,7 +185,6 @@ function Notification() {
                   type="checkbox"
                   id="push_notifications"
                   name="push_notifications"
-                  // value="pushnote"
                   checked={checks.push_notifications ? true : false}
                   onChange={changeHandler}
                 />
@@ -207,7 +215,6 @@ function Notification() {
                   type="checkbox"
                   id="email_subcription"
                   name="email_subcription"
-                  // value="subscribe"
                   checked={checks.email_subcription ? true : false}
                   onChange={changeHandler}
                 />
@@ -222,14 +229,12 @@ function Notification() {
               type="submit"
               disabled={isloading}
               action={() => null}
-              // action={() => dispatch(Alerts("progress"))}
               actionText="Update Profile"
             /> : <CustomButton
             className="profile__cta"
             type="submit"
             disabled={isloading}
             action={() => null}
-            // action={() => dispatch(Alerts("progress"))}
             actionText="Update"
           /> }
           </div>
