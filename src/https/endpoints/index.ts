@@ -44,6 +44,10 @@ const ENDPOINTS = {
       method: "PUT",
       url: "auth/update-notification",
     },
+    get_user_info: {
+      method: "GET",
+      url: "/auth/user",
+    },
   },
   transaction: {
     new_transaction: {

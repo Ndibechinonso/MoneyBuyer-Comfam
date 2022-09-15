@@ -6,6 +6,10 @@ import {
 } from "../../../https/http";
 // import { HTTPResponse } from "../../../https/http";
 const admin = {
+  async getUserInfo() {
+    const { method, url } = ENDPOINTS.auth.get_user_info;
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url);
+  },
   async newTransaction(body: any) {
     const { method, url } = ENDPOINTS.transaction.new_transaction;
 
@@ -53,18 +57,18 @@ const admin = {
     const { method, url } = ENDPOINTS.send_feedback;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
-  async changePasswordLoggedIn(body: any)  {
+  async changePasswordLoggedIn(body: any) {
     const { method, url } = ENDPOINTS.auth.update_password;
-    return makeAuthorizedRequestWithHeadersAndPayload( method, url, body );
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
-  async updateProfileImage(body: any)  {
+  async updateProfileImage(body: any) {
     const { method, url } = ENDPOINTS.auth.update_profile_image;
-    return makeAuthorizedRequestWithHeadersAndPayload( method, url, body );
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
-  async updateNotification(body: any)  {
+  async updateNotification(body: any) {
     const { method, url } = ENDPOINTS.auth.update_notification_settings;
-    return makeAuthorizedRequestWithHeadersAndPayload( method, url, body );
-  }
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
+  },
 };
 
 export default admin;

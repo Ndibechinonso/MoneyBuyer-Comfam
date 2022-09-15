@@ -1,4 +1,5 @@
 import React from "react";
+import Pulse from "../CustomIcons/Pulse";
 
 type Props = {
   label: string;
@@ -25,7 +26,7 @@ function CustomImageInput(props: Props) {
           disabled={value.length === 4 || disabled}
           placeholder="No file Chosen"
           accept="image/png, image/jpeg"
-          // onChange={changeHandler}
+          onChange={changeHandler}
         />
         <span>Choose File</span>
         <div className="image_container">
@@ -43,18 +44,9 @@ function CustomImageInput(props: Props) {
                 </div>
               ) : (
                 <div key={img} className="product_img">
-                  <img
-                    onClick={() => deleteHandler(img, idx)}
-                    className="product_img"
-                    key={img?.lastModified}
-                    src={img}
-                    alt={`product`}
-                  />
+                  <Pulse />
                 </div>
               )
-
-            //   {`img-${idx + 1}`}
-            // </span>
           )}
         </div>
       </div>

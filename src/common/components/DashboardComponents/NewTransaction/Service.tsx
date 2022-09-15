@@ -47,7 +47,7 @@ const Service = (props: Iservice) => {
             id={`${id}-service_name`}
             type="text"
             placeholder="e.g UI Design"
-            name="ProductName"
+            name="productName"
             disabled={isloading}
             value={product_name}
             onChange={changeHandler}

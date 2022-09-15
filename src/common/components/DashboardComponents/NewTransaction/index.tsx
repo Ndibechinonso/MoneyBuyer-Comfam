@@ -25,7 +25,7 @@ const NewTransaction = () => {
       email: "",
       phone_number: "",
     },
-    ProductName: "",
+    productName: "",
     quantity: "",
     description: "",
     productModel: "yellow",
@@ -289,7 +289,7 @@ const NewTransaction = () => {
               insuranceRequested={inputs.insuranceRequested}
               product_description={inputs.description}
               product_image={rawImages}
-              product_name={inputs.ProductName}
+              product_name={inputs.productName}
               product_price={inputs.price}
               product_quantity={inputs.quantity}
               changeHandler={changeHandler}
@@ -369,7 +369,7 @@ const NewTransaction = () => {
             <Service
               product_description={inputs.description}
               product_image={rawImages}
-              product_name={inputs.ProductName}
+              product_name={inputs.productName}
               product_price={inputs.price}
               product_quantity={inputs.quantity}
               changeHandler={changeHandler}

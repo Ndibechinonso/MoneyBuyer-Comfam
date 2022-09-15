@@ -37,10 +37,13 @@ const Form = () => {
     auth
       .loginBuyer(inputs)
       .then((res) => {
-        customtoast(res?.message)
+        customtoast(res?.message);
         setIsSubmitted(false);
         storeUserToken(res.tokens.accessToken);
-        storeUserDetails(res.user)
+        storeUserDetails({
+          ...res.user.buyer,
+          transactionCount: res.user.transactionCount,
+        });
         navigate("/dashboard");
       })
       .catch((err) => {
