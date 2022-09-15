@@ -34,7 +34,7 @@ function TableItem({ data }: Props) {
         </button>
       </DropDownItem>
       <DropDownItem>
-        <button onClick={() => console.log(data, "delete")}>
+        <button onClick={() => dispatch(Alerts("deletetransaction"))}>
           <ThrashIcon />
           <span>Delete Transaction</span>
         </button>

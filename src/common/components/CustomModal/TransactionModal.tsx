@@ -183,11 +183,11 @@ function TransactionModal() {
             <div className="btnWrapper">
               <CustomButton
                 variant="OUTLINE"
-                actionText="Reject Transcation"
-                action={() => dispatch(Alerts("canceltransaction"))}
+                actionText="Reject"
+                action={() => dispatch(Alerts("rejecttransaction"))}
               />
               <CustomButton
-                actionText="Accept Transaction"
+                actionText="Accept"
                 action={() => dispatch(Alerts("confirmtransaction"))}
               />
             </div>

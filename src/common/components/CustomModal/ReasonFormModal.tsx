@@ -1,28 +1,29 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import CustomButton from "../CustomButtons";
-import { Alerts } from "../redux/alert/alertActions";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+// import { Alerts } from "../redux/alert/alertActions";
+// import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 type IReasonFormProps = {
   placeHolder?: any;
+  onSubmitHandler: (e: React.FocusEvent<HTMLFormElement>) => void;
 };
 
-function ReasonFormModal({ placeHolder }: IReasonFormProps) {
+function ReasonFormModal({ placeHolder, onSubmitHandler }: IReasonFormProps) {
   const [inputContent, setInputContent] = useState("");
-  const direction = useAppSelector((state) => state.alert.modalDirection);
-  const dispatch = useAppDispatch();
-  const modalNavHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setInputContent("");
-    if (direction === "cancel") {
-      dispatch(Alerts("transactioncancelled"));
-    }
-    if (direction === "confirm") {
-      dispatch(Alerts("transactionaccepted"));
-    }
-  };
+  // const direction = useAppSelector((state) => state.alert.modalDirection);
+  // const dispatch = useAppDispatch();
+  // const modalNavHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   setInputContent("");
+  //   if (direction === "cancel") {
+  //     dispatch(Alerts("transactioncancelled"));
+  //   }
+  //   if (direction === "confirm") {
+  //     dispatch(Alerts("transactionaccepted"));
+  //   }
+  // };
   return (
-    <form onSubmit={modalNavHandler}>
+    <form onSubmit={onSubmitHandler}>
       <label htmlFor="cancelreason"></label>
       <textarea
         className="message_input"

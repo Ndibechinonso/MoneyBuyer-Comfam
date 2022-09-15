@@ -6,7 +6,7 @@
   overflow: hidden;
   @include flexRow;
   justify-content: center;
-  .modal_backdrop{
+  .modal_backdrop {
     background: rgba(51, 51, 51, 0.4);
     position: absolute;
     height: 100vh;
@@ -14,18 +14,81 @@
   }
   .modal_content {
     background: var(--blackColorWhite);
-    border-radius: 12px;
-    padding: 1.8rem 2.5rem 3.13rem;
+    border-radius: 0.75rem;
+    // padding: 1.8rem 2.5rem 3.13rem;
     position: relative;
     // top: 11.26rem;
   }
-  .child_div{
+  .with-feedback {
+    padding: 1rem 1.25rem 2.5rem 1rem;
+    .modal_header{
+      top: 1rem;
+      right: 1.25rem;
+    }
+    h3 {
+      @include largeTextSemiBold;
+      margin-bottom: 0.5rem;
+      align-self: flex-start;
+      span{
+        @include mediumTextMedium;
+        color: var(--greyColorGrey3)
+      }
+    }
+    form {
+      @include flexColumn;
+      row-gap: 1.5rem;
+      label {
+        display: none;
+      }
+    }
+  }
+  .with-finishbtn{
+    padding: 1.875rem 2.5rem 3.125rem 2.5rem;
+    .modal_header{
+      top: 1.5rem;
+      right: 1.25rem;
+    }
+    p{
+      margin: .25rem 0 1.5rem 0;
+      @include largeTextRegular;
+      max-width: 20rem;
+      text-align: center;
+    }
+    h3{
+      margin-top: .5rem;
+      @include h5Medium;
+    }
+  }
+  .with-confirmbtn{
+    padding: 2rem 2.5rem 2.25rem 2.5rem;
+    .modal_header{
+      top: 1.5rem;
+      right: 1.25rem;
+    }
+    p{
+      margin: .5rem 0 1.25rem 0;
+      @include mediumTextRegular;
+      max-width: 25.25rem;
+      text-align: center;
+    }
+    h3{
+      margin-top: 1.125rem;
+      @include h5Medium;
+    }
+  }
+  .child_div {
     position: absolute;
     z-index: 11;
   }
   .modal_header {
-    @include flexRow;
-    justify-content: flex-end;
+    position: absolute;
+    right: 1.25rem;
+    top: 1.5rem;
+    button {
+      background-color: transparent;
+    }
+    // @include flexRow;
+    // justify-content: flex-end;
   }
   .modal_body {
     @include flexColumn;
@@ -40,10 +103,10 @@
     color: var(--blackColorBlack3);
     font-weight: 500;
   }
-  .selfStart{
+  .selfStart {
     align-self: flex-start;
   }
-  
+
   // p {
   //   font-size: 1.5rem;
   //   color: #67676a;
@@ -143,9 +206,9 @@
   }
 }
 
-.alertModal__wrapper{
+.alertModal__wrapper {
   margin-top: 11.25rem;
-   p {
+  p {
     font-size: 1.5rem;
     color: #67676a;
     font-weight: 400;
@@ -153,7 +216,7 @@
     margin-bottom: 1.5rem;
   }
 }
-.newtransaction__wrapper{
+.newtransaction__wrapper {
   top: 50%;
   transform: translateY(-50%);
   transition: top ease 4s;
