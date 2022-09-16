@@ -3,16 +3,25 @@ import { fetchUserDetails } from "../../../../https/storage";
 import admin from "../../../../modules/service/admin";
 import userImg from "../../../../static/images/userImage.jpeg";
 import DropDownIcon from "../../CustomIcons/DropDownIcon";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import fetchUser from "../../redux/getUser/getUserThunk";
 
-interface userMenuProps {
-  // dropDownHandler: () => void;
-  // showDropDown: boolean;
-}
+function UserMenuTrigger() {
+  const dispatch = useAppDispatch()
 
-function UserMenuTrigger({}: userMenuProps) {
+  const {user, profileImageChange} = useAppSelector((state) => state.user)
+ 
+  // useEffect(() =>{
+  //   dispatch(fetchUser())
+  // }, [])
+  // useEffect(() =>{
+  //   console.log(user, "user");
+    
+  // }, [user])
   const [userAvatar, setUserAvartar] = useState("");
+
   useEffect(() => {
-    if (fetchUserDetails().verified && !userAvatar) {
+    if ((fetchUserDetails().verified && !userAvatar) || profileImageChange) {
       const image = fetchUserDetails().image;
       // setUserAvartar(image);
       admin

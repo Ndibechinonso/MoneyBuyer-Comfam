@@ -6,9 +6,12 @@ import {
 } from "../../../https/http";
 // import { HTTPResponse } from "../../../https/http";
 const admin = {
+  async getUser() {
+    const { method, url } = ENDPOINTS.auth.get_user;
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url);
+  },
   async newTransaction(body: any) {
     const { method, url } = ENDPOINTS.transaction.new_transaction;
-
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
   async acceptTransaction(id: string) {

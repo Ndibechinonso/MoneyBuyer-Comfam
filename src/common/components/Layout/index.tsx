@@ -23,7 +23,7 @@ function Layout() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (fetchUserDetails().verified) {
+    if (fetchUserDetails()?.buyer?.verified) {
       setUserError(false);
     }
     if (fetchUserToken()) {
