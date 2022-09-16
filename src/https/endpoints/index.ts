@@ -32,6 +32,10 @@ const ENDPOINTS = {
       method: "POST",
       url: "auth/complete-profile",
     },
+    get_user: {
+      method: "GET",
+      url: "auth/user",
+    },
     update_password: {
       method: "PUT",
       url: "auth/update-password",

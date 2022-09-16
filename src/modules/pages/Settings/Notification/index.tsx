@@ -14,7 +14,7 @@ import { fetchUserDetails, storeUserDetails } from "../../../../https/storage";
 import CustomToast from "../../../../common/components/CustomToast";
 import admin from "../../../service/admin";
 import { removeItem } from "../../../../https/storage";
-
+import { updateProfileImage, resetProfileImageState } from "../../../../common/components/redux/getUser/getUserSlice";
 
 const initialFormState: NotificationProps = {
   sms: false,
@@ -83,7 +83,10 @@ function Notification() {
       admin.updateNotification({sms, email, email_subcription, push_notifications})
       .then((res) => {
         dispatch(Alerts("notificationupdated"))
-        storeUserDetails(res?.data)
+        storeUserDetails({
+          ...res.data.buyer,
+          transactionCount: res.data.transactionCount
+        })
       })
       .catch((err) => CustomToast(err.message))
       .finally(() => dispatch(loadingStop()));
@@ -114,13 +117,17 @@ function Notification() {
           .then((res) => {
             dispatch(Alerts("profileupdated"))
             removeItem("verification")
-            storeUserDetails(res?.data)
+            storeUserDetails({
+              ...res.data.buyer,
+              transactionCount: res.data.transactionCount
+            })
+            dispatch(updateProfileImage)
             navigate("/dashboard");
           })
           .catch((err) => {
             CustomToast(err.message);
           })
-          .finally(() => dispatch(loadingStop()));
+          .finally(() => {dispatch(resetProfileImageState); dispatch(loadingStop())});
       }
     // }
   };

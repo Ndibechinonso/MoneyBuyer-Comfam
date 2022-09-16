@@ -39,6 +39,7 @@ const Form = () => {
       .then((res) => {
         customtoast(res?.message);
         setIsSubmitted(false);
+        console.log(res);
         storeUserToken(res.tokens.accessToken);
         storeUserDetails({
           ...res.user.buyer,

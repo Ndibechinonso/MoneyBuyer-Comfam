@@ -50,7 +50,81 @@ export type FeedbackProps ={
     change_request: string;
 }
 
-export type PasswordChangeProps = {
-  oldPassword: string;
-  newPassword: string
+export interface IBank{
+  account_name: string;
+      account_number: string;
+      bank_name: string;
 }
+
+export interface INotification{
+  email: boolean;
+  email_subcription: boolean;
+  push_notifications: boolean;
+  sms: boolean
+  // _id: "6322263729428214a536e310",
+}
+
+export type UserProps = {
+  bank_details: IBank[];
+  bvn: string;
+  city: string;
+  // createdAt: "2022-09-14T19:03:37.415Z",
+  // date_of_birth: "28-Jun-2000",
+  email: string;
+  emailValidated: boolean;
+  first_name: string;
+  // gender: string;
+  // id: "63222589f0ca70a0a93386b0",
+  image: string;
+  last_name: string;
+  local_gov: string;
+  notification: INotification
+  residential_address: string;
+  state: string;
+  state_of_origin: string;
+  street_name: string;
+  street_number: string;
+  // updatedAt: "2022-09-14T19:06:31.919Z",
+  user_type: string;
+  verified: boolean;
+  verifiedBvn: boolean;
+  wallet_id: string;
+  // _id: "63222589f0ca70a0a93386b0",
+};
+
+export const initialUser = {
+  bank_details: {
+    account_name: "",
+    account_number: "",
+    bank_name: "",
+  },
+  bvn: "",
+  city: "",
+  // createdAt: "2022-09-14T19:03:37.415Z",
+  // date_of_birth: "28-Jun-2000",
+  email: "",
+  emailValidated: false,
+  first_name: "",
+  // gender: "",
+  // id: "63222589f0ca70a0a93386b0",
+  image: "",
+  last_name: "",
+  local_gov: "",
+  notification: {
+    email: false,
+    email_subcription: false,
+    push_notifications: false,
+    sms: false
+    },
+  residential_address: "",
+  state: "",
+  state_of_origin: "",
+  street_name: "",
+  street_number: "",
+  // updatedAt: "2022-09-14T19:06:31.919Z",
+  user_type: "",
+  verified: false,
+  verifiedBvn: false,
+  wallet_id: "",
+  // _id: "63222589f0ca70a0a93386b0",
+};

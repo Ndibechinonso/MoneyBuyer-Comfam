@@ -12,7 +12,6 @@ const admin = {
   },
   async newTransaction(body: any) {
     const { method, url } = ENDPOINTS.transaction.new_transaction;
-
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
   async acceptTransaction(id: string) {

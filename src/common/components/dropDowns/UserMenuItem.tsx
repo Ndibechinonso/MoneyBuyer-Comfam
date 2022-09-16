@@ -39,7 +39,7 @@ function UserMenuItem() {
         </button>
       </DropDownItem>
       <DropDownItem className="header__dropDownMenu--itm">
-        <button onClick={logoutHandler}>
+        <button onClick={() => logoutHandler}>
           <LogoutIcon />
           Log Out
         </button>
