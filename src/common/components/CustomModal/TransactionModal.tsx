@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import admin from "../../../modules/service/admin";
 import {
   confamFeesCalc,
@@ -19,6 +19,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 function TransactionModal() {
   const data = useAppSelector((state) => state.tableItem.itm);
   const [images, setImages] = useState([]);
+  const runOnce = useRef(false);
   const dispatch = useAppDispatch();
 
   const { totalPrice: price, transactionCost: cost } = confamFeesCalc(
@@ -30,15 +31,17 @@ function TransactionModal() {
   const transactionCost = cost.toString();
 
   useEffect(() => {
-    if (images.length === 0) {
-      data.images.forEach((imageKey: string) => {
-        admin
-          .getImage(imageKey)
-          .then((res) => setImages((prev) => [...prev, res]))
-          .catch((err) => console.log(err));
-      });
+    if (runOnce.current) {
+      return;
     }
-  }, [images.length]); //eslint-disable-line
+    data.images.forEach((imageKey: string) => {
+      admin
+        .getImage(imageKey)
+        .then((res) => setImages((prev) => [...prev, res]))
+        .catch((err) => console.log(err));
+    });
+    runOnce.current = true;
+  }, []); 
 
   return (
     <>
@@ -97,7 +100,7 @@ function TransactionModal() {
             <div className="section__body">
               <div className="section__body--itm">
                 <h6 className="section__body--itm__title">Product Name</h6>
-                <p className="section__body--itm__body">{data.ProductName}</p>
+                <p className="section__body--itm__body">{data.productName}</p>
               </div>
               <div className="section__body--itm">
                 <h6 className="section__body--itm__title">Product Image</h6>
@@ -180,11 +183,11 @@ function TransactionModal() {
             <div className="btnWrapper">
               <CustomButton
                 variant="OUTLINE"
-                actionText="Reject Transcation"
-                action={() => dispatch(Alerts("canceltransaction"))}
+                actionText="Reject"
+                action={() => dispatch(Alerts("rejecttransaction"))}
               />
               <CustomButton
-                actionText="Accept Transaction"
+                actionText="Accept"
                 action={() => dispatch(Alerts("confirmtransaction"))}
               />
             </div>

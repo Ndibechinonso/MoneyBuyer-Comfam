@@ -78,7 +78,8 @@ function Header({ newUser, inCompleteReg }: Iheader) {
             <CustomButton
               disabled={isloading}
               className="titleBar__cta"
-              action={() => dispatch(Alerts("newtransaction"))}
+              // action={() => dispatch(Alerts("newtransaction"))}
+              action={() => dispatch(Alerts("confirmtransaction"))}
               actionText="New Transaction"
             />
           ) : null}

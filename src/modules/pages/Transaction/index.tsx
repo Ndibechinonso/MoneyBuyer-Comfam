@@ -1,6 +1,4 @@
-/* eslint-disable  react-hooks/exhaustive-deps */
-
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CustomLoader from "../../../common/components/CustomLoader";
 import Table from "../../../common/components/CustomTable/Table";
 import {
@@ -15,13 +13,16 @@ import { sellersTransactions } from "../../../fakeData";
 import admin from "../../service/admin";
 
 function Transaction() {
-  const { isloading, initiator } = useAppSelector((state) => state.isloading);
+  const { isloading, initiator, prevInitiator } = useAppSelector(
+    (state) => state.isloading
+  );
   const [data, setData] = useState([]);
+  const runOnce = useRef(false);
   const dispatch = useAppDispatch();
 
   // this calls when a new transaction is made in transaction route
   useEffect(() => {
-    if (initiator === "created_new_transaction") {
+    if (prevInitiator === "created_new_transaction") {
       dispatch(loadStart("fetching_all_transactions"));
       admin
         .getAllTransaction()
@@ -29,17 +30,21 @@ function Transaction() {
         .catch((err) => console.log(err))
         .finally(() => dispatch(loadStop()));
     }
-  }, [initiator]);
+  }, [prevInitiator, dispatch]);
 
   // this calls when component mounts
   useEffect(() => {
+    if (runOnce.current) {
+      return;
+    }
     dispatch(loadStart("fetching_all_transactions"));
     admin
       .getAllTransaction()
       .then((res) => setData(res.data))
       .catch((err) => console.log(err))
       .finally(() => dispatch(loadStop()));
-  }, []);
+    runOnce.current = true;
+  }, [dispatch]);
 
   return (
     <>

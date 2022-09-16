@@ -1,7 +1,7 @@
 import CustomButton from "../CustomButtons";
 import closemodal from "../../../static/images/modal_close.svg";
 import CustomModal from "../CustomModal";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Alerts } from "../redux/alert/alertActions";
 import { useAppDispatch } from "../redux/hooks";
 import TransactionModal from "../CustomModal/TransactionModal";
@@ -9,71 +9,105 @@ import ReasonFormModal from "../CustomModal/ReasonFormModal";
 import NewTransaction from "../DashboardComponents/NewTransaction";
 import DisputeModal from "../CustomModal/DisputeModal";
 import { useLocation, useNavigate } from "react-router-dom";
+import PaymentFormModal from "../CustomModal/PaymentFormModal";
 type modalContentProps = {
   type?: "alert" | "transactionitem" | "newtransaction" | "disputeitem";
   alertIcon?: any;
   header?: String;
   text?: String;
   progress?: any;
-  confirmTransaction?: any;
-  cancelTransaction?: any;
-  cancelConfirmation?: any;
-  textArea?: any;
-  singleAction?: any;
+  confirmBtn?: any;
+  actionLeft?: () => void;
+  actionRight?: () => void;
+  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
+  finishBtn?: any;
+  opt?: any;
+  alertForm?: "feedback" | "payment";
+  emojiForm?: any;
 };
 
 const ModalContent = ({
   type,
   alertIcon,
   header,
+  opt,
   text,
   progress,
-  cancelConfirmation,
-  confirmTransaction,
-  cancelTransaction,
-  singleAction,
-  textArea,
+  finishBtn,
+  confirmBtn,
+  actionLeft,
+  actionRight,
+  alertForm,
+  onSubmit,
 }: modalContentProps) => {
   const [isModal, setModal] = useState(true);
   const { pathname } = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // const direction = useAppSelector(state => state.alert.modalDirection)
   const dispatch = useAppDispatch();
-  const handleCloseBtn = () => { 
+  const handleCloseBtn = () => {
     setModal(false);
     dispatch(Alerts(""));
     if (pathname.includes("forgotpassword")) {
       if (pathname.includes("buyer")) {
-        navigate("/sigin/buyer")
+        navigate("/sigin/buyer");
       }
       if (pathname.includes("seller")) {
-        navigate("/signin/seller")
+        navigate("/signin/seller");
       }
     }
-   }
+  };
+
+  const alertClassName = () =>
+    `${confirmBtn ? "with-confirmbtn" : ""} ${
+      alertForm === "feedback" ? "with-feedback" : ""
+    } ${finishBtn ? "with-finishbtn" : ""} ${
+      alertForm === "payment" ? "with-payment" : ""
+    }`;
+
+  const modalClassName = (type: string) => {
+    let className: string;
+
+    switch (type) {
+      case "transactionitem":
+        className = "transactionModal__wrapper";
+        break;
+      case "alert":
+        className = "alertModal__wrapper";
+        break;
+      case "disputeitem":
+        className = "dispute__wrapper";
+        break;
+      case "newtransaction":
+        className = "newtransaction__wrapper";
+        break;
+
+      default:
+        className = "";
+        break;
+    }
+
+    return className;
+  };
 
   return (
     <CustomModal
-      className={`${
-        type === "transactionitem" ? "transactionModal__wrapper" : ""
-      } ${type === "alert" ? "alertModal__wrapper" : ""}
-      ${type === "disputeitem" ? "dispute__wrapper" : ""} 
-      ${type === "newtransaction" ? "newtransaction__wrapper" : ""}
-      cover_screen`}
+      className={`${modalClassName(type)} cover_screen`}
       progress={progress}
       isModal={isModal}
     >
       <>
         {type === "alert" ? (
-          <div className="modal_content">
+          <div className={`modal_content ${alertClassName()}`}>
             <div className="modal_header">
               {!progress ? (
-                <img
-                  src={closemodal}
-                  alt="close modal"
-                  onClick={handleCloseBtn}
-                  className="cursor-pointer"
-                />
+                <button onClick={handleCloseBtn}>
+                  <img
+                    src={closemodal}
+                    alt="close modal"
+                    className="cursor-pointer"
+                  />
+                </button>
               ) : null}
             </div>
             <div className="modal_body">
@@ -99,18 +133,22 @@ const ModalContent = ({
                 </div>
               )}
               <h3 className={`${header === "Reason" ? "selfStart" : ""}`}>
-                {header}
+                {alertForm === "payment" && "Pay"}
+                {header} {opt && <span>(optional)</span>}
               </h3>
-              {!textArea && <p style={{maxWidth: "299px", textAlign: "center"}}>{text}</p>}
-              {textArea && <ReasonFormModal placeHolder={text} />}
-              {alertIcon && singleAction ? (
-                <CustomButton
-                  className="alert_modal_btn"
-                  action={() => dispatch(Alerts(""))}
-                  actionText="Done"
+              {!alertForm && (
+                // <p style={{ maxWidth: "320px", textAlign: "center" }}>{text}</p>
+                <p>{text}</p>
+              )}
+              {alertForm === "feedback" && (
+                <ReasonFormModal
+                  placeHolder={text}
+                  onSubmitHandler={onSubmit}
                 />
-              ) : null}
-              {alertIcon && !singleAction ? (
+              )}
+              {alertForm === "payment" && <PaymentFormModal />}
+
+              {finishBtn ? (
                 <CustomButton
                   className="alert_modal_btn"
                   action={() => dispatch(Alerts(""))}
@@ -118,32 +156,18 @@ const ModalContent = ({
                 />
               ) : null}
 
-              {confirmTransaction ? (
+              {confirmBtn ? (
                 <div className="confirmation_btn_div">
                   <CustomButton
                     className="cancel_btn"
-                    action={() => dispatch(Alerts("canceltransaction"))}
-                    actionText="Cancel"
-                  />{" "}
-                  <CustomButton
-                    className="confirm_btn"
-                    action={() => dispatch(Alerts("transactionaccepted"))}
-                    actionText="Confirm"
-                  />{" "}
-                </div>
-              ) : null}
-              {cancelConfirmation ? (
-                <div className="confirmation_btn_div">
-                  <CustomButton
-                    className="cancel_btn"
-                    action={() => dispatch(Alerts(""))}
+                    action={actionLeft}
                     actionText="Cancel"
                   />
                   <CustomButton
                     className="confirm_btn"
-                    action={() => dispatch(Alerts("cancelreason"))}
+                    action={actionRight}
                     actionText="Confirm"
-                  />{" "}
+                  />
                 </div>
               ) : null}
             </div>

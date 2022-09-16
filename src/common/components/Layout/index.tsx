@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { getFirstLevelPath, getObject } from "../../utils/helpers";
 import Header from "../Header";
@@ -8,33 +8,57 @@ import Notice from "./Notice";
 import CustomAlert from "../CustomAlert";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import Messages from "../Messages";
-import { fetchUserDetails, fetchUserToken } from "../../../https/storage";
+import {
+  fetchUserDetails,
+  fetchUserToken,
+  storeUserDetails,
+} from "../../../https/storage";
 import admin from "../../../modules/service/admin";
-import { loadStart, loadStop } from "../redux/apploader";
+import { loadingStop, loadStart, loadStop } from "../redux/apploader";
 import CustomLoader from "../CustomLoader";
 
 function Layout() {
   const { pathname } = useLocation();
   const [userError, setUserError] = useState(true);
-  const [newUser, setNewUser] = useState(false);
+  const [newUser, setNewUser] = useState(true);
   const value = getObject(getFirstLevelPath(pathname));
   const { modal, modalType } = useAppSelector((state) => state.alert);
-  const { isloading, initiator } = useAppSelector((state) => state.isloading);
+  const runOnce = useRef(false);
+  const { isloading, initiator, prevInitiator } = useAppSelector(
+    (state) => state.isloading
+  );
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (fetchUserDetails()?.buyer?.verified) {
+  useLayoutEffect(() => {
+    if (fetchUserDetails().verified) {
       setUserError(false);
     }
-    if (fetchUserToken()) {
+    if (fetchUserDetails().transactionCount) {
+      setNewUser(false);
+    }
+  }, []);
+  useEffect(() => {
+    if (
+      fetchUserDetails().transactionCount === 0 &&
+      prevInitiator === "created_new_transaction"
+    ) {
       dispatch(loadStart("newuser_check"));
       admin
-        .getAllTransaction()
-        .then((res) => (res.count === 0 ? setNewUser(true) : setNewUser(false)))
+        .getUserInfo()
+        .then((res) => {
+          storeUserDetails({
+            ...res.user.buyer,
+            transactionCount: res.user.transactionCount,
+          });
+          setNewUser(false);
+        })
         .catch((err) => console.log(err))
-        .finally(() => dispatch(loadStop()));
+        .finally(() => dispatch(loadingStop()));
     }
-  }, []); // eslint-disable-line
+    if (userError === true && prevInitiator === "verifying_user") {
+      setUserError(false);
+    }
+  }, [prevInitiator, dispatch]);
 
   if (!fetchUserToken() || fetchUserDetails() === false) {
     return <Navigate replace to="/signin/buyer" />;

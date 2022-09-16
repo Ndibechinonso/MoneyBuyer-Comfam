@@ -51,7 +51,7 @@ const {isloading} = useAppSelector((state) => state.isloading)
     setIsSubmitted(false)
     admin
     .sendFeedback(inputs)
-    .then((res) => {dispatch(Alerts("feedbackSent")) })
+    .then((res) => {dispatch(Alerts("sentfeedback")) })
     .catch((err) => {  CustomToast(err.message)})
     .finally(() => dispatch(loadingStop()));
     

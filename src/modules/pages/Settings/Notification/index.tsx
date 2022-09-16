@@ -72,7 +72,7 @@ function Notification() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(loadingStart(""))
+    dispatch(loadingStart("verifying_user"))
 
     const sms = checks.sms;
     const email = checks.email;
