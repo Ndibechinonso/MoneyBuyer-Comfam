@@ -11,7 +11,7 @@ interface AlertState {
 }
 
 const initialState = {
-  modal: true,
+  modal: false,
   modalType: "",
   modalDirection: "",
   modalInitiator: "",
@@ -84,6 +84,8 @@ const reducer: Reducer<AlertState, AppDispatchProps> = (
       return { ...state, modal: true, modalType: "sentfeedback" };
     case AlertTypes.DISPUTE_SUBMITTED_MODAL:
       return { ...state, modal: true, modalType: "disputesubmitted" };
+    case AlertTypes.DISPUTE_FORM_MODAL:
+      return { ...state, modal: true, modalType: "disputeform" };
     case AlertTypes.TRANSACTION_ITEM_MODAL:
       return {
         ...state,

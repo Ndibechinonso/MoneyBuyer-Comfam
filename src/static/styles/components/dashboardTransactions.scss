@@ -17,74 +17,7 @@
       border: 1px solid #bdbdbd;
       border-radius: 4px;
     }
-    .product_image {
-      display: flex;
-      position: relative;
-      border: 1px solid #bdbdbd;
-      border-radius: 4px;
-      overflow: hidden;
-      height: calc(36px + 15.5px);
-    }
 
-    [accept="image/png, image/jpeg"] {
-      background-color: red;
-      z-index: 1;
-      // visibility: hidden;
-      opacity: 0;
-      cursor: pointer;
-      width: 7.25rem !important;
-
-      & ~ div {
-        // width: 100%;
-        // flex: 1;
-        padding: 0 0.5rem;
-        background-color: var(--blackColorWhite);
-        display: flex;
-        align-items: center;
-        column-gap: 0.5rem;
-        .product_img {
-          padding: 0.125rem;
-          background-color: rgba($color: #828282, $alpha: 0.4);
-          color: var(--blackColorWhite);
-          height: 2rem;
-          width: 3rem;
-          object-fit: cover;
-          border-radius: 4px;
-          position: relative;
-          cursor: pointer;
-
-          &:hover {
-            &::after {
-              content: "x";
-              display: grid;
-              place-items: center;
-              position: absolute;
-              background-color: red;
-              border-radius: 50%;
-              width: 20px;
-              height: 20px;
-              right: -4px;
-              top: -4px;
-            }
-          }
-        }
-      }
-      & ~ span {
-        z-index: 0;
-        cursor: pointer;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        padding: 1rem 1.25rem 0.875rem 1rem;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        background-color: var(--greyColorGrey6);
-        @include normalTextRegular;
-        color: var(--greyColorGrey3);
-      }
-    }
     form {
       .milestone {
         margin-top: 2rem;
@@ -98,9 +31,6 @@
           min-width: 319.62px !important;
         }
       }
-
-      // .milestone {
-      // }
 
       h5 {
         color: #4f4f4f;

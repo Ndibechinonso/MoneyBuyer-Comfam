@@ -7,12 +7,9 @@ import {
   transactionModalTitleHandler,
 } from "../../utils/helpers";
 import CustomButton from "../CustomButtons";
-import CloseIcon from "../CustomIcons/CloseIcon";
 import IndicatorIcon from "../CustomIcons/IndicatorIcon";
 import ThreeDotIcon from "../CustomIcons/ThreeDot";
 import Tag from "../CustomTags";
-// import SellerTag from "../customTags/SellerTags";
-// import img from "../../../static/images/unsplash.png";
 import { Alerts } from "../redux/alert/alertActions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
@@ -41,7 +38,7 @@ function TransactionModal() {
         .catch((err) => console.log(err));
     });
     runOnce.current = true;
-  }, []); 
+  }, []);
 
   return (
     <>
@@ -51,6 +48,9 @@ function TransactionModal() {
         >
           <IndicatorIcon />
           <span>{transactionModalTitleHandler(data)}</span>
+          <button onClick={() => dispatch(Alerts(""))} className="transactionModal__title--close">
+            <span />
+          </button>
         </div>
         <div className="transactionModal__body">
           <div className="transactionModal__body--head">
@@ -194,7 +194,6 @@ function TransactionModal() {
           )}
         </div>
       </div>
-      <CloseIcon />
     </>
   );
 }

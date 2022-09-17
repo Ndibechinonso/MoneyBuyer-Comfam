@@ -62,6 +62,8 @@ export const Alerts =
         return dispatch({ type: AlertTypes.DELIVERY_FEEDBACK_MODAL });
       case "sentfeedback":
         return dispatch({ type: AlertTypes.FEEDBACKSENT_MODAL });
+      case "disputeform":
+        return dispatch({ type: AlertTypes.DISPUTE_FORM_MODAL });
       case "disputesubmitted":
         return dispatch({ type: AlertTypes.DISPUTE_SUBMITTED_MODAL });
       case "transactionitem":

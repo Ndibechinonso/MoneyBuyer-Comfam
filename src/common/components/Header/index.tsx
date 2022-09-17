@@ -80,7 +80,7 @@ function Header({ newUser, inCompleteReg }: Iheader) {
               disabled={isloading}
               className="titleBar__cta"
               // action={() => dispatch(Alerts("newtransaction"))}
-              action={() => dispatch(Alerts("confirmtransaction"))}
+              action={() => dispatch(Alerts("disputeform"))}
               actionText="New Transaction"
             />
           ) : null}

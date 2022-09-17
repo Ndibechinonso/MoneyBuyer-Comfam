@@ -168,3 +168,29 @@ export const transactionModalTitleHandler = (data: any) => {
 
   return template;
 };
+
+export const modalClassName = (type: string) => {
+  let className: string;
+
+  switch (type) {
+    case "transactionitem":
+    case "disputeform":
+      className = "transactionModal__wrapper";
+      break;
+    case "alert":
+      className = "alertModal__wrapper";
+      break;
+    case "disputeitem":
+      className = "dispute__wrapper";
+      break;
+    case "newtransaction":
+      className = "newtransaction__wrapper";
+      break;
+
+    default:
+      className = "";
+      break;
+  }
+
+  return className;
+};

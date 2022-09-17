@@ -1,5 +1,5 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { getFirstLevelPath, getObject } from "../../utils/helpers";
 import Header from "../Header";
 import NewUserCard from "../sharedCards/NewUserCard";
@@ -14,16 +14,18 @@ import {
   storeUserDetails,
 } from "../../../https/storage";
 import admin from "../../../modules/service/admin";
-import { loadingStop, loadStart, loadStop } from "../redux/apploader";
+import { loadStart, loadStop } from "../redux/apploader";
 import CustomLoader from "../CustomLoader";
+import { removeItem } from "../redux/tableItem";
 
 function Layout() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const [userError, setUserError] = useState(true);
   const [newUser, setNewUser] = useState(true);
   const value = getObject(getFirstLevelPath(pathname));
   const { modal, modalType } = useAppSelector((state) => state.alert);
-  const runOnce = useRef(false);
+  const { itm: transactionItm } = useAppSelector((state) => state.tableItem);
   const { isloading, initiator, prevInitiator } = useAppSelector(
     (state) => state.isloading
   );
@@ -37,6 +39,21 @@ function Layout() {
       setNewUser(false);
     }
   }, []);
+
+  useEffect(() => {
+    if (modalType === "" && transactionItm.id) {
+      dispatch(removeItem());
+    }
+    if (modalType === "" && pathname.includes("forgotpassword")) {
+      if (pathname.includes("buyer")) {
+        navigate("/sigin/buyer");
+      }
+      if (pathname.includes("seller")) {
+        navigate("/signin/seller");
+      }
+    }
+  }, [modalType, modal]);
+
   useEffect(() => {
     if (
       fetchUserDetails().transactionCount === 0 &&
@@ -53,7 +70,7 @@ function Layout() {
           setNewUser(false);
         })
         .catch((err) => console.log(err))
-        .finally(() => dispatch(loadingStop()));
+        .finally(() => dispatch(loadStop()));
     }
     if (userError === true && prevInitiator === "verifying_user") {
       setUserError(false);

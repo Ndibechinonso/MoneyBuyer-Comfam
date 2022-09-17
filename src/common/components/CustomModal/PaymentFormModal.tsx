@@ -17,41 +17,43 @@ function PaymentFormModal() {
     const { name, value } = e.target;
     setInputContent((prev) => ({ ...prev, [name]: value }));
   };
-  const disableBtn = Object.values(inputContent).includes("") || isloading;
+  const checkEmptyValues = Object.values(inputContent).includes("");
 
-  const modalNavHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setInputContent(initialState);
-    // if (direction === "cancel") {
-    //   dispatch(Alerts("transactioncancelled"));
-    // }
-    // if (direction === "confirm") {
-    //   dispatch(Alerts("transactionaccepted"));
-    // }
+    if (checkEmptyValues === false) {
+      // dispatch(Alerts("successfulltransaction"));
+      dispatch(Alerts("unsuccessfulltransaction"));
+    }
   };
   return (
-    <form onSubmit={modalNavHandler}>
+    <form onSubmit={submitHandler}>
       <div>
         <label htmlFor={`${id}-user`}>Seller/Consultant</label>
         <input
+          autoComplete="off"
           id={`${id}-user`}
           type="text"
           name="seller"
+          placeholder="Kennedy Garry"
           onChange={changeHandler}
         />
       </div>
       <div>
         <label htmlFor={`${id}-wallet`}>Wallet ID</label>
         <input
+          autoComplete="off"
           id={`${id}-wallet`}
           type="text"
           name="walletId"
+          placeholder="0000-1234-2334"
           onChange={changeHandler}
         />
       </div>
 
       <CustomButton
-        disabled={disableBtn}
+        disabled={checkEmptyValues || isloading}
         type="submit"
         className="alert_modal_btn"
         action={() => console.log("formSubmited")}

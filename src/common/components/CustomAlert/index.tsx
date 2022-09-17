@@ -2,15 +2,17 @@ import { ReactElement } from "react";
 import info from "../../../static/images/info.svg";
 import success from "../../../static/images/success.svg";
 import { Alerts } from "../redux/alert/alertActions";
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import ModalContent from "./ModalContent";
+import { customAlertProps } from "./types";
 
-type customAlertProps = {
-  alertType: String;
-};
+
 const CustomAlert = ({ alertType }: customAlertProps) => {
   let template: ReactElement | null = null;
   const dispatch = useAppDispatch();
+  const { id } = useAppSelector((state) => state.tableItem.itm);
+
+  console.log(id)
 
   switch (alertType) {
     case "progress":
@@ -225,17 +227,6 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
       );
       break;
 
-    case "transactiondeleted":
-      template = (
-        <ModalContent
-          type="alert"
-          alertIcon={success}
-          header="Transaction Deleted"
-          text="Your transaction has been deleted successfully"
-          finishBtn
-        />
-      );
-      break;
     case "transactionpayment":
       template = (
         <ModalContent type="alert" alertForm="payment" header="N500" />
@@ -287,7 +278,13 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
       );
       break;
     case "emojiform":
-      template = <ModalContent type="alert" emojiForm />;
+      template = (
+        <ModalContent
+          type="alert"
+          alertForm="rating"
+          header="How was the delivery?"
+        />
+      );
       break;
 
     case "deliveryfeedback":
@@ -298,7 +295,7 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
           alertForm="feedback"
           onSubmit={(e) => {
             e.preventDefault();
-            dispatch(Alerts("transactioncancelled"));
+            dispatch(Alerts("sentfeedback"));
           }}
           opt
           header="Write your Feedback"
@@ -316,6 +313,9 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
           finishBtn
         />
       );
+      break;
+    case "disputeform":
+      template = <ModalContent type="disputeform" />;
       break;
     case "disputesubmitted":
       template = (

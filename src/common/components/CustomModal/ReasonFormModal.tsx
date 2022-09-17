@@ -6,6 +6,7 @@ import CustomButton from "../CustomButtons";
 type IReasonFormProps = {
   placeHolder?: any;
   onSubmitHandler: (e: React.FocusEvent<HTMLFormElement>) => void;
+  // loadingInitiator:string;
 };
 
 function ReasonFormModal({ placeHolder, onSubmitHandler }: IReasonFormProps) {
@@ -37,7 +38,7 @@ function ReasonFormModal({ placeHolder, onSubmitHandler }: IReasonFormProps) {
         disabled={inputContent === ""}
         type="submit"
         className="alert_modal_btn"
-        action={() => console.log("formSubmited")}
+        action={() => null}
         actionText="Submit"
       />
     </form>
