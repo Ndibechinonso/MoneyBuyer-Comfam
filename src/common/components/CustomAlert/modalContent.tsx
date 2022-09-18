@@ -71,7 +71,7 @@ const ModalContent = (props: modalContentProps) => {
                 </div>
               )}
               <h3 className={`${header === "Reason" ? "selfStart" : ""}`}>
-                {alertForm === "payment" && "Pay"}
+                {alertForm === "payment" && "Pay "}
                 {header} {opt && <span>(optional)</span>}
               </h3>
               {!alertForm && <p>{text}</p>}
@@ -87,7 +87,7 @@ const ModalContent = (props: modalContentProps) => {
               {finishBtn ? (
                 <CustomButton
                   className="alert_modal_btn"
-                  action={() => dispatch(Alerts(""))}
+                  action={actionLeft ? actionLeft : handleCloseBtn}
                   actionText="Done"
                 />
               ) : null}

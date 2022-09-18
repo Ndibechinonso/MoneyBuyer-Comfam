@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { getFirstLevelPath, getObject } from "../../utils/helpers";
 import Header from "../Header";
 import NewUserCard from "../sharedCards/NewUserCard";
@@ -20,7 +20,6 @@ import { removeItem } from "../redux/tableItem";
 
 function Layout() {
   const { pathname } = useLocation();
-  const navigate = useNavigate();
   const [userError, setUserError] = useState(true);
   const [newUser, setNewUser] = useState(true);
   const value = getObject(getFirstLevelPath(pathname));
@@ -44,15 +43,7 @@ function Layout() {
     if (modalType === "" && transactionItm.id) {
       dispatch(removeItem());
     }
-    if (modalType === "" && pathname.includes("forgotpassword")) {
-      if (pathname.includes("buyer")) {
-        navigate("/sigin/buyer");
-      }
-      if (pathname.includes("seller")) {
-        navigate("/signin/seller");
-      }
-    }
-  }, [modalType, modal]);
+  }, [modalType, modal]); //eslint-disable-line
 
   useEffect(() => {
     if (
@@ -75,7 +66,7 @@ function Layout() {
     if (userError === true && prevInitiator === "verifying_user") {
       setUserError(false);
     }
-  }, [prevInitiator, dispatch]);
+  }, [prevInitiator, dispatch]); //eslint-disable-line
 
   if (!fetchUserToken() || fetchUserDetails() === false) {
     return <Navigate replace to="/signin/buyer" />;

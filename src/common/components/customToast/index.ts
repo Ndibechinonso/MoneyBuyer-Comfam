@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 
-const CustomToast = (res?: string, iserror?: true) => {
+const customToast = (res?: string, iserror?: true) => {
   const code = iserror === undefined ? "success" : "error";
   return toast(res, {
     position: "top-right",
@@ -11,4 +11,4 @@ const CustomToast = (res?: string, iserror?: true) => {
   });
 };
 
-export default CustomToast;
+export default customToast;

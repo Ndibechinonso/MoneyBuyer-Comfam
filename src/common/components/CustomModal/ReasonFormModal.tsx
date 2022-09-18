@@ -25,11 +25,11 @@ function ReasonFormModal({ placeHolder, onSubmitHandler }: IReasonFormProps) {
   // };
   return (
     <form onSubmit={onSubmitHandler}>
-      <label htmlFor="cancelreason"></label>
+      <label htmlFor="reason"></label>
       <textarea
         className="message_input"
         placeholder={placeHolder}
-        name="cancelreason"
+        name="reason"
         id="reason"
         value={inputContent}
         onChange={(e) => setInputContent(e.target.value)}

@@ -78,6 +78,25 @@ const ENDPOINTS = {
       method: "GET",
       url: (id: string) => `/transaction/search?search=${id}`,
     },
+    feedback_transactions: {
+      method: "POST",
+      url: "/transaction-feedback",
+    },
+  },
+  disputes: {
+    create_dispute: {
+      method: "POST",
+      url: "/dispute",
+    },
+    get_disputes: {
+      method: "GET",
+      url: (skips: number, limit: number) =>
+        `/dispute?skip=${skips}&limit=${limit}`,
+    },
+    get_a_dispute: {
+      method: "GET",
+      url: (id: string) => `/dispute?id=${id}`,
+    },
   },
   file_handling: {
     upload_s3_image: {

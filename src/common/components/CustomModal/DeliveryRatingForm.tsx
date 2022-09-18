@@ -6,7 +6,8 @@ function DeliveryRatingForm() {
   const dispatch = useAppDispatch();
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(Alerts("deliveryfeedback"));
+    const { value } = e.target;
+    dispatch(Alerts("deliveryfeedback", value));
   };
   return (
     <form onSubmit={(e) => e.preventDefault()}>

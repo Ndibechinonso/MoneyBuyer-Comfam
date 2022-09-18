@@ -4,6 +4,7 @@ import {
   makeAuthorizedImageUpload,
   makeAuthorizedRequestWithHeadersAndPayload,
 } from "../../../https/http";
+import { IcreateDispute, ItransactionFeedback } from "./types";
 // import { HTTPResponse } from "../../../https/http";
 const admin = {
   async getUserInfo() {
@@ -30,6 +31,10 @@ const admin = {
     const method = ENDPOINTS.transaction.delete_transaction.method;
     const url = ENDPOINTS.transaction.delete_transaction.url(id);
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
+  },
+  async feedbackTransaction(body: ItransactionFeedback) {
+    const { method, url } = ENDPOINTS.transaction.feedback_transactions;
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
   async getAllTransaction() {
     const { method, url } = ENDPOINTS.transaction.all_transaction;
@@ -68,6 +73,20 @@ const admin = {
   async updateNotification(body: any) {
     const { method, url } = ENDPOINTS.auth.update_notification_settings;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
+  },
+  async createDispute(body: IcreateDispute) {
+    const { method, url } = ENDPOINTS.disputes.create_dispute;
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
+  },
+  async getDisputes(skips: number, limit: number) {
+    const { method, url: makeUrl } = ENDPOINTS.disputes.get_disputes;
+    const url = makeUrl(skips, limit);
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url);
+  },
+  async getSingleDispute(id: string) {
+    const { method, url: makeUrl } = ENDPOINTS.disputes.get_a_dispute;
+    const url = makeUrl(id);
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
 };
 

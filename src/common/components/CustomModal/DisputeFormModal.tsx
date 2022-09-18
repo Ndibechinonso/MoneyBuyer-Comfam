@@ -1,18 +1,32 @@
-import React, { useId, useState } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import img from "../../../static/images/unsplash.png";
 import closemodal from "../../../static/images/dashboard_modal_close.svg";
 import ArrowLeft from "../CustomIcons/ArrowLeft";
 import CustomImageInput from "../CustomImageInput";
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { Alerts } from "../redux/alert/alertActions";
 import CustomButton from "../CustomButtons";
 import { Select, SelectItem } from "../CustomSelect";
 import admin from "../../../modules/service/admin";
 import CustomToast from "../CustomToast";
+import { loadStart, loadStop } from "../redux/apploader";
+import customToast from "../CustomToast";
 
-type Props = {};
+export type IcreateDispute = {
+  seller: string;
+  buyer: string;
+  transaction: string;
+  dispute_reason: string;
+  images: Array<string>;
+  quantity: string;
+  moreInfomation: string;
+};
+
 const initialState = {
-  reason: "",
+  seller: "",
+  buyer: "",
+  transaction: "",
+  dispute_reason: "",
   quantity: "",
   moreInfomation: "",
   images: [],
@@ -42,11 +56,27 @@ const reasonArr = [
   "Bronze received was broken or defective",
 ];
 
-function DisputeFormModal({}: Props) {
+function DisputeFormModal() {
   const id = useId();
-  const [inputs, setInputs] = useState(initialState);
+  const [inputs, setInputs] = useState<IcreateDispute>(initialState);
+  const mountOnce = useRef(false);
+  const transactionItem = useAppSelector((state) => state.tableItem.itm);
   const [imgUpload, setImgUpload] = useState({ loading: false, rawImages: [] });
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if ((mountOnce.current = true)) {
+      return;
+    }
+    setInputs((prev) => ({
+      ...prev,
+      seller: transactionItem.seller,
+      buyer: transactionItem.buyer,
+      transaction: transactionItem.id,
+    }));
+
+    mountOnce.current = true;
+  }, []); //eslint-disable-line
 
   const emptyInput =
     Object.values(inputs).includes("") || inputs.images.length === 0;
@@ -114,10 +144,20 @@ function DisputeFormModal({}: Props) {
     setInputs((prev) => ({ ...prev, images: [...inputtemp] }));
   };
 
-  const submitHandler = (e:React.FormEvent<HTMLFormElement>) => { 
-    e.preventDefault()
-    dispatch(Alerts("disputesubmitted"))
-   }
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(loadStart());
+    admin
+      .createDispute(inputs)
+      .then((res) => {
+        dispatch(Alerts("disputesubmitted"));
+      })
+      .catch((err) => {
+        dispatch(Alerts(""));
+        customToast(err.message, true);
+      })
+      .finally(() => dispatch(loadStop()));
+  };
 
   return (
     <form onSubmit={submitHandler} className=" disputemodal">
@@ -152,9 +192,9 @@ function DisputeFormModal({}: Props) {
               <label htmlFor={`${id}-reason`}>Select a reason</label>
               <div>
                 <Select
-                  name="reason"
+                  name="dispute_reason"
                   id={`${id}-reason`}
-                  value={inputs.reason}
+                  value={inputs.dispute_reason}
                   onChange={(e) => selectChangeHandler(e, "reason")}
                   className="select-trigger"
                   placeholder="Please select a reason"
