@@ -4,7 +4,11 @@ import {
   makeAuthorizedImageUpload,
   makeAuthorizedRequestWithHeadersAndPayload,
 } from "../../../https/http";
-import { IcreateDispute, ItransactionFeedback } from "./types";
+import {
+  IcanceltransactionFeedback,
+  IcreateDispute,
+  ItransactionFeedback,
+} from "./types";
 // import { HTTPResponse } from "../../../https/http";
 const admin = {
   async getUserInfo() {
@@ -38,6 +42,10 @@ const admin = {
   async getAllTransaction() {
     const { method, url } = ENDPOINTS.transaction.all_transaction;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
+  },
+  async cancelTransaction(body: IcanceltransactionFeedback) {
+    const { method, url } = ENDPOINTS.transaction.cancel_transaction;
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
   async confirmDelivery(id: string) {
     const method = ENDPOINTS.transaction.confirm_delivery.method;

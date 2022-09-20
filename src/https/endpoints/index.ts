@@ -86,6 +86,10 @@ const ENDPOINTS = {
       method: "POST",
       url: "/transaction-feedback",
     },
+    cancel_transaction: {
+      method: "POST",
+      url: "/transaction/cancel",
+    },
   },
   disputes: {
     create_dispute: {

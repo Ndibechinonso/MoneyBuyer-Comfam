@@ -166,6 +166,13 @@
       }
     }
   }
+  .with-progress{
+    width: 28.625rem;
+    height: 19.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .child_div {
     position: absolute;
     z-index: 11;

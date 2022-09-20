@@ -3,7 +3,7 @@ import CustomButton from "../CustomButtons";
 import closemodal from "../../../static/images/modal_close.svg";
 import CustomModal from "../CustomModal";
 import { Alerts } from "../redux/alert/alertActions";
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import TransactionModal from "../CustomModal/TransactionModal";
 import ReasonFormModal from "../CustomModal/ReasonFormModal";
 import NewTransaction from "../DashboardComponents/NewTransaction";
@@ -19,6 +19,7 @@ const ModalContent = (props: modalContentProps) => {
   const { progress, finishBtn, confirmBtn, alertForm } = props;
   const { actionRight, actionLeft, onSubmit } = props;
 
+  const { isloading } = useAppSelector((state) => state.isloading);
   const dispatch = useAppDispatch();
   const handleCloseBtn = () => dispatch(Alerts(""));
 
@@ -27,12 +28,13 @@ const ModalContent = (props: modalContentProps) => {
       alertForm === "feedback" ? "with-feedback" : ""
     } ${finishBtn ? "with-finishbtn" : ""} ${
       alertForm === "payment" ? "with-payment" : ""
-    } ${alertForm === "rating" ? "with-rating" : ""}`;
+    } ${alertForm === "rating" ? "with-rating" : ""} 
+    ${progress ? "with-progress" : ""}`;
 
   return (
     <CustomModal
       className={`${modalClassName(type)} cover_screen`}
-      progress={progress}
+      progress={progress || isloading}
     >
       <>
         {type === "alert" ? (
@@ -96,13 +98,17 @@ const ModalContent = (props: modalContentProps) => {
                 <div className="confirmation_btn_div">
                   <CustomButton
                     className="cancel_btn"
+                    variant="OUTLINE"
                     action={actionLeft}
                     actionText="Cancel"
+                    disabled={isloading}
                   />
                   <CustomButton
                     className="confirm_btn"
                     action={actionRight}
                     actionText="Confirm"
+                    loading={isloading}
+                    disabled={isloading}
                   />
                 </div>
               ) : null}

@@ -76,8 +76,14 @@ export const handleCancelTransaction = (
   e: React.FormEvent<HTMLFormElement>
 ) => {
   e.preventDefault();
+  const transaction_id = store.getState().tableItem.itm.id;
   console.log(e.target[0].value);
-  alert("transactioncancelled");
+  start("");
+  admin
+    .cancelTransaction({ transaction_id, reason: e.target[0].value })
+    .then((res) => alert("transactioncancelled"))
+    .catch((err) => errorHandler(err.message))
+    .finally(stop);
 };
 
 export const handleStartDeliveryFeedbackFlow = () => {

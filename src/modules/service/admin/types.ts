@@ -12,3 +12,7 @@ export type ItransactionFeedback = {
   transaction_id: string;
   feedback: string;
 };
+export type IcanceltransactionFeedback = {
+  transaction_id: string;
+  reason: string;
+};

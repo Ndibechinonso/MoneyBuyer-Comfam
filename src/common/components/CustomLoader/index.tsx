@@ -6,9 +6,9 @@ type Props = {
 
 function CustomLoader({ size }: Props) {
   return (
-    <div className="loadercontainer" style={{ fontSize: size }}>
-      <div className="loader" />
-    </div>
+    <span className="loadercontainer" style={{ fontSize: size }}>
+      <span className="loader" />
+    </span>
   );
 }
 
