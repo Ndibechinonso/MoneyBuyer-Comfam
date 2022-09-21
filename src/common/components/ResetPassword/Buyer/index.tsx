@@ -26,7 +26,7 @@ const Form = () => {
     auth
       .resetPassword(inputs)
       .then((res) => dispatch(Alerts("resetpassword")))
-      .catch((err) => customtoast(err.message))
+      .catch((err) => customtoast(err.message, true))
       .finally(() => dispatch(loadingStop()));
   };
 
@@ -34,7 +34,6 @@ const Form = () => {
 
   return (
     <div className="biodata_container">
-      {customtoast("hello")}
       <form onSubmit={handleSubmit}>
         <div className="seller_container_form">
           <div className="form_group">

@@ -2,11 +2,12 @@ import { Dispatch } from "react";
 import * as AlertTypes from "./alertTypes";
 import { iAlert } from "./types";
 
-type modalInitiator =
-  | undefined
-  | "pendingconfirmation"
-  | "awaitingconfirmation"
-  | "pendingdelivery";
+type modalInitiator = string;
+// type modalInitiator =
+//   | undefined
+//   | "pendingconfirmation"
+//   | "awaitingconfirmation"
+//   | "pendingdelivery";
 
 export const Alerts =
   (alertType: iAlert, initiator?: modalInitiator) =>
@@ -25,7 +26,10 @@ export const Alerts =
       case "notificationupdated":
         return dispatch({ type: AlertTypes.NOTIFICATIONUPDATED_MODAL });
       case "deletetransaction":
-        return dispatch({ type: AlertTypes.DELETE_TRANSACTION_MODAL });
+        return dispatch({
+          type: AlertTypes.DELETE_TRANSACTION_MODAL,
+          payload: initiator,
+        });
       case "transactiondeleted":
         return dispatch({ type: AlertTypes.TRANSACTION_DELETED_MODAL });
       case "rejecttransaction":
@@ -59,9 +63,14 @@ export const Alerts =
       case "emojiform":
         return dispatch({ type: AlertTypes.EMOJI_FORM_MODAL });
       case "deliveryfeedback":
-        return dispatch({ type: AlertTypes.DELIVERY_FEEDBACK_MODAL });
+        return dispatch({
+          type: AlertTypes.DELIVERY_FEEDBACK_MODAL,
+          payload: initiator,
+        });
       case "sentfeedback":
         return dispatch({ type: AlertTypes.FEEDBACKSENT_MODAL });
+      case "disputeform":
+        return dispatch({ type: AlertTypes.DISPUTE_FORM_MODAL });
       case "disputesubmitted":
         return dispatch({ type: AlertTypes.DISPUTE_SUBMITTED_MODAL });
       case "transactionitem":

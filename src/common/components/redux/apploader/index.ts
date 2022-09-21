@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type loadingInitiator =
+export type loadingInitiator =
   | ""
   | "fetching_all_transactions"
   | "created_new_transaction"
   | "newuser_check"
   | "verify_code"
   | "resend_code"
-  | "verifying_user";
+  | "verifying_user"
+  | "changed_a_transaction";
 
 interface loadingState {
   isloading: boolean;

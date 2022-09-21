@@ -1,145 +1,81 @@
-import { ReactElement } from "react";
+import CustomLoader from "../CustomLoader";
 import { CustomButtonProps } from "./types";
 
 function CustomButton(props: CustomButtonProps) {
-  const {
-    actionText,
-    loading,
-    disabled,
-    action,
-    type,
-    style,
-    variant,
-    size,
-    color,
-    className,
-    icon,
-    iconOreintation,
-  } = props;
+  const { actionText, loading, disabled, action } = props;
+  const { style, variant, size } = props;
+  const { color, className, icon, iconOreintation } = props;
 
-  let template: ReactElement | null = null;
   let defaultClassName = className ? className : "";
-  let iconItem: ReactElement | null = null;
+  let iconItem: any;
 
-  if (color === "secondary") {
-    defaultClassName = `${defaultClassName} btnSecondary ${
-      variant === "OUTLINE" ? "btnSecondary__outline" : ""
-    }`;
-  } else {
-    defaultClassName = `${defaultClassName} btnPrimary ${
-      variant === "OUTLINE" ? "btnPrimary__outline" : ""
-    }`;
-  }
-
-  if (icon) {
-    if (icon === "+") {
-      iconItem = <span className="iconPlus"></span>;
-    }
-    if (icon === "-") {
-      iconItem = <span className="iconMinus"></span>;
-    }
-    if (icon === "<") {
-      iconItem = <span className="iconLess"></span>;
-    }
-    if (icon === ">") {
-      iconItem = <span className="iconGreat"></span>;
-    }
-  }
-
-  if (size !== undefined) {
-    if (size === "small") {
-      defaultClassName = `${defaultClassName} btn__small`;
-    }
-    if (size === "medium") {
-      defaultClassName = `${defaultClassName} btn__medium ${
-        variant === "ICONTEXT"
-          ? "btn__medium__text"
-          : variant === "OUTLINE"
-          ? ""
-          : ""
+  /* Add className based on the color props */
+  switch (color) {
+    case "secondary":
+      defaultClassName = `${defaultClassName} btnSecondary ${
+        variant === "OUTLINE" ? "btnSecondary__outline" : ""
       }`;
-    }
-    if (size === "large") {
-      defaultClassName = `${defaultClassName} btn__large ${
-        variant === "ICONTEXT"
-          ? "btn__large__text"
-          : variant === "OUTLINE"
-          ? ""
-          : ""
-      }`;
-    }
-  } else if (!size || size === "normal") {
-    defaultClassName = `${defaultClassName} btn__normal ${
-      variant === "ICONTEXT"
-        ? "btn__normal__text"
-        : variant === "OUTLINE"
-        ? ""
-        : ""
-    }`;
-  }
-
-  switch (variant) {
-    case "ICONONLY":
-      template = (
-        <button
-          className={`btn__icon ${defaultClassName} btn`}
-          onClick={action}
-          disabled={loading || disabled}
-          style={style}
-          type={type}
-        >
-          {iconItem}
-        </button>
-      );
-
-      break;
-    case "ICONTEXT":
-      template = (
-        <button
-          className={`${defaultClassName}  ${
-            iconOreintation === "right" ? "btn__ort" : ""
-          } btn`}
-          onClick={action}
-          disabled={loading || disabled || !icon}
-          style={style}
-          type={type}
-        >
-          {iconItem}
-          {actionText}
-        </button>
-      );
-
-      break;
-    case "OUTLINE":
-      template = (
-        <button
-          onClick={action}
-          className={`${defaultClassName} btn`}
-          disabled={loading || disabled}
-          style={style}
-          type={type}
-        >
-          {actionText}
-        </button>
-      );
       break;
 
     default:
-      template = (
-        <button
-          onClick={action}
-          className={`${defaultClassName} btn`}
-          disabled={loading || disabled}
-          style={style}
-          type={type}
-        >
-          {actionText}
-        </button>
-      );
+      defaultClassName = `${defaultClassName} btnPrimary ${
+        variant === "OUTLINE" ? "btnPrimary__outline" : ""
+      }`;
       break;
   }
 
-  return template;
+  /* Add icon type based on the icon props */
+  switch (icon) {
+    case "+":
+      iconItem = <span className="iconPlus" />;
+      break;
+    case "-":
+      iconItem = <span className="iconMinus" />;
+      break;
+    case "<":
+      iconItem = <span className="iconLess" />;
+      break;
+    case ">":
+      iconItem = <span className="iconGreat" />;
+      break;
+
+    default:
+      iconItem = null;
+      break;
+  }
+
+  /* Add className based on the size props */
+  switch (size) {
+    case "small":
+    case "medium":
+    case "large":
+      defaultClassName = `${defaultClassName} btn__${size} ${
+        variant === "ICONTEXT" ? `btn__${size}__text` : ""
+      }`;
+
+      break;
+
+    default:
+      defaultClassName = `${defaultClassName} btn__normal ${
+        variant === "ICONTEXT" ? "btn__normal__text" : ""
+      }`;
+      break;
+  }
+
+  return (
+    <button
+      onClick={action}
+      className={`${defaultClassName}  ${
+        iconOreintation === "right" ? "btn__ort" : ""
+      } btn`}
+      disabled={loading || disabled}
+      style={style}
+    >
+      {iconItem ? iconItem : null}
+      {actionText && !loading ? actionText : null}
+      {loading ? <CustomLoader size={3} /> : null}
+    </button>
+  );
 }
 
 export default CustomButton;

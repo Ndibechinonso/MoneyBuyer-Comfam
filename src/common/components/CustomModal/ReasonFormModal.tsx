@@ -6,6 +6,7 @@ import CustomButton from "../CustomButtons";
 type IReasonFormProps = {
   placeHolder?: any;
   onSubmitHandler: (e: React.FocusEvent<HTMLFormElement>) => void;
+  // loadingInitiator:string;
 };
 
 function ReasonFormModal({ placeHolder, onSubmitHandler }: IReasonFormProps) {
@@ -24,11 +25,11 @@ function ReasonFormModal({ placeHolder, onSubmitHandler }: IReasonFormProps) {
   // };
   return (
     <form onSubmit={onSubmitHandler}>
-      <label htmlFor="cancelreason"></label>
+      <label htmlFor="reason"></label>
       <textarea
         className="message_input"
         placeholder={placeHolder}
-        name="cancelreason"
+        name="reason"
         id="reason"
         value={inputContent}
         onChange={(e) => setInputContent(e.target.value)}
@@ -37,7 +38,7 @@ function ReasonFormModal({ placeHolder, onSubmitHandler }: IReasonFormProps) {
         disabled={inputContent === ""}
         type="submit"
         className="alert_modal_btn"
-        action={() => console.log("formSubmited")}
+        action={() => null}
         actionText="Submit"
       />
     </form>

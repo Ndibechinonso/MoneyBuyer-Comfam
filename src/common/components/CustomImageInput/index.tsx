@@ -7,14 +7,16 @@ type Props = {
   value: Array<any>;
   deleteHandler: (itm: any, idx: number) => void;
   disabled?: boolean;
+  placeholder?: string;
 };
 
 function CustomImageInput(props: Props) {
-  const { label, changeHandler, value, deleteHandler, disabled } = props;
+  const { label, changeHandler, value, deleteHandler, disabled, placeholder } =
+    props;
   const id = React.useId();
 
   return (
-    <div className="form_group">
+    <div className="form_group custom_image_input">
       <label htmlFor={`${id}-product_image`}> {label} </label>
       <div className="product_image">
         <input
@@ -30,8 +32,10 @@ function CustomImageInput(props: Props) {
         />
         <span>Choose File</span>
         <div className="image_container">
-          {value.map(
-            (img, idx) =>
+          {value.length === 0 && placeholder ? (
+            <span>{placeholder}</span>
+          ) : (
+            value.map((img, idx) =>
               img?.lastModified ? (
                 <div key={img?.lastModified} className="product_img">
                   <img
@@ -47,6 +51,7 @@ function CustomImageInput(props: Props) {
                   <Pulse />
                 </div>
               )
+            )
           )}
         </div>
       </div>

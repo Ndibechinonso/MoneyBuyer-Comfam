@@ -1,16 +1,12 @@
 import { ReactElement } from "react";
 import info from "../../../static/images/info.svg";
 import success from "../../../static/images/success.svg";
-import { Alerts } from "../redux/alert/alertActions";
-import { useAppDispatch } from "../redux/hooks";
+import * as helpers from "./helperActions";
 import ModalContent from "./ModalContent";
+import { customAlertProps } from "./types";
 
-type customAlertProps = {
-  alertType: String;
-};
 const CustomAlert = ({ alertType }: customAlertProps) => {
   let template: ReactElement | null = null;
-  const dispatch = useAppDispatch();
 
   switch (alertType) {
     case "progress":
@@ -91,8 +87,8 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
           header="Delete Transaction"
           text="Are you sure you want to delete this transaction"
           confirmBtn
-          actionLeft={() => dispatch(Alerts(""))}
-          actionRight={() => dispatch(Alerts("transactiondeleted"))}
+          actionLeft={helpers.closeModal}
+          actionRight={helpers.handleDeleteTransaction}
         />
       );
       break;
@@ -116,8 +112,8 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
           header="Reject Transaction"
           text="Are you sure you want to reject this new transaction"
           confirmBtn
-          actionLeft={() => dispatch(Alerts("transactionitem"))}
-          actionRight={() => dispatch(Alerts("rejectreason"))}
+          actionLeft={helpers.handleBackToTransactionModal}
+          actionRight={helpers.handleToRejectionForm}
         />
       );
       break;
@@ -127,10 +123,7 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
           type="alert"
           header="Reason"
           alertForm="feedback"
-          onSubmit={(e) => {
-            e.preventDefault();
-            dispatch(Alerts("transactionrejected"));
-          }}
+          onSubmit={helpers.handleRejectTransaction}
           text="Kindly state your reason for rejecting this transaction"
         />
       );
@@ -175,12 +168,11 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
       template = (
         <ModalContent
           type="alert"
-          // confirmTransaction
           header="Accept Transaction"
           text="Are you sure you want to accept this new transaction"
           confirmBtn
-          actionLeft={() => dispatch(Alerts("transactionitem"))}
-          actionRight={() => dispatch(Alerts("transactionaccepted"))}
+          actionLeft={helpers.handleBackToTransactionModal}
+          actionRight={helpers.handleAcceptTransaction}
         />
       );
       break;
@@ -191,8 +183,8 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
           type="alert"
           alertIcon={info}
           confirmBtn
-          actionLeft={() => dispatch(Alerts(""))}
-          actionRight={() => dispatch(Alerts("cancelreason"))}
+          actionLeft={helpers.closeModal}
+          actionRight={helpers.handleToCancelForm}
           header="Cancel Transaction"
           text="Are you sure you want to cancel this transaction"
         />
@@ -204,10 +196,7 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
         <ModalContent
           type="alert"
           alertForm="feedback"
-          onSubmit={(e) => {
-            e.preventDefault();
-            dispatch(Alerts("transactioncancelled"));
-          }}
+          onSubmit={helpers.handleCancelTransaction}
           header="Reason"
           text="Kindly state your reason for willing to cancel this transaction"
         />
@@ -225,20 +214,13 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
       );
       break;
 
-    case "transactiondeleted":
+    case "transactionpayment":
       template = (
         <ModalContent
           type="alert"
-          alertIcon={success}
-          header="Transaction Deleted"
-          text="Your transaction has been deleted successfully"
-          finishBtn
+          alertForm="payment"
+          header={helpers.getTransactionAmount()}
         />
-      );
-      break;
-    case "transactionpayment":
-      template = (
-        <ModalContent type="alert" alertForm="payment" header="N500" />
       );
       break;
     case "successfulltransaction":
@@ -270,8 +252,8 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
           header="Confirm Delivery"
           text="Do you confirm this delivery meets product/service requirements?"
           confirmBtn
-          actionLeft={() => dispatch(Alerts("canceltransaction"))}
-          actionRight={() => dispatch(Alerts("transactionaccepted"))}
+          actionLeft={helpers.handleBackToTransactionModal}
+          actionRight={helpers.handleConfirmDelivery}
         />
       );
       break;
@@ -283,23 +265,26 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
           header="Delivery Confirmed"
           text="Your delivery has been confirmed, seller would will be notified and credited."
           finishBtn
+          actionLeft={helpers.handleStartDeliveryFeedbackFlow}
         />
       );
       break;
     case "emojiform":
-      template = <ModalContent type="alert" emojiForm />;
+      template = (
+        <ModalContent
+          type="alert"
+          alertForm="rating"
+          header="How was the delivery?"
+        />
+      );
       break;
 
     case "deliveryfeedback":
-      /* check this case */
       template = (
         <ModalContent
           type="alert"
           alertForm="feedback"
-          onSubmit={(e) => {
-            e.preventDefault();
-            dispatch(Alerts("transactioncancelled"));
-          }}
+          onSubmit={helpers.handleDeliveryFeedback}
           opt
           header="Write your Feedback"
           text="Tell us what went wrong"
@@ -316,6 +301,9 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
           finishBtn
         />
       );
+      break;
+    case "disputeform":
+      template = <ModalContent type="disputeform" />;
       break;
     case "disputesubmitted":
       template = (

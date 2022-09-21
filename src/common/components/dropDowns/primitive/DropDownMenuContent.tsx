@@ -10,12 +10,17 @@ export const DropDownItemIndicator = DropdownMenuPrimitive.ItemIndicator;
 type Props = {
   children: React.ReactNode;
   className?: string;
+  onPointerDownOutside?: (e: any) => void;
 };
 
 const DropDownMenuContent = React.forwardRef<HTMLDivElement, Props>(
-  ({ children, className, ...props }, forwardedRef) => {
+  ({ children, onPointerDownOutside, className, ...props }, forwardedRef) => {
     return (
-      <DropdownMenuPrimitive.Content  className={className} ref={forwardedRef}>
+      <DropdownMenuPrimitive.Content
+        onPointerDownOutside={onPointerDownOutside}
+        className={className}
+        ref={forwardedRef}
+      >
         {children}
       </DropdownMenuPrimitive.Content>
     );

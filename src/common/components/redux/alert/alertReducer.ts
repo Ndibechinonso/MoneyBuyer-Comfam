@@ -1,7 +1,6 @@
 import { Reducer } from "redux";
 import * as AlertTypes from "./alertTypes";
 import { AppDispatchProps } from "../types";
-import { iAlert } from "./types";
 
 interface AlertState {
   modal: boolean;
@@ -11,7 +10,7 @@ interface AlertState {
 }
 
 const initialState = {
-  modal: true,
+  modal: false,
   modalType: "",
   modalDirection: "",
   modalInitiator: "",
@@ -35,7 +34,12 @@ const reducer: Reducer<AlertState, AppDispatchProps> = (
     case AlertTypes.NOTIFICATIONUPDATED_MODAL:
       return { ...state, modal: true, modalType: "notificationupdated" };
     case AlertTypes.DELETE_TRANSACTION_MODAL:
-      return { ...state, modal: true, modalType: "deletetransaction" };
+      return {
+        ...state,
+        modal: true,
+        modalType: "deletetransaction",
+        modalInitiator: payload,
+      };
     case AlertTypes.TRANSACTION_DELETED_MODAL:
       return { ...state, modal: true, modalType: "transactiondeleted" };
     case AlertTypes.REJECT_TRANSACTION_MODAL:
@@ -79,11 +83,18 @@ const reducer: Reducer<AlertState, AppDispatchProps> = (
     case AlertTypes.EMOJI_FORM_MODAL:
       return { ...state, modal: true, modalType: "emojiform" };
     case AlertTypes.DELIVERY_FEEDBACK_MODAL:
-      return { ...state, modal: true, modalType: "deliveryfeedback" };
+      return {
+        ...state,
+        modal: true,
+        modalType: "deliveryfeedback",
+        modalInitiator: payload,
+      };
     case AlertTypes.FEEDBACKSENT_MODAL:
       return { ...state, modal: true, modalType: "sentfeedback" };
     case AlertTypes.DISPUTE_SUBMITTED_MODAL:
       return { ...state, modal: true, modalType: "disputesubmitted" };
+    case AlertTypes.DISPUTE_FORM_MODAL:
+      return { ...state, modal: true, modalType: "disputeform" };
     case AlertTypes.TRANSACTION_ITEM_MODAL:
       return {
         ...state,

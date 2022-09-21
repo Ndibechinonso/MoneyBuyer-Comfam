@@ -1,4 +1,4 @@
-// import { type } from "@testing-library/user-event/dist/type";
+import { Ioptions } from "../../components/CustomTable/types";
 import { language } from "../language/en";
 
 export const getFirstLevelPath = (value: string) => {
@@ -84,10 +84,12 @@ export const getObject = (path: string): GetObjReturn => {
 };
 
 export const toNaira = (amount: string) =>
-  parseInt(amount === "" ? "0" : amount)?.toLocaleString("en-NG", {
-    style: "currency",
-    currency: "NGN",
-  });
+  parseInt(amount === "" ? "0" : amount)
+    ?.toLocaleString("en-NG", {
+      style: "currency",
+      currency: "NGN",
+    })
+    .split(".")[0];
 
 interface IconfamFees {
   vat: number;
@@ -117,7 +119,7 @@ export const confamFeesCalc = (
   }
   const transactionCost = (markeupPercent * totalPrice) / 100;
 
-  let insurance = 0; 
+  let insurance = 0;
   if (insuranced) {
     insurance = (1.0 * totalPrice) / 100; // eslint-disable-line
   }
@@ -167,4 +169,45 @@ export const transactionModalTitleHandler = (data: any) => {
   }
 
   return template;
+};
+
+export const convertStatusFilter = (input: any[]): Ioptions[] => {
+  const result: any = {};
+
+  const temp = input.map((val) => val["status"]);
+  temp.forEach((itm) => {
+    if (!result[`${removeHypen(itm)}`]) {
+      result[`${removeHypen(itm)}`] = {
+        val: removeHypen(itm),
+        checked: false,
+      };
+    }
+  });
+  return Object.values(result);
+};
+
+export const modalClassName = (type: string) => {
+  let className: string;
+
+  switch (type) {
+    case "transactionitem":
+    case "disputeform":
+      className = "transactionModal__wrapper";
+      break;
+    case "alert":
+      className = "alertModal__wrapper";
+      break;
+    case "disputeitem":
+      className = "dispute__wrapper";
+      break;
+    case "newtransaction":
+      className = "newtransaction__wrapper";
+      break;
+
+    default:
+      className = "";
+      break;
+  }
+
+  return className;
 };

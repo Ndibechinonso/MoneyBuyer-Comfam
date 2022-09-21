@@ -36,6 +36,7 @@
   width: 676px;
   height: calc(100vh - 15.375rem);
   overflow: hidden;
+  // position: relative;
 
   &--head {
     .head {
@@ -56,6 +57,12 @@
         color: var(--greyColorGrey2);
       }
     }
+  }
+
+  &--foot {
+    position: absolute;
+    bottom: 4rem;
+    right: 2rem;
   }
   &--body {
     padding-top: 3.875rem;

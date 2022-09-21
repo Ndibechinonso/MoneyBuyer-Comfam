@@ -1,26 +1,72 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CalenderIcon from "../CustomIcons/CalenderIcon";
-import CaretRight from "../CustomIcons/CaretRight";
 import SearchIcon from "../CustomIcons/SearchIcon";
-import SortIcon from "../CustomIcons/SortIcon";
-import { TControls } from "./types";
+import { ifState, Ioptions, TControls } from "./types";
 import StatusFilter from "../DropDowns/StatusFilter";
-import DropDown from "../DropDowns/primitive";
 import CustomDate from "../CustomDate";
+import { convertStatusFilter, removeHypen } from "../../utils/helpers";
 
-function TableControls({
-  filterOptions,
-  formState,
-  inputChange,
-  dateChange,
-  filterSubmitHandler,
-  resetFilterHandler,
-  filteSelectHandler,
-}: TControls) {
+function TableControls(props: TControls) {
+  const { data, setFilteredData } = props;
+
+  const [formState, setFormState] = useState<ifState>({
+    search: "",
+    date: [],
+    filter: [],
+  });
+
+  useEffect(() => {
+    setFormState((prev) => ({ ...prev, filter: convertStatusFilter(data) }));
+  }, [data]);
+
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormState((prev) => ({ ...prev, search: e.target.value }));
+  };
+
+  const dateChangeHandler = (data: any) => {
+    setFormState((prev) => ({ ...prev, date: data }));
+  };
+
+  const handlerFliterUnfocus = (e: React.PointerEvent) => null;
+
+  const HandlerfilterSubmit = (e: any) => {
+    const filteredOptions = formState.filter.filter(
+      (itm) => itm.checked === true
+    );
+
+    const temp = data.filter((itm) =>
+      filteredOptions.find((item) => removeHypen(itm.status) === item.val)
+    );
+
+    setFilteredData([...temp]);
+  };
+
+  const resetFilterHandler = () => null;
+
+  const filteSelectHandler = (itm: Ioptions, id: number) => {
+    const { checked, val } = itm;
+
+    const oldFiltered = formState.filter.map((item, idx) =>
+      idx === id ? { val, checked: !checked } : item
+    );
+
+    setFormState((prev) => ({ ...prev, filter: oldFiltered }));
+  };
+
+  const resetAllFilters = () => {
+    setFormState((prev) => ({
+      ...prev,
+      search: "",
+      date: [],
+      filter: [...convertStatusFilter(data)],
+    }));
+    setFilteredData([]);
+  };
+
   return (
     <div className="table__control">
       <span className="table__control--btn">
-        <button>Showing All</button>
+        <button onClick={resetAllFilters}>Showing All</button>
       </span>
       <form autoComplete="off">
         <div className="table__input">
@@ -29,7 +75,7 @@ function TableControls({
             id="searchBox"
             name="search"
             value={formState.search}
-            onChange={inputChange}
+            onChange={changeHandler}
             placeholder="Search Transaction"
           />
           <SearchIcon />
@@ -41,30 +87,18 @@ function TableControls({
             type="range"
             startDate={formState.date[0]}
             endDate={formState.date[1]}
-            onChange={dateChange}
+            onChange={dateChangeHandler}
             placeholder="Select Date"
           />
         </div>
       </form>
-      <DropDown
-        content={
-          <StatusFilter
-            options={filterOptions}
-            onSelect={filteSelectHandler}
-            onResetForm={resetFilterHandler}
-            onSubmitForm={filterSubmitHandler}
-          />
-        }
-      >
-        <div className="table__control__sort">
-          <SortIcon />
-          <h3 className="table__control__sort-text">
-            Filter by:
-            <span> Recent </span>
-          </h3>
-          <CaretRight className="table__control__sort-drop" />
-        </div>
-      </DropDown>
+      <StatusFilter
+        options={formState.filter}
+        onSelect={filteSelectHandler}
+        onResetForm={resetFilterHandler}
+        onSubmitForm={HandlerfilterSubmit}
+        onClickOutside={handlerFliterUnfocus}
+      />
     </div>
   );
 }

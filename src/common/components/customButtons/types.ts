@@ -1,46 +1,40 @@
+type Iicon = "+" | "-" | ">" | "<";
+type Iorientation = "left" | "right";
+
 interface buttonDefaultProps {
   loading?: boolean;
   disabled?: boolean;
   action: VoidFunction | any;
-  type?: "button" | "submit" | "reset" | undefined
+  type?: "button" | "submit" | "reset" | undefined;
   style?: React.CSSProperties | undefined;
   size?: "small" | "medium" | "normal" | "large";
   color?: "primary" | "secondary";
   className?: string;
+  iconOreintation?: Iorientation;
 }
 
-export type Ivariant = "ICONONLY" | "ICONTEXT" | "OUTLINE";
-  
-interface ButtonPropsWithIcons extends buttonDefaultProps {
-  variant: "ICONONLY";
-  icon: "+" | "-" | ">" | "<";
+interface IconOnlyProps extends buttonDefaultProps {
   actionText?: never;
   iconOreintation?: never;
 }
-interface ButtonwithIconsandText extends buttonDefaultProps {
-  variant: "ICONTEXT";
-  icon: "+" | "-" | ">" | "<";
+interface IconTextProps extends buttonDefaultProps {
   iconOreintation: "left" | "right";
-  actionText: string;
 }
-interface ButtonwithOutline extends buttonDefaultProps {
-  variant: "OUTLINE";
-  actionText: string;
-  iconOreintation?: undefined;
-  icon?: undefined;
-}
-interface standardButtonProps extends buttonDefaultProps {
-  actionText: string;
-  iconOreintation?: undefined;
-  variant?: undefined;
-  icon?: undefined;
-  iconOrientation?: undefined;
+interface InoIconsProps extends buttonDefaultProps {
+  icon?: never;
+  iconOreintation?: never;
 }
 
 export type CustomButtonProps =
-  | standardButtonProps
-  | ButtonPropsWithIcons
-  | ButtonwithIconsandText
-  | ButtonwithOutline;
-  
-
+  | ({ icon: Iicon; variant: "ICONONLY" } & IconOnlyProps)
+  | ({
+      icon: Iicon;
+      iconOreintation: Iorientation;
+      actionText: string;
+      variant: "ICONTEXT";
+    } & IconTextProps)
+  | ({
+      actionText: string;
+      variant?: "OUTLINE";
+      iconOreintation?: never;
+    } & InoIconsProps);

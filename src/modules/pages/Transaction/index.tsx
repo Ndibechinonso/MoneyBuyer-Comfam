@@ -22,7 +22,10 @@ function Transaction() {
 
   // this calls when a new transaction is made in transaction route
   useEffect(() => {
-    if (prevInitiator === "created_new_transaction") {
+    if (
+      prevInitiator === "created_new_transaction" ||
+      prevInitiator === "changed_a_transaction"
+    ) {
       dispatch(loadStart("fetching_all_transactions"));
       admin
         .getAllTransaction()
@@ -48,7 +51,9 @@ function Transaction() {
 
   return (
     <>
-      {isloading && initiator === "fetching_all_transactions" ? (
+      {isloading &&
+      initiator === "fetching_all_transactions" &&
+      prevInitiator !== "changed_a_transaction" ? (
         <div>
           <CustomLoader size={5} />
         </div>

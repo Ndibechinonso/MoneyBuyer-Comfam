@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { getFirstLevelPath, getObject } from "../../utils/helpers";
 import Header from "../Header";
@@ -14,8 +14,9 @@ import {
   storeUserDetails,
 } from "../../../https/storage";
 import admin from "../../../modules/service/admin";
-import { loadingStop, loadStart, loadStop } from "../redux/apploader";
+import { loadStart, loadStop } from "../redux/apploader";
 import CustomLoader from "../CustomLoader";
+import { removeItem } from "../redux/tableItem";
 
 function Layout() {
   const { pathname } = useLocation();
@@ -23,7 +24,7 @@ function Layout() {
   const [newUser, setNewUser] = useState(true);
   const value = getObject(getFirstLevelPath(pathname));
   const { modal, modalType } = useAppSelector((state) => state.alert);
-  const runOnce = useRef(false);
+  const { itm: transactionItm } = useAppSelector((state) => state.tableItem);
   const { isloading, initiator, prevInitiator } = useAppSelector(
     (state) => state.isloading
   );
@@ -37,6 +38,13 @@ function Layout() {
       setNewUser(false);
     }
   }, []);
+
+  useEffect(() => {
+    if (modalType === "" && transactionItm.id) {
+      dispatch(removeItem());
+    }
+  }, [modalType, modal]); //eslint-disable-line
+
   useEffect(() => {
     if (
       fetchUserDetails().transactionCount === 0 &&
@@ -53,12 +61,12 @@ function Layout() {
           setNewUser(false);
         })
         .catch((err) => console.log(err))
-        .finally(() => dispatch(loadingStop()));
+        .finally(() => dispatch(loadStop()));
     }
     if (userError === true && prevInitiator === "verifying_user") {
       setUserError(false);
     }
-  }, [prevInitiator, dispatch]);
+  }, [prevInitiator, dispatch]); //eslint-disable-line
 
   if (!fetchUserToken() || fetchUserDetails() === false) {
     return <Navigate replace to="/signin/buyer" />;
