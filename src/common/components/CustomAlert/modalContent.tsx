@@ -10,6 +10,7 @@ import NewTransaction from "../DashboardComponents/NewTransaction";
 import DisputeModal from "../CustomModal/DisputeModal";
 import { useLocation, useNavigate } from "react-router-dom";
 import PaymentFormModal from "../CustomModal/PaymentFormModal";
+
 type modalContentProps = {
   type?: "alert" | "transactionitem" | "newtransaction" | "disputeitem";
   alertIcon?: any;
