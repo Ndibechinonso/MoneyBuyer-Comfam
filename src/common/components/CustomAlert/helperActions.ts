@@ -29,7 +29,7 @@ export const handleBackToTransactionModal = () =>
 
 export const handleDeleteTransaction = () => {
   const id = store.getState().alert.modalInitiator;
-  start("");
+  start("changed_a_transaction");
   admin
     .deleteTransaction(id)
     .then((res) => alert("transactiondeleted"))
@@ -38,7 +38,7 @@ export const handleDeleteTransaction = () => {
 };
 
 export const handleConfirmDelivery = () => {
-  start("");
+  start("changed_a_transaction");
   admin
     .confirmDelivery(transactionId())
     .then((res) => alert("deliveryconfirmed"))
@@ -47,7 +47,7 @@ export const handleConfirmDelivery = () => {
 };
 
 export const handleAcceptTransaction = () => {
-  start("");
+  start("changed_a_transaction");
   admin
     .acceptTransaction(transactionId())
     .then((res) => alert("transactionaccepted"))
@@ -62,7 +62,7 @@ export const handleRejectTransaction = (
 ) => {
   e.preventDefault();
   const data = { transaction_id: transactionId(), reason: e.target[0].value };
-  start("");
+  start("changed_a_transaction");
   admin
     .rejectTransaction(transactionId(), data)
     .then((res) => alert("transactionrejected"))
@@ -78,7 +78,7 @@ export const handleCancelTransaction = (
   e.preventDefault();
   const transaction_id = store.getState().tableItem.itm.id;
   console.log(e.target[0].value);
-  start("");
+  start("changed_a_transaction");
   admin
     .cancelTransaction({ transaction_id, reason: e.target[0].value })
     .then((res) => alert("transactioncancelled"))
@@ -86,15 +86,13 @@ export const handleCancelTransaction = (
     .finally(stop);
 };
 
-export const handleStartDeliveryFeedbackFlow = () => {
-  alert("emojiform");
-};
+export const handleStartDeliveryFeedbackFlow = () => alert("emojiform");
 
 export const handleDeliveryFeedback = (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   const rating = store.getState().alert.modalInitiator;
   const transaction_id = store.getState().tableItem.itm.id;
-  start("");
+  start("changed_a_transaction");
   admin
     .feedbackTransaction({
       rating,

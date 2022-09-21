@@ -38,7 +38,7 @@ function TransactionModal() {
         .catch((err) => console.log(err));
     });
     runOnce.current = true;
-  }, []);
+  }, []); //eslint-disable-line
 
   return (
     <>
@@ -48,7 +48,10 @@ function TransactionModal() {
         >
           <IndicatorIcon />
           <span>{transactionModalTitleHandler(data)}</span>
-          <button onClick={() => dispatch(Alerts(""))} className="transactionModal__title--close">
+          <button
+            onClick={() => dispatch(Alerts(""))}
+            className="transactionModal__title--close"
+          >
             <span />
           </button>
         </div>
@@ -71,7 +74,9 @@ function TransactionModal() {
             <div className="section__body">
               <div className="section__body--itm">
                 <h6 className="section__body--itm__title">Seller ID/Email</h6>
-                <p className="section__body--itm__body">{data?.seller}</p>
+                <p className="section__body--itm__body">
+                  {data?.seller.first_name} {data?.seller.last_name}
+                </p>
               </div>
               <div className="section__body--itm">
                 <h6 className="section__body--itm__title">Payment Due Date</h6>
@@ -83,7 +88,9 @@ function TransactionModal() {
                 <h6 className="section__body--itm__title">
                   Seller Phone Number
                 </h6>
-                <p className="section__body--itm__body">{data?.seller}</p>
+                <p className="section__body--itm__body">
+                  {data?.seller.phone_number}
+                </p>
               </div>
               <div className="section__body--itm">
                 <h6 className="section__body--itm__title">Delivery Address</h6>

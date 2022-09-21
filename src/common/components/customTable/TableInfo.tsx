@@ -36,6 +36,11 @@ function TableInfo({
       case "transactionFee":
         template = toNaira(row[col.key]);
         break;
+      case "seller":
+        template = `${row[col.key]?.last_name} ${row[
+          col.key
+        ]?.first_name.substring(0, 1)}.`;
+        break;
 
       default:
         template = row[col.key];
@@ -53,7 +58,7 @@ function TableInfo({
             return (
               <th
                 key={itm.title}
-                className={`${itm.title === "Clients" ? "text-left" : null}`}
+                className={`${itm.title === "Clients" ? "text-left" : ""}`}
               >
                 {itm.title}
               </th>
