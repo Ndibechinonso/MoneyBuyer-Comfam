@@ -128,3 +128,40 @@ export const initialUser = {
   wallet_id: "",
   // _id: "63222589f0ca70a0a93386b0",
 };
+
+export type TransactionProps = {
+  canceled: boolean;
+ completed: boolean;
+ deleted: boolean;
+ _id: string;
+ seller: null;
+ buyer: string;
+ price: 0;
+ createdBy: string;
+ transactionFee: number;
+ paymentTransactions: [];
+ completionDueDate: string;
+ createdAt: string;
+ updatedAt: string;
+ id: string
+}
+
+export type ContactListType ={
+ email: string;
+ first_name: string;
+ user_type: string;
+ last_name: string;
+ phone_number: string;
+ createdAt: string;
+ updatedAt: string;
+ id: string;
+}
+export type DashboardProps = {
+  loading: boolean;
+  error: string;
+ totalTransactions: number;
+ openTransactions: number,
+ settledTransactions: number,
+ transactionHistory: TransactionProps[],
+ contactList: ContactListType[]
+}

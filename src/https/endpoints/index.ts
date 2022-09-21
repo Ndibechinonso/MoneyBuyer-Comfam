@@ -102,6 +102,12 @@ const ENDPOINTS = {
       url: (id: string) => `/dispute?id=${id}`,
     },
   },
+  dashboard:{
+    dashboard_summary: {
+      method: "GET",
+      url: "transaction/summary",
+    },
+  },
   file_handling: {
     upload_s3_image: {
       method: "GET",

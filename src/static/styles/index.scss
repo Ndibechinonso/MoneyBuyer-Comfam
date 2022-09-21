@@ -63,3 +63,8 @@ button {
 // position: absolute;
 // top: 0;
 // }
+.flexRowCenter{
+  @include flexRow();
+  place-content: center;
+  place-items: center;
+}

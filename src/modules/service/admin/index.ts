@@ -95,6 +95,10 @@ const admin = {
     const url = makeUrl(id);
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
+  async getDashboardSummary() {
+    const { method, url } = ENDPOINTS.dashboard.dashboard_summary;
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url);
+  },
 };
 
 export default admin;

@@ -1,7 +1,5 @@
 import img from './static/images/unsplash.png'
-import dashboardCardImg_1 from "../src/static/images/dashboardCard_1.svg"
-import dashboardCardImg_2 from "../src/static/images/dashboardCard_2.svg"
-import dashboardCardImg_3 from "../src/static/images/dashboardCard_3.svg"
+
 
 export const deliveryTable = {
   columns: [
@@ -189,22 +187,6 @@ export const recentHistoryTable = {
   ]
 };
 
-
-export const  cardArray = [{
-  cardImg: dashboardCardImg_1,
-    cardTitle: "Open Transactions",
-    amount: 2
-},
-{
-  cardImg: dashboardCardImg_2,
-    cardTitle: "Settled Transactions",
-    amount: 0
-},
-{
-  cardImg: dashboardCardImg_3,
-    cardTitle: "Total Transactions",
-    amount: 2
-}]
 
 export const chartArray = [
   {name: "Nonso", price: 20},
