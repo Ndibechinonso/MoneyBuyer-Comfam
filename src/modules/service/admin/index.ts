@@ -85,14 +85,18 @@ const admin = {
     const { method, url } = ENDPOINTS.disputes.create_dispute;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
-  async getDisputes(skips: number, limit: number) {
+  async getDisputes(skips: number, limit: number, startDate?: string, endDate?: string) {    
     const { method, url: makeUrl } = ENDPOINTS.disputes.get_disputes;
-    const url = makeUrl(skips, limit);
+    const url = makeUrl(skips, limit, startDate, endDate);
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
   async getSingleDispute(id: string) {
     const { method, url: makeUrl } = ENDPOINTS.disputes.get_a_dispute;
     const url = makeUrl(id);
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url);
+  },
+  async getDashboardSummary() {
+    const { method, url } = ENDPOINTS.dashboard.dashboard_summary;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
 };

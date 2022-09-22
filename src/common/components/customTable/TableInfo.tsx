@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ThreeDotIcon from "../CustomIcons/ThreeDot";
 import Tag from "../CustomTags";
 import DropDown from "../DropDowns/primitive";
@@ -7,6 +7,7 @@ import { TObj } from "./types";
 import ArrowRight from "../CustomIcons/ArrowRight";
 import clientImg from "../../../static/images/client_img.svg";
 import { toNaira } from "../../utils/helpers";
+import PaginationComponent from "../PaginationComponent";
 
 function TableInfo({
   headers,
@@ -14,6 +15,13 @@ function TableInfo({
   activeOrder,
   recentTransacionHistory,
 }: TObj) {
+
+  const [page, setPage] = useState(1)
+  const [limit, setLimit] = useState(5)
+  
+  // const offset = (page - 1) * limit;
+  // const endposition = page * limit;
+
   const tableContentHandler = (row: any, col: any) => {
     let template: any;
 
@@ -51,6 +59,7 @@ function TableInfo({
   };
 
   return (
+    <div>
     <table className="table__display">
       <thead>
         <tr>
@@ -72,9 +81,9 @@ function TableInfo({
           return (
             <tr key={idx}>
               {headers.map((col, id) => (
-                <td key={id}>{tableContentHandler(row, col)}</td>
+                <td key={id} className="">{tableContentHandler(row, col)} </td>
               ))}
-              <td>
+              <td className="">
                 {!activeOrder || recentTransacionHistory ? (
                   <DropDown content={<TableItem data={row} />}>
                     <button>
@@ -90,7 +99,18 @@ function TableInfo({
           );
         })}
       </tbody>
+      
     </table>
+    <PaginationComponent
+                        loading={false}
+                        currentPage={page}
+                        // totalPages={Math.ceil((data.length || 0) / limit)}
+                        totalPages={12}
+                        setLimit={setLimit}
+                        setPage={setPage}
+                        limit={limit}
+                    />
+    </div>
   );
 }
 

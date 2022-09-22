@@ -77,7 +77,6 @@ export const handleCancelTransaction = (
 ) => {
   e.preventDefault();
   const transaction_id = store.getState().tableItem.itm.id;
-  console.log(e.target[0].value);
   start("changed_a_transaction");
   admin
     .cancelTransaction({ transaction_id, reason: e.target[0].value })

@@ -32,10 +32,6 @@ const ENDPOINTS = {
       method: "POST",
       url: "auth/complete-profile",
     },
-    get_user: {
-      method: "GET",
-      url: "auth/user",
-    },
     update_password: {
       method: "PUT",
       url: "auth/update-password",
@@ -98,12 +94,18 @@ const ENDPOINTS = {
     },
     get_disputes: {
       method: "GET",
-      url: (skips: number, limit: number) =>
-        `/dispute?skip=${skips}&limit=${limit}`,
+      url: (skips: number, limit: number, startDate: string, endDate: string) =>
+      startDate !== undefined ? `/dispute?skip=${skips}&limit=${limit}&startDate=${startDate}&endDate=${endDate}` : `/dispute?skip=${skips}&limit=${limit}`
     },
     get_a_dispute: {
       method: "GET",
       url: (id: string) => `/dispute?id=${id}`,
+    },
+  },
+  dashboard:{
+    dashboard_summary: {
+      method: "GET",
+      url: "transaction/summary",
     },
   },
   file_handling: {
