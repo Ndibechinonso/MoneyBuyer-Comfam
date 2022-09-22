@@ -103,16 +103,18 @@
 
   td,
   th {
-    padding: 1.25rem 2rem;
+    // padding: 1.25rem 2rem;
     text-align: center;
     @include normalTextMedium;
+    padding: 1.25rem 0;
   }
   tr {
     border-top: 1px solid #d4dddf;
     border-bottom: 1px solid #d4dddf;
     th:last-child,
     td:nth-last-child(2) {
-      text-align: left;
+      // text-align: left;
+      text-align: center;
     }
     td:nth-last-child(2) {
       padding-right: 0;

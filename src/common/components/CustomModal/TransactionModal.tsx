@@ -75,7 +75,7 @@ function TransactionModal() {
               <div className="section__body--itm">
                 <h6 className="section__body--itm__title">Seller ID/Email</h6>
                 <p className="section__body--itm__body">
-                  {data?.seller.first_name} {data?.seller.last_name}
+                  {data?.seller?.first_name} {data?.seller?.last_name}
                 </p>
               </div>
               <div className="section__body--itm">
@@ -89,7 +89,7 @@ function TransactionModal() {
                   Seller Phone Number
                 </h6>
                 <p className="section__body--itm__body">
-                  {data?.seller.phone_number}
+                  {data?.seller?.phone_number}
                 </p>
               </div>
               <div className="section__body--itm">
@@ -174,19 +174,32 @@ function TransactionModal() {
               </div>
             </div>
           </section>
-          {removeHypen(data?.status) === "pending delivery" && (
+          {removeHypen(data?.status) === "pending payment" ? (
             <CustomButton
-              actionText="Completed"
-              action={() => dispatch(Alerts("confirmtransaction"))}
+              actionText="Proceed to payment"
+              action={() => dispatch(Alerts("transactionpayment"))}
             />
-          )}
-          {removeHypen(data?.status) === "awaiting confirmation" && (
+          ) : null}
+          {removeHypen(data?.status) === "awaiting confirmation" ? (
             <CustomButton
               actionText="Cancel transaction"
               action={() => dispatch(Alerts("canceltransaction"))}
             />
-          )}
-          {removeHypen(data?.status) === "pending confirmation" && (
+          ) : null}
+          {removeHypen(data?.status) === "awaiting delivery" ? (
+            <div className="btnWrapper">
+              <CustomButton
+                variant="OUTLINE"
+                actionText="Dispute"
+                action={() => dispatch(Alerts("disputeform"))}
+              />
+              <CustomButton
+                actionText="Confirm Delivery"
+                action={() => dispatch(Alerts("confirmdelivery"))}
+              />
+            </div>
+          ) : null}
+          {removeHypen(data?.status) === "pending confirmation" ? (
             <div className="btnWrapper">
               <CustomButton
                 variant="OUTLINE"
@@ -198,7 +211,7 @@ function TransactionModal() {
                 action={() => dispatch(Alerts("confirmtransaction"))}
               />
             </div>
-          )}
+          ) : null}
         </div>
       </div>
     </>
