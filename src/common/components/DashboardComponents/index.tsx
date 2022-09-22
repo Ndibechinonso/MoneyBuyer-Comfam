@@ -2,33 +2,27 @@ import DashboardCardGroup from "../../../common/components/DashboardComponents/D
 import BarChart from "../../../common/components/BarChart";
 import ActiveContracts from "../../../common/components/DashboardComponents/ActiveContracts";
 import TransactionHistory from "../../../common/components/DashboardComponents/TransactionHistory";
-import ClientContact from "../../../common/components/DashboardComponents/ClientContact"
+import ClientContact from "../../../common/components/DashboardComponents/ClientContact";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppDispatch } from "../redux/hooks";
 import fetchDashboardSummary from "../redux/dashboard/dashboardAsyncThunk";
 
 const DashboardComponents = () => {
-    const dispatch = useAppDispatch()
-    const {totalTransactions} = useAppSelector((state) => state.dashboardSummary)
-
-    useEffect(() =>{
-        console.log(totalTransactions, "totalTransactions");
-        
-    }, [totalTransactions])
-    useEffect(()=>{
-       dispatch(fetchDashboardSummary()) 
-    }, [])
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchDashboardSummary());
+  }, []);
   return (
     <div className="dashboard_container">
       <DashboardCardGroup />
       <div className="dashboard_container_grid">
-<ActiveContracts />
-<BarChart />  
-<TransactionHistory />
-<ClientContact /> 
-</div>
+        <ActiveContracts />
+        <BarChart />
+        <TransactionHistory />
+        <ClientContact />
+      </div>
     </div>
   );
-}
+};
 
 export default DashboardComponents;
