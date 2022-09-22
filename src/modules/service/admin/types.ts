@@ -16,3 +16,11 @@ export type IcanceltransactionFeedback = {
   transaction_id: string;
   reason: string;
 };
+export type IfundWallet = {
+  reference: string;
+};
+export type IfundTransaction = {
+  transaction: string;
+};
+
+

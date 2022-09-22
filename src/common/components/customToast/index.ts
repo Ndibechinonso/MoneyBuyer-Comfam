@@ -8,6 +8,7 @@ const customToast = (res?: string, iserror?: true) => {
     bodyClassName: "toast__body",
     className: "toast",
     type: code,
+    autoClose: 2000,
   });
 };
 

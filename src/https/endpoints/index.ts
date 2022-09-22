@@ -90,6 +90,14 @@ const ENDPOINTS = {
       method: "POST",
       url: "/transaction/cancel",
     },
+    fund_buyer_wallet:{
+      method:"POST",
+      url:"/transaction/credit-wallet"
+    },
+    fund_transaction:{
+      method:"POST",
+      url:"/transaction/fund"
+    }
   },
   disputes: {
     create_dispute: {

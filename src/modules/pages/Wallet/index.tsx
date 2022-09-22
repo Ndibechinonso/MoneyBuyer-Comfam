@@ -1,9 +1,9 @@
 import React from "react";
-import Deposit from "./forms/deposit";
+import Deposit from "./forms/Deposit";
 import Withdraw from "./forms/Withdraw";
 
 function Wallet() {
-  const [switchTabs, setSwitchTabs] = React.useState(true);
+  const [switchTabs, setSwitchTabs] = React.useState(false);
 
   return (
     <>
