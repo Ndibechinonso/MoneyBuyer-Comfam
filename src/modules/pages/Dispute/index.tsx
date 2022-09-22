@@ -7,10 +7,16 @@ import { fetchAllDisputes } from "../../../common/components/redux/disputes/disp
 function Dispute() {
   const dispatch = useAppDispatch()
   const { startDate, endDate } = useAppSelector((state) => state.tableFilter);
+const {disputes} = useAppSelector((state) => state.disputes)
+const {page} = useAppSelector((state) => state.disputes)
+
+useEffect(()=>{
+  console.log(disputes, "disputes");
+}, [disputes])
 
   useEffect(() =>{
-    dispatch(fetchAllDisputes({startDate, endDate}))
-  }, [startDate, endDate])
+    dispatch(fetchAllDisputes({page, startDate, endDate}))
+  }, [page])
   
   return (
     <>
@@ -18,7 +24,7 @@ function Dispute() {
         completedRegistration={false}
         message={"No dispute to settle yet"}
       /> */}
-      <Table data={disputeTable.rows} headers={disputeTable.columns} />
+      <Table data={disputes} headers={disputeTable.columns} />
   </>
   )
 }

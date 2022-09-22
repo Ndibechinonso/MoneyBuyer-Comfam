@@ -601,13 +601,13 @@ export const disputeTable = {
   columns: [
     {
       title: "Dispute ID",
-      dataIndex: "disputeId",
-      key: "disputeId",
+      dataIndex: "_id",
+      key: "_id",
     },
     {
       title: "Reason",
-      dataIndex: "reason",
-      key: "reason",
+      dataIndex: "dispute_reason",
+      key: "dispute_reason",
     },
     {
       title: "Dispute Amount",
@@ -616,8 +616,8 @@ export const disputeTable = {
     },
     {
       title: "Date",
-      dataIndex: "date",
-      key: "date",
+      dataIndex: "createdAt",
+      key: "createdAt",
     },
     {
       title: "Status",
