@@ -5,15 +5,26 @@ import { ifState, Ioptions, TControls } from "./types";
 import StatusFilter from "../DropDowns/StatusFilter";
 import CustomDate from "../CustomDate";
 import { convertStatusFilter, removeHypen } from "../../utils/helpers";
+import { updateDate } from "../redux/tableFilter/tableFilterSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 function TableControls(props: TControls) {
   const { data, setFilteredData } = props;
+
+  const dispatch = useAppDispatch();
 
   const [formState, setFormState] = useState<ifState>({
     search: "",
     date: [],
     filter: [],
   });
+
+  useEffect(() => {
+    const startDate = new Date(formState.date?.[0]).toJSON();
+    if (formState.date?.[1] == null) return;
+    const endDate = new Date(formState.date?.[1]).toJSON();
+    dispatch(updateDate({ startDate, endDate }));
+  }, [formState.date]);
 
   useEffect(() => {
     setFormState((prev) => ({ ...prev, filter: convertStatusFilter(data) }));

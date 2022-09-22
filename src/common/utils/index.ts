@@ -78,3 +78,6 @@ export const formatCurrency = (value: number) => {
     new Intl.NumberFormat("en-US", { minimumFractionDigits: 2 }).format(value)
   );
 };
+
+
+export const toDateTime = (date: string) => new Date(date).toISOString().substring(0, 16);

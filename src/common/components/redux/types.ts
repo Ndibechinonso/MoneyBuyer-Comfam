@@ -165,3 +165,44 @@ export type DashboardProps = {
  transactionHistory: TransactionProps[],
  contactList: ContactListType[]
 }
+
+export type DisputesDataType ={
+  loading: boolean;
+  error: string;
+    _id: string;
+    seller: {
+        _id: string;
+        state: string;
+        local_gov: string;
+        city: string;
+        street_number: number;
+        phone_number: string;
+        last_name: string;
+        user_type: string;
+        first_name: string;
+        bvn: string;
+        emailValidated: boolean;
+        cognito_id: string;
+        email: string;
+        bank_details: [];
+        createdAt: string;
+        updatedAt: string;
+    };
+    buyer: {
+        _id: string;
+        email: string;
+        first_name: string;
+        user_type: string;
+        last_name: string;
+        createdAt: string;
+        updatedAt: string;
+        wallet_id: string;
+    };
+    transaction: string;
+    dispute_reason: string;
+    quantity: number;
+    images: string[];
+    status: string;
+    createdAt: string;
+    updatedAt: string;
+}

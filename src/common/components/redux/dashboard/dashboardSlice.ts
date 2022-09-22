@@ -24,7 +24,6 @@ const slice = createSlice({
         .addCase(fetchDashboardSummary.fulfilled, (state, action: PayloadAction<any>) =>{
             state.loading = false;
             state.totalTransactions = action.payload?.totalTransactions;
-            console.log(action.payload, "paa");
             state.openTransactions = action.payload?.openTransactions;
             state.settledTransactions = action.payload?.settledTransactions
             state.transactionHistory = action.payload?.transactionHistory

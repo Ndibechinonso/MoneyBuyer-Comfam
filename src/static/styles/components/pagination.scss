@@ -1,0 +1,42 @@
+.icoin-pagination-buttons {
+  background: #00003D;
+  border-radius: 10px;  
+  border: none;
+  width: 78px;
+  height: 32px;
+  @include flexRow();
+  gap: 10.81px;
+  place-content: center;
+  place-items: center;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  span{
+    height: 13px;
+  }
+}
+
+.icoin-pagination-buttons:disabled {
+  cursor: not-allowed;
+  color: #AAAAAA;
+  background: #EAEAEA;
+}
+
+.paginator_container{
+  @include flexRow();
+  place-items: center;
+  place-content: center;
+  justify-content: space-between;
+  max-width: 543px;
+  margin: auto;
+  margin-top: 28px;
+  .page_number{
+    font-weight: 500;
+font-size: 20px;
+color: #828282;
+  }
+  .active_page{
+    color: #00003D;
+  }
+}

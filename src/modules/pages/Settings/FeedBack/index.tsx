@@ -54,9 +54,7 @@ const {isloading} = useAppSelector((state) => state.isloading)
     .then((res) => {dispatch(Alerts("sentfeedback")) })
     .catch((err) => {  CustomToast(err.message)})
     .finally(() => dispatch(loadingStop()));
-    
-    console.log(inputs)
-  }
+      }
 
   return (
     <div className="feedback__container">
