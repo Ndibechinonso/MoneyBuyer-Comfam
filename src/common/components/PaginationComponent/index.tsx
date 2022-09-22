@@ -33,7 +33,8 @@ const PaginationComponent = ({
 
   const input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  const isPrime = () => { var numberArray = [];
+  const isPrime = () => { 
+    var numberArray = [];
 
     for (var i = currentPage; i <= totalPages; i++) {
         numberArray.push(i);
@@ -81,9 +82,12 @@ const PaginationComponent = ({
         {" "}
         <span>{"<"}</span> <span>Prev.</span>
       </button>
-      {pageArray.map((item, index) =>{
-        return <p key={index} className={`page_number ${item === currentPage ? "active_page" : ""}`} onClick={() => {setPage(item); }}>{item}</p>
+      {pageArray.filter((item) => item <= (currentPage + 8)).map((item, index)=> {
+              return <p key={index} className={`page_number ${item === currentPage ? "active_page" : ""}`} onClick={() => {setPage(item); }}>{item}</p>  
       })}
+      {/* {pageArray.map((item, index) =>{
+        return <p key={index} className={`page_number ${item === currentPage ? "active_page" : ""}`} onClick={() => {setPage(item); }}>{item}</p>
+      })} */}
       {/* {new Array(10).fill(0).filter(isPrime).map((item, index) => {
                         return index
                             // p key={index} className={`page_number ${(index + 1 ) === currentPage ? "active_page" : ""}`} onClick={() => setPage(index + 1)}>{index + 1}</p>

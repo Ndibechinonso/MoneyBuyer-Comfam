@@ -95,7 +95,7 @@ const ENDPOINTS = {
     get_disputes: {
       method: "GET",
       url: (skips: number, limit: number, startDate: string, endDate: string) =>
-      startDate !== undefined ? `/dispute?skip=${skips}&limit=${limit}&startDate=${startDate}&endDate=${endDate}` : `/dispute?skip=${skips}&limit=${limit}`
+      startDate  ? `/dispute?skip=${skips}&limit=${limit}&startDate=${startDate}&endDate=${endDate}` : `/dispute?skip=${skips}&limit=${limit}`
     },
     get_a_dispute: {
       method: "GET",
