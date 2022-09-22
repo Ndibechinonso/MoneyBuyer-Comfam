@@ -43,6 +43,10 @@ const admin = {
     const { method, url } = ENDPOINTS.transaction.cancel_transaction;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
+  async getWalletBalance() {
+    const { method, url } = ENDPOINTS.transaction.get_wallet;
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url);
+  },
   async fundWallet(body: type.IfundWallet) {
     const { method, url } = ENDPOINTS.transaction.fund_buyer_wallet;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);

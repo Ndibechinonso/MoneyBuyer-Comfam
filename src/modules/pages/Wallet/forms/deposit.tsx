@@ -18,7 +18,7 @@ import { Alerts } from "../../../../common/components/redux/alert/alertActions";
 function Deposit() {
   const initialState = {
     amount: 0,
-    expectedAmount: 0,
+    // expectedAmount: 0,
     paymentMethod: "",
   };
   const [formState, setFormState] = useState(initialState);
@@ -68,10 +68,10 @@ function Deposit() {
     paystack.newTransaction({
       key: PAYSTACK_KEY,
       email: fetchUserDetails().email,
-      amount: formState.amount,
+      amount: `${formState.amount.toString()}00`,
 
       onSuccess: (transaction: any) => {
-        dispatch(loadStart(""));
+        dispatch(loadStart("wallet_transaction"));
         admin
           .fundWallet({ reference: transaction.reference })
           .then((res) => dispatch(Alerts("despositsuccessful")))
@@ -100,26 +100,7 @@ function Deposit() {
             variant="labelOnly"
           />
         </div>
-        <div className="form__input ">
-          <CustomTextFields
-            placeholder="0.00"
-            currencyIcon={true}
-            onBlur={() => formState.expectedAmount.toFixed(2)}
-            onKeyDown={inputOnkeydownHandler}
-            onChange={inputOnChangeHandler}
-            label="Amount you will receive"
-            name="expectedAmount"
-            value={formState.expectedAmount}
-            variant="labelOnly"
-          />
-          <div className="form__tooltip">
-            <InfoIcon />
-            <p className="tooltip__text">
-              please enter an amount between <span>₦0.00</span> and{" "}
-              <span>₦0.00</span>
-            </p>
-          </div>
-        </div>
+        
         <div className="form__input ">
           <label>Select Payment Method</label>
           <CustomSelector
@@ -136,7 +117,7 @@ function Deposit() {
               onClickHandler={confirmFormHandler}
             />
             <p className="confirmForm__text">
-              I confirm to be debited <span>NGN 0.00</span> for Balance top-up
+              I confirm to be debited <span>NGN {formState.amount.toFixed(2)}</span> for Balance top-up
             </p>
           </div>
         </div>
