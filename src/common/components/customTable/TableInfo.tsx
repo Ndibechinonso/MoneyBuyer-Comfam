@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ThreeDotIcon from "../CustomIcons/ThreeDot";
 import Tag from "../CustomTags";
 import DropDown from "../DropDowns/primitive";
@@ -7,6 +7,10 @@ import { TObj } from "./types";
 import ArrowRight from "../CustomIcons/ArrowRight";
 import clientImg from "../../../static/images/client_img.svg";
 import { toNaira } from "../../utils/helpers";
+import PaginationComponent from "../PaginationComponent";
+import { changePageNumber } from "../redux/disputes/disputesSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import CustomLoader from "../CustomLoader";
 
 function TableInfo({
   headers,
@@ -14,6 +18,20 @@ function TableInfo({
   activeOrder,
   recentTransacionHistory,
 }: TObj) {
+
+  const dispatch = useAppDispatch()
+  const [currentPage, setCurrentPage] = useState(1)
+  const [neglectlimit, setLimit] = useState(5)
+  
+  const {loading, count} = useAppSelector((state) => state.disputes)
+
+  // const offset = (page - 1) * limit;
+  // const endposition = page * limit;
+
+  useEffect(() =>{
+    dispatch(changePageNumber(currentPage-1))
+  }, [currentPage])
+
   const tableContentHandler = (row: any, col: any) => {
     let template: any;
 
@@ -41,16 +59,21 @@ function TableInfo({
           col.key
         ]?.first_name.substring(0, 1)}.`;
         break;
-
+      case "_id":
+        template = `${row[col.key]}`
+        break;
+        case "dispute_reason":
+          template = `${row[col.key]}`
+          break;     
       default:
         template = row[col.key];
         break;
     }
-
     return template;
   };
 
   return (
+    <div>
     <table className="table__display">
       <thead>
         <tr>
@@ -68,13 +91,13 @@ function TableInfo({
         </tr>
       </thead>
       <tbody>
-        {data.map((row, idx) => {
+       {loading ? <tr className="m-auto"><td colSpan={6}> <CustomLoader size={10} /> </td></tr> :  data.length > 1 ? data.map((row, idx) => {
           return (
             <tr key={idx}>
               {headers.map((col, id) => (
-                <td key={id}>{tableContentHandler(row, col)}</td>
+                <td key={id} className="">{tableContentHandler(row, col)} </td>
               ))}
-              <td>
+              <td className="">
                 {!activeOrder || recentTransacionHistory ? (
                   <DropDown content={<TableItem data={row} />}>
                     <button>
@@ -88,9 +111,21 @@ function TableInfo({
               </td>
             </tr>
           );
-        })}
+        }) : "No Data"}
       </tbody>
+      
     </table>
+    <PaginationComponent
+                        loading={false}
+                        currentPage={currentPage}
+                        // totalPages={Math.ceil((count || 0) / limit)}
+                        totalPages={Math.ceil((count || 0) / 2)}
+                        // totalPages={12}
+                        setLimit={setLimit}
+                        setPage={setCurrentPage}
+                        limit={neglectlimit}
+                    />
+    </div>
   );
 }
 

@@ -59,7 +59,6 @@ function Notification() {
     }
   }else{
     setChecks(fetchUserDetails().notification)
-    console.log(fetchUserDetails().notification);
     
   }
 
@@ -111,7 +110,6 @@ function Notification() {
           email_subcription,
           push_notifications,
         };
-        console.log(profilePayload);
         auth
           .completeBuyerProfile(profilePayload)
           .then((res) => {

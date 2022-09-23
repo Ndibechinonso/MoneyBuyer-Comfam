@@ -13,7 +13,7 @@ function UserMenuItem() {
 
   const logoutHandler = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  ) => {    
     clearUserDetails();
     navigate("/");
   };

@@ -128,3 +128,90 @@ export const initialUser = {
   wallet_id: "",
   // _id: "63222589f0ca70a0a93386b0",
 };
+
+export type TransactionProps = {
+  canceled: boolean;
+ completed: boolean;
+ deleted: boolean;
+ _id: string;
+ seller: null;
+ buyer: string;
+ price: 0;
+ createdBy: string;
+ transactionFee: number;
+ paymentTransactions: [];
+ completionDueDate: string;
+ createdAt: string;
+ updatedAt: string;
+ id: string
+}
+
+export type ContactListType ={
+ email: string;
+ first_name: string;
+ user_type: string;
+ last_name: string;
+ phone_number: string;
+ createdAt: string;
+ updatedAt: string;
+ id: string;
+}
+export type DashboardProps = {
+  loading: boolean;
+  error: string;
+ totalTransactions: number;
+ openTransactions: number,
+ settledTransactions: number,
+ transactionHistory: TransactionProps[],
+ contactList: ContactListType[]
+}
+
+
+export type Disputes = {
+  _id: string;
+  seller: {
+      _id: string;
+      state: string;
+      local_gov: string;
+      city: string;
+      street_number: number;
+      phone_number: string;
+      last_name: string;
+      user_type: string;
+      first_name: string;
+      bvn: string;
+      emailValidated: boolean;
+      cognito_id: string;
+      email: string;
+      bank_details: [];
+      createdAt: string;
+      updatedAt: string;
+  };
+  buyer: {
+      _id: string;
+      email: string;
+      first_name: string;
+      user_type: string;
+      last_name: string;
+      createdAt: string;
+      updatedAt: string;
+      wallet_id: string;
+  };
+  transaction: string;
+  dispute_reason: string;
+  quantity: number;
+  images: string[];
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type DisputesDataType ={
+  loading: boolean;
+  error: string;
+  disputes: Disputes[];
+  count: number;
+  limit: string;
+  skip: string;
+  page: number;
+}

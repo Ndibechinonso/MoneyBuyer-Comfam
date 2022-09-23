@@ -1,4 +1,6 @@
 import clientImg from "../../../../static/images/client_img.svg";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 const ActiveContracts = () => {
   return (
@@ -10,7 +12,8 @@ const ActiveContracts = () => {
           <div className="card_container_content">
             <div className="d-flex card_top">
               <div className="d-flex user_container">
-                <img src={clientImg} alt="" />
+                {/* <img src={clientImg} alt="" /> */}
+                <FontAwesomeIcon icon={faArrowRightArrowLeft} />
                 <div>
                   <div className="normalTextMedium">Crosskenti Ltd.</div>
                   <div className="smallTextMedium">Nigeria</div>
