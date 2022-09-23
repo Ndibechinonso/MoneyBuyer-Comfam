@@ -13,6 +13,9 @@
           display: flex;
           justify-content: center;
           margin: auto;
+          &__blue {
+            width: 6.375rem;
+          }
         }
       }
       tr {
@@ -38,6 +41,39 @@
   height: calc(100vh - 15.375rem);
   overflow: hidden;
   // position: relative;
+  .tracker_container {
+    .tracker_grid {
+      display: flex;
+      flex-direction: row;
+      place-items: center;
+      place-content: center;
+      .status_container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        place-content: center;
+        place-items: center;
+      }
+      .tracker_divider {
+        margin-left: 12px;
+        margin-right: 12px;
+        position: relative;
+        top: -10px;
+      }
+      .progress_circle {
+        width: 50px;
+        height: 50px;
+        border: 2px solid #bdbdbd;
+        border-radius: 50%;
+        box-sizing: border-box;
+      }
+    }
+
+  }
+
+  .border_bottom {
+    border-bottom: 1px solid var(--greyColorGrey910);
+  }
 
   &--head {
     .head {
@@ -46,7 +82,6 @@
       align-items: center;
       padding-bottom: 1.5rem;
     }
-    border-bottom: 1px solid var(--greyColorGrey910);
 
     .modal {
       &__title {
@@ -135,6 +170,77 @@
   transform: translateY(-50%);
 }
 
-.m-auto{
+.m-auto {
   margin: auto;
+}
+
+.disputeTags {
+  text-transform: capitalize;
+  height: 24px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  // line-height: 1.05rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 2.5rem;
+  &__brown {
+    background: var(--tagBg1);
+    color: var(--tagCl1);
+  }
+  &__blue {
+    background: var(--tagBg2);
+    color: var(--tagCl2);
+  }
+  &__silver {
+    background: var(--tagBg3);
+    color: var(--tagCl3);
+  }
+  &__green {
+    background: var(--tagBg4);
+    color: var(--tagCl4);
+  }
+  &__red {
+    background: var(--tagBg5);
+    color: var(--tagCl5);
+  }
+  &__ocean {
+    background: var(--tagBg6);
+    color: var(--tagCl6);
+  }
+
+}
+
+.dispute_status_container {
+  &__header{
+    @include flexRow();
+    align-content: center;
+    align-items: center;
+    gap: 4.18px;
+    margin-bottom: 15px;
+    h4{
+      height: 16px;
+    }
+  }
+  margin-top: 3.073rem;
+  margin-bottom: 1.5rem;
+  border: 2px dashed #cdcdd0;
+  border-radius: 10px;
+  padding: 0.865rem 2.949rem 0.626rem 1.239rem;
+  h4 {
+    color: var(--greyColorGrey2);
+    font-weight: 500;
+  }
+  .dispute_info {
+    color: var(--greyColorGrey3);
+    line-height: 1.5rem;
+  }
+  &__darkBrown{
+    background: #FFFCF0;
+  }
+
+  &__darkBlue{
+    background: #ECECFF;
+  }
+  &__darkGreen{
+    background: #EDFCF1;
+  }
 }

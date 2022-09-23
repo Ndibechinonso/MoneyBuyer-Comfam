@@ -210,6 +210,7 @@ export type DisputesDataType ={
   loading: boolean;
   error: string;
   disputes: Disputes[];
+  singleDispute: Disputes;
   count: number;
   limit: string;
   skip: string;

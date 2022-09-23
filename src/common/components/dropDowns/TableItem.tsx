@@ -6,22 +6,27 @@ import { useAppDispatch } from "../redux/hooks";
 import { addItem } from "../redux/tableItem";
 import { Alerts } from "../redux/alert/alertActions";
 import { useLocation } from "react-router-dom";
+import { updateSingleDispute } from "../redux/disputes/disputesSlice";
 
 type Props = {
   data: any;
 };
 
 function TableItem({ data }: Props) {
+  
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
 
   const viewingItem = () => {
+    console.log(data, "data");
+
     dispatch(addItem({ ...data }));
     if (pathname.includes("transaction")) {
       dispatch(Alerts("transactionitem", data.status));
     }
     if (pathname.includes("dispute")) {
       dispatch(Alerts("disputeitem", data.status));
+      dispatch(updateSingleDispute(data))
     }
   };
 

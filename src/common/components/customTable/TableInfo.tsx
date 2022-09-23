@@ -91,7 +91,7 @@ function TableInfo({
         </tr>
       </thead>
       <tbody>
-       {loading ? <tr className="m-auto"><td colSpan={6}> <CustomLoader size={10} /> </td></tr> :  data.length > 1 ? data.map((row, idx) => {
+       {loading ? <tr className="m-auto"><td colSpan={6}><CustomLoader size={10} /></td></tr> :  data.length > 1 ? data.map((row, idx) => {
           return (
             <tr key={idx}>
               {headers.map((col, id) => (
@@ -111,7 +111,7 @@ function TableInfo({
               </td>
             </tr>
           );
-        }) : "No Data"}
+        }) : <tr><td colSpan={6}>No Data</td></tr>}
       </tbody>
       
     </table>
@@ -119,7 +119,7 @@ function TableInfo({
                         loading={false}
                         currentPage={currentPage}
                         // totalPages={Math.ceil((count || 0) / limit)}
-                        totalPages={Math.ceil((count || 0) / 2)}
+                        totalPages={Math.ceil((count || 0) / 10)}
                         // totalPages={12}
                         setLimit={setLimit}
                         setPage={setCurrentPage}

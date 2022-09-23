@@ -9,7 +9,7 @@ import { updateDate } from "../redux/tableFilter/tableFilterSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 function TableControls(props: TControls) {
-  const { data, setFilteredData } = props;
+  const { data, setFilteredData, disabled } = props;
 
   const dispatch = useAppDispatch();
 
@@ -88,6 +88,7 @@ function TableControls(props: TControls) {
             value={formState.search}
             onChange={changeHandler}
             placeholder="Search Transaction"
+            disabled={disabled}
           />
           <SearchIcon />
         </div>
@@ -100,6 +101,7 @@ function TableControls(props: TControls) {
             endDate={formState.date[1]}
             onChange={dateChangeHandler}
             placeholder="Select Date"
+            disable={disabled}
           />
         </div>
       </form>
@@ -109,6 +111,7 @@ function TableControls(props: TControls) {
         onResetForm={resetFilterHandler}
         onSubmitForm={HandlerfilterSubmit}
         onClickOutside={handlerFliterUnfocus}
+        disabled={disabled}
       />
     </div>
   );
