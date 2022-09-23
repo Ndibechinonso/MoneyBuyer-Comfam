@@ -1,5 +1,5 @@
 import React, { useEffect, useId, useRef, useState } from "react";
-import img from "../../../static/images/unsplash.png";
+// import img from "../../../static/images/unsplash.png";
 import closemodal from "../../../static/images/dashboard_modal_close.svg";
 import ArrowLeft from "../CustomIcons/ArrowLeft";
 import CustomImageInput from "../CustomImageInput";
@@ -11,6 +11,7 @@ import admin from "../../../modules/service/admin";
 import CustomToast from "../CustomToast";
 import { loadStart, loadStop } from "../redux/apploader";
 import customToast from "../CustomToast";
+import { confamFeesCalc, toNaira } from "../../utils/helpers";
 
 export type IcreateDispute = {
   seller: string;
@@ -59,13 +60,22 @@ const reasonArr = [
 function DisputeFormModal() {
   const id = useId();
   const [inputs, setInputs] = useState<IcreateDispute>(initialState);
+  const [images, setImages] = useState([]);
   const mountOnce = useRef(false);
   const transactionItem = useAppSelector((state) => state.tableItem.itm);
   const [imgUpload, setImgUpload] = useState({ loading: false, rawImages: [] });
   const dispatch = useAppDispatch();
 
+  const { totalPrice: price, transactionCost: cost } = confamFeesCalc(
+    transactionItem.price,
+    transactionItem.quantity
+  );
+
+  const transactionItemTotalPrice = price.toString();
+  const transactionItemTransactionCost = cost.toString();
+
   useEffect(() => {
-    if ((mountOnce.current = true)) {
+    if (mountOnce.current === true) {
       return;
     }
     setInputs((prev) => ({
@@ -74,6 +84,13 @@ function DisputeFormModal() {
       buyer: transactionItem.buyer,
       transaction: transactionItem.id,
     }));
+
+    transactionItem.images.forEach((imageKey: string) => {
+      admin
+        .getImage(imageKey)
+        .then((res) => setImages((prev) => [...prev, res]))
+        .catch((err) => console.log(err));
+    });
 
     mountOnce.current = true;
   }, []); //eslint-disable-line
@@ -86,7 +103,10 @@ function DisputeFormModal() {
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
-  const selectChangeHandler = (value: string, type: "quantity" | "reason") => {
+  const selectChangeHandler = (
+    value: string,
+    type: "quantity" | "dispute_reason"
+  ) => {
     setInputs((prev) => ({ ...prev, [type]: value }));
   };
 
@@ -195,7 +215,7 @@ function DisputeFormModal() {
                   name="dispute_reason"
                   id={`${id}-reason`}
                   value={inputs.dispute_reason}
-                  onChange={(e) => selectChangeHandler(e, "reason")}
+                  onChange={(e) => selectChangeHandler(e, "dispute_reason")}
                   className="select-trigger"
                   placeholder="Please select a reason"
                 >
@@ -261,22 +281,31 @@ function DisputeFormModal() {
             <div className="section__body--itm">
               <div className="section__body--itm__wrapper">
                 <h6 className="section__body--itm__title">Seller ID/Email</h6>
-                <p className="section__body--itm__body">Johnson@gmail.com</p>
+                <p className="section__body--itm__body">
+                  {transactionItem?.seller?.first_name}{" "}
+                  {transactionItem?.seller?.last_name}
+                </p>
               </div>
               <div className="section__body--itm__wrapper">
                 <h6 className="section__body--itm__title">Product Name</h6>
-                <p className="section__body--itm__body">Laptop</p>
+                <p className="section__body--itm__body">
+                  {transactionItem.productName}
+                </p>
               </div>
             </div>
             <div className="section__body--itm">
               <div className="section__body--itm__wrapper">
                 <h6 className="section__body--itm__title">Payment Due Date</h6>
-                <p className="section__body--itm__body">24th Mar 2022</p>
+                <p className="section__body--itm__body">
+                  {new Date(transactionItem?.completionDueDate).toDateString()}
+                </p>
               </div>
               <div className="section__body--itm__wrapper">
                 <h6 className="section__body--itm__title">Product Image</h6>
-                <p className="section__body--itm__body">
-                  <img src={img} alt="displayed product" />
+                <p className="section__body--itm__body section__body--itm_img">
+                  {images.map((image, idx) => (
+                    <img key={idx} src={image} alt={`product ${idx + 1}`} />
+                  ))}
                 </p>
               </div>
             </div>
@@ -285,18 +314,22 @@ function DisputeFormModal() {
                 <h6 className="section__body--itm__title">
                   Seller Phone Number
                 </h6>
-                <p className="section__body--itm__body">+234-704-5432-12</p>
+                <p className="section__body--itm__body">
+                  {transactionItem?.seller?.phone_number}
+                </p>
               </div>
               <div className="section__body--itm__wrapper">
                 <h6 className="section__body--itm__title">Product Quantity</h6>
-                <p className="section__body--itm__body">1</p>
+                <p className="section__body--itm__body">
+                  {transactionItem.quantity}
+                </p>
               </div>
             </div>
             <div className="section__body--itm">
               <div className="section__body--itm__wrapper">
                 <h6 className="section__body--itm__title">Delivery Address</h6>
                 <p className="section__body--itm__body">
-                  16A Adebayo Street, Lagos
+                  {transactionItem.deliveryAddress}
                 </p>
               </div>
               <div className="section__body--itm__wrapper">
@@ -304,8 +337,7 @@ function DisputeFormModal() {
                   Product Description
                 </h6>
                 <p className="section__body--itm__body transactionModal__productDesc">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet
-                  nisl dui at id...........
+                  {transactionItem.description}
                 </p>
               </div>
             </div>
@@ -322,8 +354,7 @@ function DisputeFormModal() {
                 Product Cost
               </h6>
               <p className="transactionModal__payment--cost__body">
-                <span>₦</span>12,500
-                {/* {data?.transactionDetails?.pricingAndPayment?.productCost} */}
+                {toNaira(transactionItemTotalPrice)}
               </p>
             </div>
             <div className="transactionModal__payment--fee">
@@ -331,8 +362,7 @@ function DisputeFormModal() {
                 Transaction Fee
               </h6>
               <p className="transactionModal__payment--fee__body">
-                <span>₦</span>1,000
-                {/* {data?.transactionDetails?.pricingAndPayment?.transactionFee} */}
+                {toNaira(transactionItemTransactionCost)}
               </p>
             </div>
             <div className="transactionModal__payment--total">
@@ -341,8 +371,9 @@ function DisputeFormModal() {
                   Sub total
                 </h6>
                 <p className="transactionModal__payment--totalSub__body">
-                  <span>₦</span>12,500 + <span>₦</span>1,000 Transaction fee
-                  {/* {data?.transactionDetails?.pricingAndPayment?.subTotal} */}
+                  {`${toNaira(transactionItemTotalPrice)} + ${toNaira(
+                    transactionItemTransactionCost
+                  )} Transaction fee`}
                 </p>
               </div>
               <div className="transactionModal__payment--totalCost">
@@ -350,8 +381,7 @@ function DisputeFormModal() {
                   Total cost
                 </h6>
                 <p className="transactionModal__payment--totalCost__body">
-                  <span>₦</span>13,500
-                  {/* {data?.transactionDetails?.pricingAndPayment?.totalCost} */}
+                  {toNaira((price + cost).toString())}
                 </p>
               </div>
             </div>

@@ -29,7 +29,7 @@ function Transaction() {
       dispatch(loadStart("fetching_all_transactions"));
       admin
         .getAllTransaction()
-        .then((res) => setData(res.data))
+        .then((res) => setData(res.data.transactions))
         .catch((err) => console.log(err))
         .finally(() => dispatch(loadStop()));
     }
@@ -43,7 +43,7 @@ function Transaction() {
     dispatch(loadStart("fetching_all_transactions"));
     admin
       .getAllTransaction()
-      .then((res) => setData(res.data))
+      .then((res) => setData(res.data.transactions))
       .catch((err) => console.log(err))
       .finally(() => dispatch(loadStop()));
     runOnce.current = true;
