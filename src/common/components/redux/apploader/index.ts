@@ -8,6 +8,7 @@ export type loadingInitiator =
   | "verify_code"
   | "resend_code"
   | "verifying_user"
+  | "wallet_transaction"
   | "changed_a_transaction";
 
 interface loadingState {

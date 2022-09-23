@@ -4,12 +4,8 @@ import {
   makeAuthorizedImageUpload,
   makeAuthorizedRequestWithHeadersAndPayload,
 } from "../../../https/http";
-import {
-  IcanceltransactionFeedback,
-  IcreateDispute,
-  ItransactionFeedback,
-} from "./types";
-// import { HTTPResponse } from "../../../https/http";
+import * as type from "./types";
+
 const admin = {
   async getUserInfo() {
     const { method, url } = ENDPOINTS.auth.get_user_info;
@@ -35,7 +31,7 @@ const admin = {
     const url = ENDPOINTS.transaction.delete_transaction.url(id);
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
-  async feedbackTransaction(body: ItransactionFeedback) {
+  async feedbackTransaction(body: type.ItransactionFeedback) {
     const { method, url } = ENDPOINTS.transaction.feedback_transactions;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
@@ -43,8 +39,20 @@ const admin = {
     const { method, url } = ENDPOINTS.transaction.all_transaction;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
-  async cancelTransaction(body: IcanceltransactionFeedback) {
+  async cancelTransaction(body: type.IcanceltransactionFeedback) {
     const { method, url } = ENDPOINTS.transaction.cancel_transaction;
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
+  },
+  async getWalletBalance() {
+    const { method, url } = ENDPOINTS.transaction.get_wallet;
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url);
+  },
+  async fundWallet(body: type.IfundWallet) {
+    const { method, url } = ENDPOINTS.transaction.fund_buyer_wallet;
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
+  },
+  async fundTransaction(body: type.IfundTransaction) {
+    const { method, url } = ENDPOINTS.transaction.fund_transaction;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
   async confirmDelivery(id: string) {
@@ -81,7 +89,7 @@ const admin = {
     const { method, url } = ENDPOINTS.auth.update_notification_settings;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
-  async createDispute(body: IcreateDispute) {
+  async createDispute(body: type.IcreateDispute) {
     const { method, url } = ENDPOINTS.disputes.create_dispute;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },

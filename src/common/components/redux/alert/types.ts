@@ -25,6 +25,8 @@ export type iAlert =
   | "emojiform"
   | "deliveryfeedback"
   | "sentfeedback"
+  | "despositsuccessful"
+  | "withdrawalsuccessful"
   | "disputeform"
   | "disputesubmitted"
   | "transactionitem"

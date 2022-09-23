@@ -73,6 +73,10 @@ export const Alerts =
         return dispatch({ type: AlertTypes.DISPUTE_FORM_MODAL });
       case "disputesubmitted":
         return dispatch({ type: AlertTypes.DISPUTE_SUBMITTED_MODAL });
+      case "despositsuccessful":
+        return dispatch({ type: AlertTypes.DEPOSIT_SUCCESSFUL });
+      case "withdrawalsuccessful":
+        return dispatch({ type: AlertTypes.WITHDRAWAL_SUCCESSFUL });
       case "transactionitem":
         return dispatch({
           type: AlertTypes.TRANSACTION_ITEM_MODAL,

@@ -316,6 +316,17 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
         />
       );
       break;
+    case "despositsuccessful":
+      template = (
+        <ModalContent
+          type="alert"
+          alertIcon={success}
+          header="Deposit Successful"
+          text="Success! the funds will be added to your NGN wallet so your can pay for a transaction."
+          finishBtn
+        />
+      );
+      break;
 
     case "transactionitem":
       template = <ModalContent type="transactionitem" />;

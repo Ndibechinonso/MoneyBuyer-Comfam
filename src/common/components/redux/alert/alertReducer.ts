@@ -93,6 +93,10 @@ const reducer: Reducer<AlertState, AppDispatchProps> = (
       return { ...state, modal: true, modalType: "sentfeedback" };
     case AlertTypes.DISPUTE_SUBMITTED_MODAL:
       return { ...state, modal: true, modalType: "disputesubmitted" };
+    case AlertTypes.DEPOSIT_SUCCESSFUL:
+      return { ...state, modal: true, modalType: "despositsuccessful" };
+    case AlertTypes.WITHDRAWAL_SUCCESSFUL:
+      return { ...state, modal: true, modalType: "withdrawalsuccessful" };
     case AlertTypes.DISPUTE_FORM_MODAL:
       return { ...state, modal: true, modalType: "disputeform" };
     case AlertTypes.TRANSACTION_ITEM_MODAL:

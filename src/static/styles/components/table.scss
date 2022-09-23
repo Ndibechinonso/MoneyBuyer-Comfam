@@ -103,11 +103,10 @@
 
   td,
   th {
-    // padding-top: 1.25rem;
-    // padding-bottom: 1.25rem;
-    padding: 1.25rem 20px;
+    // padding: 1.25rem 2rem;
     text-align: center;
     @include normalTextMedium;
+    padding: 1.25rem 0;
   }
   tr {
     border-top: 1px solid #d4dddf;
@@ -116,10 +115,10 @@
     // td:nth-last-child(2) {
     //   text-align: left;
     // }
-    td:nth-last-child(2) {
-      padding-right: 0;
-      width: 14.125rem;
-    }
+    // td:nth-last-child(2) {
+    //   padding-right: 0;
+    //   width: 14.125rem;
+    // }
 
     td:last-child {
       padding: 1.25rem 2rem 1.25rem 1.25rem;
