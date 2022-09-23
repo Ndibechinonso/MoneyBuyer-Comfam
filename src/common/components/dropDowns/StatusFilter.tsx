@@ -16,11 +16,12 @@ type Props = {
   onResetForm: () => void;
   onSubmitForm: (e: React.FormEvent<HTMLFormElement>) => void;
   onClickOutside: (e: any) => void;
+  disabled?: boolean
 };
 
 function StatusFilter(props: Props) {
   const { options, onSelect, onResetForm } = props;
-  const { onSubmitForm, onClickOutside } = props;
+  const { onSubmitForm, onClickOutside, disabled} = props;
 
   return (
     <DropdownMenu>
@@ -57,6 +58,7 @@ function StatusFilter(props: Props) {
                     placeholder={val}
                     isChecked={checked}
                     onClickHandler={() => onSelect(opt, id)}
+                    disabled={disabled}
                   />
                 </div>
               );
@@ -67,6 +69,7 @@ function StatusFilter(props: Props) {
               type="submit"
               action={onSubmitForm}
               actionText="Apply"
+              disabled={disabled}
             />
           </DropDownItem>
         </form>

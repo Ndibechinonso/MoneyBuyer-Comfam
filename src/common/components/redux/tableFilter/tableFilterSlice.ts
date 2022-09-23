@@ -10,7 +10,6 @@ const slice = createSlice({
     initialState,
     reducers: {
         updateDate: (state, action) =>{
-            console.log(action.payload);  
             state.startDate = action.payload?.startDate;
             state.endDate = action.payload?.endDate
         }

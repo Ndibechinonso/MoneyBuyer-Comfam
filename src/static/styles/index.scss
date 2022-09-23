@@ -50,7 +50,7 @@ button {
 }
 
 .text-left {
-  text-align: center;
+  text-align: left;
 }
 .input_error {
   color: #c92e2e;
@@ -67,6 +67,12 @@ button {
   @include flexRow();
   place-content: center;
   place-items: center;
+}
+.flexRowBetween{
+  grid-column: 1/-1;
+  display: flex;
+justify-content: space-between;
+width: 100%;
 }
 .text-right{
   text-align: right;

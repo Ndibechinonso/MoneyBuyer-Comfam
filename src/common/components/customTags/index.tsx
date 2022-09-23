@@ -13,7 +13,7 @@ type tagsProps =
       value: "Delivered" | "Pending delivery......";
     }
   | {
-      value: "Closed" | "Open";
+      value: "Closed" | "Open" | "In-Progress" | "Resolved";
     };
 
 function Tag({ value }: tagsProps) {
@@ -25,7 +25,10 @@ function Tag({ value }: tagsProps) {
     ) {
       defClassName = "brown";
     }
-    if (value.toLocaleLowerCase().includes("payment")) {
+    if(value.toLocaleLowerCase().includes("resolved")){
+      defClassName = "green";
+    }
+    if (value.toLocaleLowerCase().includes("payment") || value.toLocaleLowerCase().includes("in-progress")) {
       defClassName = "blue";
     }
     if (value.toLocaleLowerCase().includes("delivery")) {
