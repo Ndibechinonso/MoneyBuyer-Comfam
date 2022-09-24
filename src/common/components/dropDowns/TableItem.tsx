@@ -7,15 +7,24 @@ import { addItem } from "../redux/tableItem";
 import { Alerts } from "../redux/alert/alertActions";
 import { useLocation } from "react-router-dom";
 import { updateSingleDispute } from "../redux/disputes/disputesSlice";
+import { useEffect, useState } from "react";
 
 type Props = {
   data: any;
 };
 
 function TableItem({ data }: Props) {
-  
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
+
+  const [table, setTable] = useState("Transaction")
+
+  useEffect(() =>{
+    if(pathname.includes("dispute")){
+      setTable("Dispute")
+    }
+  }, [pathname])
+
 
   const viewingItem = () => {
     console.log(data, "data");
@@ -36,7 +45,7 @@ function TableItem({ data }: Props) {
       <DropDownItem>
         <button onClick={viewingItem}>
           <EyeIcon />
-          <span>View Transaction</span>
+          <span>View {table}</span>
         </button>
       </DropDownItem>
       {pathname.includes("transaction") ? (

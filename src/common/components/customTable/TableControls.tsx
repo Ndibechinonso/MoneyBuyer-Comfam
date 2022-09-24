@@ -7,12 +7,22 @@ import CustomDate from "../CustomDate";
 import { convertStatusFilter, removeHypen } from "../../utils/helpers";
 import { updateDate } from "../redux/tableFilter/tableFilterSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useLocation } from "react-router-dom";
 
 function TableControls(props: TControls) {
   const { data, setFilteredData, disabled } = props;
+  const { pathname } = useLocation();
 
   const dispatch = useAppDispatch();
 
+  const [table, setTable] = useState("Transaction")
+
+  useEffect(() =>{
+    if(pathname.includes("dispute")){
+      setTable("Dispute")
+    }
+  }, [pathname])
+  
   const [formState, setFormState] = useState<ifState>({
     search: "",
     date: [],
@@ -87,7 +97,7 @@ function TableControls(props: TControls) {
             name="search"
             value={formState.search}
             onChange={changeHandler}
-            placeholder="Search Transaction"
+            placeholder={`Search ${table}`}
             disabled={disabled}
           />
           <SearchIcon />
