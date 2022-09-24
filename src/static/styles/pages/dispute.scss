@@ -1,4 +1,6 @@
 .dispute {
+  min-width: 950px;
+  overflow-x: scroll;
   .table {
     &__display {
       th,
@@ -12,6 +14,7 @@
           width: 4.375rem;
           display: flex;
           justify-content: center;
+          align-items: center;
           margin: auto;
           &__blue {
             width: 6.375rem;
@@ -23,11 +26,11 @@
         td {
           text-align: center;
           &:nth-child(2) {
-            padding: 1.25rem 0;
+            padding: 1.25rem;
           }
-          &:nth-last-child(2) {
-            padding: 0;
-          }
+          // &:nth-last-child(2) {
+          //   padding: 0;
+          // }
         }
       }
     }
