@@ -118,6 +118,9 @@
   }
 
   div {
+    button span{
+      height: 18px;
+    }
     &:first-child {
       button {
         padding: 1.125rem 1rem 0.375rem 1.0625rem;
