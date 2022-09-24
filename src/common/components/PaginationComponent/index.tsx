@@ -22,40 +22,20 @@ const PaginationComponent = ({
   isDisabled,
 }: PaginationComponentProps) => {
   const [pageLimit, setPageLimit] = useState(currentPage + 8);
-
+  
   const pageNumber = (value) => value >= currentPage && value < pageLimit;
-  // const pageNumberPane = (currentPage)=> {
-
-  //     for(let i = (currentPage-1); i  <= 20; i++){
-
-  //     }
-  // }
 
   const input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  const isPrime = () => { 
+  const pageNumberArray = () => { 
     var numberArray = [];
 
-    for (var i = currentPage; i <= totalPages; i++) {
+    for (var i = 1; i <= totalPages; i++) {
         numberArray.push(i);
-        // return numberArray
     }
     return numberArray;
   };
-  const pageArray = isPrime()
-//   console.log(pageArray, "prime");
-
-  // const isPrime = (value) => {
-  //     for (let i = 2, s = Math.sqrt(value); i <= s; i++) {
-  //       if (value % i === 0) return false;
-  //     }
-
-  //     return value > 1;
-  //   };
-
-  //   const test = (new Array(10).fill(0)).filter(isPrime)
-
-  //   console.log(new Array(10).fill(0), "test")
+  const pageArray = pageNumberArray()
 
   return (
     <div className="paginator_container">
@@ -79,12 +59,21 @@ const PaginationComponent = ({
         disabled={isDisabled || currentPage <= 1}
         onClick={() => setPage(currentPage - 1)}
       >
-        {" "}
+      
         <span>{"<"}</span> <span>Prev.</span>
       </button>
-      {pageArray.filter((item) => item <= (currentPage + 8)).map((item, index)=> {
+      {/* {pageArray.filter((item) => item <= (currentPage + 8)).map((item, index)=> {
               return <p key={index} className={`page_number ${item === currentPage ? "active_page" : ""}`} onClick={() => {setPage(item); }}>{item}</p>  
-      })}
+      })} */}
+      {totalPages > 0 &&
+      <>
+           {totalPages > 9 ? pageArray.filter((item) =>  (item <= (currentPage + 8) && item > (currentPage - 1))).map((item, index)=> {
+              return <p key={index} className={`page_number ${item === currentPage ? "active_page" : ""}`} onClick={() => {setPage(item); }}>{item}</p>  
+      }) : pageArray.filter((item) => item).map((item, index)=> {
+        return <p key={index} className={`page_number ${item === currentPage ? "active_page" : ""}`} onClick={() => {setPage(item); }}>{item}</p>  
+})}
+</> }
+
       {/* {pageArray.map((item, index) =>{
         return <p key={index} className={`page_number ${item === currentPage ? "active_page" : ""}`} onClick={() => {setPage(item); }}>{item}</p>
       })} */}

@@ -10,20 +10,16 @@ function Dispute() {
 const {disputes} = useAppSelector((state) => state.disputes)
 const {page} = useAppSelector((state) => state.disputes)
 
-useEffect(()=>{
-  console.log(disputes, "disputes");
-}, [disputes])
+// useEffect(()=>{
+//   console.log(disputes, "disputes");
+// }, [disputes])
 
   useEffect(() =>{
     dispatch(fetchAllDisputes({page, startDate, endDate}))
-  }, [page])
+  }, [page, endDate])
   
   return (
     <>
-    {/* <NewUserCard
-        completedRegistration={false}
-        message={"No dispute to settle yet"}
-      /> */}
       <Table data={disputes} headers={disputeTable.columns} />
   </>
   )
