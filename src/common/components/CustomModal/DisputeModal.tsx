@@ -12,9 +12,6 @@ function DisputeModal() {
   const [display, setDisplay] = useState("Details");
   const { singleDispute } = useAppSelector((state) => state.disputes);
   
-  // useEffect(() => {
-  //   console.log(singleDispute, "singleDispute");
-  // }, [singleDispute]);
   return (
     <div className="disputemodal">
       <header

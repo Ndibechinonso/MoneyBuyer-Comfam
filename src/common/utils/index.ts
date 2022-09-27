@@ -81,3 +81,25 @@ export const formatCurrency = (value: number) => {
 
 
 export const toDateTime = (date: string) => new Date(date).toISOString().substring(0, 16);
+
+export const checkObjectValues = (myObj, propsLength) => {
+  let valuesArray;
+  let bankArray;
+  valuesArray = Object.values(myObj)
+let result = []
+for(var i = 0; i < valuesArray.length; i++){
+if(valuesArray[i].hasOwnProperty("bank_name")){
+  bankArray = Object.values(valuesArray[i])
+  for (var j = 0; j < bankArray.length; j++){
+    if(bankArray[j].length > 0){
+      result = result.concat(bankArray[j])
+    }
+  }
+}else{
+  if(valuesArray[i].length > 0){
+    result.push(valuesArray[i])
+  }
+}
+}
+return result.length >= propsLength ? true : false
+};

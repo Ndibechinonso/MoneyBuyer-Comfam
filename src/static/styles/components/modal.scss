@@ -15,9 +15,7 @@
   .modal_content {
     background: var(--blackColorWhite);
     border-radius: 0.75rem;
-    // padding: 1.8rem 2.5rem 3.13rem;
     position: relative;
-    // top: 11.26rem;
   }
   .with-feedback {
     padding: 1rem 1.25rem 2.5rem 1rem;
@@ -282,7 +280,6 @@
   }
 }
 
-// AlertModal
 .confirmation_btn_div {
   @include flexRow;
   gap: 1.125rem;

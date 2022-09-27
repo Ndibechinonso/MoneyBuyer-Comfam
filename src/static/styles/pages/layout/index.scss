@@ -8,7 +8,6 @@
   grid-template-columns: 15.625rem 1fr;
   background-color: var(--appBackground);
   position: relative;
-  // overflow: scroll;
   overflow: hidden;
   &__sideNav {
     grid-column: 1/2;

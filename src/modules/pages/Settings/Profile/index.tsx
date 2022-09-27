@@ -1,7 +1,7 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import CustomButton from "../../../../common/components/CustomButtons";
 import NaijaFlag from "../../../../common/components/CustomIcons/NaijaFlag";
-import { fetchUserDetails, storeUserDetails } from "../../../../https/storage";
+import { fetchUserDetails } from "../../../../https/storage";
 import admin from "../../../service/admin";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useNavigate } from "react-router-dom";
@@ -9,19 +9,18 @@ import CustomToast from "../../../../common/components/CustomToast";
 import { useAppDispatch, useAppSelector } from "../../../../common/components/redux/hooks";
 import { loadingStart, loadingStop } from "../../../../common/components/redux/apploader";
 import Pulse from "../../../../common/components/CustomIcons/Pulse";
-import { updateProfileImage, resetProfileImageState } from "../../../../common/components/redux/getUser/getUserSlice";
+import { updatePassword, uploadImage } from "../../../../common/components/redux/completeUserProfile/completeProfileThunk";
 
 const REACT_APP_FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
 
-
-function Profile() {
+const Profile = () => {
   const id = useId();
+  const userId = fetchUserDetails().id;
   const navigate = useNavigate();
   const dispatch = useAppDispatch()
   const { isloading } = useAppSelector((state) => state.isloading);
   const {profileImageChange} = useAppSelector((state) => state.user)
-
-  const userId = fetchUserDetails().id;
+  const {passwordInputs} = useAppSelector((state) => state.completeProfile)
   const { email, first_name, last_name, phone_number } = fetchUserDetails();
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -31,7 +30,7 @@ function Profile() {
   useEffect(() => {
     if ((fetchUserDetails().verified && !userAvatar) || profileImageChange) {
       const image = fetchUserDetails().image;
-      // setUserAvartar(image);
+      
       dispatch(loadingStart(""));
       admin
         .getImage(image)
@@ -44,7 +43,7 @@ function Profile() {
     if(!fetchUserDetails().verified){
       navigate("/setting/verification");
     }
-  }, []);
+  }, [profileImageChange]);
 
   useEffect(() => {
     if (!fetchUserDetails().verified) {
@@ -56,21 +55,21 @@ function Profile() {
     setNewPassword("") 
     setOldPassword("")
   }
+useEffect(() =>{
+  responseActions()
+}, [passwordInputs]) 
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) =>{
     event.preventDefault()
     dispatch(loadingStart(""));
-    admin.changePasswordLoggedIn({oldPassword, newPassword})
-    .then((res) => {CustomToast(res.message); responseActions()})
-    .catch((err) => {CustomToast(err.message, true); responseActions()})
-    .finally(() => dispatch(loadingStop()));
+    dispatch(updatePassword({oldPassword, newPassword}))
   }
 
   const openFilePicker = () => {
     hiddenFileInput.current.click();
   };
 
-  const changeHandler = (
+  const changeHandler = async (
     e: React.ChangeEvent<HTMLInputElement> &
       React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -79,21 +78,7 @@ function Profile() {
 
     if (files.length) {
       dispatch(loadingStart(""));
-      admin
-        .uploadImage(files)
-        .then((res) => {
-          admin.updateProfileImage({image : res?.response.data.key})
-          .then((res) => {CustomToast(res.message); storeUserDetails({
-            ...res.data.buyer,
-            transactionCount: res.data.transactionCount
-          })
-          dispatch(updateProfileImage)
-        })
-          .catch((err) => CustomToast(err.message, true))
-        })
-        .catch((err) => {console.log(err)
-        })
-        .finally(() => {dispatch(resetProfileImageState); dispatch(loadingStop())} )   
+       dispatch(uploadImage({files}))  
        }
   };
 
