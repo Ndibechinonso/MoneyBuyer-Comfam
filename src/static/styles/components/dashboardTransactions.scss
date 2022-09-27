@@ -118,20 +118,13 @@
         background-color: transparent;
 
       }
-      // .close_div {
-      // @include flexRow;
-      // width: 100%
-      // }
     }
     .new_transaction_footer {
-      // background-color: var(--blackColorWhite);
       z-index: 11;
       position: fixed;
       inset: auto 0 0 0;
       display: flex;
       justify-content: space-between;
-      // padding: 20px 40px 20px 40px;
-
       padding: 1.25rem 1.75rem 2.5rem 1.75rem;
       border-bottom-left-radius: 1rem;
       border-bottom-right-radius: 1rem;
@@ -179,9 +172,6 @@
       }
     }
   }
-  // &_form_input {
-  //   // min-width: 353px;
-  // }
   &_description {
     min-width: 100% !important;
     min-height: 104px;

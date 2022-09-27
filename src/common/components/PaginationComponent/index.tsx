@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface PaginationComponentProps {
   isDisabled?: boolean;
@@ -21,12 +21,7 @@ const PaginationComponent = ({
   setPage,
   isDisabled,
 }: PaginationComponentProps) => {
-  const [pageLimit, setPageLimit] = useState(currentPage + 8);
-  
-  const pageNumber = (value) => value >= currentPage && value < pageLimit;
-
-  const input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
+    
   const pageNumberArray = () => { 
     var numberArray = [];
 
@@ -35,6 +30,19 @@ const PaginationComponent = ({
     }
     return numberArray;
   };
+
+  // useEffect(()=>{
+  //   const pageNumberArray = () => { 
+  //     var numberArray = [];
+  
+  //     for (var i = 1; i <= totalPages; i++) {
+  //         numberArray.push(i);
+  //     }
+  //     return numberArray;
+  //   };
+  //   const pgArray = pageNumberArray()
+  //   setPageArray(pgArray)
+  // }, )
   const pageArray = pageNumberArray()
 
   return (
@@ -66,13 +74,13 @@ const PaginationComponent = ({
               return <p key={index} className={`page_number ${item === currentPage ? "active_page" : ""}`} onClick={() => {setPage(item); }}>{item}</p>  
       })} */}
       {totalPages > 0 &&
-      <>
-           {totalPages > 9 ? pageArray.filter((item) =>  (item <= (currentPage + 8) && item > (currentPage - 1))).map((item, index)=> {
+      <div className="flexRowCenter gap-30">
+           {((totalPages - currentPage)) > 8 ? pageArray.filter((item) =>  item <= (currentPage + 8) && item > currentPage - 1 ).map((item, index)=> {
               return <p key={index} className={`page_number ${item === currentPage ? "active_page" : ""}`} onClick={() => {setPage(item); }}>{item}</p>  
-      }) : pageArray.filter((item) => item).map((item, index)=> {
+      }) : pageArray.filter((item) => item > (totalPages - 9)).map((item, index)=> {
         return <p key={index} className={`page_number ${item === currentPage ? "active_page" : ""}`} onClick={() => {setPage(item); }}>{item}</p>  
 })}
-</> }
+</div> }
 
       {/* {pageArray.map((item, index) =>{
         return <p key={index} className={`page_number ${item === currentPage ? "active_page" : ""}`} onClick={() => {setPage(item); }}>{item}</p>

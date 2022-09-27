@@ -1,7 +1,6 @@
 .customInput {
   display: flex;
   flex-direction: column;
-  // width: 20rem;
   row-gap: 0.5rem;
   position: relative;
   label {
@@ -27,10 +26,7 @@
   }
 
   .currencyIcon {
-    // display: block;
     position: absolute;
-    // font-family: "Calibre";
-
     font-weight: 400;
     bottom: 1rem;
     left: 1rem;
@@ -50,7 +46,6 @@
   height: 24px;
   font-size: 0.875rem;
   font-weight: 500;
-  // line-height: 1.05rem;
   padding: 0.5rem 0.75rem 0.25rem;
   border-radius: 2.5rem;
   &__brown {
@@ -172,9 +167,7 @@
       background-color: var(--brandColorPrimary1);
       background-image: url(./../../images/check.svg);
       background-repeat: no-repeat;
-      // background-size: cover;
       background-position: center;
-      /* background-color: red; */
     }
   }
 }
@@ -200,14 +193,11 @@
   [accept="image/png, image/jpeg"] {
     background-color: red;
     z-index: 1;
-    // visibility: hidden;
     opacity: 0;
     cursor: pointer;
     width: 7.25rem !important;
 
     & ~ div {
-      // width: 100%;
-      // flex: 1;
       padding: 0 0.5rem;
       background-color: var(--blackColorWhite);
       display: flex;

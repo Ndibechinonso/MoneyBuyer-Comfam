@@ -7,7 +7,7 @@ const initialState = {
     loading: false,
     error: "",
     user: initialUser,
-    profileImageChange: false
+    profileImageChange: false,
 }
 
 const slice = createSlice({

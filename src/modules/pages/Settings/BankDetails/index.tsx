@@ -1,12 +1,11 @@
 import React, { useId, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../../../common/components/CustomButtons";
-import { useAppDispatch } from "../../../../common/components/redux/hooks";
-import { setItem } from "../../../../https/storage";
+import { fetchUserDetails, setItem } from "../../../../https/storage";
+import { checkObjectValues } from "../../../../common/utils";
 
 function BankDetail() {
   const id = useId();
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [bvnumber, setBvn] = useState("");
   const [bankName, setBankName] = useState("");
@@ -14,23 +13,20 @@ function BankDetail() {
   const [accountNumber, setAccountNumber] = useState("");
   const [profilePayload, setprofilePayload] = useState<any>([])
   const [isSubmitted, setIsSubmitted] = useState(false);
+  
+  useEffect(() => {
+    if (fetchUserDetails().verified) {
+      navigate("/setting/profile");
+    }
+  }, []);
 
   useEffect(() => {
     const payload = localStorage.getItem("verification");
     if (typeof payload === "string") {
       const profilePayload = JSON.parse(payload);
       setprofilePayload(profilePayload)
-      if (
-        !profilePayload.image ||
-        !profilePayload.first_name ||
-        !profilePayload.last_name ||
-        !profilePayload.state ||
-        !profilePayload.phone_number ||
-        !profilePayload.street_number ||
-        !profilePayload.street_name ||
-        !profilePayload.city ||
-        !profilePayload.local_gov
-      ) {
+      if(!checkObjectValues(profilePayload, 9))
+      {
         navigate("/setting/verification");
       }
     }else{
@@ -44,22 +40,7 @@ function BankDetail() {
     event.preventDefault();
     setIsSubmitted(true);
     if (!validate) return;
-    // const payload = localStorage.getItem("verification");
-
-    // if (typeof payload === "string") {
-    //   const profilePayload = JSON.parse(payload);
-
-      if (
-        !profilePayload.image ||
-        !profilePayload.first_name ||
-        !profilePayload.last_name ||
-        !profilePayload.state ||
-        !profilePayload.phone_number ||
-        !profilePayload.street_number ||
-        !profilePayload.street_name ||
-        !profilePayload.city ||
-        !profilePayload.local_gov
-      ) return;
+    if(!checkObjectValues(profilePayload, 9)) return;
 
       const bank_name = bankName;
       const account_number = accountNumber;
@@ -70,10 +51,8 @@ function BankDetail() {
         account_number,
         account_name,
       };
-
       setItem("verification", JSON.stringify(profilePayload));
       navigate(`/setting/notification`);
-    // }
   };
 
   return (

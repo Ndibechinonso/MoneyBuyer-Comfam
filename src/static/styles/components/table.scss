@@ -16,11 +16,6 @@
     border-radius: 0.75rem;
     z-index: 0;
   }
-// .client_div{
-//   @include flexRow;
-//   align-items: center;
-//   gap: 1.94rem;
-// }
   &BgTop {
     width: 10rem;
     height: 10rem;
@@ -103,7 +98,6 @@
 
   td,
   th {
-    // padding: 1.25rem 2rem;
     text-align: center;
     @include normalTextMedium;
     padding: 1.25rem;
@@ -111,15 +105,6 @@
   tr {
     border-top: 1px solid #d4dddf;
     border-bottom: 1px solid #d4dddf;
-    // th:last-child,
-    // td:nth-last-child(2) {
-    //   text-align: left;
-    // }
-    // td:nth-last-child(2) {
-    //   padding-right: 0;
-    //   width: 14.125rem;
-    // }
-
     td:last-child {
       padding: 1.25rem 2rem 1.25rem 1.25rem;
     }

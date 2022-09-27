@@ -1,38 +1,29 @@
 .btn {
     border-radius: 0.5rem;
-    // display: flex;
     border: 1px solid transparent;
     cursor: pointer;
-    // align-items: center;
-    // line-height: 0 !important;
     text-align: center;
     
-
     &__normal {
         padding: 0.75rem 2rem;
-        @include normalTextMedium; //18
-        // height: 3.5rem;
+        @include normalTextMedium;
     }
     &__tiny{
         padding: 0.375rem 0.5rem;
-        @include smallerText; //14
-        // height: 2rem;
+        @include smallerText;
     }
 
     &__small {
         padding: 0.5rem 0.875rem;
-        @include smallTextMedium; //16
-        // height: 3rem;
+        @include smallTextMedium;
     }
     &__medium {
         padding: 0.75rem 2rem;
-        @include mediumTextMedium; //20
-        // height: 3.75rem;
+        @include mediumTextMedium;
     }
     &__large {
         padding: 0.75rem 2rem;
-        @include largeTextMedium; //24
-        // height: 4rem;
+        @include largeTextMedium;
     }
 
     &__normal, &__medium,
@@ -54,13 +45,8 @@
         color: var(--blackColorWhite);
     }
 
-    
-
     &Primary {
         background-color: var(--brandColorPrimary1);
-        // &:hover:not(:disabled){
-            // background-color: #000026;
-        // }
         &:active:not(:disabled){
             background: linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),
             linear-gradient(0deg, #092C4C, #092C4C);
@@ -130,7 +116,7 @@
   height: 1.125rem;
   
   &::after,
-  &:not(.iconMinus)::before{ // all but iconMinus
+  &:not(.iconMinus)::before{
     position: absolute;
     border-radius: 2px;
     width: 1.125rem;
@@ -139,17 +125,17 @@
     background-color: var(--blackColorWhite);
   }
   
-  &:not(.iconGreat,.iconLess){ //iconPlus && iconMinus
+  &:not(.iconGreat,.iconLess){ 
     display: flex;
     justify-content: center;
     align-items: center;
     
-    &:not(.iconMinus)::before{ //iconPlus
+    &:not(.iconMinus)::before{ 
       transform: rotate(90deg);
     }
   }
   
-  &:not(.iconMinus,.iconPlus){ //iconGreat && iconLess
+  &:not(.iconMinus,.iconPlus){
     display: block;
     position: relative;
 
@@ -171,7 +157,7 @@
       left: 25%;
     }
 
-    &:not(.iconLess){ //iconGreat
+    &:not(.iconLess){ 
       transform: rotate(180deg) ;
     }
   }

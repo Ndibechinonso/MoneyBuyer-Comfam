@@ -1,11 +1,5 @@
 .wallet {
-  // background-color: white;
-  // height: 983px;
-  // background-image: url(./../../images/walletBg.svg);
-  // background-size: contain;
-  // background-repeat: no-repeat;
   border-radius: 0.75rem;
-
   &__header {
     @include flexColumn;
     align-items: center;

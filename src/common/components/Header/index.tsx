@@ -25,7 +25,6 @@ function Header({ newUser, inCompleteReg }: Iheader) {
   const { pathname } = useLocation();
   const { first_name } = fetchUserDetails();
   const { isloading } = useAppSelector((state) => state.isloading);
-  // console.log(pathname);
 
   const navigate = useNavigate();
   const value = getObject(getFirstLevelPath(pathname));
