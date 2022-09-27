@@ -3,10 +3,11 @@ import alertReducer from "./alert/alertReducer";
 import tableItmReducer from "./tableItem";
 import signupReducer from "./signup/signupReducer";
 import loadingReducer from "./apploader";
-import userReducer from "./getUser/getUserSlice"
-import dashboardReducer from "./dashboard/dashboardSlice"
-import disputesReducer from "./disputes/disputesSlice"
-import tableFilterReducer from "./tableFilter/tableFilterSlice"
+import userReducer from "./getUser/getUserSlice";
+import dashboardReducer from "./dashboard/dashboardSlice";
+import disputesReducer from "./disputes/disputesSlice";
+import walletReducer from "./fundsAndWallet/fundsAndWalletSlice";
+import tableFilterReducer from "./tableFilter/tableFilterSlice";
 
 export default combineReducers({
   alert: alertReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
   user: userReducer,
   dashboardSummary: dashboardReducer,
   disputes: disputesReducer,
-  tableFilter: tableFilterReducer
+  tableFilter: tableFilterReducer,
+  wallet: walletReducer,
 });

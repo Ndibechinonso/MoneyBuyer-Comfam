@@ -47,8 +47,20 @@ const admin = {
     const { method, url } = ENDPOINTS.transaction.get_wallet;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
+  async getAllBanks() {
+    const { method, url } = ENDPOINTS.transaction.get_all_banks;
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url);
+  },
   async fundWallet(body: type.IfundWallet) {
     const { method, url } = ENDPOINTS.transaction.fund_buyer_wallet;
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
+  },
+  async verifyAccountNumber(body: type.IverifyAccountNumber) {
+    const { method, url } = ENDPOINTS.transaction.verify_account_number;
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
+  },
+  async walletWithdraw(body: type.Iwalletwithdraw) {
+    const { method, url } = ENDPOINTS.transaction.withdraw_from_wallet;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
   async fundTransaction(body: type.IfundTransaction) {
@@ -93,7 +105,12 @@ const admin = {
     const { method, url } = ENDPOINTS.disputes.create_dispute;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
-  async getDisputes(skips: number, limit: number, startDate?: string, endDate?: string) {    
+  async getDisputes(
+    skips: number,
+    limit: number,
+    startDate?: string,
+    endDate?: string
+  ) {
     const { method, url: makeUrl } = ENDPOINTS.disputes.get_disputes;
     const url = makeUrl(skips, limit, startDate, endDate);
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);

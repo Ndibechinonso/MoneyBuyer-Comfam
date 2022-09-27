@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { getFirstLevelPath, getObject } from "../../utils/helpers";
 import Header from "../Header";
@@ -17,6 +17,7 @@ import admin from "../../../modules/service/admin";
 import { loadStart, loadStop } from "../redux/apploader";
 import CustomLoader from "../CustomLoader";
 import { removeItem } from "../redux/tableItem";
+import fetchUser from "../redux/getUser/getUserThunk";
 
 function Layout() {
   const { pathname } = useLocation();
@@ -25,19 +26,23 @@ function Layout() {
   const value = getObject(getFirstLevelPath(pathname));
   const { modal, modalType } = useAppSelector((state) => state.alert);
   const { itm: transactionItm } = useAppSelector((state) => state.tableItem);
+  const mountOnce = useRef(false);
+  const { verified, transactionCount } = useAppSelector(
+    (state) => state.user.user
+  );
   const { isloading, initiator, prevInitiator } = useAppSelector(
     (state) => state.isloading
   );
   const dispatch = useAppDispatch();
 
   useLayoutEffect(() => {
-    if (fetchUserDetails().verified) {
+    if (verified) {
       setUserError(false);
     }
-    if (fetchUserDetails().transactionCount) {
+    if (transactionCount) {
       setNewUser(false);
     }
-  }, []);
+  }, [verified, transactionCount]);
 
   useEffect(() => {
     if (modalType === "" && transactionItm.id) {
@@ -47,26 +52,20 @@ function Layout() {
 
   useEffect(() => {
     if (
-      fetchUserDetails().transactionCount === 0 &&
-      prevInitiator === "created_new_transaction"
+      prevInitiator === "wallet_transaction" ||
+      (transactionCount === 0 && prevInitiator === "created_new_transaction")
     ) {
-      dispatch(loadStart("newuser_check"));
-      admin
-        .getUserInfo()
-        .then((res) => {
-          storeUserDetails({
-            ...res.user.buyer,
-            transactionCount: res.user.transactionCount,
-          });
-          setNewUser(false);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => dispatch(loadStop()));
-    }
-    if (userError === true && prevInitiator === "verifying_user") {
-      setUserError(false);
+      dispatch(fetchUser());
     }
   }, [prevInitiator, dispatch]); //eslint-disable-line
+
+  useEffect(() => {
+    if (mountOnce.current) {
+      return;
+    }
+    dispatch(fetchUser());
+    mountOnce.current = true;
+  }, []);
 
   if (!fetchUserToken() || fetchUserDetails() === false) {
     return <Navigate replace to="/signin/buyer" />;

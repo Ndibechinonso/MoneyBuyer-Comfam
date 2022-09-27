@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import img from "../../../static/images/unsplash.png";
 import closemodal from "../../../static/images/dashboard_modal_close.svg";
 import ArrowLeft from "../CustomIcons/ArrowLeft";
@@ -11,7 +11,7 @@ function DisputeModal() {
   const dispatch = useAppDispatch();
   const [display, setDisplay] = useState("Details");
   const { singleDispute } = useAppSelector((state) => state.disputes);
-  
+
   // useEffect(() => {
   //   console.log(singleDispute, "singleDispute");
   // }, [singleDispute]);

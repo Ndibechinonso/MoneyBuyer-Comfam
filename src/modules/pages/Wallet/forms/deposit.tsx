@@ -1,36 +1,49 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CustomButton from "../../../../common/components/CustomButtons";
-import InfoIcon from "../../../../common/components/CustomIcons/Info";
 import CustomTextFields from "../../../../common/components/CustomInput";
-import CustomSelector from "../../../../common/components/CustomSelector";
 import PaystackPop from "@paystack/inline-js";
 import customToast from "../../../../common/components/CustomToast";
 import admin from "../../../service/admin";
 import { PAYSTACK_KEY } from "../../../../https/constant";
 import { fetchUserDetails } from "../../../../https/storage";
 import { useAppDispatch } from "../../../../common/components/redux/hooks";
-import {
-  loadStart,
-  loadStop,
-} from "../../../../common/components/redux/apploader";
 import { Alerts } from "../../../../common/components/redux/alert/alertActions";
+import { Select, SelectItem } from "../../../../common/components/CustomSelect";
+import { fetchWalletInfo } from "../../../../common/components/redux/fundsAndWallet/fundsAndWalletAsyncThunk";
+import CustomCheckBox from "../../../../common/components/CustomCheckbox";
+import { toNaira } from "../../../../common/utils/helpers";
 
 function Deposit() {
   const initialState = {
-    amount: 0,
-    // expectedAmount: 0,
+    amount: "",
     paymentMethod: "",
+    confirm: false,
   };
   const [formState, setFormState] = useState(initialState);
-  const [confirm, setConfirm] = useState(false);
-  const refEl = useRef<HTMLDivElement>(null);
+  const unmountOnce = useRef(true);
+  const select_value =
+    formState.paymentMethod === ""
+      ? "Select an option"
+      : formState.paymentMethod;
 
   const dispatch = useAppDispatch();
 
-  const paystack = new PaystackPop();
+  // const confirmFormHandler = () =>
+  //   setFormState((prev) => ({ ...prev, confirm: !prev.confirm }));
 
-  const confirmFormHandler = () => {
-    setConfirm(!confirm);
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type } = e.target;
+    const numbers_regex = new RegExp("^[0-9]*$");
+    switch (type) {
+      case "checkbox":
+        setFormState((prev) => ({ ...prev, [name]: !prev[name] }));
+        break;
+      default:
+        if (numbers_regex.test(value)) {
+          setFormState((prev) => ({ ...prev, [name]: value }));
+        }
+        break;
+    }
   };
 
   const options = [
@@ -43,40 +56,47 @@ function Deposit() {
     setFormState((prev) => ({ ...prev, paymentMethod: value }));
   };
 
-  const inputOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = e.target;
-    if (!isNaN(parseFloat(value))) {
-      setFormState((prev) => ({ ...prev, [name]: parseFloat(value) }));
+  useEffect(() => {
+    if (unmountOnce.current) {
+      unmountOnce.current = false;
+      return;
     }
-  };
+    return () => {
+      if (document.querySelectorAll("iframe")) {
+        document
+          .querySelectorAll("iframe")
+          .forEach((frame) => frame.parentNode.removeChild(frame));
+      }
+    };
+  }, []);
 
-  const inputOnkeydownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const { key } = e;
-    const { name } = e.currentTarget;
-    const xName =
-      (name === "amount" || name === "expectedAmount") && formState[name];
-    if (xName.toString().length === 1 && key === "Backspace") {
-      setFormState((prev) => ({ ...prev, [name]: 0 }));
-    }
-  };
   const buttonEnabler =
-    !confirm || formState.paymentMethod === "" || formState.amount === 0;
+    !formState.confirm ||
+    formState.paymentMethod === "" ||
+    formState.amount === "";
 
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const paystack = new PaystackPop();
 
     paystack.newTransaction({
       key: PAYSTACK_KEY,
       email: fetchUserDetails().email,
-      amount: `${formState.amount.toString()}00`,
+      amount: `${formState.amount}00`,
 
       onSuccess: (transaction: any) => {
-        dispatch(loadStart("wallet_transaction"));
+        dispatch(Alerts("processing"));
         admin
           .fundWallet({ reference: transaction.reference })
-          .then((res) => dispatch(Alerts("despositsuccessful")))
-          .catch((err) => customToast(err.message, true))
-          .finally(() => dispatch(loadStop()));
+          .then((res) => {
+            dispatch(Alerts("despositsuccessful"));
+            dispatch(fetchWalletInfo());
+            setFormState(initialState);
+          })
+          .catch((err) => {
+            customToast(err.message, true);
+            dispatch(Alerts(""));
+          });
       },
       onCancel: () => {
         customToast("error occured", true);
@@ -91,45 +111,46 @@ function Deposit() {
           <CustomTextFields
             placeholder="0.00"
             currencyIcon={true}
-            onBlur={() => formState.amount.toFixed(2)}
-            onKeyDown={inputOnkeydownHandler}
-            onChange={inputOnChangeHandler}
+            onChange={changeHandler}
             label="Amount to top-up"
             name="amount"
             value={formState.amount}
             variant="labelOnly"
           />
         </div>
-        
+
         <div className="form__input ">
           <label>Select Payment Method</label>
-          <CustomSelector
-            refEl={refEl}
-            onClickHandler={selectClickHandler}
-            options={options}
+          <Select
+            onChange={selectClickHandler}
+            className="wallet-select"
             placeholder="Select an option"
-            variant="dropDown"
-          />
+            name="payment_method"
+            value={select_value}
+          >
+            {options.map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
+          </Select>
+
           <div className="confirmForm">
-            <CustomSelector
-              variant="checkBox"
-              isChecked={confirm}
-              onClickHandler={confirmFormHandler}
+            <CustomCheckBox
+              id="confirm"
+              name="confirm"
+              checked={formState.confirm}
+              onChange={changeHandler}
+              label={`I confirm to be debited ${
+                formState.amount === ""
+                  ? toNaira("0")
+                  : toNaira(formState.amount)
+              }.00 for Balance top-up`}
             />
-            <p className="confirmForm__text">
-              I confirm to be debited <span>NGN {formState.amount.toFixed(2)}</span> for Balance top-up
-            </p>
           </div>
         </div>
       </div>
       <div className="formButtonWrapper">
-        <CustomButton
-          type="button"
-          variant="OUTLINE"
-          action={() => console.log("first")}
-          actionText="Cancel"
-        />
-
         <CustomButton
           type="submit"
           disabled={buttonEnabler}

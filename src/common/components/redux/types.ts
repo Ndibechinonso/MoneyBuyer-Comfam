@@ -1,13 +1,12 @@
 export type AppDispatchProps<T = any> = {
-    type: string;
-    payload?: T;
-  }
+  type: string;
+  payload?: T;
+};
 
-   
- export type SellerDetails = {
+export type SellerDetails = {
   email: string;
-  phone_number: string
-}
+  phone_number: string;
+};
 
 export type NewTransaction = {
   type: "SERVICE" | "PRODUCT";
@@ -19,48 +18,48 @@ export type NewTransaction = {
   images: string[];
   completionDueDate: string;
   price: number;
-  deliveryAddress: string
-  transactionFee: number
-}
+  deliveryAddress: string;
+  transactionFee: number;
+};
 
-export type VerificationProps ={
+export type VerificationProps = {
   image: string;
- last_name: string;
- first_name: string;
- state: string;
- phone_number: string;
- street_number: string;
- street_name: string;
- city: string;
- local_gov: string;
-}
-
+  last_name: string;
+  first_name: string;
+  state: string;
+  phone_number: string;
+  street_number: string;
+  street_name: string;
+  city: string;
+  local_gov: string;
+};
 
 export type NotificationProps = {
- sms: boolean;
- email: boolean;
- email_subcription: boolean;
- push_notifications: boolean;
-}
-
-export type FeedbackProps ={
-  likes: string;
-    rating: string;
-    feature_request: string;
-    change_request: string;
-}
-
-export interface IBank{
-  account_name: string;
-      account_number: string;
-      bank_name: string;
-}
-
-export interface INotification{
+  sms: boolean;
   email: boolean;
   email_subcription: boolean;
   push_notifications: boolean;
-  sms: boolean
+};
+
+export type FeedbackProps = {
+  likes: string;
+  rating: string;
+  feature_request: string;
+  change_request: string;
+};
+
+export interface IBank {
+  account_name: string;
+  account_number: string;
+  bank_name: string;
+  _id?: string;
+}
+
+export interface INotification {
+  email: boolean;
+  email_subcription: boolean;
+  push_notifications: boolean;
+  sms: boolean;
   // _id: "6322263729428214a536e310",
 }
 
@@ -78,8 +77,9 @@ export type UserProps = {
   image: string;
   last_name: string;
   local_gov: string;
-  notification: INotification
+  notification: INotification;
   residential_address: string;
+  transactionCount: number;
   state: string;
   state_of_origin: string;
   street_name: string;
@@ -93,11 +93,7 @@ export type UserProps = {
 };
 
 export const initialUser = {
-  bank_details: {
-    account_name: "",
-    account_number: "",
-    bank_name: "",
-  },
+  bank_details: [],
   bvn: "",
   city: "",
   // createdAt: "2022-09-14T19:03:37.415Z",
@@ -114,9 +110,10 @@ export const initialUser = {
     email: false,
     email_subcription: false,
     push_notifications: false,
-    sms: false
-    },
+    sms: false,
+  },
   residential_address: "",
+  transactionCount: 0,
   state: "",
   state_of_origin: "",
   street_name: "",
@@ -131,71 +128,70 @@ export const initialUser = {
 
 export type TransactionProps = {
   canceled: boolean;
- completed: boolean;
- deleted: boolean;
- _id: string;
- seller: null;
- buyer: string;
- price: 0;
- createdBy: string;
- transactionFee: number;
- paymentTransactions: [];
- completionDueDate: string;
- createdAt: string;
- updatedAt: string;
- id: string
-}
+  completed: boolean;
+  deleted: boolean;
+  _id: string;
+  seller: null;
+  buyer: string;
+  price: 0;
+  createdBy: string;
+  transactionFee: number;
+  paymentTransactions: [];
+  completionDueDate: string;
+  createdAt: string;
+  updatedAt: string;
+  id: string;
+};
 
-export type ContactListType ={
- email: string;
- first_name: string;
- user_type: string;
- last_name: string;
- phone_number: string;
- createdAt: string;
- updatedAt: string;
- id: string;
-}
+export type ContactListType = {
+  email: string;
+  first_name: string;
+  user_type: string;
+  last_name: string;
+  phone_number: string;
+  createdAt: string;
+  updatedAt: string;
+  id: string;
+};
 export type DashboardProps = {
   loading: boolean;
   error: string;
- totalTransactions: number;
- openTransactions: number,
- settledTransactions: number,
- transactionHistory: TransactionProps[],
- contactList: ContactListType[]
-}
-
+  totalTransactions: number;
+  openTransactions: number;
+  settledTransactions: number;
+  transactionHistory: TransactionProps[];
+  contactList: ContactListType[];
+};
 
 export type Disputes = {
   _id: string;
   seller: {
-      _id: string;
-      state: string;
-      local_gov: string;
-      city: string;
-      street_number: number;
-      phone_number: string;
-      last_name: string;
-      user_type: string;
-      first_name: string;
-      bvn: string;
-      emailValidated: boolean;
-      cognito_id: string;
-      email: string;
-      bank_details: [];
-      createdAt: string;
-      updatedAt: string;
+    _id: string;
+    state: string;
+    local_gov: string;
+    city: string;
+    street_number: number;
+    phone_number: string;
+    last_name: string;
+    user_type: string;
+    first_name: string;
+    bvn: string;
+    emailValidated: boolean;
+    cognito_id: string;
+    email: string;
+    bank_details: [];
+    createdAt: string;
+    updatedAt: string;
   };
   buyer: {
-      _id: string;
-      email: string;
-      first_name: string;
-      user_type: string;
-      last_name: string;
-      createdAt: string;
-      updatedAt: string;
-      wallet_id: string;
+    _id: string;
+    email: string;
+    first_name: string;
+    user_type: string;
+    last_name: string;
+    createdAt: string;
+    updatedAt: string;
+    wallet_id: string;
   };
   transaction: string;
   dispute_reason: string;
@@ -204,9 +200,9 @@ export type Disputes = {
   status: string;
   createdAt: string;
   updatedAt: string;
-}
+};
 
-export type DisputesDataType ={
+export type DisputesDataType = {
   loading: boolean;
   error: string;
   disputes: Disputes[];
@@ -215,4 +211,4 @@ export type DisputesDataType ={
   limit: string;
   skip: string;
   page: number;
-}
+};

@@ -2,7 +2,7 @@ import React from "react";
 import CustomButton from "../CustomButtons";
 import CaretRight from "../CustomIcons/CaretRight";
 import SortIcon from "../CustomIcons/SortIcon";
-import CustomSelector from "../CustomSelector";
+import CustomSelector from "../CustomCheckbox";
 import { Ioptions } from "../CustomTable/types";
 import DropDownItem from "./primitive/DropDownItem";
 import DropDownMenuContent, {
@@ -53,11 +53,10 @@ function StatusFilter(props: Props) {
               return (
                 <div key={val} className="statusFilter__itm">
                   <CustomSelector
-                    variant="checkBox"
                     name={val}
                     placeholder={val}
-                    isChecked={checked}
-                    onClickHandler={() => onSelect(opt, id)}
+                    checked={checked}
+                    onChange={() => onSelect(opt, id)}
                     disabled={disabled}
                   />
                 </div>

@@ -97,6 +97,18 @@ const ENDPOINTS = {
     fund_transaction:{
       method:"POST",
       url:"/transaction/fund"
+    },
+    get_all_banks:{
+      method:"GET",
+      url:"/transaction/banks"
+    },
+    withdraw_from_wallet:{
+      method:"POST",
+      url:"/transaction/withdraw"
+    },
+    verify_account_number:{
+      method:"POST",
+      url:"/transaction/verify-account"
     }
   },
   disputes: {
