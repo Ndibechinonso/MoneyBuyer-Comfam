@@ -1,38 +1,33 @@
 import React, { useEffect, useRef, useState } from "react";
 import { fetchUserDetails } from "../../../../https/storage";
 import admin from "../../../../modules/service/admin";
-import userImg from "../../../../static/images/userImage.jpeg";
 import DropDownIcon from "../../CustomIcons/DropDownIcon";
+import { useAppSelector } from "../../redux/hooks";
 
-interface userMenuProps {
-  // dropDownHandler: () => void;
-  // showDropDown: boolean;
-}
+const UserMenuTrigger = () => {
 
-function UserMenuTrigger({}: userMenuProps) {
-  const [userAvatar, setUserAvartar] = useState("");
   const runOnce = useRef(false);
+  const [userAvatar, setUserAvartar] = useState("");
+  const {profileImageChange} = useAppSelector((state) => state.user)
+
   useEffect(() => {
-    if (runOnce.current) {
+    if (runOnce.current && !profileImageChange) {
       return;
     }
-    if (fetchUserDetails().verified && !userAvatar) {
+    if ((fetchUserDetails().verified && !userAvatar) || profileImageChange) {
       const image = fetchUserDetails().image;
-      // setUserAvartar(image);
       admin
         .getImage(image)
         .then((res) => {
           setUserAvartar(res);
-          // setUserAvartar((prev) => [...prev, URL.createObjectURL(res)]);
         })
         .catch((err) => console.log(err, "error"));
       runOnce.current = true;
     }
-  }, []);
+  }, [profileImageChange]);
 
   return (
     <div className="userMenu">
-      {/* <img className="userMenu__image" src={userImg} alt="user profile" /> */}
       {userAvatar ? (
         <img src={userAvatar} alt="" className="userMenu__image" />
       ) : (

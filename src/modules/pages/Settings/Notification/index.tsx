@@ -1,133 +1,83 @@
-import React, { useEffect, useId, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../../../common/components/CustomButtons";
 import InfoIcon from "../../../../common/components/CustomIcons/Info";
-import { Alerts } from "../../../../common/components/redux/alert/alertActions";
+import { loadingStart } from "../../../../common/components/redux/apploader";
 import {
-  loadingStart,
-  loadingStop,
-} from "../../../../common/components/redux/apploader";
-import { useAppDispatch, useAppSelector } from "../../../../common/components/redux/hooks";
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../common/components/redux/hooks";
 import { NotificationProps } from "../../../../common/components/redux/types";
-import auth from "../../../service/auth";
-import { fetchUserDetails, storeUserDetails } from "../../../../https/storage";
-import CustomToast from "../../../../common/components/CustomToast";
-import admin from "../../../service/admin";
-import { removeItem } from "../../../../https/storage";
-import { updateProfileImage, resetProfileImageState } from "../../../../common/components/redux/getUser/getUserSlice";
+import { fetchUserDetails } from "../../../../https/storage";
+import { checkObjectValues } from "../../../../common/utils";
+import {
+  completeProfile,
+  updateNotification,
+} from "../../../../common/components/redux/completeUserProfile/completeProfileThunk";
 
 const initialFormState: NotificationProps = {
-  sms: false,
+  sms: true,
   email: true,
   email_subcription: true,
   push_notifications: true,
 };
 
-function Notification() {
-  const id = useId();
+const Notification = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  const [profilePayload, setprofilePayload] = useState<any>([])
+  const [profilePayload, setprofilePayload] = useState<any>([]);
   const [checks, setChecks] = useState(initialFormState);
-  const {isloading} = useAppSelector((state) => state.isloading)
-
+  const { isloading } = useAppSelector((state) => state.isloading);
 
   useEffect(() => {
-    if(!fetchUserDetails().verified){
-    const payload = localStorage.getItem("verification");
-    if (typeof payload === "string") {
-      const profilePayload = JSON.parse(payload);
-      setprofilePayload(profilePayload)
-      if (( !profilePayload.image ||
-        !profilePayload.first_name ||
-        !profilePayload.last_name ||
-        !profilePayload.state ||
-        !profilePayload.phone_number ||
-        !profilePayload.street_number ||
-        !profilePayload.street_name ||
-        !profilePayload.city ||
-        !profilePayload.local_gov ||
-        !profilePayload.bankDetails?.bank_name ||
-        !profilePayload.bankDetails?.account_number ||
-        !profilePayload.bankDetails?.account_name)
-      ) {
+    if (!fetchUserDetails().verified) {
+      const payload = localStorage.getItem("verification");
+      if (typeof payload === "string") {
+        const profilePayload = JSON.parse(payload);
+        setprofilePayload(profilePayload);
+        if (!checkObjectValues(profilePayload, 13)) {
+          navigate("/setting/verification");
+        }
+      } else {
         navigate("/setting/verification");
       }
-    }else{
-      navigate("/setting/verification");
+    } else {
+      setChecks(fetchUserDetails().notification);
     }
-  }else{
-    setChecks(fetchUserDetails().notification)
-    
-  }
-
   }, []);
 
   const changeHandler = (e: any) => {
     const { name, checked } = e.target;
-    setChecks((checks) => ({ ...checks, [name]: e.target.checked }));
+    setChecks((checks) => ({ ...checks, [name]: checked }));
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(loadingStart("verifying_user"))
-
+    dispatch(loadingStart("verifying_user"));
     const sms = checks.sms;
     const email = checks.email;
     const email_subcription = checks.email_subcription;
     const push_notifications = checks.push_notifications;
 
     if (fetchUserDetails().verified) {
-      admin.updateNotification({sms, email, email_subcription, push_notifications})
-      .then((res) => {
-        dispatch(Alerts("notificationupdated"))
-        storeUserDetails({
-          ...res.data.buyer,
-          transactionCount: res.data.transactionCount
-        })
-      })
-      .catch((err) => CustomToast(err.message))
-      .finally(() => dispatch(loadingStop()));
-    } else {
-        if (
-          !profilePayload.image ||
-          !profilePayload.first_name ||
-          !profilePayload.last_name ||
-          !profilePayload.state ||
-          !profilePayload.phone_number ||
-          !profilePayload.street_number ||
-          !profilePayload.street_name ||
-          !profilePayload.city ||
-          !profilePayload.local_gov ||
-          !profilePayload.bankDetails?.bank_name ||
-          !profilePayload.bankDetails?.account_number ||
-          !profilePayload.bankDetails?.account_name
-        ) return;
-        profilePayload.notification = {
+      dispatch(
+        updateNotification({
           sms,
           email,
           email_subcription,
           push_notifications,
-        };
-        auth
-          .completeBuyerProfile(profilePayload)
-          .then((res) => {
-            dispatch(Alerts("profileupdated"))
-            removeItem("verification")
-            storeUserDetails({
-              ...res.data.buyer,
-              transactionCount: res.data.transactionCount
-            })
-            dispatch(updateProfileImage)
-            navigate("/dashboard");
-          })
-          .catch((err) => {
-            CustomToast(err.message);
-          })
-          .finally(() => {dispatch(resetProfileImageState); dispatch(loadingStop())});
-      }
-    // }
+        })
+      )
+    } else {
+      if (!checkObjectValues(profilePayload, 13)) return;
+      profilePayload.notification = {
+        sms,
+        email,
+        email_subcription,
+        push_notifications,
+      };
+      dispatch(completeProfile(profilePayload));
+    }
   };
 
   return (
@@ -182,7 +132,7 @@ function Notification() {
               <p>
                 <span>
                   <InfoIcon />
-                </span>{" "}
+                </span>
                 <span>Not to worry, you can edit this later</span>
               </p>
               <div>
@@ -229,19 +179,23 @@ function Notification() {
               </div>
             </div>
 
-            {!fetchUserDetails().verified  ? <CustomButton
-              className="profile__cta"
-              type="submit"
-              disabled={isloading}
-              action={() => null}
-              actionText="Update Profile"
-            /> : <CustomButton
-            className="profile__cta"
-            type="submit"
-            disabled={isloading}
-            action={() => null}
-            actionText="Update"
-          /> }
+            {!fetchUserDetails().verified ? (
+              <CustomButton
+                className="profile__cta"
+                type="submit"
+                disabled={isloading}
+                action={() => null}
+                actionText="Update Profile"
+              />
+            ) : (
+              <CustomButton
+                className="profile__cta"
+                type="submit"
+                disabled={isloading}
+                action={() => null}
+                actionText="Update"
+              />
+            )}
           </div>
         </div>
       </form>

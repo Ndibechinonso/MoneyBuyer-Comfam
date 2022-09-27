@@ -2,9 +2,7 @@ import React from "react";
 import NotificationItem from "../../../common/components/NotificationMenuComponent";
 import { notificationArray } from "../../../fakeData";
 
-type Props = {};
-
-function index({}: Props) {
+function index() {
   return (
     <>
       {notificationArray.map((itm, id) => (

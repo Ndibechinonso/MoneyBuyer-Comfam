@@ -10,10 +10,6 @@ function Dispute() {
 const {disputes} = useAppSelector((state) => state.disputes)
 const {page} = useAppSelector((state) => state.disputes)
 
-// useEffect(()=>{
-//   console.log(disputes, "disputes");
-// }, [disputes])
-
   useEffect(() =>{
     dispatch(fetchAllDisputes({page, startDate, endDate}))
   }, [page, endDate])

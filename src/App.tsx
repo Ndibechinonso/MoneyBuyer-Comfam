@@ -64,13 +64,8 @@ function App() {
         <Route path="notifications" element={<Notifications />} />
         <Route element={<Settings />}>
           <Route path="setting/profile" element={<Profile />} />
-
-      {!fetchUserDetails().verified &&
          <Route path="setting/bank_detail" element={<BankDetail />} />
-    }
-        {!fetchUserDetails().verified &&
          <Route path="setting/verification" element={<Verification />} />
-    }
         <Route path="setting/notification" element={<Notification />} />
           <Route path="setting/give_feedback" element={<FeedBack />} />
         </Route>

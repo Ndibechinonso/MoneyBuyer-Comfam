@@ -11,6 +11,7 @@ import admin from "../../../service/admin";
 import { fetchUserDetails } from "../../../../https/storage";
 import Pulse from "../../../../common/components/CustomIcons/Pulse";
 import CustomToast from "../../../../common/components/CustomToast";
+import { checkObjectValues } from "../../../../common/utils";
 
 const initialFormState: VerificationProps = {
   image: "",
@@ -24,23 +25,28 @@ const initialFormState: VerificationProps = {
   local_gov: "",
 };
 
-function Verification() {
+const Verification = () => {
   const id = useId();
   const navigate = useNavigate();
   const { email, first_name, last_name } = fetchUserDetails();
-
+  const [inputs, setInputs] = useState(initialFormState);
   const [rawImage, setRawImage] = useState([]);
   const [imageLoading, setImageLoading] = useState(false);
   const [unEditedstate, setSelectState] = useState("");
   const [local_gov, setLga] = useState("");
   const [userEmail, setUserEmail] = useState(email);
-  const [inputs, setInputs] = useState(initialFormState);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const hiddenFileInput = useRef(null);
+
   const openFilePicker = () => {
     hiddenFileInput.current.click();
   };
+  useEffect(() => {
+    if (fetchUserDetails().verified) {
+      navigate("/setting/profile");
+    }
+  }, []);
 
   const changeHandler = (
     e: React.ChangeEvent<HTMLInputElement> &
@@ -76,11 +82,12 @@ function Verification() {
   };
 
   const handleStateChange = (e: any) => {
-    setSelectState(e.target.value);
-  };
-
-  const handleLgaChange = (e: any) => {
-    setLga(e.target.value);
+    if(e.target.name === "states_of_nigeria"){
+      setSelectState(e.target.value);
+    }
+    else{
+      setLga(e.target.value);
+    }
   };
 
   useEffect(() => {
@@ -93,19 +100,13 @@ function Verification() {
     inputs.last_name = last_name
     event.preventDefault();
     setIsSubmitted(true);
-    if ( inputs.image &&
-      inputs.first_name &&
-      inputs.last_name &&
-      inputs.state &&
-      inputs.phone_number &&
-      inputs.street_number &&
-      inputs.street_name &&
-      inputs.city &&
-      inputs.local_gov){
+    if(checkObjectValues(inputs, 9))
+      {
       setItem("verification", JSON.stringify(inputs));
       navigate(`/setting/bank_detail`);
     }
   };
+  
   return (
     <div className="profile__container">
       <form onSubmit={handleSubmit}>
@@ -158,7 +159,6 @@ function Verification() {
               type="text"
               disabled={true}
               name="first_name"
-              // value={inputs.first_name}
               defaultValue={first_name}
               onChange={handleChange}
               placeholder="First Name"
@@ -178,7 +178,6 @@ function Verification() {
               disabled={true}
               type="text"
               name="last_name"
-              // value={inputs.last_name}
               defaultValue={last_name}
               onChange={handleChange}
               placeholder="Last Name"
@@ -196,7 +195,6 @@ function Verification() {
               className="profile__container_form_input"
               id={`${id}-email`}
               name="email"
-              // value={userEmail}
               defaultValue={userEmail}
               disabled={true}
               type="email"
@@ -218,8 +216,6 @@ function Verification() {
                 value={inputs.phone_number}
                 onChange={(e) => {
                   const value = e.target.value.trim();
-                  // if((!/\d+/.test(value) && value !== "") || value.length > 11 || !/\d+/.test(value))return
-                  // if (!/^\d*[.]?\d*$/.test(value) || value.length > 11) return;
                   if (!/^[0-9]*$/.test(value) || value.length > 11) return;
                   handleChange(e);
                 }}
@@ -299,7 +295,7 @@ function Verification() {
               state={unEditedstate}
               lga={local_gov}
               changeState={handleStateChange}
-              changeLga={handleLgaChange}
+              changeLga={handleStateChange}
             />
             {isSubmitted && (!unEditedstate || !local_gov) && (
               <small className="input_error text-red-1 text-xs">

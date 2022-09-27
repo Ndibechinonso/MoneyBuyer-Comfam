@@ -28,9 +28,6 @@
           &:nth-child(2) {
             padding: 1.25rem;
           }
-          // &:nth-last-child(2) {
-          //   padding: 0;
-          // }
         }
       }
     }
@@ -43,7 +40,6 @@
   width: 676px;
   height: calc(100vh - 15.375rem);
   overflow: hidden;
-  // position: relative;
   .tracker_container {
     .tracker_grid {
       display: flex;
@@ -105,7 +101,6 @@
   }
   &--body {
     padding-top: 3.875rem;
-    // height:calc(100vh - 15.375rem);
     height: 100%;
     overflow: scroll;
     -ms-overflow-style: none; /* Internet Explorer 10+ */

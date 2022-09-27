@@ -19,8 +19,6 @@
   }
   .signup_btn {
     width: 100%;
-    // @include flexRow;
-    // justify-content: space-around;
   }
   .bvn_div label {
     @include flexRow;
@@ -44,14 +42,10 @@
       height: 3.4375rem;
       border: 1px solid var(--greyColorGrey4);
       min-width: 100%;
-      // padding-left: 1.4375rem;
       margin-top: 0.25rem;
       border-radius: 0.25rem;
       color: var(--greyColorGrey1);
       padding: 1.25rem 2.5rem 0.75rem 1.5rem;
-
-      // line-height: 19.2px;
-
       &::placeholder {
         color: var(--greyColorGrey4);
       }
@@ -59,7 +53,6 @@
       &::placeholder {
         font-size: 1rem;
         font-weight: 400;
-        // line-height: 19.2px;
       }
       &_container {
         position: relative;
