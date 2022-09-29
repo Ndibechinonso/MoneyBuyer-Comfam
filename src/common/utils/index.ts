@@ -67,7 +67,13 @@ export const formatDate = (date: string, mode = 1) => {
       }
 
     return `${month} ${day}${suffix(day)}, ${year}`;
-  } else {
+  } else if(mode === 3){
+    const time = new Intl.DateTimeFormat(undefined, { timeStyle: "short" })
+      .format(new Date(date))
+      .toUpperCase();
+      return time
+  }
+  else {
     return date.replaceAll("-", "/");
   }
 };
@@ -103,3 +109,9 @@ if(valuesArray[i].hasOwnProperty("bank_name")){
 }
 return result.length >= propsLength ? true : false
 };
+
+export const capitalizeFirstLetter = (name: string) =>{
+  const firstLetter = name.substring(0, 1).toUpperCase()
+  const otherLetters = name.substring(1).toLowerCase()
+  return firstLetter + otherLetters
+}

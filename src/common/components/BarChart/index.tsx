@@ -35,7 +35,7 @@ export const BarChart = () => {
 
   return (
     <div className="money_recived_container">
-    <h4>Money Received</h4>
+    <h4>Money Spent</h4>
     <div style={{width:"100%", height: "461px"}}>
     <Chart type='bar' style={{background: "#FFFFFF"}}  options={{
     plugins: {

@@ -9,8 +9,7 @@ import disputesReducer from "./disputes/disputesSlice"
 import tableFilterReducer from "./tableFilter/tableFilterSlice"
 import walletReducer from "./fundsAndWallet/fundsAndWalletSlice";
 import completeProfileReducer from "./completeUserProfile/completeProfileSlice";
-
-
+import messagesReducer from "./messages/messagesSlice"
 export default combineReducers({
   alert: alertReducer,
   tableItem: tableItmReducer,
@@ -21,5 +20,6 @@ export default combineReducers({
   disputes: disputesReducer,
   tableFilter: tableFilterReducer,
   wallet: walletReducer,
-  completeProfile: completeProfileReducer
+  completeProfile: completeProfileReducer,
+  messages: messagesReducer
 });

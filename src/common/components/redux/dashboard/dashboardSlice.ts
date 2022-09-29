@@ -10,7 +10,8 @@ import fetchDashboardSummary from "./dashboardAsyncThunk"
     openTransactions: 0,
     settledTransactions: 0,
     transactionHistory: [],
-    contactList: []
+    contactList: [],
+    activeContracts: []
 }
 
 const slice = createSlice({
@@ -21,13 +22,14 @@ const slice = createSlice({
         builder.addCase(fetchDashboardSummary.pending, (state) =>{
             state.loading = true
         } )
-        .addCase(fetchDashboardSummary.fulfilled, (state, action: PayloadAction<any>) =>{
+        .addCase(fetchDashboardSummary.fulfilled, (state, action: PayloadAction<any>) =>{            
             state.loading = false;
             state.totalTransactions = action.payload?.totalTransactions;
             state.openTransactions = action.payload?.openTransactions;
             state.settledTransactions = action.payload?.settledTransactions
             state.transactionHistory = action.payload?.transactionHistory
             state.contactList = action.payload?.contactList
+            state.activeContracts = action.payload?.activeContracts
         })
         .addCase(fetchDashboardSummary.rejected, (state, action) =>{
             state.loading = false;

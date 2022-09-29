@@ -1,44 +1,54 @@
 import clientImg from "../../../../static/images/client_img.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { useAppSelector } from "../../redux/hooks";
+import { formatCurrency, formatDate } from "../../../utils";
+import CustomLoader from "../../CustomLoader";
 
 const ActiveContracts = () => {
+  const {loading, activeContracts} = useAppSelector((state) => state.dashboardSummary)
   return (
     <div className="dashboard_sections">
       <h2>Your Active Contract</h2>
 
       <div className="dashboard_sections_content">
-        <div className="card_container">
-          <div className="card_container_content">
-            <div className="d-flex card_top">
-              <div className="d-flex user_container">
-                {/* <img src={clientImg} alt="" /> */}
-                <FontAwesomeIcon icon={faArrowRightArrowLeft} />
-                <div>
-                  <div className="normalTextMedium">Crosskenti Ltd.</div>
-                  <div className="smallTextMedium">Nigeria</div>
-                </div>
-              </div>
+
+      {loading && <CustomLoader size={10} />}
+
+      {(!loading && activeContracts && activeContracts.length > 0) ? 
+      activeContracts.filter((item, index) => index < 2).map((contract, index) =>{
+        return  <div key={contract._id} className="card_container">
+        <div className="card_container_content">
+          <div className="d-flex card_top">
+            <div className="d-flex user_container">
+              <FontAwesomeIcon icon={faArrowRightArrowLeft} />
               <div>
-                <div className="smallTextMedium price">₦9,000</div>
-                <div className="smallTextMedium">Fixed Rate</div>
+                <div className="normalTextMedium">{contract?.productName}</div>
+                <div className="smallTextMedium">Nigeria</div>
               </div>
             </div>
-          </div>
-          <div className="card_container_content card_content_divider">
-            <div className="d-flex">
-              <div className="flexCol smallTextMedium">
-                <div className="contract_info">Contract Period</div>
-                <div className="date">Mar 8th, 2022 - Sep 30th, 2022</div>
-              </div>
-
-              <div className="flexCol smallTextMedium">
-                <div className="contract_info">Name of client</div>
-                <div className="date name">Kenneth King</div>
-              </div>
+            <div>
+              <div className="smallTextMedium price">{formatCurrency(contract?.transactionFee)}</div>
+              <div className="smallTextMedium">{contract?.status}</div>
             </div>
           </div>
         </div>
+        <div className="card_container_content card_content_divider">
+          <div className="d-flex">
+            <div className="flexCol smallTextMedium">
+              <div className="contract_info">Contract Period</div>
+              <div className="date">{formatDate(contract.createdAt, 2)} - {formatDate(contract.completionDueDate, 2)}</div>
+            </div>
+
+            <div className="flexCol smallTextMedium text-right">
+              <div className="contract_info">Name of Seller</div>
+              {/* <div className="date name">{contract.seller}</div> */}
+            </div>
+          </div>
+        </div>
+      </div> 
+      }) : <div>No Active Contracts</div>}
+    
       </div>
     </div>
   );

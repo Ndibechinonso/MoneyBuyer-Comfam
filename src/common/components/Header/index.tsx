@@ -15,6 +15,11 @@ import { Alerts } from "../redux/alert/alertActions";
 import statusIndicator from "../../../static/images/status_indicator.svg";
 import HandWave from "../CustomIcons/HandWave";
 import { fetchUserDetails } from "../../../https/storage";
+import { useEffect, useState } from "react";
+import { capitalizeFirstLetter } from "../../utils";
+import { loadingStop } from "../redux/apploader";
+import admin from "../../../modules/service/admin";
+import { SellerProps } from "../redux/types";
 
 type Iheader = {
   newUser?: boolean;
@@ -23,12 +28,30 @@ type Iheader = {
 
 function Header({ newUser, inCompleteReg }: Iheader) {
   const { pathname } = useLocation();
-  const { first_name } = fetchUserDetails();
+  const {activeMessage} = useAppSelector((state) => state.messages)
+  const [sellerObject, setSellerObject] = useState<any>({})
+  // const { first_name, last_name, image } = useAppSelector((state) => state.messages.activeSeller)
   const { isloading } = useAppSelector((state) => state.isloading);
-
+const [sellerAvatar, setSellerAvatar] = useState("")
   const navigate = useNavigate();
   const value = getObject(getFirstLevelPath(pathname));
   const dispatch = useAppDispatch();
+
+  useEffect(() =>{    
+const activeSeller =  activeMessage[0]?.seller 
+setSellerObject(activeSeller)  
+  }, [activeMessage])
+
+  // useEffect(()=>{
+  //   admin
+  //   .getImage(image)
+  //   .then((res) => {
+  //     setSellerAvatar(res);
+  //   })
+  //   .catch((err) => console.log(err, "error"))
+  //   .finally(() => dispatch(loadingStop()));
+  // }, [image])
+
   return (
     <>
       <header className="confam__layout--header">
@@ -49,7 +72,7 @@ function Header({ newUser, inCompleteReg }: Iheader) {
           {displayPageInfo(pathname, newUser, inCompleteReg) && (
             <div className="titleBar__message">
               <div className="titleBar__message--headline">{`${value?.title} ${
-                pathname === "/dashboard" ? `${first_name}!` : ""
+                pathname === "/dashboard" ? `${sellerObject?.first_name}!` : ""
               }`}</div>
               <div className="titleBar__message--sub">
                 <span>{`${value?.subtitle}`}</span>
@@ -57,19 +80,19 @@ function Header({ newUser, inCompleteReg }: Iheader) {
               </div>
             </div>
           )}
-          {newUser === false && pathname === "/messages" && (
+          {newUser === false && pathname === "/messages" &&  (
             <div className="titleBar__message " id="user_info">
               <div className="titleBar__message--user_image">
-                {/* <img alt="user avatar" src={steve} /> */}
+                <img alt="" src={sellerAvatar} />
               </div>
               <div className="">
-                <div className="user_name">Steve Martins</div>{" "}
-                <div>
+               {sellerObject?.first_name && <div className="user_name">{capitalizeFirstLetter(sellerObject?.first_name)} {capitalizeFirstLetter(sellerObject?.last_name)}</div>}
+                {/* <div>
                   <span className="">
                     <img alt="status indicator" src={statusIndicator} />{" "}
-                  </span>{" "}
+                  </span>
                   <span className="user_status">Active Now</span>
-                </div>
+                </div> */}
               </div>
             </div>
           )}
