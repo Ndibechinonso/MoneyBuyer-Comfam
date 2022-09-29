@@ -20,7 +20,7 @@ const DashboardCards = ({
       <div className="text_content">
         <p className="card_title">{cardTitle}</p>
         <div className="flexRowCenter">
-        {loading ? <CustomLoader size={3} /> : <p className="amount">{amount}</p> }
+        {loading ? <CustomLoader size={3} /> : <p className="amount">{amount || 0}</p> }
         </div>
       </div>
    

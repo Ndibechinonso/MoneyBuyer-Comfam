@@ -8,6 +8,7 @@ import dashboardReducer from "./dashboard/dashboardSlice"
 import disputesReducer from "./disputes/disputesSlice"
 import tableFilterReducer from "./tableFilter/tableFilterSlice"
 import completeProfileReducer from "./completeUserProfile/completeProfileSlice";
+import messagesReducer from "./messages/messagesSlice"
 export default combineReducers({
   alert: alertReducer,
   tableItem: tableItmReducer,
@@ -17,5 +18,6 @@ export default combineReducers({
   dashboardSummary: dashboardReducer,
   disputes: disputesReducer,
   tableFilter: tableFilterReducer,
-  completeProfile: completeProfileReducer
+  completeProfile: completeProfileReducer,
+  messages: messagesReducer
 });

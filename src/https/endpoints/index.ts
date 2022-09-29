@@ -120,6 +120,16 @@ const ENDPOINTS = {
       url: "transaction/summary",
     },
   },
+  messages:{
+    get_messages:{
+      method: "GET",
+      url: "messages",
+    },
+    send_message:{
+      method: "POST",
+      url: "messages/chat",
+    }
+  },
   file_handling: {
     upload_s3_image: {
       method: "GET",

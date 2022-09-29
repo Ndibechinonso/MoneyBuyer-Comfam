@@ -107,6 +107,14 @@ const admin = {
     const { method, url } = ENDPOINTS.dashboard.dashboard_summary;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
+  async getAllMessages() {
+    const { method, url } = ENDPOINTS.messages.get_messages;
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url);
+  },
+  async sendNewMessage(body: any) {
+    const { method, url } = ENDPOINTS.messages.send_message;
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
+  },
 };
 
 export default admin;

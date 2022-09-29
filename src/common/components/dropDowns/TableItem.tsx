@@ -27,8 +27,6 @@ function TableItem({ data }: Props) {
 
 
   const viewingItem = () => {
-    console.log(data, "data");
-
     dispatch(addItem({ ...data }));
     if (pathname.includes("transaction")) {
       dispatch(Alerts("transactionitem", data.status));
