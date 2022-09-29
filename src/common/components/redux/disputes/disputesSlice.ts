@@ -21,6 +21,9 @@ const slice = createSlice({
         },
         updateSingleDispute: (state, action: PayloadAction<any>)=>{
             state.singleDispute = action.payload
+        },
+        removeSingleDispute: (state)=>{
+            state.singleDispute = initialState.singleDispute
         }
     },
     extraReducers(builder) {
@@ -42,5 +45,5 @@ const slice = createSlice({
     },
 })
 
-export const {changePageNumber, updateSingleDispute} = slice.actions
+export const {changePageNumber, updateSingleDispute, removeSingleDispute} = slice.actions
 export default slice.reducer

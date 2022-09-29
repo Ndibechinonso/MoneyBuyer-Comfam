@@ -1,20 +1,22 @@
-type tagsProps =
-  | {
-      value:
-        | "Pending confirmation"
-        | "Pending payment"
-        | "Awaiting delivery"
-        | "Pending delivery......"
-        | "Completed"
-        | "Cancelled"
-        | "Refunded";
-    }
-  | {
-      value: "Delivered" | "Pending delivery......";
-    }
-  | {
-      value: "Closed" | "Open" | "In-Progress" | "Resolved";
-    };
+type tagsProps ={
+  value: string
+}
+  // | {
+  //     value:
+  //       | "Pending confirmation"
+  //       | "Pending payment"
+  //       | "Awaiting delivery"
+  //       | "Pending delivery......"
+  //       | "Completed"
+  //       | "Cancelled"
+  //       | "Refunded";
+  //   }
+  // | {
+  //     value: "Delivered" | "Pending delivery......";
+  //   }
+  // | {
+  //     value: "Closed" | "Open" | "In-Progress" | "Resolved";
+  //   };
 
 function Tag({ value }: tagsProps) {
   let defClassName = "";
@@ -51,7 +53,7 @@ function Tag({ value }: tagsProps) {
 
   return (
     <span className={`tags tags__${defClassName}`}>
-      {value.split("-").join(" ").toLowerCase()}
+      {value?.split("-")?.join(" ")?.toLowerCase()}
     </span>
   );
 }

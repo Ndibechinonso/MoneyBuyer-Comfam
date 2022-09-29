@@ -8,18 +8,49 @@ export type SellerDetails = {
   phone_number: string;
 };
 
+export type fullSellerDetails = {
+  bvn: string;
+  city: string;
+  cognito_id: string;
+  createdAt: string;
+  date_of_birth: string;
+  email: string;
+  emailValidated: true;
+  first_name: string;
+  gender: string;
+  id: string;
+  last_name: string;
+  local_gov: string;
+  phone_number: string;
+  residential_address: string;
+  state: string;
+  state_of_origin: string;
+  street_number: number;
+  updatedAt: string;
+  user_type: "SELLER";
+  verified: true;
+  verifiedBvn: true;
+  wallet_id: string;
+  __v: number;
+  _id: string;
+  notification: INotification;
+  bank_details: IBank[];
+};
+
 export type NewTransaction = {
-  type: "SERVICE" | "PRODUCT";
+  // type: "SERVICE" | "PRODUCT" | "NEW_TRANSACTION";
+  type: string;
   sellerDetails: SellerDetails;
-  ProductName: string;
-  quantity: number;
+  productName: string;
+  quantity: string;
   description: string;
   productModel: string;
   images: string[];
   completionDueDate: string;
-  price: number;
+  price: string;
   deliveryAddress: string;
-  transactionFee: number;
+  transactionFee: string;
+  insuranceRequested: boolean;
 };
 
 export type VerificationProps = {
@@ -207,6 +238,47 @@ export type DisputesDataType = {
   error: string;
   disputes: Disputes[];
   singleDispute: Disputes;
+  count: number;
+  limit: string;
+  skip: string;
+  page: number;
+};
+
+export type Transaction = {
+  buyer: string;
+  canceled: boolean;
+  completed: boolean;
+  completionDueDate: string;
+  createdAt: string;
+  createdBy: "BUYER" | "SELLER";
+  deleted: boolean;
+  deliveryAddress: string;
+  description: string;
+  id: string;
+  images: string[];
+  insuranceRequested: true;
+  paymentTransactions: any[];
+  price: number;
+  productName: string;
+  quantity: number;
+  reason: string;
+  refundDate: string;
+  status: string;
+  transactionFee: number;
+  transaction_wallet: string;
+  type: "SERVICE" | "PRODUCT";
+  updatedAt: string;
+  seller: fullSellerDetails;
+  vat: number;
+  __v: number;
+  _id: string;
+};
+
+export type TransactionDataType = {
+  loading: boolean;
+  error: string;
+  transactions: Transaction[];
+  singleTransaction: Transaction;
   count: number;
   limit: string;
   skip: string;

@@ -134,7 +134,7 @@ export const confamFeesCalc = (
 };
 
 export const removeHypen = (text: string) =>
-  text.split("-").join(" ").toLocaleLowerCase();
+  text?.split("-")?.join(" ")?.toLocaleLowerCase();
 
 export const transactionModalTitleHandler = (data: any) => {
   let template: any;

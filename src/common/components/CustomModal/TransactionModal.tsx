@@ -14,14 +14,14 @@ import { Alerts } from "../redux/alert/alertActions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 function TransactionModal() {
-  const data = useAppSelector((state) => state.tableItem.itm);
+  const data = useAppSelector((state) => state.transactions.singleTransaction);
   const [images, setImages] = useState([]);
   const runOnce = useRef(false);
   const dispatch = useAppDispatch();
 
   const { totalPrice: price, transactionCost: cost } = confamFeesCalc(
-    data.price,
-    data.quantity
+    data.price.toString(),
+    data.quantity.toString()
   );
 
   const totalPrice = price.toString();
@@ -44,7 +44,7 @@ function TransactionModal() {
     <>
       <div className="transactionModal">
         <div
-          className={`transactionModal__title transactionModal__title--${data?.status.toLocaleLowerCase()}`}
+          className={`transactionModal__title transactionModal__title--${data?.status?.toLocaleLowerCase()}`}
         >
           <IndicatorIcon />
           <span>{transactionModalTitleHandler(data)}</span>
@@ -58,7 +58,7 @@ function TransactionModal() {
         <div className="transactionModal__body">
           <div className="transactionModal__body--head">
             <h4>Transaction Details</h4>
-            <Tag value={data?.status} />
+            <Tag value={data.status} />
             <ThreeDotIcon />
           </div>
           <section className="section">
@@ -67,7 +67,8 @@ function TransactionModal() {
               {(removeHypen(data?.status) === "completed" ||
                 removeHypen(data?.status) === "cancelled") && (
                 <p className="section__head--date">
-                  {data?.transactionDetails?.buyerInfo?.paymentDueDate}
+                  {/* {data?.transactionDetails?.buyerInfo?.paymentDueDate} */}
+                  {new Date(data.completionDueDate).toDateString()}
                 </p>
               )}
             </div>
@@ -81,7 +82,7 @@ function TransactionModal() {
               <div className="section__body--itm">
                 <h6 className="section__body--itm__title">Payment Due Date</h6>
                 <p className="section__body--itm__body">
-                  {new Date(data?.completionDueDate).toDateString()}
+                  {new Date(data.completionDueDate).toDateString()}
                 </p>
               </div>
               <div className="section__body--itm">

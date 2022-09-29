@@ -3,11 +3,12 @@ import EyeIcon from "../CustomIcons/EyeIcon";
 import DropDownItem from "./primitive/DropDownItem";
 import DropDownMenuContent from "./primitive/DropDownMenuContent";
 import { useAppDispatch } from "../redux/hooks";
-import { addItem } from "../redux/tableItem";
+// import { addItem } from "../redux/tableItem";
 import { Alerts } from "../redux/alert/alertActions";
 import { useLocation } from "react-router-dom";
 import { updateSingleDispute } from "../redux/disputes/disputesSlice";
 import { useEffect, useState } from "react";
+import { updateSingleTransaction } from "../redux/transaction/transactionSlice";
 
 type Props = {
   data: any;
@@ -27,11 +28,12 @@ function TableItem({ data }: Props) {
 
 
   const viewingItem = () => {
-    console.log(data, "data");
+    // console.log(data, "data");
 
-    dispatch(addItem({ ...data }));
+    // dispatch(addItem({ ...data }));
     if (pathname.includes("transaction")) {
       dispatch(Alerts("transactionitem", data.status));
+      dispatch(updateSingleTransaction(data))
     }
     if (pathname.includes("dispute")) {
       dispatch(Alerts("disputeitem", data.status));

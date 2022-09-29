@@ -68,7 +68,8 @@ const ENDPOINTS = {
     },
     all_transaction: {
       method: "GET",
-      url: "transaction",
+      url: (skips: number, limit: number, startDate: string, endDate: string) =>
+      startDate  ? `/transaction?skip=${skips}&limit=${limit}&startDate=${startDate}&endDate=${endDate}` : `/transaction?skip=${skips}&limit=${limit}`
     },
     confirm_delivery: {
       method: "PATCH",

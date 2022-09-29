@@ -35,8 +35,14 @@ const admin = {
     const { method, url } = ENDPOINTS.transaction.feedback_transactions;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
-  async getAllTransaction() {
-    const { method, url } = ENDPOINTS.transaction.all_transaction;
+  async getAllTransaction(
+    skips: number,
+    limit: number,
+    startDate?: string,
+    endDate?: string
+  ) {
+    const { method, url: makeUrl } = ENDPOINTS.transaction.all_transaction;
+    const url = makeUrl(skips, limit, startDate, endDate);
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
   async cancelTransaction(body: type.IcanceltransactionFeedback) {
