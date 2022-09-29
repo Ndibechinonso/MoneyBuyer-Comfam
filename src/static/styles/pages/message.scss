@@ -29,6 +29,7 @@
     padding: 1rem 1rem 0.75rem 1rem;
     display: grid;
     grid-template-columns: 35px max-content 1fr max-content;
+    align-items: center;
     grid-auto-rows: max-content;
     column-gap: 0.75rem;
     cursor: pointer;
@@ -61,7 +62,6 @@
       font-size: 0.75rem;
       font-weight: 500;
       line-height: 1.5rem;
-
       justify-self: flex-end;
       background-color: var(--brandColorTertiary4);
       color: var(--blackColorWhite);
@@ -71,6 +71,9 @@
       align-items: center;
       justify-content: center;
       border-radius: 50%;
+      span {
+        height: 20px;
+      }
     }
     &__time {
       grid-column: 4/5;
@@ -86,68 +89,159 @@
   }
 }
 
-.messages{
-    height: calc(100vh - 16.625rem);
-    border-radius: 0.625rem;
-    overflow: hidden;
+.messages {
+  height: calc(100vh - 16.625rem);
+  border-radius: 0.625rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.chatbody {
+  flex: 1;
+  background-color: var(--blackColorWhite);
+  padding: 2rem;
+  overflow-y: scroll;
+  .chat_content{
     display: flex;
     flex-direction: column;
+    gap: 40px;
+    .date{
+      margin-top: 90px;
+      // margin-bottom: 40px;
+      @include flexRow();
+      place-content: center;
+      place-items: center;
+      gap: 7px;
+      .date_value{
+        height: 12px;
+        font-weight: 500;
+font-size: 16px;
+color: #BDBDBD;
+
+      }
+    }
+  }
+  .text{
+   color: #001610;
+   height: 13px;
+  }
+  .seller_msg {
+    &_body {
+      position: relative;
+      background: #c2ebff;
+      z-index: 2 !important;
+      padding: 13px;
+      padding-left: 20px;
+      border-radius: 10px;
+      max-width: 60%;
+      display: inline-block;
+      .arrow-up {
+        position: absolute;
+        width: 0;
+        z-index: 0;
+        height: 0;
+        left: -15px;
+        top: -7px;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        border-bottom: 30px solid #c2ebff;
+        transform: matrix(-0.58, 0.81, 0.81, 0.58, 0, 0);
+      }
+      .time {
+        position: absolute;
+        bottom: -20px;
+        right: 0;
+        color: #bdbdbd;
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+    }
+  }
+  .buyer_msg {
+    &_body {
+      position: relative;
+      background: #c4c4c4;
+      z-index: 2 !important;
+      padding: 13px;
+      padding-right: 30px;
+      border-radius: 10px;
+      max-width: 60%;
+      display: inline-block;
+      margin-left: auto;
+      .arrow-up {
+        position: absolute;
+        width: 0;
+        z-index: 0;
+        height: 0;
+        right: -10px;
+        bottom: -5px;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        border-bottom: 30px solid #c4c4c4;
+        transform: rotate(132.7deg);
+      }
+      .time {
+        position: absolute;
+        bottom: -20px;
+        left: 0;
+        color: #bdbdbd;
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+    }
+  }
 }
-.chatbody{
+
+.chatactions {
+  display: flex;
+  background-color: var(--blackColorWhite);
+  box-shadow: 0px -1px 5px 0px #bdbdbd26;
+  padding: 1rem 2rem;
+  .uploadform {
+    border-right: 1px solid var(--greyColorGrey910);
+    label {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      display: block;
+      padding-right: 1.5rem;
+      display: flex;
+      align-items: center;
+
+      input {
+        display: none;
+      }
+    }
+  }
+  .chatform {
     flex: 1;
-    background-color: var(--blackColorWhite);
-}
-
-.chatactions{
     display: flex;
-    background-color: var(--blackColorWhite);
-    box-shadow: 0px -1px 5px 0px #BDBDBD26;
+    align-items: center;
+    padding-left: 2.25rem;
 
-
-    padding: 1rem 2rem;
-
-    .uploadform{
-        border-right: 1px solid var(--greyColorGrey910);
-        label{
-            flex: 1;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-            display: block;
-            padding-right: 1.5rem;
-            display: flex;
-            align-items: center;
-
-            input{
-                display: none;
-            }
-        }
+    label {
+      flex: 1;
+      height: 100%;
     }
-    .chatform{
-        flex: 1;
-        display: flex;
-        align-items: center;
-        padding-left: 2.25rem;
-
-        label{
-            flex: 1;
-            height: 100%;
-        }
-        input{
-            width: 100%;
-            height: 100%;
-            border: none;
-            &:focus{
-                outline: none;
-            }
-        }
-
-        button{
-            padding: 0.75rem 3rem;
-            border-radius: 0.625rem;
-            background-color: rgba($color: #00003d, $alpha: 0.5);
-            color: var(--blackColorWhite);
-            @include normalTextMedium;
-        }
+    input {
+      width: 100%;
+      height: 100%;
+      border: none;
+      &:focus {
+        outline: none;
+      }
     }
+
+    button {
+      padding: 0.75rem 3rem;
+      border-radius: 0.625rem;
+      background-color: rgba($color: #00003d, $alpha: 0.5);
+      color: var(--blackColorWhite);
+      @include normalTextMedium;
+    }
+    button:disabled {
+      background: #cccccc;
+    }
+  }
 }

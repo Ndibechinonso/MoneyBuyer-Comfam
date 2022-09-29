@@ -23,9 +23,9 @@ function MessageCard({
       ></div>
       <h6 className="messagecard__title">{buyerId}</h6>
       <p className="messagecard__message">{lastmessage}</p>
-      {newmessagecount && <div className={`messagecard__count`}>
+      {/* {newmessagecount && <div className={`messagecard__count`}>
         <span>{newmessagecount}</span>
-      </div>}
+      </div>} */}
       <time className="messagecard__time">{lastmessagetime}</time>
     </div>
   );

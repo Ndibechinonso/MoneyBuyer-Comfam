@@ -9,7 +9,7 @@ import CustomToast from "../../../../common/components/CustomToast";
 import { useAppDispatch, useAppSelector } from "../../../../common/components/redux/hooks";
 import { loadingStart, loadingStop } from "../../../../common/components/redux/apploader";
 import Pulse from "../../../../common/components/CustomIcons/Pulse";
-import { updatePassword, uploadImage } from "../../../../common/components/redux/completeUserProfile/completeProfileThunk";
+import { updatePassword, uploadProfileImage } from "../../../../common/components/redux/completeUserProfile/completeProfileThunk";
 
 const REACT_APP_FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
 
@@ -78,7 +78,7 @@ useEffect(() =>{
 
     if (files.length) {
       dispatch(loadingStart(""));
-       dispatch(uploadImage({files}))  
+       dispatch(uploadProfileImage({files}))  
        }
   };
 

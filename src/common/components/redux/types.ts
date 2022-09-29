@@ -5,8 +5,8 @@ export type AppDispatchProps<T = any> = {
 
 export type SellerDetails = {
   email: string;
-  phone_number: string;
-};
+  phone_number: string
+}
 
 export type fullSellerDetails = {
   bvn: string;
@@ -53,7 +53,7 @@ export type NewTransaction = {
   insuranceRequested: boolean;
 };
 
-export type VerificationProps = {
+export type VerificationProps ={
   image: string;
   last_name: string;
   first_name: string;
@@ -79,14 +79,13 @@ export type FeedbackProps = {
   change_request: string;
 };
 
-export interface IBank {
+export interface IBank{
   account_name: string;
   account_number: string;
   bank_name: string;
-  _id?: string;
 }
 
-export interface INotification {
+export interface INotification{
   email: boolean;
   email_subcription: boolean;
   push_notifications: boolean;
@@ -110,7 +109,6 @@ export type UserProps = {
   local_gov: string;
   notification: INotification;
   residential_address: string;
-  transactionCount: number;
   state: string;
   state_of_origin: string;
   street_name: string;
@@ -141,8 +139,8 @@ export const initialUser = {
     email: false,
     email_subcription: false,
     push_notifications: false,
-    sms: false,
-  },
+    sms: false
+    },
   residential_address: "",
   transactionCount: 0,
   state: "",
@@ -184,6 +182,17 @@ export type ContactListType = {
   updatedAt: string;
   id: string;
 };
+
+export type ActiveContractTypes = {
+  _id: string;
+  completionDueDate: string;
+  createdAt: string;
+  productName: string;
+  transactionFee: number;
+  seller: any;
+  status: string;
+};
+
 export type DashboardProps = {
   loading: boolean;
   error: string;
@@ -191,6 +200,7 @@ export type DashboardProps = {
   openTransactions: number;
   settledTransactions: number;
   transactionHistory: TransactionProps[];
+  activeContracts?: ActiveContractTypes[];
   contactList: ContactListType[];
 };
 
@@ -215,14 +225,14 @@ export type Disputes = {
     updatedAt: string;
   };
   buyer: {
-    _id: string;
-    email: string;
-    first_name: string;
-    user_type: string;
-    last_name: string;
-    createdAt: string;
-    updatedAt: string;
-    wallet_id: string;
+      _id: string;
+      email: string;
+      first_name: string;
+      user_type: string;
+      last_name: string;
+      createdAt: string;
+      updatedAt: string;
+      wallet_id: string;
   };
   transaction: string;
   dispute_reason: string;
@@ -242,6 +252,37 @@ export type DisputesDataType = {
   limit: string;
   skip: string;
   page: number;
+};
+export type SellerProps = {
+  business_name: string;
+  first_name: string;
+  id: string;
+  image: string;
+  loadedImage: string;
+  last_name: string;
+};
+export type ChatProps = {
+  createdAt: string;
+  id: string;
+  message: string;
+  message_id: string;
+  sender: string;
+  updatedAt: string;
+  date?: any;
+};
+export type MessageProps = {
+  _id: string;
+  seller: SellerProps;
+  chats: ChatProps[];
+};
+
+export type MessagesProps = {
+  loading: boolean;
+  error: string;
+  messageList: MessageProps[];
+  activeMessage: MessageProps[];
+  activeChats: ChatProps[];
+  activeSeller: SellerProps; 
 };
 
 export type Transaction = {

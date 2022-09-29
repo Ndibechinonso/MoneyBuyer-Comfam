@@ -90,7 +90,7 @@ const updatePassword = createAsyncThunk(
   }
 );
 
-const uploadImage = createAsyncThunk(
+const uploadProfileImage = createAsyncThunk(
   "user/uploadImage",
   async ({ files }: { files: any }, thunkAPI) => {
     admin
@@ -118,4 +118,4 @@ const uploadImage = createAsyncThunk(
   }
 );
 
-export { completeProfile, updateNotification, updatePassword, uploadImage };
+export { completeProfile, updateNotification, updatePassword, uploadProfileImage };
