@@ -40,7 +40,7 @@ function TableItem({ data }: Props) {
 
   return (
     <DropDownMenuContent className="tableDropDown">
-      <DropDownItem>
+      <DropDownItem >
         <button onClick={viewingItem}>
           <EyeIcon />
           <span>View {table}</span>

@@ -1,22 +1,13 @@
 import { customInput } from "./type";
 
-function CustomTextFields({
-  currencyIcon,
-  onKeyDown,
-  onChange,
-  onBlur,
-  onFocus,
-  placeholder,
-  name,
-  value,
-  label,
-  status,
-  iconPosition,
-  inputIcon,
-}: customInput) {
+function CustomTextFields(props: customInput) {
+  const { onKeyDown, onChange, onBlur, onFocus, onKeyUp } = props;
+  const { currencyIcon, placeholder, name, value, className } = props;
+  const { label, status, iconPosition, inputIcon, disabled } = props;
+
   return (
     <div
-      className={`customInput ${
+      className={`customInput ${className ? className : ""} ${
         iconPosition === "left" ? "customInput__left" : "customInput__right"
       }`}
     >
@@ -31,15 +22,18 @@ function CustomTextFields({
       <input
         className={`${currencyIcon === true ? "currencyIcon__input" : ""}`}
         onKeyDown={onKeyDown}
+        onKeyUp={onKeyUp}
         value={value}
         placeholder={placeholder}
         name={name}
         onChange={onChange}
         onBlur={onBlur}
         onFocus={onFocus}
+        disabled={disabled}
+        autoComplete="off"
       />
       {currencyIcon && <span className="currencyIcon">₦</span>}
-      {status && <p>{`${status}!`}</p>}
+      {status && <p>{`${status}`}</p>}
       {inputIcon}
     </div>
   );

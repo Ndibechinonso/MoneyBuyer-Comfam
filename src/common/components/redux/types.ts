@@ -5,8 +5,8 @@ export type AppDispatchProps<T = any> = {
 
 export type SellerDetails = {
   email: string;
-  phone_number: string;
-};
+  phone_number: string
+}
 
 export type NewTransaction = {
   type: "SERVICE" | "PRODUCT";
@@ -18,11 +18,11 @@ export type NewTransaction = {
   images: string[];
   completionDueDate: string;
   price: number;
-  deliveryAddress: string;
-  transactionFee: number;
-};
+  deliveryAddress: string
+  transactionFee: number
+}
 
-export type VerificationProps = {
+export type VerificationProps ={
   image: string;
   last_name: string;
   first_name: string;
@@ -48,13 +48,13 @@ export type FeedbackProps = {
   change_request: string;
 };
 
-export interface IBank {
+export interface IBank{
   account_name: string;
   account_number: string;
   bank_name: string;
 }
 
-export interface INotification {
+export interface INotification{
   email: boolean;
   email_subcription: boolean;
   push_notifications: boolean;
@@ -112,9 +112,10 @@ export const initialUser = {
     email: false,
     email_subcription: false,
     push_notifications: false,
-    sms: false,
-  },
+    sms: false
+    },
   residential_address: "",
+  transactionCount: 0,
   state: "",
   state_of_origin: "",
   street_name: "",
@@ -130,15 +131,17 @@ export const initialUser = {
 export type TransactionProps = {
   canceled: boolean;
   completed: boolean;
+  deleted: boolean;
   _id: string;
-  seller: any;
+  seller: null;
   buyer: string;
-  images: [];
-  refinedImage: string;
   price: 0;
+  createdBy: string;
   transactionFee: number;
   paymentTransactions: [];
+  completionDueDate: string;
   createdAt: string;
+  updatedAt: string;
   id: string;
 };
 
@@ -195,14 +198,14 @@ export type Disputes = {
     updatedAt: string;
   };
   buyer: {
-    _id: string;
-    email: string;
-    first_name: string;
-    user_type: string;
-    last_name: string;
-    createdAt: string;
-    updatedAt: string;
-    wallet_id: string;
+      _id: string;
+      email: string;
+      first_name: string;
+      user_type: string;
+      last_name: string;
+      createdAt: string;
+      updatedAt: string;
+      wallet_id: string;
   };
   transaction: string;
   dispute_reason: string;

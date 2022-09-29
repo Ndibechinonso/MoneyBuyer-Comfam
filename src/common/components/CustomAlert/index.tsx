@@ -19,6 +19,16 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
         />
       );
       break;
+    case "processing":
+      template = (
+        <ModalContent
+          type="alert"
+          progress
+          header="Please wait........"
+          text="Your action is being proccessed"
+        />
+      );
+      break;
     case "resetpassword":
       template = (
         <ModalContent
@@ -323,6 +333,17 @@ const CustomAlert = ({ alertType }: customAlertProps) => {
           alertIcon={success}
           header="Deposit Successful"
           text="Success! the funds will be added to your NGN wallet so your can pay for a transaction."
+          finishBtn
+        />
+      );
+      break;
+    case "withdrawalsuccessful":
+      template = (
+        <ModalContent
+          type="alert"
+          alertIcon={success}
+          header="Withdrawal Successful"
+          text="Success! the funds will reflect in your bank account in a few minutes"
           finishBtn
         />
       );

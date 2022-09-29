@@ -1,6 +1,7 @@
 export type iAlert =
   | ""
   | "progress"
+  | "processing"
   | "resetpassword"
   | "verificationfailed"
   | "accountverified"

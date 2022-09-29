@@ -19,8 +19,15 @@ export type IcanceltransactionFeedback = {
 export type IfundWallet = {
   reference: string;
 };
+export type Iwalletwithdraw = {
+  account_number: string;
+  bank_code: string;
+  amount: string;
+};
 export type IfundTransaction = {
   transaction: string;
 };
-
-
+export type IverifyAccountNumber = {
+  account_number: string;
+  bank_code: string;
+};

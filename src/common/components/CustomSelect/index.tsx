@@ -1,9 +1,5 @@
-// your-select.js
-
 import React from "react";
-
 import * as SelectPrimitive from "@radix-ui/react-select";
-
 import {
   CheckIcon,
   ChevronDownIcon,
@@ -13,40 +9,44 @@ import {
 interface Ibasic {
   children: React.ReactNode;
   className?: string;
+}
+
+interface IselectItem extends Ibasic {
   value: any;
 }
 
 interface Iselect extends Ibasic {
   name?: string;
-  onChange?: (e: any) => void;
+  onChange?: (e: string) => void;
+  onFocus?: (e: React.FocusEvent<HTMLButtonElement, Element>) => void;
   disabled?: boolean;
   id?: string;
   className?: string;
   placeholder?: string;
+  value?: any;
 }
 
 export const Select = React.forwardRef<HTMLButtonElement, Iselect>(
   ({ children, ...props }, forwardedRef) => {
     return (
       <SelectPrimitive.Root
-        value={props.value}
-        name={props.name}
-        onValueChange={props.onChange}
-
+        /* value={props.value} */ onValueChange={props.onChange}
       >
         <SelectPrimitive.Trigger
           disabled={props.disabled}
           id={props.id}
           className={props.className}
           ref={forwardedRef}
+          name={props.name}
+          value={props.value}
+          onFocus={props.onFocus}
         >
-          {props.value === "" ? (
-            <SelectPrimitive.Value placeholder={props.placeholder} />
-          ) : (
-            <SelectPrimitive.Value aria-label={props.value}>
-              {props.value}
-            </SelectPrimitive.Value>
-          )}
+          <SelectPrimitive.Value
+            placeholder={props.placeholder}
+            aria-label={props.value}
+          >
+            {props.value}
+          </SelectPrimitive.Value>
 
           <SelectPrimitive.Icon className="select-icon">
             <ChevronDownIcon />
@@ -72,7 +72,7 @@ export const Select = React.forwardRef<HTMLButtonElement, Iselect>(
     );
   }
 );
-export const SelectItem = React.forwardRef<HTMLDivElement, Ibasic>(
+export const SelectItem = React.forwardRef<HTMLDivElement, IselectItem>(
   ({ children, ...props }, forwardedRef) => {
     return (
       <SelectPrimitive.Item

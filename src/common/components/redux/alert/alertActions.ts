@@ -15,6 +15,8 @@ export const Alerts =
     switch (alertType) {
       case "progress":
         return dispatch({ type: AlertTypes.PROGRESS_MODAL });
+      case "processing":
+        return dispatch({ type: AlertTypes.PROCESSING_MODAL });
       case "resetpassword":
         return dispatch({ type: AlertTypes.RESETPASSWORD_MODAL });
       case "verificationfailed":

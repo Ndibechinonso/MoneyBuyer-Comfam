@@ -7,6 +7,7 @@ import userReducer from "./getUser/getUserSlice"
 import dashboardReducer from "./dashboard/dashboardSlice"
 import disputesReducer from "./disputes/disputesSlice"
 import tableFilterReducer from "./tableFilter/tableFilterSlice"
+import walletReducer from "./fundsAndWallet/fundsAndWalletSlice";
 import completeProfileReducer from "./completeUserProfile/completeProfileSlice";
 import messagesReducer from "./messages/messagesSlice"
 export default combineReducers({
@@ -18,6 +19,7 @@ export default combineReducers({
   dashboardSummary: dashboardReducer,
   disputes: disputesReducer,
   tableFilter: tableFilterReducer,
+  wallet: walletReducer,
   completeProfile: completeProfileReducer,
   messages: messagesReducer
 });
