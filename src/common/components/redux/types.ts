@@ -91,11 +91,7 @@ export type UserProps = {
 };
 
 export const initialUser = {
-  bank_details: {
-    account_name: "",
-    account_number: "",
-    bank_name: "",
-  },
+  bank_details: [],
   bvn: "",
   city: "",
   // createdAt: "2022-09-14T19:03:37.415Z",
