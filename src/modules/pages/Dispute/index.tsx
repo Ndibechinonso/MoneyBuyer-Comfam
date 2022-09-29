@@ -1,24 +1,40 @@
-import { useEffect } from "react"
-import Table from "../../../common/components/CustomTable/Table"
-import { useAppDispatch, useAppSelector } from "../../../common/components/redux/hooks"
-import { disputeTable } from "../../../fakeData"
-import { fetchAllDisputes } from "../../../common/components/redux/disputes/disputesAsyncThunk"
+import { useEffect, useRef } from "react";
+import Table from "../../../common/components/CustomTable/Table";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../common/components/redux/hooks";
+import { disputeTable } from "../../../fakeData";
+import { fetchAllDisputes } from "../../../common/components/redux/disputes/disputesAsyncThunk";
 
 function Dispute() {
-  const dispatch = useAppDispatch()
+  const mountOnce = useRef(false);
+  const dispatch = useAppDispatch();
   const { startDate, endDate } = useAppSelector((state) => state.tableFilter);
-const {disputes} = useAppSelector((state) => state.disputes)
-const {page} = useAppSelector((state) => state.disputes)
+  const { disputes } = useAppSelector((state) => state.disputes);
+  const { page } = useAppSelector((state) => state.disputes);
 
-  useEffect(() =>{
-    dispatch(fetchAllDisputes({page, startDate, endDate}))
-  }, [page, endDate])
-  
+  useEffect(() => {
+    if (page || startDate || endDate) {
+      dispatch(fetchAllDisputes({ page, startDate, endDate }));
+    }
+  }, [page, endDate]); // eslint-disable-line
+
+  useEffect(() => {
+    if (mountOnce.current === true) {
+      return;
+    }
+    if (disputes.length === 0) {
+      dispatch(fetchAllDisputes({ page, startDate, endDate }));
+    }
+    mountOnce.current = true;
+  }, [page, endDate]); // eslint-disable-line
+
   return (
     <>
       <Table data={disputes} headers={disputeTable.columns} />
-  </>
-  )
+    </>
+  );
 }
 
-export default Dispute
+export default Dispute;

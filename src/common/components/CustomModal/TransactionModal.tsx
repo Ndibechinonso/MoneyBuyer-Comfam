@@ -63,7 +63,13 @@ function TransactionModal() {
           </div>
           <section className="section">
             <div className="section__head">
-              <h5 className="section__head--title">Seller’s Information</h5>
+              <div className="flex__sellerinfo__btn">
+                <h5 className="section__head--title">Seller’s Information</h5>
+                {removeHypen(data?.status) === "pending payment" ||
+                removeHypen(data?.status) === "awaiting delivery" ? (
+                  <button>Chat Seller</button>
+                ) : null}
+              </div>
               {(removeHypen(data?.status) === "completed" ||
                 removeHypen(data?.status) === "cancelled") && (
                 <p className="section__head--date">

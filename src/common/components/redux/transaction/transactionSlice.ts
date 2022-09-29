@@ -1,10 +1,6 @@
 import { createSlice, isAnyOf, PayloadAction } from "@reduxjs/toolkit";
 import { TransactionDataType } from "../types";
-import {
-  acceptATransaction,
-  createNewTransaction,
-  fetchAllTransactions,
-} from "./transactionAsyncThunk";
+import * as thunk from "./transactionAsyncThunk";
 
 const initialState: TransactionDataType = {
   loading: false,
@@ -33,12 +29,12 @@ const slice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchAllTransactions.pending, (state) => {
+      .addCase(thunk.fetchAllTransactions.pending, (state) => {
         state.loading = true;
         state.transactions = [];
       })
       .addCase(
-        fetchAllTransactions.fulfilled,
+        thunk.fetchAllTransactions.fulfilled,
         (state, action: PayloadAction<TransactionDataType>) => {
           state.loading = false;
           state.limit = action.payload?.limit;
@@ -46,22 +42,40 @@ const slice = createSlice({
           state.transactions = action.payload?.transactions;
         }
       )
-      .addCase(fetchAllTransactions.rejected, (state, action) => {
+      .addCase(thunk.fetchAllTransactions.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "something went wrong";
       })
       .addMatcher(
-        isAnyOf(createNewTransaction.pending, acceptATransaction.pending),
+        isAnyOf(
+          thunk.createNewTransaction.pending,
+          thunk.acceptATransaction.pending,
+          thunk.rejectATransaction.pending,
+          thunk.deleteATransaction.pending,
+          thunk.confirmADelivery.pending,
+          thunk.cancelATransaction.pending,
+          thunk.transactionFeedback.pending,
+        ),
         (state) => {
           state.loading = true;
         }
       )
       .addMatcher(
         isAnyOf(
-          createNewTransaction.fulfilled,
-          createNewTransaction.rejected,
-          acceptATransaction.fulfilled,
-          acceptATransaction.rejected
+          thunk.createNewTransaction.fulfilled,
+          thunk.createNewTransaction.rejected,
+          thunk.acceptATransaction.fulfilled,
+          thunk.acceptATransaction.rejected,
+          thunk.rejectATransaction.fulfilled,
+          thunk.rejectATransaction.rejected,
+          thunk.deleteATransaction.fulfilled,
+          thunk.deleteATransaction.rejected,
+          thunk.confirmADelivery.fulfilled,
+          thunk.confirmADelivery.rejected,
+          thunk.cancelATransaction.fulfilled,
+          thunk.cancelATransaction.rejected,
+          thunk.transactionFeedback.fulfilled,
+          thunk.transactionFeedback.rejected,
         ),
         (state) => {
           state.loading = false;

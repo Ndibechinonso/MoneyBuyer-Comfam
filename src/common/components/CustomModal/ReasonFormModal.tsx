@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import CustomButton from "../CustomButtons";
-// import { Alerts } from "../redux/alert/alertActions";
-// import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppSelector } from "../redux/hooks";
 
 type IReasonFormProps = {
   placeHolder?: any;
@@ -11,18 +11,21 @@ type IReasonFormProps = {
 
 function ReasonFormModal({ placeHolder, onSubmitHandler }: IReasonFormProps) {
   const [inputContent, setInputContent] = useState("");
-  // const direction = useAppSelector((state) => state.alert.modalDirection);
-  // const dispatch = useAppDispatch();
-  // const modalNavHandler = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   setInputContent("");
-  //   if (direction === "cancel") {
-  //     dispatch(Alerts("transactioncancelled"));
-  //   }
-  //   if (direction === "confirm") {
-  //     dispatch(Alerts("transactionaccepted"));
-  //   }
-  // };
+  const { pathname } = useLocation();
+  const { loading: transaction_loading } = useAppSelector(
+    (state) => state.transactions
+  );
+
+  const disableBtn = () => {
+    if (
+      (pathname.includes("transaction") && transaction_loading === true) ||
+      inputContent === ""
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <form onSubmit={onSubmitHandler}>
       <label htmlFor="reason"></label>
@@ -35,7 +38,7 @@ function ReasonFormModal({ placeHolder, onSubmitHandler }: IReasonFormProps) {
         onChange={(e) => setInputContent(e.target.value)}
       />
       <CustomButton
-        disabled={inputContent === ""}
+        disabled={disableBtn()}
         type="submit"
         className="alert_modal_btn"
         action={() => null}

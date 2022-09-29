@@ -119,7 +119,7 @@ function TableInfo({
               </td>
             </tr>
           ) : data.length > 1 ? (
-            data.map((row, idx) => {
+            data?.map((row, idx) => {
               return (
                 <tr key={idx}>
                   {headers.map((col, id) => (
