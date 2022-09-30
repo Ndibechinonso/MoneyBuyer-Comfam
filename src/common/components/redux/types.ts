@@ -8,19 +8,50 @@ export type SellerDetails = {
   phone_number: string
 }
 
+export type fullSellerDetails = {
+  bvn: string;
+  city: string;
+  cognito_id: string;
+  createdAt: string;
+  date_of_birth: string;
+  email: string;
+  emailValidated: true;
+  first_name: string;
+  gender: string;
+  id: string;
+  last_name: string;
+  local_gov: string;
+  phone_number: string;
+  residential_address: string;
+  state: string;
+  state_of_origin: string;
+  street_number: number;
+  updatedAt: string;
+  user_type: "SELLER";
+  verified: true;
+  verifiedBvn: true;
+  wallet_id: string;
+  __v: number;
+  _id: string;
+  notification: INotification;
+  bank_details: IBank[];
+};
+
 export type NewTransaction = {
-  type: "SERVICE" | "PRODUCT";
+  // type: "SERVICE" | "PRODUCT" | "NEW_TRANSACTION";
+  type: string;
   sellerDetails: SellerDetails;
-  ProductName: string;
-  quantity: number;
+  productName: string;
+  quantity: string;
   description: string;
   productModel: string;
   images: string[];
   completionDueDate: string;
-  price: number;
-  deliveryAddress: string
-  transactionFee: number
-}
+  price: string;
+  deliveryAddress: string;
+  transactionFee: string;
+  insuranceRequested: boolean;
+};
 
 export type VerificationProps ={
   image: string;
@@ -176,18 +207,18 @@ export type DashboardProps = {
 export type Disputes = {
   _id: string;
   seller: {
-    // _id: string;
-    // state: string;
-    // local_gov: string;
-    // city: string;
-    // street_number: number;
-    // phone_number: string;
+    _id: string;
+    state: string;
+    local_gov: string;
+    city: string;
+    street_number: number;
+    phone_number: string;
     last_name: string;
-    // user_type: string;
+    user_type: string;
     first_name: string;
     bvn: string;
-    // emailValidated: boolean;
-    // cognito_id: string;
+    emailValidated: boolean;
+    cognito_id: string;
     email: string;
     bank_details: [];
     createdAt: string;
@@ -252,4 +283,45 @@ export type MessagesProps = {
   activeMessage: MessageProps[];
   activeChats: ChatProps[];
   activeSeller: SellerProps; 
+};
+
+export type Transaction = {
+  buyer: string;
+  canceled: boolean;
+  completed: boolean;
+  completionDueDate: string;
+  createdAt: string;
+  createdBy: "BUYER" | "SELLER";
+  deleted: boolean;
+  deliveryAddress: string;
+  description: string;
+  id: string;
+  images: string[];
+  insuranceRequested: true;
+  paymentTransactions: any[];
+  price: number;
+  productName: string;
+  quantity: number;
+  reason: string;
+  refundDate: string;
+  status: string;
+  transactionFee: number;
+  transaction_wallet: string;
+  type: "SERVICE" | "PRODUCT";
+  updatedAt: string;
+  seller: fullSellerDetails;
+  vat: number;
+  __v: number;
+  _id: string;
+};
+
+export type TransactionDataType = {
+  loading: boolean;
+  error: string;
+  transactions: Transaction[];
+  singleTransaction: Transaction;
+  count: number;
+  limit: string;
+  skip: string;
+  page: number;
 };

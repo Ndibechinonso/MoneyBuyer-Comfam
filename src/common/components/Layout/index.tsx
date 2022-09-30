@@ -8,16 +8,11 @@ import Notice from "./Notice";
 import CustomAlert from "../CustomAlert";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import Messages from "../Messages";
-import {
-  fetchUserDetails,
-  fetchUserToken,
-  storeUserDetails,
-} from "../../../https/storage";
-import admin from "../../../modules/service/admin";
-import { loadStart, loadStop } from "../redux/apploader";
+import { fetchUserDetails, fetchUserToken } from "../../../https/storage";
 import CustomLoader from "../CustomLoader";
-import { removeItem } from "../redux/tableItem";
 import fetchUser from "../redux/getUser/getUserThunk";
+import { removeSingleTransaction } from "../redux/transaction/transactionSlice";
+import { removeSingleDispute } from "../redux/disputes/disputesSlice";
 
 function Layout() {
   const { pathname } = useLocation();
@@ -25,14 +20,17 @@ function Layout() {
   const [newUser, setNewUser] = useState(true);
   const value = getObject(getFirstLevelPath(pathname));
   const { modal, modalType } = useAppSelector((state) => state.alert);
-  const { itm: transactionItm } = useAppSelector((state) => state.tableItem);
+  const { id: transactionId } = useAppSelector(
+    (state) => state.transactions.singleTransaction
+  );
+  const { _id: disputeId } = useAppSelector(
+    (state) => state.disputes.singleDispute
+  );
   const mountOnce = useRef(false);
   const { verified, transactionCount } = useAppSelector(
     (state) => state.user.user
   );
-  const { isloading, initiator, prevInitiator } = useAppSelector(
-    (state) => state.isloading
-  );
+  const { isloading, initiator } = useAppSelector((state) => state.isloading);
   const dispatch = useAppDispatch();
 
   useLayoutEffect(() => {
@@ -45,27 +43,30 @@ function Layout() {
   }, [verified, transactionCount]);
 
   useEffect(() => {
-    if (modalType === "" && transactionItm.id) {
-      dispatch(removeItem());
+    if (modalType === "" && transactionId) {
+      dispatch(removeSingleTransaction());
     }
-  }, [modalType, modal]); //eslint-disable-line
-
-  useEffect(() => {
-    if (
-      prevInitiator === "wallet_transaction" ||
-      (transactionCount === 0 && prevInitiator === "created_new_transaction")
-    ) {
-      dispatch(fetchUser());
+    if (modalType === "" && disputeId) {
+      dispatch(removeSingleDispute());
     }
-  }, [prevInitiator, dispatch]); //eslint-disable-line
+  }, [modalType, transactionId, disputeId, dispatch]); //eslint-disable-line
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   if (
+  //     prevInitiator === "wallet_transaction" ||
+  //     (transactionCount === 0 && prevInitiator === "created_new_transaction")
+  //   ) {
+  //     dispatch(fetchUser());
+  //   }
+  // }, [prevInitiator, dispatch]); //eslint-disable-line
+
+  useLayoutEffect(() => {
     if (mountOnce.current) {
       return;
     }
     dispatch(fetchUser());
     mountOnce.current = true;
-  }, []);
+  }, []); //eslint-disable-line
 
   if (!fetchUserToken() || fetchUserDetails() === false) {
     return <Navigate replace to="/signin/buyer" />;

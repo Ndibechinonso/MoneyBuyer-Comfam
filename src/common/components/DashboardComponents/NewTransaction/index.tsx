@@ -12,11 +12,12 @@ import { confamFeesCalc, toNaira } from "../../../utils/helpers";
 import Calender from "../../CustomDate";
 import admin from "../../../../modules/service/admin";
 import customtoast from "../../CustomToast";
-import { loadStart, loadStop } from "../../redux/apploader";
+import { createNewTransaction } from "../../redux/transaction/transactionAsyncThunk";
 
 const NewTransaction = () => {
   const id = useId();
-  const { isloading } = useAppSelector((state) => state.isloading);
+  // const { isloading } = useAppSelector((state) => state.isloading);
+  const { loading: isloading } = useAppSelector((state) => state.transactions);
   const [imgUploading, setImgUploading] = useState(false);
   const dispatch = useAppDispatch();
   const initialState = {
@@ -152,13 +153,7 @@ const NewTransaction = () => {
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    dispatch(loadStart("created_new_transaction"));
-    admin
-      .newTransaction(inputs)
-      .then((res) => dispatch(Alerts("newtransactioncreated")))
-      .catch((err) => customtoast(err.message, true))
-      .finally(() => dispatch(loadStop()));
+    dispatch(createNewTransaction(inputs));
   };
 
   return (

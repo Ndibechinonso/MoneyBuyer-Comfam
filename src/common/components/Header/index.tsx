@@ -100,7 +100,7 @@ setSellerObject(activeSeller)
             <CustomButton
               disabled={isloading}
               className="titleBar__cta"
-              action={() => dispatch(Alerts("withdrawalsuccessful"))}
+              action={() => dispatch(Alerts("newtransaction"))}
               actionText="New Transaction"
             />
           ) : null}

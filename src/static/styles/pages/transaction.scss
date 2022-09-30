@@ -237,6 +237,20 @@
     justify-content: space-between;
     align-items: center;
 
+.flex__sellerinfo__btn{
+  display: flex;
+  align-items: center;
+  column-gap: 0.75rem;
+
+  button{
+    padding: .5rem;
+    border: 1px solid var(--brandColorPrimary4);
+    background-color: transparent;
+    color: var(--brandColorPrimary4);
+    border-radius: 0.25rem;
+  }
+}
+
     &--title {
       @include normalTextSemiBold;
       color: var(--greyColorGrey1);

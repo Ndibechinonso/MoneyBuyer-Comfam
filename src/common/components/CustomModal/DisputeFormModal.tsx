@@ -62,13 +62,16 @@ function DisputeFormModal() {
   const [inputs, setInputs] = useState<IcreateDispute>(initialState);
   const [images, setImages] = useState([]);
   const mountOnce = useRef(false);
-  const transactionItem = useAppSelector((state) => state.tableItem.itm);
+  // const transactionItem = useAppSelector((state) => state.tableItem.itm);
+  const transactionItem = useAppSelector(
+    (state) => state.transactions.singleTransaction
+  );
   const [imgUpload, setImgUpload] = useState({ loading: false, rawImages: [] });
   const dispatch = useAppDispatch();
 
   const { totalPrice: price, transactionCost: cost } = confamFeesCalc(
-    transactionItem.price,
-    transactionItem.quantity
+    transactionItem.price.toString(),
+    transactionItem.quantity.toString()
   );
 
   const transactionItemTotalPrice = price.toString();
@@ -80,7 +83,7 @@ function DisputeFormModal() {
     }
     setInputs((prev) => ({
       ...prev,
-      seller: transactionItem.seller,
+      seller: transactionItem.seller.id,
       buyer: transactionItem.buyer,
       transaction: transactionItem.id,
     }));
