@@ -29,6 +29,8 @@ const slice = createSlice({
            state.disputes = []
         })
         .addCase(fetchAllDisputes.fulfilled, (state, action: PayloadAction<DisputesDataType>) =>{
+            console.log(action.payload);
+            
             state.loading = false
             state.limit = action.payload?.limit
             state.count = action.payload?.count
