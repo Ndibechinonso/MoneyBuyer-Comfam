@@ -7,6 +7,7 @@ import { storeUserDetails, storeUserToken } from "../../../../https/storage";
 import { useNavigate } from "react-router-dom";
 import { loadingStart, loadingStop } from "../../redux/apploader";
 import customtoast from "../../CustomToast";
+import { updateUser } from "../../redux/getUser/getUserSlice";
 
 const Form = () => {
   const id = useId();
@@ -40,10 +41,17 @@ const Form = () => {
         customtoast(res?.message);
         setIsSubmitted(false);
         storeUserToken(res.tokens.accessToken);
+        dispatch(
+          updateUser({
+            ...res.user.buyer,
+            transactionCount: res.user.transactionCount,
+          })
+        );
         storeUserDetails({
           ...res.user.buyer,
           transactionCount: res.user.transactionCount,
         });
+
         navigate("/dashboard");
       })
       .catch((err) => {

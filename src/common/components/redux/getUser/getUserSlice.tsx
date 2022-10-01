@@ -19,6 +19,14 @@ const slice = createSlice({
         },
         resetProfileImageState: (state) =>{
             state.profileImageChange = false;
+        },
+        updateUser:(state,action) => {
+            state.user = action.payload
+        },
+        resetUser: (state)=> {
+            state.error = initialState.error
+            state.user = initialState.user
+            state.profileImageChange = initialState.profileImageChange
         }
     },
     extraReducers: (builder) =>{
@@ -36,5 +44,5 @@ const slice = createSlice({
     }
 })
 
-export const {updateProfileImage, resetProfileImageState} = slice.actions
+export const {updateProfileImage, resetProfileImageState, updateUser,resetUser} = slice.actions
 export default slice.reducer

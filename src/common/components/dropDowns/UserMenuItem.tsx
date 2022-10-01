@@ -5,6 +5,7 @@ import LogoutIcon from "../CustomIcons/LogoutIcon";
 import ReminderIcon from "../CustomIcons/ReminderIcon";
 import SettingsIcon from "../CustomIcons/SettingsIcon";
 import UserIcon from "../CustomIcons/UserIcon";
+import { resetState } from "../redux/resetState";
 import DropDownItem from "./primitive/DropDownItem";
 import DropDownMenuContent from "./primitive/DropDownMenuContent";
 
@@ -13,8 +14,9 @@ function UserMenuItem() {
 
   const logoutHandler = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {    
+  ) => {
     clearUserDetails();
+    resetState();
     navigate("/");
   };
 

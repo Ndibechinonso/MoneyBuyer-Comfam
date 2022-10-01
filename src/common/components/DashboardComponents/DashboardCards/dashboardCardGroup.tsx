@@ -4,13 +4,13 @@ import dashboardCardImg_2 from "../../../../static/images/dashboardCard_2.svg";
 import dashboardCardImg_3 from "../../../../static/images/dashboardCard_3.svg";
 import { useAppSelector } from "../../redux/hooks";
 
-const DashboardCardGroup = () => {
+const DashboardCardGroup = ({iref}) => {
   const { loading, totalTransactions, openTransactions, settledTransactions } =
     useAppSelector((state) => state.dashboardSummary);
 
   return (
     <div className="dashboard_card_group">
-      <div>
+      <div ref={iref} >
         <DashboardCards
           cardImg={dashboardCardImg_1}
           cardTitle="Open Transactions"

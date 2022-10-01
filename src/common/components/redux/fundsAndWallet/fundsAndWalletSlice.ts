@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchAllBanks, fetchWalletInfo } from "./fundsAndWalletAsyncThunk";
 import { IfundsAndWallet } from "./types";
-// import { DisputesDataType } from "../types";
-// import { fetchAllDisputes } from "./disputesAsyncThunk";
+
 const initialState: IfundsAndWallet = {
   loading: false,
   error: "",
@@ -23,7 +22,14 @@ const initialState: IfundsAndWallet = {
 const slice = createSlice({
   name: "wallet",
   initialState,
-  reducers: {},
+  reducers: {
+    resetWallet: (state) => {
+      state.wallet = initialState.wallet;
+      state.loading = initialState.loading;
+      state.error = initialState.error;
+      state.banks = initialState.banks;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchAllBanks.pending, (state) => {
@@ -54,4 +60,5 @@ const slice = createSlice({
   },
 });
 
+export const {resetWallet} = slice.actions
 export default slice.reducer;

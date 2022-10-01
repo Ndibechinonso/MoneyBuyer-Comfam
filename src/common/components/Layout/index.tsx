@@ -13,6 +13,7 @@ import CustomLoader from "../CustomLoader";
 import fetchUser from "../redux/getUser/getUserThunk";
 import { removeSingleTransaction } from "../redux/transaction/transactionSlice";
 import { removeSingleDispute } from "../redux/disputes/disputesSlice";
+import useLoading from "../../hooks/useLoading";
 
 function Layout() {
   const { pathname } = useLocation();
@@ -27,10 +28,11 @@ function Layout() {
     (state) => state.disputes.singleDispute
   );
   const mountOnce = useRef(false);
-  const { verified, transactionCount } = useAppSelector(
+  const { verified, transactionCount, user_type } = useAppSelector(
     (state) => state.user.user
   );
-  const { isloading, initiator } = useAppSelector((state) => state.isloading);
+  const { transactionloading, userloading } = useLoading();
+  
   const dispatch = useAppDispatch();
 
   useLayoutEffect(() => {
@@ -60,11 +62,19 @@ function Layout() {
   //   }
   // }, [prevInitiator, dispatch]); //eslint-disable-line
 
+  useEffect(() => {
+    if (transactionCount === 0 && transactionloading) {
+      dispatch(fetchUser());
+    }
+  }, [transactionloading, dispatch]); // eslint-disable-line
+
   useLayoutEffect(() => {
     if (mountOnce.current) {
       return;
     }
-    dispatch(fetchUser());
+    if (user_type === "") {
+      dispatch(fetchUser());
+    }
     mountOnce.current = true;
   }, []); //eslint-disable-line
 
@@ -91,7 +101,7 @@ function Layout() {
               pathname
             )} content__${userError ? "userError" : "clean"}`}
           >
-            {isloading && initiator === "newuser_check" ? (
+            {userloading ? (
               <div style={{ height: "50vh", gridColumn: "1/-1" }}>
                 <CustomLoader size={10} />
               </div>

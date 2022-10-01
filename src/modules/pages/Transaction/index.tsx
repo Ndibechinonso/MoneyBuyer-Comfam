@@ -13,8 +13,6 @@ function Transaction() {
   const { transactions, page } = useAppSelector((state) => state.transactions);
   const dispatch = useAppDispatch();
 
-  console.log(page, "page", startDate, "startDate", endDate, "endDate");
-
   useEffect(() => {
     if (page || startDate || endDate) {
       dispatch(fetchAllTransactions({ page, startDate, endDate }));

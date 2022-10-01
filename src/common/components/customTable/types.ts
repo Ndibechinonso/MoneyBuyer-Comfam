@@ -33,5 +33,5 @@ export type ifState = {
 export type TControls = {
   data?: any[];
   setFilteredData?: React.Dispatch<React.SetStateAction<any[]>>;
-  disabled?: boolean
+  disabled?: boolean;
 };

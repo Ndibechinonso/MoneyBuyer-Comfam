@@ -1,11 +1,13 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import useScrollToView from "../../../common/hooks/useScrollToView";
 import { fetchUserDetails } from "../../../https/storage";
 
 function Settings() {
+  const headerRef = useScrollToView()
   return (
     <>
-      <ul className="setting__navigation">
+      <ul ref={headerRef} className="setting__navigation">
         <li className="setting__navigation--item">
           <NavLink
             className={({ isActive }) =>

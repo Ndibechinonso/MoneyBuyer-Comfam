@@ -8,10 +8,12 @@ import { convertStatusFilter, removeHypen } from "../../utils/helpers";
 import { updateDate } from "../redux/tableFilter/tableFilterSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { useLocation } from "react-router-dom";
+import useScrollToView from "../../hooks/useScrollToView";
 
 function TableControls(props: TControls) {
   const { data, setFilteredData, disabled } = props;
   const { pathname } = useLocation();
+  const headerRef = useScrollToView()
 
   const dispatch = useAppDispatch();
 
@@ -85,7 +87,7 @@ function TableControls(props: TControls) {
   };
 
   return (
-    <div className="table__control">
+    <div ref={headerRef} className="table__control">
       <span className="table__control--btn">
         <button onClick={resetAllFilters}>Showing All</button>
       </span>

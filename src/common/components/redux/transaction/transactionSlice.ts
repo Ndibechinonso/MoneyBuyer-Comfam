@@ -26,6 +26,14 @@ const slice = createSlice({
     removeSingleTransaction: (state) => {
       state.singleTransaction = initialState.singleTransaction;
     },
+    resetTransactions: (state) => {
+      state.error = initialState.error;
+      state.transactions = initialState.transactions;
+      state.singleTransaction = initialState.singleTransaction;
+      state.count = initialState.count;
+      state.limit = initialState.limit;
+      state.page = initialState.page;
+    },
   },
   extraReducers(builder) {
     builder
@@ -54,7 +62,7 @@ const slice = createSlice({
           thunk.deleteATransaction.pending,
           thunk.confirmADelivery.pending,
           thunk.cancelATransaction.pending,
-          thunk.transactionFeedback.pending,
+          thunk.transactionFeedback.pending
         ),
         (state) => {
           state.loading = true;
@@ -75,7 +83,7 @@ const slice = createSlice({
           thunk.cancelATransaction.fulfilled,
           thunk.cancelATransaction.rejected,
           thunk.transactionFeedback.fulfilled,
-          thunk.transactionFeedback.rejected,
+          thunk.transactionFeedback.rejected
         ),
         (state) => {
           state.loading = false;
@@ -88,5 +96,6 @@ export const {
   changePageNumber,
   updateSingleTransaction,
   removeSingleTransaction,
+  resetTransactions,
 } = slice.actions;
 export default slice.reducer;
