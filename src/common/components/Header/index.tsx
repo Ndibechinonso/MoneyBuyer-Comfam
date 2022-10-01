@@ -40,9 +40,8 @@ const [unreadNotifications, setUnreadNotifications] = useState([])
   const [sellerAvatar, setSellerAvatar] = useState("")
 
 useEffect(()=>{
-const newNotifications = notifications.filter((notification) => notification.status === false)
+const newNotifications = notifications.filter((notification) => notification.read === false)
 setUnreadNotifications(newNotifications)
-
 }, [notifications])
 
   useEffect(() =>{    

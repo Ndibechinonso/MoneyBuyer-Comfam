@@ -4,7 +4,7 @@ import TableControls from "./TableControls";
 import { TObj } from "./types";
 import { useAppSelector } from "../redux/hooks";
 
-function Table({ headers, data, activeOrder, recentTransacionHistory }: TObj) {
+const Table = ({ headers, data, activeOrder, recentTransacionHistory }: TObj) => {
 
   const {loading} = useAppSelector((state) => state.disputes)
 

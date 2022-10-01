@@ -13,7 +13,7 @@ type Props = {
   data: any;
 };
 
-function TableItem({ data }: Props) {
+const TableItem = ({ data }: Props) => {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
 

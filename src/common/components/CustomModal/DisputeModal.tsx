@@ -7,7 +7,7 @@ import { Alerts } from "../redux/alert/alertActions";
 import CustomButton from "../CustomButtons";
 import DisputeTracker from "./DisputeTraker";
 
-function DisputeModal() {
+const DisputeModal = () => {
   const dispatch = useAppDispatch();
   const [display, setDisplay] = useState("Details");
   const { singleDispute } = useAppSelector((state) => state.disputes);
