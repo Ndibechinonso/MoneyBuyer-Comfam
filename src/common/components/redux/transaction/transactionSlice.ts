@@ -13,8 +13,8 @@ const initialState: TransactionDataType = {
   pagination: {
     currentPage: 0,
     dataCount: 0,
-    totalPages: 0
-},
+    totalPages: 0,
+  },
   page: 0,
 };
 
@@ -35,8 +35,7 @@ const slice = createSlice({
       state.error = initialState.error;
       state.transactions = initialState.transactions;
       state.singleTransaction = initialState.singleTransaction;
-      state.count = initialState.count;
-      state.limit = initialState.limit;
+      state.pagination = initialState.pagination;
       state.page = initialState.page;
     },
   },
@@ -48,7 +47,7 @@ const slice = createSlice({
       })
       .addCase(
         thunk.fetchAllTransactions.fulfilled,
-        (state, action: PayloadAction<TransactionDataType>) => {          
+        (state, action: PayloadAction<TransactionDataType>) => {
           state.loading = false;
           state.pagination.currentPage = action.payload?.pagination.currentPage;
           state.pagination.dataCount = action.payload?.pagination.dataCount;
