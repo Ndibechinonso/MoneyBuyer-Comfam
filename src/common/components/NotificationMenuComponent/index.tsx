@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import ThreeDotIcon from "../CustomIcons/ThreeDot";
 import DropDown from "../DropDowns/primitive";
 import NotificationDropDownItem from "../DropDowns/NotificationItem";
+import { duration } from "../../utils";
 
 type Props = {
     status: boolean;
@@ -10,8 +11,9 @@ type Props = {
 };
 
 function NotificationItem({status,content, time}: Props) {
+  
   return (
-    <div className={`${status?"notifications__itemR":"notifications__item"}`}>
+    <div className={`${status ? "notifications__itemR" : "notifications__item"}`}>
       <div className="notifications__item--status"></div>
       <span className="notifications__item--avatar"></span>
       <p className="notifications__item--content">
@@ -22,7 +24,7 @@ function NotificationItem({status,content, time}: Props) {
           <ThreeDotIcon />
         </button>
       </DropDown>
-      <p className="notifications__item--time">{time}</p>
+      <p className="notifications__item--time">{duration(time) + " ago"}</p>
     </div>
   );
 }

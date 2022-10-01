@@ -27,15 +27,23 @@ type Iheader = {
 };
 
 function Header({ newUser, inCompleteReg }: Iheader) {
-  const { pathname } = useLocation();
-  const {activeMessage} = useAppSelector((state) => state.messages)
-  const [sellerObject, setSellerObject] = useState<any>({})
-  // const { first_name, last_name, image } = useAppSelector((state) => state.messages.activeSeller)
-  const { isloading } = useAppSelector((state) => state.isloading);
-const [sellerAvatar, setSellerAvatar] = useState("")
+
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const value = getObject(getFirstLevelPath(pathname));
   const dispatch = useAppDispatch();
+  const {notifications} = useAppSelector((state) => state.notification)
+const [unreadNotifications, setUnreadNotifications] = useState([])
+  const {activeMessage} = useAppSelector((state) => state.messages)
+  const [sellerObject, setSellerObject] = useState<any>({})
+  const { isloading } = useAppSelector((state) => state.isloading);
+  const [sellerAvatar, setSellerAvatar] = useState("")
+
+useEffect(()=>{
+const newNotifications = notifications.filter((notification) => notification.status === false)
+setUnreadNotifications(newNotifications)
+
+}, [notifications])
 
   useEffect(() =>{    
 const activeSeller =  activeMessage[0]?.seller 
@@ -60,7 +68,7 @@ setSellerObject(activeSeller)
             className="notification__icon"
             onClick={() => navigate("/notifications")}
           >
-            <NotificationIcon />
+            <NotificationIcon color={`${unreadNotifications.length > 0 ? "#E01D1D" : "#FFFFFF"}`} />
           </button>
           <DropDown content={<UserMenuItem />}>
             <button>

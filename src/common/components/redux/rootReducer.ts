@@ -10,6 +10,7 @@ import tableFilterReducer from "./tableFilter/tableFilterSlice";
 import walletReducer from "./fundsAndWallet/fundsAndWalletSlice";
 import completeProfileReducer from "./completeUserProfile/completeProfileSlice";
 import messagesReducer from "./messages/messagesSlice"
+import notificationsReducer from "./notifications/notificationsSlice"
 
 export default combineReducers({
   alert: alertReducer,
@@ -22,5 +23,6 @@ export default combineReducers({
   wallet: walletReducer,
   completeProfile: completeProfileReducer,
   transactions: transactionReducer,
-  messages: messagesReducer
+  messages: messagesReducer,
+  notification: notificationsReducer
 });

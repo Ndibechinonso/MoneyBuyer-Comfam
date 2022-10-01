@@ -25,12 +25,18 @@ function TableInfo({
   const [neglectlimit, setLimit] = useState(5);
   const { pathname } = useLocation();
 
-  const { loading: dispute_loading, count: dispute_count } = useAppSelector(
+  const { loading: dispute_loading} = useAppSelector(
     (state) => state.disputes
   );
-  const { loading: transaction_loading, count: transaction_count } =
+  const {dataCount: dispute_count} = useAppSelector(
+    (state) => state.disputes.pagination
+  );
+  const { loading: transaction_loading } =
     useAppSelector((state) => state.transactions);
 
+    const {dataCount: transaction_count} = useAppSelector(
+      (state) => state.transactions.pagination
+    );
   // const offset = (page - 1) * limit;
   // const endposition = page * limit;
 
@@ -46,10 +52,10 @@ function TableInfo({
 
   useEffect(() => {
     if (pathname.includes("dispute")) {
-      dispatch(changePageNumber(currentPage - 1));
+      dispatch(changePageNumber(currentPage));
     }
     if (pathname.includes("transaction")) {
-      dispatch(trans_changePageNumber(currentPage - 1));
+      dispatch(trans_changePageNumber(currentPage));
     }
   }, [currentPage]); // eslint-disable-line
 
