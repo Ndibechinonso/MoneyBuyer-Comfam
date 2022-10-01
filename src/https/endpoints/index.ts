@@ -69,7 +69,9 @@ const ENDPOINTS = {
     all_transaction: {
       method: "GET",
       url: (skips: number, limit: number, startDate: string, endDate: string) =>
-      startDate  ? `/transaction?skip=${skips}&limit=${limit}&startDate=${startDate}&endDate=${endDate}` : `/transaction?skip=${skips}&limit=${limit}`
+        startDate
+          ? `/transaction?skip=${skips}&limit=${limit}&startDate=${startDate}&endDate=${endDate}`
+          : `/transaction?skip=${skips}&limit=${limit}`,
     },
     confirm_delivery: {
       method: "PATCH",
@@ -87,30 +89,30 @@ const ENDPOINTS = {
       method: "POST",
       url: "/transaction/cancel",
     },
-    get_wallet:{
-      method:"GET",
-      url:"/transaction/wallet"
+    get_wallet: {
+      method: "GET",
+      url: "/transaction/wallet",
     },
-    fund_buyer_wallet:{
-      method:"POST",
-      url:"/transaction/credit-wallet"
+    fund_buyer_wallet: {
+      method: "POST",
+      url: "/transaction/credit-wallet",
     },
-    fund_transaction:{
-      method:"POST",
-      url:"/transaction/fund"
+    fund_transaction: {
+      method: "POST",
+      url: "/transaction/fund",
     },
-    get_all_banks:{
-      method:"GET",
-      url:"/transaction/banks"
+    get_all_banks: {
+      method: "GET",
+      url: "/transaction/banks",
     },
-    withdraw_from_wallet:{
-      method:"POST",
-      url:"/transaction/withdraw"
+    withdraw_from_wallet: {
+      method: "POST",
+      url: "/transaction/withdraw",
     },
-    verify_account_number:{
-      method:"POST",
-      url:"/transaction/verify-account"
-    }
+    verify_account_number: {
+      method: "POST",
+      url: "/transaction/verify-account",
+    },
   },
   disputes: {
     create_dispute: {
@@ -120,28 +122,40 @@ const ENDPOINTS = {
     get_disputes: {
       method: "GET",
       url: (skips: number, limit: number, startDate: string, endDate: string) =>
-      startDate  ? `/dispute?skip=${skips}&limit=${limit}&startDate=${startDate}&endDate=${endDate}` : `/dispute?skip=${skips}&limit=${limit}`
+        startDate
+          ? `/dispute?skip=${skips}&limit=${limit}&startDate=${startDate}&endDate=${endDate}`
+          : `/dispute?skip=${skips}&limit=${limit}`,
     },
     get_a_dispute: {
       method: "GET",
       url: (id: string) => `/dispute?id=${id}`,
     },
   },
-  dashboard:{
+  dashboard: {
     dashboard_summary: {
       method: "GET",
       url: "transaction/summary",
     },
   },
-  messages:{
-    get_messages:{
+  messages: {
+    create_message: {
+      method: "POST",
+      url: "messages",
+    },
+    get_messages: {
       method: "GET",
       url: "messages",
     },
-    send_message:{
+    send_message: {
       method: "POST",
       url: "messages/chat",
-    }
+    },
+  },
+  notifications: {
+    get_notifications: {
+      method: "GET",
+      url: "notification",
+    },
   },
   file_handling: {
     upload_s3_image: {

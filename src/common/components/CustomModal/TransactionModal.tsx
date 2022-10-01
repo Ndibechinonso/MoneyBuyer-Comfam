@@ -12,6 +12,7 @@ import ThreeDotIcon from "../CustomIcons/ThreeDot";
 import Tag from "../CustomTags";
 import { Alerts } from "../redux/alert/alertActions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { createMessage } from "../redux/messages/messagesAsyncThunk";
 
 function TransactionModal() {
   const data = useAppSelector((state) => state.transactions.singleTransaction);
@@ -40,6 +41,9 @@ function TransactionModal() {
     runOnce.current = true;
   }, []); //eslint-disable-line
 
+  const chatSeller = (seller, transaction) =>{
+dispatch(createMessage({seller, transaction}))
+  }
   return (
     <>
       <div className="transactionModal">
@@ -67,7 +71,7 @@ function TransactionModal() {
                 <h5 className="section__head--title">Seller’s Information</h5>
                 {removeHypen(data?.status) === "pending payment" ||
                 removeHypen(data?.status) === "awaiting delivery" ? (
-                  <button>Chat Seller</button>
+                  <button onClick={() => chatSeller(data.seller._id, data._id)}>Chat Seller</button>
                 ) : null}
               </div>
               {(removeHypen(data?.status) === "completed" ||

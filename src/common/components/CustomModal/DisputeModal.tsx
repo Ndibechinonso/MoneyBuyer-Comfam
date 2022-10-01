@@ -24,7 +24,7 @@ function DisputeModal() {
             <div
               className="cursor-pointer"
               onClick={() => {
-                dispatch(Alerts(""));
+                display === "Details" ? dispatch(Alerts("")) : setDisplay("Details")
               }}
             >
               <ArrowLeft />

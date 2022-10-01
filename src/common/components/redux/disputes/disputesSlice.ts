@@ -6,9 +6,14 @@ const initialState: DisputesDataType = {
     error: "",
     disputes: [],
     singleDispute: {} as any,
-    count: 0,
-    limit: "",
-    skip: "",
+    // count: 0,
+    // limit: "",
+    // skip: "",
+    pagination: {
+        currentPage: 0,
+        dataCount: 0,
+        totalPages: 0
+    },
     page: 0
 }
 
@@ -33,10 +38,12 @@ const slice = createSlice({
         })
         .addCase(fetchAllDisputes.fulfilled, (state, action: PayloadAction<DisputesDataType>) =>{
             state.loading = false
-            state.limit = action.payload?.limit
-            state.count = action.payload?.count
+            state.pagination.currentPage = action.payload?.pagination.currentPage;
+            state.pagination.dataCount = action.payload?.pagination.dataCount;
+            state.pagination.dataCount = action.payload?.pagination.dataCount;
+            // state.limit = action.payload?.limit
+            // state.count = action.payload?.count
             state.disputes = action.payload?.disputes
-
         })
         .addCase(fetchAllDisputes.rejected, (state, action)=>{
             state.loading = false

@@ -29,7 +29,7 @@ function TableItem({ data }: Props) {
   const viewingItem = () => {
   
     if (pathname.includes("transaction")) {
-      dispatch(Alerts("transactionitem", data.status));
+      dispatch(Alerts("transactionitem", data.status));      
       dispatch(updateSingleTransaction(data))
     }
     if (pathname.includes("dispute")) {
