@@ -11,6 +11,7 @@ import walletReducer from "./fundsAndWallet/fundsAndWalletSlice";
 import completeProfileReducer from "./completeUserProfile/completeProfileSlice";
 import messagesReducer from "./messages/messagesSlice"
 import notificationsReducer from "./notifications/notificationsSlice"
+import dashboardGraphReducer from "./dashboardGraph/dashboardGraphSlice"
 
 export default combineReducers({
   alert: alertReducer,
@@ -24,5 +25,6 @@ export default combineReducers({
   completeProfile: completeProfileReducer,
   transactions: transactionReducer,
   messages: messagesReducer,
-  notification: notificationsReducer
+  notification: notificationsReducer,
+  dashboardGraph: dashboardGraphReducer
 });

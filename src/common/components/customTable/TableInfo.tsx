@@ -14,12 +14,12 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import CustomLoader from "../CustomLoader";
 import { useLocation } from "react-router-dom";
 
-function TableInfo({
+const TableInfo = ({
   headers,
   data,
   activeOrder,
   recentTransacionHistory,
-}: TObj) {
+}: TObj) => {
   const dispatch = useAppDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [neglectlimit, setLimit] = useState(5);
@@ -28,13 +28,13 @@ function TableInfo({
   const { loading: dispute_loading} = useAppSelector(
     (state) => state.disputes
   );
-  const {dataCount: dispute_count} = useAppSelector(
+  const {totalPages: dispute_totalPages} = useAppSelector(
     (state) => state.disputes.pagination
   );
   const { loading: transaction_loading } =
     useAppSelector((state) => state.transactions);
 
-    const {dataCount: transaction_count} = useAppSelector(
+    const {totalPages: transaction_totalPages} = useAppSelector(
       (state) => state.transactions.pagination
     );
   // const offset = (page - 1) * limit;
@@ -45,9 +45,9 @@ function TableInfo({
   const totalPages = useMemo(
     () =>
       pathname.includes("dispute")
-        ? Math.ceil((dispute_count || 0) / 10)
-        : Math.ceil((transaction_count || 0) / 10),
-    [dispute_count, transaction_count, pathname]
+        ? dispute_totalPages
+        : transaction_totalPages,
+    [dispute_totalPages, transaction_totalPages, pathname]
   );
 
   useEffect(() => {
@@ -124,7 +124,7 @@ function TableInfo({
                 <CustomLoader size={10} />
               </td>
             </tr>
-          ) : data.length > 1 ? (
+          ) : data.length > 0 ? (
             data?.map((row, idx) => {
               return (
                 <tr key={idx}>
