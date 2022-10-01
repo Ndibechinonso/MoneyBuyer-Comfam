@@ -1,13 +1,12 @@
-import * as React from "react"
-import { SVGProps } from "react"
+import * as React from "react";
+import { SVGProps } from "react";
 
-const NotificationIcon = (props: SVGProps<SVGSVGElement>) => (
+const NotificationIcon = ({color}: any) => (
   <svg
     width="1em"
     height="1em"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    {...props}
   >
     <path
       fillRule="evenodd"
@@ -20,8 +19,8 @@ const NotificationIcon = (props: SVGProps<SVGSVGElement>) => (
       stroke="#4F4F4F"
       strokeLinecap="round"
     />
-    <circle cx={17} cy={7.5} r={2} fill="#E01D1D" />
+    <circle cx={17} cy={7.5} r={2} fill={color} />
   </svg>
-)
+);
 
-export default NotificationIcon
+export default NotificationIcon;

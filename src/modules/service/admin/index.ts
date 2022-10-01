@@ -130,6 +130,10 @@ const admin = {
     const { method, url } = ENDPOINTS.dashboard.dashboard_summary;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
+  async createNewMessage(body: any) {
+    const { method, url } = ENDPOINTS.messages.create_message;
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
+  },
   async getAllMessages() {
     const { method, url } = ENDPOINTS.messages.get_messages;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
@@ -137,6 +141,10 @@ const admin = {
   async sendNewMessage(body: any) {
     const { method, url } = ENDPOINTS.messages.send_message;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
+  },
+  async getNotifications() {
+    const { method, url } = ENDPOINTS.notifications.get_notifications;
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
 };
 

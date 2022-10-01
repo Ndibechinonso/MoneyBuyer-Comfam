@@ -56,24 +56,27 @@ export const formatDate = (date: string, mode = 1) => {
     const time = new Intl.DateTimeFormat(undefined, { timeStyle: "short" })
       .format(new Date(date))
       .toLowerCase();
-    
-      const suffix = (day) =>{
-        switch(day){
-          case 1: return "st";
-          case 2: return "2nd";
-          case 3: return "3rd"
-          default: return "th"
-        }
+
+    const suffix = (day) => {
+      switch (day) {
+        case 1:
+          return "st";
+        case 2:
+          return "2nd";
+        case 3:
+          return "3rd";
+        default:
+          return "th";
       }
+    };
 
     return `${month} ${day}${suffix(day)}, ${year}`;
-  } else if(mode === 3){
+  } else if (mode === 3) {
     const time = new Intl.DateTimeFormat(undefined, { timeStyle: "short" })
       .format(new Date(date))
       .toUpperCase();
-      return time
-  }
-  else {
+    return time;
+  } else {
     return date.replaceAll("-", "/");
   }
 };
@@ -85,33 +88,60 @@ export const formatCurrency = (value: number) => {
   );
 };
 
-
-export const toDateTime = (date: string) => new Date(date).toISOString().substring(0, 16);
+export const toDateTime = (date: string) =>
+  new Date(date).toISOString().substring(0, 16);
 
 export const checkObjectValues = (myObj, propsLength) => {
   let valuesArray;
   let bankArray;
-  valuesArray = Object.values(myObj)
-let result = []
-for(var i = 0; i < valuesArray.length; i++){
-if(valuesArray[i].hasOwnProperty("bank_name")){
-  bankArray = Object.values(valuesArray[i])
-  for (var j = 0; j < bankArray.length; j++){
-    if(bankArray[j].length > 0){
-      result = result.concat(bankArray[j])
+  valuesArray = Object.values(myObj);
+  let result = [];
+  for (var i = 0; i < valuesArray.length; i++) {
+    if (valuesArray[i].hasOwnProperty("bank_name")) {
+      bankArray = Object.values(valuesArray[i]);
+      for (var j = 0; j < bankArray.length; j++) {
+        if (bankArray[j].length > 0) {
+          result = result.concat(bankArray[j]);
+        }
+      }
+    } else {
+      if (valuesArray[i].length > 0) {
+        result.push(valuesArray[i]);
+      }
     }
   }
-}else{
-  if(valuesArray[i].length > 0){
-    result.push(valuesArray[i])
-  }
-}
-}
-return result.length >= propsLength ? true : false
+  return result.length >= propsLength ? true : false;
 };
 
-export const capitalizeFirstLetter = (name: string) =>{
-  const firstLetter = name.substring(0, 1).toUpperCase()
-  const otherLetters = name.substring(1).toLowerCase()
-  return firstLetter + otherLetters
-}
+export const capitalizeFirstLetter = (name: string) => {
+  const firstLetter = name.substring(0, 1).toUpperCase();
+  const otherLetters = name.substring(1).toLowerCase();
+  return firstLetter + otherLetters;
+};
+
+export const duration = (t1: any) => {
+  let d = new Date().getTime() - new Date(t1).getTime();
+  let months = Math.floor(d / 1000 / 60 / 60 / 24/ 7 / 30);
+  let weeks = Math.floor(d / 1000 / 60 / 60 / 24/ 7);
+  let days = Math.floor(d / 1000 / 60 / 60 / 24);
+  let hours = Math.floor(d / 1000 / 60 / 60);
+  let minutes = Math.floor(d / 1000 / 60);
+  let seconds = Math.floor(d / 1000);
+  let t;
+  if (seconds < 60) {
+    t = seconds + "s";
+  }
+   if (seconds > 60) {
+    t = minutes + "m";
+  }  if (minutes > 60) {
+    t = hours + "h";
+  }  if (hours > 24) {
+    t = days + "d";
+  }if(days > 7){
+    t = weeks + "w"
+  }if(weeks > 4){
+    t = months + "m"
+  }
+
+  return t;
+};
