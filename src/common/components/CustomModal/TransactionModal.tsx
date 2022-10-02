@@ -13,11 +13,16 @@ import Tag from "../CustomTags";
 import { Alerts } from "../redux/alert/alertActions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { createMessage } from "../redux/messages/messagesAsyncThunk";
+import { removeNotificationItem } from "../redux/notifications/notificationsSlice";
 
 function TransactionModal() {
   const data = useAppSelector((state) => state.transactions.singleTransaction);
+  const notification = useAppSelector(
+    (state) => state.notification.notification.item
+  );
   const [images, setImages] = useState([]);
   const runOnce = useRef(false);
+  const runUnmount = useRef(false);
   const dispatch = useAppDispatch();
 
   const { totalPrice: price, transactionCost: cost } = confamFeesCalc(
@@ -27,6 +32,18 @@ function TransactionModal() {
 
   const totalPrice = price.toString();
   const transactionCost = cost.toString();
+
+  useEffect(() => {
+    if (runUnmount.current === false) {
+      runUnmount.current = true;
+      return;
+    }
+    return () => {
+      if (notification.id) {
+        dispatch(removeNotificationItem());
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (runOnce.current) {
@@ -41,9 +58,9 @@ function TransactionModal() {
     runOnce.current = true;
   }, []); //eslint-disable-line
 
-  const chatSeller = (seller, transaction) =>{
-dispatch(createMessage({seller, transaction}))
-  }
+  const chatSeller = (seller, transaction) => {
+    dispatch(createMessage({ seller, transaction }));
+  };
   return (
     <>
       <div className="transactionModal">
@@ -71,7 +88,9 @@ dispatch(createMessage({seller, transaction}))
                 <h5 className="section__head--title">Seller’s Information</h5>
                 {removeHypen(data?.status) === "pending payment" ||
                 removeHypen(data?.status) === "awaiting delivery" ? (
-                  <button onClick={() => chatSeller(data.seller._id, data._id)}>Chat Seller</button>
+                  <button onClick={() => chatSeller(data.seller._id, data._id)}>
+                    Chat Seller
+                  </button>
                 ) : null}
               </div>
               {(removeHypen(data?.status) === "completed" ||

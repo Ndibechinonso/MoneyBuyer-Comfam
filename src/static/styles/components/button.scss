@@ -78,6 +78,36 @@
         flex-direction: row-reverse;
     }
 
+    &__loading{
+        color: var(--greyColorGrey1);
+        background: var(--blackColorWhite);
+        border: 2px solid var(--greyColorGrey4);
+        cursor: wait !important;
+        position: relative;
+        display: flex;
+        overflow: hidden;
+
+        span{
+            z-index: 0;
+            opacity: 0;
+        }
+
+        &::before{
+            content: '';
+            position: absolute;
+            inset: 0;
+            width: 150%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                        60deg,
+                        transparent,
+                        transparent .75rem,
+                        var(--greyColorGrey4) .75rem,
+                        var(--greyColorGrey4) 1.5rem);
+            animation: load 1s infinite linear;
+        }
+    }
+
     &Primary,
     &Secondary {
         

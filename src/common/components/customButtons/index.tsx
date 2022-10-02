@@ -1,4 +1,3 @@
-import CustomLoader from "../CustomLoader";
 import { CustomButtonProps } from "./types";
 
 function CustomButton(props: CustomButtonProps) {
@@ -67,13 +66,12 @@ function CustomButton(props: CustomButtonProps) {
       onClick={action}
       className={`${defaultClassName}  ${
         iconOreintation === "right" ? "btn__ort" : ""
-      } btn`}
+      } ${loading ? "btn__loading" : ""} btn`}
       disabled={loading || disabled}
       style={style}
     >
       {iconItem ? iconItem : null}
-      {actionText && !loading ? actionText : null}
-      {loading ? <CustomLoader size={3} /> : null}
+      <span>{actionText}</span>
     </button>
   );
 }

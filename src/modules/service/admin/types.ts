@@ -31,3 +31,6 @@ export type IverifyAccountNumber = {
   account_number: string;
   bank_code: string;
 };
+export type ImarkNotification = {
+  notification_id: string;
+};

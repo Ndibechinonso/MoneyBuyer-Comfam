@@ -73,6 +73,10 @@ const ENDPOINTS = {
           ? `/transaction?skip=${skips}&limit=${limit}&startDate=${startDate}&endDate=${endDate}`
           : `/transaction?skip=${skips}&limit=${limit}`,
     },
+    get_a_transaction: {
+      method: "GET",
+      url: (id: string) => `/transaction/one?id=${id}`,
+    },
     confirm_delivery: {
       method: "PATCH",
       url: (id: string) => `/transaction/confirm-delivery?transaction_id=${id}`,
@@ -128,7 +132,7 @@ const ENDPOINTS = {
     },
     get_a_dispute: {
       method: "GET",
-      url: (id: string) => `/dispute?id=${id}`,
+      url: (id: string) => `/dispute/one?id=${id}`,
     },
   },
   dashboard: {
@@ -158,7 +162,16 @@ const ENDPOINTS = {
   notifications: {
     get_notifications: {
       method: "GET",
-      url: (skips: number, limit: number) => `notification?skip=${skips}&limit=${limit}`,
+      url: (skips: number, limit: number) =>
+        `notification?skip=${skips}&limit=${limit}`,
+    },
+    mark_notfication_read: {
+      method: "PUT",
+      url: "/notification/read",
+    },
+    delete_notfication: {
+      method: "DEL",
+      url: (id: string) => `/notification?id=${id}`,
     },
   },
   file_handling: {

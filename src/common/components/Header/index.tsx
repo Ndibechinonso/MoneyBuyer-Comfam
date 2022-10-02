@@ -20,6 +20,7 @@ import { capitalizeFirstLetter } from "../../utils";
 import { loadingStop } from "../redux/apploader";
 import admin from "../../../modules/service/admin";
 import { SellerProps } from "../redux/types";
+import useLoading from "../../hooks/useLoading";
 
 type Iheader = {
   newUser?: boolean;
@@ -27,27 +28,30 @@ type Iheader = {
 };
 
 function Header({ newUser, inCompleteReg }: Iheader) {
-
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const value = getObject(getFirstLevelPath(pathname));
   const dispatch = useAppDispatch();
-  const {notifications} = useAppSelector((state) => state.notification)
-const [unreadNotifications, setUnreadNotifications] = useState([])
-  const {activeMessage} = useAppSelector((state) => state.messages)
-  const [sellerObject, setSellerObject] = useState<any>({})
-  const { isloading } = useAppSelector((state) => state.isloading);
-  const [sellerAvatar, setSellerAvatar] = useState("")
+  const { notifications } = useAppSelector((state) => state.notification);
+  const [unreadNotifications, setUnreadNotifications] = useState([]);
+  const { activeMessage } = useAppSelector((state) => state.messages);
+  const [sellerObject, setSellerObject] = useState<any>({});
+  // const { isloading } = useAppSelector((state) => state.);
+  const { transactionloading } = useLoading();
 
-useEffect(()=>{
-const newNotifications = notifications.filter((notification) => notification.read === false)
-setUnreadNotifications(newNotifications)
-}, [notifications])
+  const [sellerAvatar, setSellerAvatar] = useState("");
 
-  useEffect(() =>{    
-const activeSeller =  activeMessage[0]?.seller 
-setSellerObject(activeSeller)  
-  }, [activeMessage])
+  useEffect(() => {
+    const newNotifications = notifications.filter(
+      (notification) => notification.read === false
+    );
+    setUnreadNotifications(newNotifications);
+  }, [notifications]);
+
+  useEffect(() => {
+    const activeSeller = activeMessage[0]?.seller;
+    setSellerObject(activeSeller);
+  }, [activeMessage]);
 
   // useEffect(()=>{
   //   admin
@@ -67,7 +71,11 @@ setSellerObject(activeSeller)
             className="notification__icon"
             onClick={() => navigate("/notifications")}
           >
-            <NotificationIcon color={`${unreadNotifications.length > 0 ? "#E01D1D" : "#FFFFFF"}`} />
+            <NotificationIcon
+              color={`${
+                unreadNotifications.length > 0 ? "#E01D1D" : "#FFFFFF"
+              }`}
+            />
           </button>
           <DropDown content={<UserMenuItem />}>
             <button>
@@ -87,13 +95,18 @@ setSellerObject(activeSeller)
               </div>
             </div>
           )}
-          {newUser === false && pathname === "/messages" &&  (
+          {newUser === false && pathname === "/messages" && (
             <div className="titleBar__message " id="user_info">
               <div className="titleBar__message--user_image">
                 <img alt="" src={sellerAvatar} />
               </div>
               <div className="">
-               {sellerObject?.first_name && <div className="user_name">{capitalizeFirstLetter(sellerObject?.first_name)} {capitalizeFirstLetter(sellerObject?.last_name)}</div>}
+                {sellerObject?.first_name && (
+                  <div className="user_name">
+                    {capitalizeFirstLetter(sellerObject?.first_name)}{" "}
+                    {capitalizeFirstLetter(sellerObject?.last_name)}
+                  </div>
+                )}
                 {/* <div>
                   <span className="">
                     <img alt="status indicator" src={statusIndicator} />{" "}
@@ -105,7 +118,8 @@ setSellerObject(activeSeller)
           )}
           {displayHeaderBtn(pathname, newUser, inCompleteReg) ? (
             <CustomButton
-              disabled={isloading}
+              disabled={transactionloading}
+              loading={transactionloading}
               className="titleBar__cta"
               action={() => dispatch(Alerts("newtransaction"))}
               actionText="New Transaction"

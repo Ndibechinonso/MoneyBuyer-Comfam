@@ -342,7 +342,7 @@ export type TransactionDataType = {
 };
 
 export interface INotifications {
-  // action_id: string;
+  action_id: string;
   createdAt: string;
   notification: string;
   notification_action: string;
@@ -352,7 +352,8 @@ export interface INotifications {
 }
 export type NotificationsProps = {
   loading: boolean;
-notifications: INotifications[];
-pagination: PaginationProps;
-page: number;
+  notifications: INotifications[];
+  notification: {loading: boolean; item: any };
+  pagination: PaginationProps;
+  page: number;
 };

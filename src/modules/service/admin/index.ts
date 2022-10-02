@@ -49,6 +49,11 @@ const admin = {
     const { method, url } = ENDPOINTS.transaction.cancel_transaction;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
+  async getSingleTransaction(id: string) {
+    const { method, url: makeUrl } = ENDPOINTS.transaction.get_a_transaction;
+    const url = makeUrl(id);
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url);
+  },
   async getWalletBalance() {
     const { method, url } = ENDPOINTS.transaction.get_wallet;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
@@ -132,7 +137,7 @@ const admin = {
   },
   async getDashboardGraph(duration: string) {
     const { method, url: makeUrl } = ENDPOINTS.dashboard.chart_summary;
-    const url = makeUrl(duration)
+    const url = makeUrl(duration);
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
   async createNewMessage(body: any) {
@@ -149,7 +154,16 @@ const admin = {
   },
   async getNotifications(skips: number, limit: number) {
     const { method, url: makeUrl } = ENDPOINTS.notifications.get_notifications;
-    const url = makeUrl(skips, limit)
+    const url = makeUrl(skips, limit);
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url);
+  },
+  async markNotification(body: type.ImarkNotification) {
+    const { method, url } = ENDPOINTS.notifications.mark_notfication_read;
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
+  },
+  async deleteNotification(notificationid: string) {
+    const { method, url: makeUrl } = ENDPOINTS.notifications.delete_notfication;
+    const url = makeUrl(notificationid);
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
 };

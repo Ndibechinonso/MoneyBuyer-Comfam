@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import img from "../../../static/images/unsplash.png";
 import closemodal from "../../../static/images/dashboard_modal_close.svg";
 import ArrowLeft from "../CustomIcons/ArrowLeft";
@@ -6,11 +6,32 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { Alerts } from "../redux/alert/alertActions";
 import CustomButton from "../CustomButtons";
 import DisputeTracker from "./DisputeTraker";
+import { removeNotificationItem } from "../redux/notifications/notificationsSlice";
 
 const DisputeModal = () => {
   const dispatch = useAppDispatch();
   const [display, setDisplay] = useState("Details");
   const { singleDispute } = useAppSelector((state) => state.disputes);
+  const notification = useAppSelector(
+    (state) => state.notification.notification
+  );
+  const runUnmount = useRef(true);
+
+  useEffect(() => {
+    if (runUnmount.current) {
+      runUnmount.current = false;
+      return;
+    }
+
+    // return () => {
+    //   if (notification.id) {
+    //     dispatch(removeNotificationItem());
+
+    //   }
+
+    //   console.log("first")
+    // };
+  }, []);
   
   return (
     <div className="disputemodal">
