@@ -35,6 +35,7 @@ function Header({ newUser, inCompleteReg }: Iheader) {
   const { notifications } = useAppSelector((state) => state.notification);
   const [unreadNotifications, setUnreadNotifications] = useState([]);
   const { activeMessage } = useAppSelector((state) => state.messages);
+  const { user } = useAppSelector((state) => state.user)
   const [sellerObject, setSellerObject] = useState<any>({});
   // const { isloading } = useAppSelector((state) => state.);
   const { transactionloading } = useLoading();
@@ -87,7 +88,9 @@ function Header({ newUser, inCompleteReg }: Iheader) {
           {displayPageInfo(pathname, newUser, inCompleteReg) && (
             <div className="titleBar__message">
               <div className="titleBar__message--headline">{`${value?.title} ${
-                pathname === "/dashboard" ? `${sellerObject?.first_name}!` : ""
+                pathname === "/messages" ? `${capitalizeFirstLetter(sellerObject?.first_name)}!` : ""
+              } ${
+                pathname === "/dashboard" ? `${capitalizeFirstLetter(user?.first_name)}!` : ""
               }`}</div>
               <div className="titleBar__message--sub">
                 <span>{`${value?.subtitle}`}</span>

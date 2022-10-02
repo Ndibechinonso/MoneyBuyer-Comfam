@@ -47,6 +47,7 @@
 
     .messagescontainer {
       grid-column: 2/3;
+      overflow-y: scroll;
     }
     .confam__layout {
       grid-column: 3/-1;
