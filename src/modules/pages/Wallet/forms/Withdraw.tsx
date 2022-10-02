@@ -237,7 +237,9 @@ function Withdraw() {
               id="confirm_amount_to_pay"
               name="confirm_amount_to_pay"
               onChange={changeHandler}
-              label="I confirm to be debited NGN 0.00 to send"
+              label={`I confirm to be debited NGN ${
+                state.amount !== "" ? parseInt(state.amount).toFixed(2) : "0.00"
+              } to send`}
             />
           </div>
         </div>
