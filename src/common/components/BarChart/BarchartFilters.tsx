@@ -2,6 +2,7 @@ import DasboardCalendar from "../CustomIcons/DasboardCalendar"
 import { useAppDispatch, useAppSelector } from "../redux/hooks"
 import fetchDashboardGraph from "../redux/dashboardGraph/dashboardGraphAsyncThunk";
 import { useEffect, useState } from "react";
+import { getMonth } from "../../utils";
 
 const filterArray = [
     {
@@ -31,7 +32,7 @@ const BarchartFilters = () =>{
         <div className="filter_container">
       {startDate  && <span className="date_container">
           <DasboardCalendar />
-          <span>{startDate} - {endDate}</span>
+          <span>{getMonth(startDate)} - {getMonth(endDate)}</span>
         </span> }
         <div className="date_filter_container">
             {filterArray.map((item) =>{
