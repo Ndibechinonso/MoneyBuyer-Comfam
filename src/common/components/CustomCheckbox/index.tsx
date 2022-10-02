@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from "react";
+import React, { InputHTMLAttributes, useId } from "react";
 
 interface icheckbox extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -7,7 +7,8 @@ interface icheckbox extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 function CustomCheckBox(props: icheckbox) {
-  const { id, name, value, onChange, checked, disabled, label } = props;
+  const { name, value, onChange, checked, disabled, label } = props;
+  const id = useId()
   return (
     <label htmlFor={`checkbox-${id}`} className="checkBox">
       <span>{label}</span>

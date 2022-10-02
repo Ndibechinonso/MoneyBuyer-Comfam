@@ -58,6 +58,7 @@ function StatusFilter(props: Props) {
                     checked={checked}
                     onChange={() => onSelect(opt, id)}
                     disabled={disabled}
+                    label={val}
                   />
                 </div>
               );
