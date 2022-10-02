@@ -130,6 +130,11 @@ const admin = {
     const { method, url } = ENDPOINTS.dashboard.dashboard_summary;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
+  async getDashboardGraph(duration: string) {
+    const { method, url: makeUrl } = ENDPOINTS.dashboard.chart_summary;
+    const url = makeUrl(duration)
+    return makeAuthorizedRequestWithHeadersAndPayload(method, url);
+  },
   async createNewMessage(body: any) {
     const { method, url } = ENDPOINTS.messages.create_message;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
@@ -142,8 +147,9 @@ const admin = {
     const { method, url } = ENDPOINTS.messages.send_message;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
-  async getNotifications() {
-    const { method, url } = ENDPOINTS.notifications.get_notifications;
+  async getNotifications(skips: number, limit: number) {
+    const { method, url: makeUrl } = ENDPOINTS.notifications.get_notifications;
+    const url = makeUrl(skips, limit)
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
 };

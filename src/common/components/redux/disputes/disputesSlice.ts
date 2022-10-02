@@ -31,11 +31,10 @@ const slice = createSlice({
       state.error = initialState.error;
       state.disputes = initialState.disputes;
       state.singleDispute = initialState.singleDispute;
-      state.pagination = initialState.pagination
+      state.pagination = initialState.pagination;
       state.page = initialState.page;
     },
   },
-
   extraReducers(builder) {
     builder
       .addCase(fetchAllDisputes.pending, (state) => {
@@ -48,9 +47,7 @@ const slice = createSlice({
           state.loading = false;
           state.pagination.currentPage = action.payload?.pagination.currentPage;
           state.pagination.dataCount = action.payload?.pagination.dataCount;
-          state.pagination.dataCount = action.payload?.pagination.dataCount;
-          // state.limit = action.payload?.limit
-          // state.count = action.payload?.count
+          state.pagination.totalPages = action.payload?.pagination.totalPages;
           state.disputes = action.payload?.disputes;
         }
       )

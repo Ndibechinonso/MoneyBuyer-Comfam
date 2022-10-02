@@ -7,7 +7,7 @@ import {
 import { disputeTable } from "../../../fakeData";
 import { fetchAllDisputes } from "../../../common/components/redux/disputes/disputesAsyncThunk";
 
-function Dispute() {
+const  Dispute = () => {
   const mountOnce = useRef(false);
   const dispatch = useAppDispatch();
   const { startDate, endDate } = useAppSelector((state) => state.tableFilter);

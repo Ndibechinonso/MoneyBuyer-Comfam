@@ -51,9 +51,7 @@ const slice = createSlice({
           state.loading = false;
           state.pagination.currentPage = action.payload?.pagination.currentPage;
           state.pagination.dataCount = action.payload?.pagination.dataCount;
-          state.pagination.dataCount = action.payload?.pagination.dataCount;
-          // state.limit = action.payload?.limit;
-          // state.count = action.payload?.count;
+          state.pagination.totalPages = action.payload?.pagination.totalPages;
           state.transactions = action.payload?.transactions;
         }
       )

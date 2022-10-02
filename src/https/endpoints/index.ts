@@ -136,6 +136,10 @@ const ENDPOINTS = {
       method: "GET",
       url: "transaction/summary",
     },
+    chart_summary: {
+      method: "GET",
+      url: (duration: string) => `transaction/graph?${duration}`,
+    },
   },
   messages: {
     create_message: {
@@ -154,7 +158,7 @@ const ENDPOINTS = {
   notifications: {
     get_notifications: {
       method: "GET",
-      url: "notification",
+      url: (skips: number, limit: number) => `notification?skip=${skips}&limit=${limit}`,
     },
   },
   file_handling: {

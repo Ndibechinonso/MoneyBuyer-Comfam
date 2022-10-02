@@ -193,6 +193,14 @@ export type ActiveContractTypes = {
   status: string;
 };
 
+export type DashboardGraphProps = {
+  loading: boolean;
+  error: string;
+  graphData: {};
+  startDate: string;
+  endDate: string;
+};
+
 export type DashboardProps = {
   loading: boolean;
   error: string;
@@ -338,11 +346,13 @@ export interface INotifications {
   createdAt: string;
   notification: string;
   notification_action: string;
-  status: boolean;
+  read: boolean;
   // user: string;
   _id: string;
 }
 export type NotificationsProps = {
   loading: boolean;
-notifications: INotifications[]
+notifications: INotifications[];
+pagination: PaginationProps;
+page: number;
 };

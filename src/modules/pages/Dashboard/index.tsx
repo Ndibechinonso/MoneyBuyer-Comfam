@@ -1,6 +1,6 @@
 import DashboardComponents from "../../../common/components/DashboardComponents";
 
-function Dashboard() {
+const Dashboard = () => {
   return (
     <div className="">
       <DashboardComponents />
