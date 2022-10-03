@@ -33,6 +33,9 @@ export const BarChart = () => {
 // const data = graphData
 const label = Object.keys(graphData)
 const data = Object.values(graphData)
+// const convertedData = data.forEach((newData) => newData/1000 = )
+console.log(data, label);
+
       setChartData({
         labels: label,
         datasets: [
@@ -91,13 +94,13 @@ const data = Object.values(graphData)
                 grid: {
                   display: false,
                 },
-                min: 0,
-                max: 100,
+                // min: 0,
+                // max: 1000,
                 ticks: {
-                  stepSize: 20,
+                  // stepSize: 10000,
                   callback: function (val: any, index, ticks) {
                     // Hide the label of every 2nd dataset
-                    return this.getLabelForValue(val) + "K";
+                    return this.getLabelForValue(val);
                   },
                 },
               },
