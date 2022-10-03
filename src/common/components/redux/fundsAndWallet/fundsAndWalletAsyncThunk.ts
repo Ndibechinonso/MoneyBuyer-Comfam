@@ -18,41 +18,49 @@ export const fetchWalletInfo = createAsyncThunk(
     return admin
       .getWalletBalance()
       .then((res) => res.data)
-      .catch((err) => err);
+      .catch((err) => {
+        customToast(err.message, true);
+        return err;
+      });
   }
 );
 export const fundWallet = createAsyncThunk(
   "wallet/fundWallet",
-  async (data:IfundWallet) => {
+  async (data: IfundWallet) => {
     return admin
       .fundWallet(data)
       .then((res) => {
         const response = res.data.buyerTransactionRecord;
-        delete response.wallet
-        return response
+        delete response.wallet;
+        return response;
       })
-      .catch((err) => customToast(err.message, true));
+      .catch((err) => {
+        customToast(err.message, true);
+        return err;
+      });
   }
 );
 export const verifyAccount = createAsyncThunk(
   "wallet/verifyAccount",
-  async (body:IverifyAccountNumber) => {
+  async (body: IverifyAccountNumber) => {
     return admin
       .verifyAccountNumber(body)
       .then((res) => res.data)
       .catch((err) => {
         customToast(err.message, true);
+        return err;
       });
   }
 );
 export const withdrawfromwallet = createAsyncThunk(
   "wallet/withdrawfromwallet",
-  async (body:Iwalletwithdraw) => {
+  async (body: Iwalletwithdraw) => {
     return admin
       .walletWithdraw(body)
       .then((res) => res.data)
       .catch((err) => {
         customToast(err.message, true);
+        return err;
       });
   }
 );

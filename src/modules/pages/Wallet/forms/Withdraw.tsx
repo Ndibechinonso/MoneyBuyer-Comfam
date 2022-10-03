@@ -23,6 +23,7 @@ import {
   updateNewRecipients,
   resetWithdrawalform,
 } from "../../../../common/components/redux/fundsAndWallet/fundsAndWalletSlice";
+import { fetchNotifications } from "../../../../common/components/redux/notifications/notificationsAsyncThunk";
 
 type Props = {
   titleRef: RefObject<any>;
@@ -50,6 +51,7 @@ function Withdraw({ titleRef }: Props) {
       dispatch(Alerts("processing"));
     }
     if (loading === false && modal) {
+      dispatch(fetchNotifications(1))
       dispatch(resetWithdrawalform())
       dispatch(Alerts(""));
       titleRef.current.scrollIntoView({ behavior: "smooth", block: "end" });

@@ -16,6 +16,8 @@ const initialState: NotificationsProps = {
     currentPage: 0,
     dataCount: 0,
     totalPages: 0,
+    readNotification:0,
+    unReadNotification:0
   },
   page: 0,
 };
@@ -40,10 +42,19 @@ const slice = createSlice({
         state.pagination.currentPage = action.payload?.pagination.currentPage;
         state.pagination.dataCount = action.payload?.pagination.dataCount;
         state.pagination.totalPages = action.payload?.pagination.totalPages;
+        state.pagination.readNotification = action.payload?.pagination.readNotification;
+        state.pagination.unReadNotification = action.payload?.pagination.unReadNotification;
         state.notifications = action.payload.notifications;
       })
       .addCase(deleteNotification.pending, (state) => {
         state.loading = true
+      }).addCase(deleteNotification.fulfilled, (state,action:PayloadAction<any>)=>{
+        state.loading = false;
+        state.notifications = state.notifications.filter(item => item._id !== action.payload._id);
+        state.pagination.dataCount = state.pagination.dataCount - 1
+
+      }).addCase(deleteNotification.rejected, (state)=>{
+        state.loading = false;
       })
       .addCase(readNotification.fulfilled, (state, action) => {
         state.notifications = state.notifications.map((item) =>
@@ -51,6 +62,8 @@ const slice = createSlice({
             ? { ...item, read: action.payload.read }
             : item
         );
+        state.pagination.readNotification = state.pagination.readNotification + 1
+        state.pagination.unReadNotification = state.pagination.unReadNotification - 1
       })
       .addMatcher(
         isAnyOf(fetchTransaction.pending, fetchDispute.pending),
@@ -81,12 +94,6 @@ const slice = createSlice({
           state.loading = false;
         }
       )
-      .addMatcher(
-        isAnyOf(deleteNotification.fulfilled, deleteNotification.rejected),
-        (state) => {
-          state.loading = false;
-        }
-      );
   },
 });
 

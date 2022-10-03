@@ -13,6 +13,7 @@ import { Select, SelectItem } from "../../../../common/components/CustomSelect";
 import { fundWallet } from "../../../../common/components/redux/fundsAndWallet/fundsAndWalletAsyncThunk";
 import CustomCheckBox from "../../../../common/components/CustomCheckbox";
 import { toNaira } from "../../../../common/utils/helpers";
+import { fetchNotifications } from "../../../../common/components/redux/notifications/notificationsAsyncThunk";
 
 type Props = {
   titleRef: RefObject<any>;
@@ -38,9 +39,6 @@ function Deposit({ titleRef }: Props) {
   const modal = useAppSelector((state) => state.alert.modal);
 
   const dispatch = useAppDispatch();
-
-  // const confirmFormHandler = () =>
-  //   setFormState((prev) => ({ ...prev, confirm: !prev.confirm }));
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
@@ -82,10 +80,11 @@ function Deposit({ titleRef }: Props) {
   }, []);
 
   useEffect(() => {
-    if (loading && balance !== 0) {
+    if (loading && balance !== 0 && formState.amount !== "" && formState.confirm) {
       dispatch(Alerts("processing"));
     }
     if (loading === false && modal) {
+      dispatch(fetchNotifications(1))
       setFormState(initialState);
       dispatch(Alerts(""));
       titleRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -108,18 +107,6 @@ function Deposit({ titleRef }: Props) {
 
       onSuccess: (transaction: any) => {
         dispatch(fundWallet({ reference: transaction.reference }));
-        // dispatch(Alerts("processing"));
-        // admin
-        //   .fundWallet({ reference: transaction.reference })
-        //   .then((res) => {
-        //     dispatch(Alerts("despositsuccessful"));
-        //     dispatch(fetchWalletInfo());
-        //     setFormState(initialState);
-        //   })
-        //   .catch((err) => {
-        //     customToast(err.message, true);
-        //     dispatch(Alerts(""));
-        //   });
       },
       onCancel: () => {
         customToast("error occured", true);

@@ -13,21 +13,21 @@ function Transaction() {
   const { transactions, page } = useAppSelector((state) => state.transactions);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (page || startDate || endDate) {
-      dispatch(fetchAllTransactions({ page, startDate, endDate }));
-    }
-  }, [page, endDate]); //eslint-disable-line
+  // useEffect(() => {
+  //   if (page || startDate || endDate) {
+  //     dispatch(fetchAllTransactions({ page, startDate, endDate }));
+  //   }
+  // }, [page, endDate]); //eslint-disable-line
 
-  useEffect(() => {
-    if (mountOnce.current === true) {
-      return;
-    }
-    if (transactions.length === 0) {
-      dispatch(fetchAllTransactions({ page, startDate, endDate }));
-    }
-    mountOnce.current = true;
-  }, []); //eslint-disable-line
+  // useEffect(() => {
+  //   if (mountOnce.current === true) {
+  //     return;
+  //   }
+  //   if (transactions.length === 0) {
+  //     dispatch(fetchAllTransactions({ page, startDate, endDate }));
+  //   }
+  //   mountOnce.current = true;
+  // }, []); //eslint-disable-line
 
   return (
     <>

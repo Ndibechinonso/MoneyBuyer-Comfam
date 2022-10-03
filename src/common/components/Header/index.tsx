@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   displayHeaderBtn,
@@ -12,14 +13,8 @@ import UserMenuItem from "../DropDowns/UserMenuItem";
 import UserMenuTrigger from "./UserMenuTrigger";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { Alerts } from "../redux/alert/alertActions";
-import statusIndicator from "../../../static/images/status_indicator.svg";
 import HandWave from "../CustomIcons/HandWave";
-import { fetchUserDetails } from "../../../https/storage";
-import { useEffect, useState } from "react";
 import { capitalizeFirstLetter } from "../../utils";
-import { loadingStop } from "../redux/apploader";
-import admin from "../../../modules/service/admin";
-import { SellerProps } from "../redux/types";
 import useLoading from "../../hooks/useLoading";
 
 type Iheader = {
@@ -32,37 +27,17 @@ function Header({ newUser, inCompleteReg }: Iheader) {
   const { pathname } = useLocation();
   const value = getObject(getFirstLevelPath(pathname));
   const dispatch = useAppDispatch();
-  const { notifications } = useAppSelector((state) => state.notification);
-  const [unreadNotifications, setUnreadNotifications] = useState([]);
+  const unreadNotifications = useAppSelector((state) => state.notification.pagination.unReadNotification);
   const { activeMessage } = useAppSelector((state) => state.messages);
   const { user } = useAppSelector((state) => state.user)
   const [sellerObject, setSellerObject] = useState<any>({});
-  // const { isloading } = useAppSelector((state) => state.);
   const { transactionloading } = useLoading();
-
   const [sellerAvatar, setSellerAvatar] = useState("");
-
-  useEffect(() => {
-    const newNotifications = notifications.filter(
-      (notification) => notification.read === false
-    );
-    setUnreadNotifications(newNotifications);
-  }, [notifications]);
 
   useEffect(() => {
     const activeSeller = activeMessage[0]?.seller;
     setSellerObject(activeSeller);
   }, [activeMessage]);
-
-  // useEffect(()=>{
-  //   admin
-  //   .getImage(image)
-  //   .then((res) => {
-  //     setSellerAvatar(res);
-  //   })
-  //   .catch((err) => console.log(err, "error"))
-  //   .finally(() => dispatch(loadingStop()));
-  // }, [image])
 
   return (
     <>
@@ -74,7 +49,7 @@ function Header({ newUser, inCompleteReg }: Iheader) {
           >
             <NotificationIcon
               color={`${
-                unreadNotifications.length > 0 ? "#E01D1D" : "#FFFFFF"
+                unreadNotifications !== 0 ? "#E01D1D" : "#FFFFFF"
               }`}
             />
           </button>

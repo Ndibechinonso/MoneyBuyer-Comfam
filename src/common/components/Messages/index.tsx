@@ -1,17 +1,17 @@
-import React, { useCallback, useEffect, useState } from "react";
-import admin from "../../../modules/service/admin";
+// import React, { useCallback, useEffect, useState } from "react";
+// import admin from "../../../modules/service/admin";
 import { formatDate } from "../../utils";
 import SearchIcon from "../CustomIcons/SearchIcon";
-import { loadingStop } from "../redux/apploader";
+// import { loadingStop } from "../redux/apploader";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import {fetchAllMessages} from "../redux/messages/messagesAsyncThunk";
+// import {fetchAllMessages} from "../redux/messages/messagesAsyncThunk";
 import { openMessageChats } from "../redux/messages/messagesSlice";
 import MessageCard from "./MessageCard";
 
 const Messages = () => {
 const dispatch = useAppDispatch()
 const {messageList} = useAppSelector((state)=> state.messages)
-const [loadedMessageList, setLoadedMessageList] = useState([])
+// const [loadedMessageList, setLoadedMessageList] = useState([])
 
 // const fetchData = useCallback(async () => {
 //   const data = await messageList.map((message) => {
@@ -41,9 +41,9 @@ const filterActiveMessage = (id) =>{
   dispatch(openMessageChats(activeMessage))
 }
 
-useEffect(() =>{
-  dispatch(fetchAllMessages())
-}, [])
+// useEffect(() =>{
+//   dispatch(fetchAllMessages())
+// }, [])
 
 
   return (

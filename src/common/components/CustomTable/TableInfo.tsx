@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo } from "react";
 import ThreeDotIcon from "../CustomIcons/ThreeDot";
 import Tag from "../CustomTags";
 import DropDown from "../DropDowns/primitive";
@@ -8,11 +8,11 @@ import ArrowRight from "../CustomIcons/ArrowRight";
 import clientImg from "../../../static/images/client_img.svg";
 import { toNaira } from "../../utils/helpers";
 import PaginationComponent from "../PaginationComponent";
-import { changePageNumber } from "../redux/disputes/disputesSlice";
-import { changePageNumber as trans_changePageNumber } from "../redux/transaction/transactionSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import CustomLoader from "../CustomLoader";
 import { useLocation } from "react-router-dom";
+import { fetchAllDisputes } from "../redux/disputes/disputesAsyncThunk";
+import { fetchAllTransactions } from "../redux/transaction/transactionAsyncThunk";
 
 const TableInfo = ({
   headers,
@@ -21,26 +21,57 @@ const TableInfo = ({
   recentTransacionHistory,
 }: TObj) => {
   const dispatch = useAppDispatch();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [neglectlimit, setLimit] = useState(5);
   const { pathname } = useLocation();
 
-  const { loading: dispute_loading} = useAppSelector(
-    (state) => state.disputes
-  );
-  const {totalPages: dispute_totalPages} = useAppSelector(
-    (state) => state.disputes.pagination
-  );
-  const { loading: transaction_loading } =
-    useAppSelector((state) => state.transactions);
+  const { startDate, endDate } = useAppSelector((state) => state.tableFilter);
 
-    const {totalPages: transaction_totalPages} = useAppSelector(
-      (state) => state.transactions.pagination
-    );
-  // const offset = (page - 1) * limit;
-  // const endposition = page * limit;
+  const {
+    loading: dispute_loading,
+    pagination: {
+      totalPages: dispute_totalPages,
+      dataCount: dispute_data_count,
+      currentPage: dispute_current_page,
+    },
+  } = useAppSelector((state) => state.disputes);
+
+  const {
+    loading: transaction_loading,
+    pagination: {
+      totalPages: transaction_totalPages,
+      dataCount: transaction_data_count,
+      currentPage: transaction_current_page,
+    },
+  } = useAppSelector((state) => state.transactions);
 
   const loading = dispute_loading || transaction_loading;
+
+  const dataCount = useMemo(
+    () =>
+      pathname.includes("dispute")
+        ? dispute_data_count
+        : transaction_data_count,
+    [pathname, transaction_data_count, dispute_data_count]
+  );
+
+  const currentPage = useMemo(
+    () =>
+      pathname.includes("dispute")
+        ? dispute_current_page
+        : transaction_current_page,
+    [pathname, dispute_current_page, transaction_current_page]
+  );
+
+  const fetchPage = useCallback(
+    (page: number) => {
+      if (pathname.includes("dispute")) {
+        dispatch(fetchAllDisputes({ page, startDate, endDate }));
+      }
+      if (pathname.includes("transaction")) {
+        dispatch(fetchAllTransactions({ page, startDate, endDate }));
+      }
+    },
+    [pathname, startDate, endDate]
+  );
 
   const totalPages = useMemo(
     () =>
@@ -49,15 +80,6 @@ const TableInfo = ({
         : transaction_totalPages,
     [dispute_totalPages, transaction_totalPages, pathname]
   );
-
-  useEffect(() => {
-    if (pathname.includes("dispute")) {
-      dispatch(changePageNumber(currentPage));
-    }
-    if (pathname.includes("transaction")) {
-      dispatch(trans_changePageNumber(currentPage));
-    }
-  }, [currentPage]); // eslint-disable-line
 
   const tableContentHandler = (row: any, col: any) => {
     let template: any;
@@ -161,13 +183,14 @@ const TableInfo = ({
         // totalPages={Math.ceil((count || 0) / limit)}
         totalPages={totalPages}
         // totalPages={12}
-        setLimit={setLimit}
-        setPage={setCurrentPage}
-        limit={neglectlimit}
+        // setLimit={setLimit}
+        setPage={fetchPage}
+        // limit={neglectlimit}
+        dataCount={dataCount}
       />
     </div>
   );
-}
+};
 
 const MemTable = React.memo(TableInfo);
 export default MemTable;

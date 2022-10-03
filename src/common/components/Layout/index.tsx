@@ -1,6 +1,10 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { getFirstLevelPath, getObject } from "../../utils/helpers";
+import {
+  getFirstLevelPath,
+  getObject,
+  renderEmptyPageState,
+} from "../../utils/helpers";
 import Header from "../Header";
 import NewUserCard from "../sharedCards/NewUserCard";
 import SideNav from "../SideNav";
@@ -14,6 +18,10 @@ import fetchUser from "../redux/getUser/getUserThunk";
 import { removeSingleTransaction } from "../redux/transaction/transactionSlice";
 import { removeSingleDispute } from "../redux/disputes/disputesSlice";
 import useLoading from "../../hooks/useLoading";
+import { fetchNotifications } from "../redux/notifications/notificationsAsyncThunk";
+import useAppLoader from "../../hooks/useAppLoader";
+import { fetchAllMessages } from "../redux/messages/messagesAsyncThunk";
+import { fetchAllTransactions } from "../redux/transaction/transactionAsyncThunk";
 
 function Layout() {
   const { pathname } = useLocation();
@@ -21,19 +29,27 @@ function Layout() {
   const [newUser, setNewUser] = useState(true);
   const value = getObject(getFirstLevelPath(pathname));
   const { modal, modalType } = useAppSelector((state) => state.alert);
-  const { id: transactionId } = useAppSelector(
-    (state) => state.transactions.singleTransaction
-  );
-  const { _id: disputeId } = useAppSelector(
-    (state) => state.disputes.singleDispute
-  );
+  const {
+    singleTransaction: { id: transactionId },
+    pagination: { dataCount: transactionDataCount },
+  } = useAppSelector((state) => state.transactions);
+  const {
+    singleDispute: { _id: disputeId },
+    pagination:{dataCount: disputeDataCount},
+  } = useAppSelector((state) => state.disputes);
+  const { dataCount: notificationCount, currentPage: notificationCP } =
+    useAppSelector((state) => state.notification.pagination);
   const mountOnce = useRef(false);
   const { verified, transactionCount, user_type } = useAppSelector(
     (state) => state.user.user
   );
-  const { transactionloading, userloading } = useLoading();
-  
+  const { messageList } = useAppSelector((state) => state.messages);
+  const { transactionloading, userloading } = useLoading(); // custom hook to handle all loading states
+  const componentloading = useAppLoader(); // custom hook to conditionaly rendering the app loader
+
   const dispatch = useAppDispatch();
+
+  // console.log(transactionDataCount)
 
   useLayoutEffect(() => {
     if (verified) {
@@ -44,6 +60,7 @@ function Layout() {
     }
   }, [verified, transactionCount]);
 
+  //  this removes transaction and dispute modal item object from the redux state whenever the modal is closed
   useEffect(() => {
     if (modalType === "" && transactionId) {
       dispatch(removeSingleTransaction());
@@ -53,25 +70,33 @@ function Layout() {
     }
   }, [modalType, transactionId, disputeId, dispatch]); //eslint-disable-line
 
-  // useEffect(() => {
-  //   if (
-  //     prevInitiator === "wallet_transaction" ||
-  //     (transactionCount === 0 && prevInitiator === "created_new_transaction")
-  //   ) {
-  //     dispatch(fetchUser());
-  //   }
-  // }, [prevInitiator, dispatch]); //eslint-disable-line
-
+  //  this fetches the first page of the route that is being so redux has the first page in memory
   useEffect(() => {
-    if (transactionCount === 0 && transactionloading) {
+    return () => {
+      if (
+        getFirstLevelPath(pathname) === "notifications" &&
+        notificationCP !== 1
+      ) {
+        dispatch(fetchNotifications(1));
+      }
+    };
+  }, [pathname]);
+
+  //  update new user information after user has initiated a transaction
+  useEffect(() => {
+    if (user_type !== "" && transactionCount === 0 && transactionloading) {
       dispatch(fetchUser());
     }
   }, [transactionloading, dispatch]); // eslint-disable-line
 
+  //  this gets the user notification and also the user object when component mounts
   useLayoutEffect(() => {
     if (mountOnce.current) {
       return;
     }
+    dispatch(fetchNotifications(1));
+    dispatch(fetchAllMessages());
+    dispatch(fetchAllTransactions({ page: 1 }));
     if (user_type === "") {
       dispatch(fetchUser());
     }
@@ -87,7 +112,9 @@ function Layout() {
       {modal && <CustomAlert alertType={modalType} />}
       <div
         className={`confam ${
-          pathname.includes("messages") && newUser === false
+          pathname.includes("messages") &&
+          newUser === false &&
+          messageList.length !== 0
             ? "confam__message"
             : ""
         }`}
@@ -101,11 +128,18 @@ function Layout() {
               pathname
             )} content__${userError ? "userError" : "clean"}`}
           >
-            {userloading ? (
+            {userloading || componentloading ? (
               <div style={{ height: "50vh", gridColumn: "1/-1" }}>
                 <CustomLoader size={10} />
               </div>
-            ) : newUser && getFirstLevelPath(pathname) !== "setting" ? (
+            ) : renderEmptyPageState(
+                newUser,
+                pathname,
+                notificationCount,
+                messageList.length,
+                transactionDataCount,
+                disputeDataCount
+              ) ? (
               <>
                 {userError && <Notice />}
                 <NewUserCard
