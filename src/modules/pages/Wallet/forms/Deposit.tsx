@@ -1,19 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { RefObject, useEffect, useRef, useState } from "react";
 import CustomButton from "../../../../common/components/CustomButtons";
 import CustomTextFields from "../../../../common/components/CustomInput";
 import PaystackPop from "@paystack/inline-js";
 import customToast from "../../../../common/components/CustomToast";
-import admin from "../../../service/admin";
 import { PAYSTACK_KEY } from "../../../../https/constant";
-import { fetchUserDetails } from "../../../../https/storage";
-import { useAppDispatch } from "../../../../common/components/redux/hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../common/components/redux/hooks";
 import { Alerts } from "../../../../common/components/redux/alert/alertActions";
 import { Select, SelectItem } from "../../../../common/components/CustomSelect";
-import { fetchWalletInfo } from "../../../../common/components/redux/fundsAndWallet/fundsAndWalletAsyncThunk";
+import { fundWallet } from "../../../../common/components/redux/fundsAndWallet/fundsAndWalletAsyncThunk";
 import CustomCheckBox from "../../../../common/components/CustomCheckbox";
 import { toNaira } from "../../../../common/utils/helpers";
 
-function Deposit() {
+type Props = {
+  titleRef: RefObject<any>;
+};
+
+function Deposit({ titleRef }: Props) {
   const initialState = {
     amount: "",
     paymentMethod: "",
@@ -25,6 +30,12 @@ function Deposit() {
     formState.paymentMethod === ""
       ? "Select an option"
       : formState.paymentMethod;
+  const {
+    loading,
+    wallet: { balance },
+  } = useAppSelector((state) => state.wallet);
+  const userEmail = useAppSelector((state) => state.user.user.email);
+  const modal = useAppSelector((state) => state.alert.modal);
 
   const dispatch = useAppDispatch();
 
@@ -70,6 +81,17 @@ function Deposit() {
     };
   }, []);
 
+  useEffect(() => {
+    if (loading && balance !== 0) {
+      dispatch(Alerts("processing"));
+    }
+    if (loading === false && modal) {
+      setFormState(initialState);
+      dispatch(Alerts(""));
+      titleRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  }, [loading]);
+
   const buttonEnabler =
     !formState.confirm ||
     formState.paymentMethod === "" ||
@@ -81,22 +103,23 @@ function Deposit() {
 
     paystack.newTransaction({
       key: PAYSTACK_KEY,
-      email: fetchUserDetails().email,
+      email: userEmail,
       amount: `${formState.amount}00`,
 
       onSuccess: (transaction: any) => {
-        dispatch(Alerts("processing"));
-        admin
-          .fundWallet({ reference: transaction.reference })
-          .then((res) => {
-            dispatch(Alerts("despositsuccessful"));
-            dispatch(fetchWalletInfo());
-            setFormState(initialState);
-          })
-          .catch((err) => {
-            customToast(err.message, true);
-            dispatch(Alerts(""));
-          });
+        dispatch(fundWallet({ reference: transaction.reference }));
+        // dispatch(Alerts("processing"));
+        // admin
+        //   .fundWallet({ reference: transaction.reference })
+        //   .then((res) => {
+        //     dispatch(Alerts("despositsuccessful"));
+        //     dispatch(fetchWalletInfo());
+        //     setFormState(initialState);
+        //   })
+        //   .catch((err) => {
+        //     customToast(err.message, true);
+        //     dispatch(Alerts(""));
+        //   });
       },
       onCancel: () => {
         customToast("error occured", true);

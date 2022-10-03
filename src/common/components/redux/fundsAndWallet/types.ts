@@ -37,14 +37,43 @@ type Ibank = {
   country: string;
   currency: string;
   type: string;
-  is_deleted: false;
+  is_deleted: boolean;
   createdAt: string;
   updatedAt: string;
 };
+
+export type IwalletWithdrawalform = {
+  account_number: string,
+  bank_code: string,
+  amount: string,
+  bank_name: string,
+  recipients_available: boolean,
+  use_new_recipients: boolean,
+  confirm_amount_to_pay: boolean,
+  account_name: string,
+  selected_recipient: string,
+  account_number_verified: boolean,
+}
 
 export type IfundsAndWallet = {
   loading: boolean;
   error: any;
   banks: Ibank[];
   wallet: Iwallet;
+  withdrawalform: IwalletWithdrawalform;
+};
+
+export type IfundWallet = {
+  reference: string;
+};
+
+export type IverifyAccountNumber = {
+  account_number: string;
+  bank_code: string;
+};
+
+export type Iwalletwithdraw = {
+  account_number: string;
+  bank_code: string;
+  amount: string;
 };

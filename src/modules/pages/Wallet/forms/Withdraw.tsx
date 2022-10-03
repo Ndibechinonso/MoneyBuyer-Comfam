@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { RefObject, useEffect, useRef } from "react";
 import CustomButton from "../../../../common/components/CustomButtons";
 import CustomTextFields from "../../../../common/components/CustomInput";
 import CustomCheckBox from "../../../../common/components/CustomCheckbox";
@@ -8,33 +8,69 @@ import {
 } from "../../../../common/components/redux/hooks";
 import {
   fetchAllBanks,
-  fetchWalletInfo,
+  verifyAccount,
+  withdrawfromwallet,
 } from "../../../../common/components/redux/fundsAndWallet/fundsAndWalletAsyncThunk";
 import { Select, SelectItem } from "../../../../common/components/CustomSelect";
-import admin from "../../../service/admin";
 import { Alerts } from "../../../../common/components/redux/alert/alertActions";
-import customToast from "../../../../common/components/CustomToast";
+import {
+  recipientsAvailable,
+  recipientsNotAvailable,
+  selectABank,
+  selectARecipient,
+  updateWithdrawalCheckBox,
+  updateWithdrawalFormData,
+  updateNewRecipients,
+  resetWithdrawalform,
+} from "../../../../common/components/redux/fundsAndWallet/fundsAndWalletSlice";
 
+type Props = {
+  titleRef: RefObject<any>;
+};
 const initialState = {
   account_number: "",
-  bank_code: "",
-  amount: "",
-  bank_name: "",
-  recipients_available: false,
-  use_new_recipients: false,
-  confirm_amount_to_pay: false,
   account_name: "",
-  selected_recipient: "",
-  account_number_verified: true,
 };
-function Withdraw() {
-  const [state, setState] = useState(initialState);
+function Withdraw({ titleRef }: Props) {
   const mountOnce = useRef(false);
-  const allbanks = useAppSelector((state) => state.wallet.banks);
+  const runUnmount = useRef(false);
+  const {
+    banks: allbanks,
+    loading,
+    withdrawalform: state,
+  } = useAppSelector((state) => state.wallet);
   const saved_recipients = useAppSelector(
     (state) => state.user.user.bank_details
   );
+  const modal = useAppSelector(state => state.alert.modal)
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (loading && state.account_number_verified && state.account_name) {
+      dispatch(Alerts("processing"));
+    }
+    if (loading === false && modal) {
+      dispatch(resetWithdrawalform())
+      dispatch(Alerts(""));
+      titleRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  }, [loading]);
+
+  useEffect(() => {
+    if (runUnmount.current === false) {
+      runUnmount.current = true;
+      return;
+    }
+
+    return () => {
+      const values = Object.keys(state).map((key) =>
+        state[key] === false || state[key] === "" ? true : false
+      );
+      if (values.includes(false)) {
+        dispatch(resetWithdrawalform());
+      }
+    };
+  }, []);
 
   const btn_disable =
     state.account_number === "" ||
@@ -46,16 +82,7 @@ function Withdraw() {
   const verifyAccountNumber = () => {
     const { account_number, bank_code } = state;
     if (account_number.length === 10 && bank_code !== "") {
-      admin
-        .verifyAccountNumber({ account_number, bank_code })
-        .then((res) =>
-          setState((prev) => ({
-            ...prev,
-            account_name: res.data.account_name,
-            account_number_verified: true,
-          }))
-        )
-        .catch((err) => console.log(err));
+      dispatch(verifyAccount(state));
     }
   };
 
@@ -66,25 +93,17 @@ function Withdraw() {
     const account_regex = new RegExp("^[0-9]{0,10}$");
     switch (type) {
       case "checkbox":
-        setState((prev) => ({ ...prev, [name]: !prev[name] }));
+        dispatch(updateWithdrawalCheckBox({ name }));
         if (name === "use_new_recipients" && checked) {
-          setState((prev) => ({
-            ...prev,
-            bank_name: initialState.bank_name,
-            bank_code: initialState.bank_code,
-            account_name: initialState.account_name,
-            account_number: initialState.account_number,
-            selected_recipient: initialState.selected_recipient,
-            account_number_verified: false,
-          }));
+          dispatch(updateNewRecipients());
         }
         break;
       default:
         if (numbers_regex.test(value) && name !== "account_number") {
-          setState((prev) => ({ ...prev, [name]: value }));
+          dispatch(updateWithdrawalFormData({ name, value }));
         }
         if (account_regex.test(value) && name === "account_number") {
-          setState((prev) => ({ ...prev, [name]: value }));
+          dispatch(updateWithdrawalFormData({ name, value }));
         }
         break;
     }
@@ -93,21 +112,10 @@ function Withdraw() {
   const selectHandler = (e: any, name: "banks" | "recipients") => {
     const data = JSON.parse(e);
     if (name === "banks") {
-      setState((prev) => ({
-        ...prev,
-        bank_code: data.code,
-        bank_name: data.name,
-      }));
+      dispatch(selectABank(data));
     }
     if (name === "recipients") {
-      setState((prev) => ({
-        ...prev,
-        // bank_code: data.code,    will need a bank code
-        bank_name: data.bank_name,
-        account_name: data.account_name,
-        account_number: data.account_number,
-        selected_recipient: `${data.account_name} - ${data.account_number} - ${data.bank_name}`,
-      }));
+      dispatch(selectARecipient(data));
     }
   };
 
@@ -116,18 +124,10 @@ function Withdraw() {
       return;
     }
     if (saved_recipients.length !== 0) {
-      setState((prev) => ({
-        ...prev,
-        recipients_available: true,
-        account_number_verified: true,
-      }));
+      dispatch(recipientsAvailable());
     }
     if (saved_recipients.length === 0) {
-      setState((prev) => ({
-        ...prev,
-        recipients_available: false,
-        use_new_recipients: true,
-      }));
+      dispatch(recipientsNotAvailable());
     }
     if (allbanks?.length === 0) {
       dispatch(fetchAllBanks());
@@ -137,14 +137,7 @@ function Withdraw() {
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(Alerts("processing"));
-    admin
-      .walletWithdraw(state)
-      .then(() => dispatch(fetchWalletInfo()))
-      .catch((err) => {
-        customToast(err.message, true);
-        dispatch(Alerts(""));
-      });
+    dispatch(withdrawfromwallet(state));
   };
 
   return (
@@ -250,6 +243,7 @@ function Withdraw() {
           disabled={btn_disable}
           action={() => null}
           actionText="Proceed"
+          loading={loading}
         />
       </div>
     </form>

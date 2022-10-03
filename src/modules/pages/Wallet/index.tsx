@@ -52,7 +52,7 @@ function Wallet() {
         </button>
       </div>
       <div className="wallet__container">
-        {switchTabs ? <Withdraw /> : <Deposit />}
+        {switchTabs ? <Withdraw titleRef={headerRef} /> : <Deposit titleRef={headerRef} />}
       </div>
     </>
   );

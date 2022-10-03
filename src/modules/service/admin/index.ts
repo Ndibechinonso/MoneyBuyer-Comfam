@@ -66,7 +66,7 @@ const admin = {
     const { method, url } = ENDPOINTS.transaction.fund_buyer_wallet;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
-  async verifyAccountNumber(body: type.IverifyAccountNumber) {
+  async verifyAccountNumber(body: any) {
     const { method, url } = ENDPOINTS.transaction.verify_account_number;
     return makeAuthorizedRequestWithHeadersAndPayload(method, url, body);
   },
