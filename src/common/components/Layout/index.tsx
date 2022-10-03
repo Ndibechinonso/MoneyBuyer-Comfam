@@ -21,6 +21,7 @@ import useLoading from "../../hooks/useLoading";
 import { fetchNotifications } from "../redux/notifications/notificationsAsyncThunk";
 import useAppLoader from "../../hooks/useAppLoader";
 import { fetchAllMessages } from "../redux/messages/messagesAsyncThunk";
+import { fetchAllTransactions } from "../redux/transaction/transactionAsyncThunk";
 
 function Layout() {
   const { pathname } = useLocation();
@@ -28,12 +29,14 @@ function Layout() {
   const [newUser, setNewUser] = useState(true);
   const value = getObject(getFirstLevelPath(pathname));
   const { modal, modalType } = useAppSelector((state) => state.alert);
-  const { id: transactionId } = useAppSelector(
-    (state) => state.transactions.singleTransaction
-  );
-  const { _id: disputeId } = useAppSelector(
-    (state) => state.disputes.singleDispute
-  );
+  const {
+    singleTransaction: { id: transactionId },
+    pagination: { dataCount: transactionDataCount },
+  } = useAppSelector((state) => state.transactions);
+  const {
+    singleDispute: { _id: disputeId },
+    pagination:{dataCount: disputeDataCount},
+  } = useAppSelector((state) => state.disputes);
   const { dataCount: notificationCount, currentPage: notificationCP } =
     useAppSelector((state) => state.notification.pagination);
   const mountOnce = useRef(false);
@@ -45,6 +48,8 @@ function Layout() {
   const componentloading = useAppLoader(); // custom hook to conditionaly rendering the app loader
 
   const dispatch = useAppDispatch();
+
+  // console.log(transactionDataCount)
 
   useLayoutEffect(() => {
     if (verified) {
@@ -77,8 +82,9 @@ function Layout() {
     };
   }, [pathname]);
 
+  //  update new user information after user has initiated a transaction
   useEffect(() => {
-    if (transactionCount === 0 && transactionloading) {
+    if (user_type !== "" && transactionCount === 0 && transactionloading) {
       dispatch(fetchUser());
     }
   }, [transactionloading, dispatch]); // eslint-disable-line
@@ -90,6 +96,7 @@ function Layout() {
     }
     dispatch(fetchNotifications(1));
     dispatch(fetchAllMessages());
+    dispatch(fetchAllTransactions({ page: 1 }));
     if (user_type === "") {
       dispatch(fetchUser());
     }
@@ -105,7 +112,9 @@ function Layout() {
       {modal && <CustomAlert alertType={modalType} />}
       <div
         className={`confam ${
-          pathname.includes("messages") && newUser === false && messageList.length !== 0
+          pathname.includes("messages") &&
+          newUser === false &&
+          messageList.length !== 0
             ? "confam__message"
             : ""
         }`}
@@ -127,7 +136,9 @@ function Layout() {
                 newUser,
                 pathname,
                 notificationCount,
-                messageList.length
+                messageList.length,
+                transactionDataCount,
+                disputeDataCount
               ) ? (
               <>
                 {userError && <Notice />}

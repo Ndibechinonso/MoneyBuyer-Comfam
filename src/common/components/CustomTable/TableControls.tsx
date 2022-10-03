@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import CalenderIcon from "../CustomIcons/CalenderIcon";
 import SearchIcon from "../CustomIcons/SearchIcon";
 import { ifState, Ioptions, TControls } from "./types";
@@ -14,6 +14,15 @@ function TableControls(props: TControls) {
   const { data, setFilteredData, disabled } = props;
   const { pathname } = useLocation();
   const headerRef = useScrollToView()
+  const transactionPage = useAppSelector(state => state.transactions.pagination.currentPage)
+  const disputePage = useAppSelector(state => state.disputes.pagination.currentPage)
+
+  const page = useMemo(() => pathname.includes("dispute")?disputePage:transactionPage, [pathname,disputePage,transactionPage])
+
+  useEffect(() => {
+    headerRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [pathname, page])
+  
 
   const dispatch = useAppDispatch();
 

@@ -216,12 +216,20 @@ export const renderEmptyPageState = (
   newUser: boolean,
   path: string,
   notificationCount: number,
-  messageCount:number
+  messageCount:number,
+  transactionCount:number,
+  disputeCount:number,
 ) => {
   if (getFirstLevelPath(path) === "notifications" && notificationCount === 0) {
     return true;
   }
   if (getFirstLevelPath(path) === "messages" && messageCount === 0) {
+    return true;
+  }
+  if (newUser === false && getFirstLevelPath(path) === "transaction" && transactionCount === 0) {
+    return true;
+  }
+  if (newUser === false && getFirstLevelPath(path) === "dispute" && disputeCount === 0) {
     return true;
   }
   if (newUser && getFirstLevelPath(path) !== "setting") {

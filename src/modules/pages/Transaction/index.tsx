@@ -19,15 +19,15 @@ function Transaction() {
   //   }
   // }, [page, endDate]); //eslint-disable-line
 
-  useEffect(() => {
-    if (mountOnce.current === true) {
-      return;
-    }
-    if (transactions.length === 0) {
-      dispatch(fetchAllTransactions({ page, startDate, endDate }));
-    }
-    mountOnce.current = true;
-  }, []); //eslint-disable-line
+  // useEffect(() => {
+  //   if (mountOnce.current === true) {
+  //     return;
+  //   }
+  //   if (transactions.length === 0) {
+  //     dispatch(fetchAllTransactions({ page, startDate, endDate }));
+  //   }
+  //   mountOnce.current = true;
+  // }, []); //eslint-disable-line
 
   return (
     <>

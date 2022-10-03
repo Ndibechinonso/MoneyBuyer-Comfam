@@ -17,7 +17,7 @@ function NewUserCard({ message, completedRegistration }: NewUserCardProps) {
   return (
     <div className={`newUserCard newUserCard__${pathname.substring(1)}`}>
       <p>{message}</p>
-      {!['notifications','messages'].includes(getFirstLevelPath(pathname)) && (
+      {!['notifications','messages',"dispute"].includes(getFirstLevelPath(pathname)) && (
         <CustomButton
           disabled={completedRegistration}
           action={() => dispatch(Alerts("newtransaction"))}

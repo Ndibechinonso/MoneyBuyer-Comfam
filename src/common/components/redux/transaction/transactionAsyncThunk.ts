@@ -16,8 +16,14 @@ const alert = (type: iAlert) => store.dispatch(Alerts(type));
 const successHandler = (type: iAlert) => {
   const { endDate, startDate } = store.getState().tableFilter;
   const { page } = store.getState().transactions;
-  if(type === "transactionaccepted" || type === "transactioncancelled" || type === "transactionrejected" || type === "confirmdelivery"){
-    store.dispatch(fetchNotifications(1))
+  if (
+    type === "transactionaccepted" ||
+    type === "transactioncancelled" ||
+    type === "transactionrejected" ||
+    type === "newtransactioncreated" ||
+    type === "confirmdelivery"
+  ) {
+    store.dispatch(fetchNotifications(1));
   }
   store.dispatch(fetchAllTransactions({ page, startDate, endDate }));
   alert(type);
@@ -35,8 +41,8 @@ export const fetchAllTransactions = createAsyncThunk(
     endDate,
   }: {
     page: number;
-    startDate: string;
-    endDate: string;
+    startDate?: string;
+    endDate?: string;
   }) => {
     return admin
       .getAllTransaction(page, 10, startDate, endDate)
@@ -76,7 +82,7 @@ export const deleteATransaction = createAsyncThunk(
   async (id: string) => {
     return admin
       .deleteTransaction(id)
-      .then(() => successHandler("transactiondeleted"))
+      .then((res) => successHandler("transactiondeleted"))
       .catch((err) => errorHandler(err.message));
   }
 );

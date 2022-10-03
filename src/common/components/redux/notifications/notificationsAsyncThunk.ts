@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import admin from "../../../../modules/service/admin";
 import { ImarkNotification } from "../../../../modules/service/admin/types";
+import customToast from "../../CustomToast";
 
 const fetchNotifications = createAsyncThunk(
   "notifications/fetchNotifications",
@@ -8,7 +9,7 @@ const fetchNotifications = createAsyncThunk(
     return admin
       .getNotifications(page, 10)
       .then((res) => res.data)
-      .catch((err) => err);
+      .catch((err) => customToast(err.message,true));
   }
 );
 const fetchTransaction = createAsyncThunk(
@@ -17,7 +18,7 @@ const fetchTransaction = createAsyncThunk(
     return admin
       .getSingleTransaction(id)
       .then((res) => res.data)
-      .catch((err) => err);
+      .catch((err) => customToast(err.message,true));
   }
 );
 const fetchDispute = createAsyncThunk(
@@ -26,7 +27,7 @@ const fetchDispute = createAsyncThunk(
     return admin
       .getSingleDispute(id)
       .then((res) => res.data)
-      .catch((err) => err);
+      .catch((err) => customToast(err.message,true));
   }
 );
 const readNotification = createAsyncThunk(
@@ -35,7 +36,7 @@ const readNotification = createAsyncThunk(
     return admin
       .markNotification(body)
       .then((res) => res.data)
-      .catch((err) => err);
+      .catch((err) => customToast(err.message,true));
   }
 );
 const deleteNotification = createAsyncThunk(
@@ -44,7 +45,7 @@ const deleteNotification = createAsyncThunk(
     return admin
       .deleteNotification(id)
       .then((res) => res.data)
-      .catch((err) => err);
+      .catch((err) => customToast(err.message,true));
   }
 );
 
