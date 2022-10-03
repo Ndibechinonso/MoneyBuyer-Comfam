@@ -56,7 +56,7 @@ function TransactionModal() {
         .catch((err) => console.log(err));
     });
     runOnce.current = true;
-  }, []); //eslint-disable-line
+  }, []); 
 
   const chatSeller = (seller, transaction) => {
     dispatch(createMessage({ seller, transaction }));

@@ -1,6 +1,5 @@
 import React, { useId, useState } from "react";
 import CustomButton from "../../CustomButtons";
-// import { Signup } from "../../redux/signup/signupActions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import auth from "../../../../modules/service/auth";
 import { useNavigate } from "react-router-dom";
@@ -11,9 +10,9 @@ import CustomToast from "../../CustomToast";
 
 const BuyerForm = () => {
   const id = useId();
+  const queryParams = new URLSearchParams(window.location.search).get("referal_id")
   const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
-
   const { isloading } = useAppSelector((state) => state.isloading);
   const navigate = useNavigate();
   const initialFormState = {
@@ -22,13 +21,11 @@ const BuyerForm = () => {
     email: "",
     password: "",
     signupTAC: false,
+    referal_id : ""
   };
   const [inputs, setInputs] = useState(initialFormState);
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-// export const validateEmail = (email: any) =>{
-// return /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)
-// }
 const handleShowPassword = () => {
   setShowPassword((prev) => !prev);
 };
@@ -41,21 +38,11 @@ const handleShowPassword = () => {
       setInputs((values) => ({ ...values, [name]: event.target.checked }));
     }
   };
-  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   dispatch(loadingStart(""));
-  //   auth
-  //     .registerBuyer(inputs)
-  //     .then((res) => navigate(`/verification?email=${inputs.email}`))
-  //     .catch((err) => customtoast(err.message))
-  //     .finally(() => dispatch(loadingStop()));
-  // };
 
   const validate =
     inputs.first_name &&
     inputs.last_name &&
     inputs.email &&
-    // inputs.password
     validatePassword(inputs.password) &&
     inputs.signupTAC;
 
@@ -63,6 +50,9 @@ const handleShowPassword = () => {
     event.preventDefault();
     setIsSubmitted(true)
     if(!validate) return
+    if(queryParams) {
+      inputs.referal_id = queryParams
+    }
     dispatch(loadingStart(""));
     auth
       .registerBuyer(inputs)
@@ -88,8 +78,6 @@ const handleShowPassword = () => {
             />
            {isSubmitted && !inputs.first_name && <small className="input_error text-red-1 text-xs">*Required</small> }
           </div>
-          
-
           <div className="form_group">
             <label htmlFor={`${id}-last_name`}>Last Name</label>
             <input
@@ -102,7 +90,6 @@ const handleShowPassword = () => {
               placeholder="Enter Last Name"
             />
          {isSubmitted && !inputs.last_name && <small className="input_error text-red-1 text-xs">*Required</small> }
-
           </div>
           <div className="form_group">
             <label htmlFor={`${id}-email`}>Email Address</label>
@@ -116,15 +103,12 @@ const handleShowPassword = () => {
               placeholder="Enter Email Address"
             />
          {isSubmitted && !inputs.email && <small className="input_error text-red-1 text-xs">*Required</small> }
-         {isSubmitted && !validateEmail(inputs.email) && <small className="input_error text-red-1 text-xs">  Please provide a valid email</small> }
-
-         
+         {isSubmitted && !validateEmail(inputs.email) && <small className="input_error text-red-1 text-xs">  Please provide a valid email</small> }  
           </div>
           <div className="form_group">
             <label htmlFor={`${id}-password`}>Password</label>
             <div className="seller_container_form_input_container">
-            <input
-              
+            <input      
               disabled={isloading}
               className="seller_container_form_input"
               name="password"
@@ -133,7 +117,6 @@ const handleShowPassword = () => {
               onChange={handleChange}
               type={`${showPassword ? "text" : "password"}`}
               placeholder="Password"
-              // pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
             />
                 <button
                 type="button"
@@ -144,9 +127,7 @@ const handleShowPassword = () => {
               </button>
               </div>
           {isSubmitted && !validatePassword(inputs.password) && <small className="input_error text-red-1 text-xs">Password must contain 1 capital , 1 small letter, 1 number, 1 special character and have a minimum length of 8</small> }
-
           </div>
-
           <div className="ts_con">
             <input
               disabled={isloading}
@@ -164,9 +145,7 @@ const handleShowPassword = () => {
               By creating an account I agree to the Terms & Conditions
             </label> <br />
             {isSubmitted && !inputs.signupTAC && <small className="input_error text-red-1 text-xs">*Required</small> }
-
           </div>
-
           <CustomButton
             className="signup_btn"
             disabled={isloading}

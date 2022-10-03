@@ -7,29 +7,24 @@ interface parentElement extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 interface withoutAnything extends parentElement {
-  // variant: "default";
   label?: never;
   status?: never;
   inputIcon?: never;
   iconPosition?: never;
 }
 interface withLabelOnly extends parentElement {
-  // variant: "labelOnly";
   label: string;
-
   status?: never;
   inputIcon?: never;
   iconPosition?: never;
 }
 interface withStatusOnly extends parentElement {
-  // variant: "statusOnly";
   status: string;
   label: undefined;
   inputIcon: undefined;
   iconPosition?: never;
 }
 interface withLabelAndStatus extends parentElement {
-  // variant: "labelAndStatusOnly";
   label: string;
   status: string;
   inputIcon?: never;
@@ -37,7 +32,6 @@ interface withLabelAndStatus extends parentElement {
 }
 
 interface withIcon extends parentElement {
-  // variant: "withIcon";
   label: string;
   status: string;
   iconPosition: "left" | "right";
@@ -50,5 +44,3 @@ export type customInput =
   | ({ variant: "statusOnly" } & withStatusOnly)
   | ({ variant: "labelOnly" } & withLabelOnly)
   | ({ variant?: "default" } & withoutAnything);
-
-// export  type customInput = withoutAnything | withLabelOnly | withStatusOnly | withLabelAndStatus | withIcon

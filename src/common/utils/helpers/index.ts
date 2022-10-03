@@ -20,14 +20,12 @@ export const displayHeaderBtn = (
   if (incompletereg === true && newUser === true) {
     return false;
   }
-
   if (
     newUser === true &&
     !["notifications"].includes(getFirstLevelPath(path))
   ) {
     return true;
   }
-
   if (
     newUser === false &&
     !["notifications", "messages"].includes(getFirstLevelPath(path))
@@ -43,11 +41,6 @@ export const displayPageInfo = (
   if (incompletereg === true || newUser === true) {
     return true;
   }
-
-  // if (newUser === true) {
-  //    return true
-  // }
-
   if (newUser === false && !["messages"].includes(getFirstLevelPath(path))) {
     return true;
   }
@@ -67,9 +60,6 @@ export const getObject = (path: string): GetObjReturn => {
   if (path === "messages") {
     value = language.messages;
   }
-  //  if (path === "delivery") {
-  //     value = language.delivery
-  //  }
   if (path === "dispute") {
     value = language.dispute;
   }
@@ -121,11 +111,9 @@ export const confamFeesCalc = (
 
   let insurance = 0;
   if (insuranced) {
-    insurance = (1.0 * totalPrice) / 100; // eslint-disable-line
+    insurance = (1.0 * totalPrice) / 100;
   }
   const vat = (7.5 * totalPrice) / 100;
-  // const transactionFee = transactionCost + totalPrice + insurance + vat;
-  // const transactionFee = (markeupPercent * totalPrice) / 100;
   return {
     vat,
     totalPrice,

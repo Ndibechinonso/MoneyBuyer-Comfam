@@ -16,8 +16,6 @@ const slice = createSlice({
   initialState,
   reducers: {
     openMessageChats: (state, action) => {
-      // state.activeChats = action.payload.activeChats
-      // state.activeSeller = action.payload.activeSeller
       state.activeMessage = action.payload;
       state.activeChats = action.payload?.[0]?.chats;
     },

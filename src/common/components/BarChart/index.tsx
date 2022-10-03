@@ -27,15 +27,8 @@ export const BarChart = () => {
 
   useEffect(() => {
     const fetchGraphData = async () => {
-      // const res = await fetch("https://api.coincap.io/v2/assets/?limit=5");
-      // const data = await res.json();
-      // const data = [79, 45, 30, 35, 28, 49, 26, 47, 15, 30, 20, 28];
-// const data = graphData
 const label = Object.keys(graphData)
 const data = Object.values(graphData)
-// const convertedData = data.forEach((newData) => newData/1000 = )
-console.log(data, label);
-
       setChartData({
         labels: label,
         datasets: [
@@ -94,12 +87,8 @@ console.log(data, label);
                 grid: {
                   display: false,
                 },
-                // min: 0,
-                // max: 1000,
                 ticks: {
-                  // stepSize: 10000,
                   callback: function (val: any, index, ticks) {
-                    // Hide the label of every 2nd dataset
                     return this.getLabelForValue(val);
                   },
                 },

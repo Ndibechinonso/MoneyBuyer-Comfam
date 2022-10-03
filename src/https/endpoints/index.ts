@@ -170,7 +170,7 @@ const ENDPOINTS = {
       url: "/notification/read",
     },
     delete_notfication: {
-      method: "DEL",
+      method: "DELETE",
       url: (id: string) => `/notification?id=${id}`,
     },
   },

@@ -4,9 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../../../static/styles/components/datePicker.scss";
 import { Icalendar } from "./type";
 
-
-
-function CustomDate({
+const CustomDate = ({
   startDate,
   endDate,
   onChange,
@@ -14,7 +12,7 @@ function CustomDate({
   disable,
   minDate,
   placeholder,
-}: Icalendar) {
+}: Icalendar) => {
   let template: any;
   switch (type) {
     case "picker":
@@ -161,7 +159,5 @@ function CustomDate({
 
   return template;
 }
-
-// const MemCalendar = React.memo(CustomDate);
 
 export default CustomDate;

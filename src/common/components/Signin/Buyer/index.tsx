@@ -57,17 +57,11 @@ const Form = () => {
       .catch((err) => {
         setIsSubmitted(false);
         customtoast(err.message, true);
-        // auth
-        //   .resendVerifyBuyer({ email: inputs.email })
-        //   .then((res) => customtoast(res.message))
-        //   .catch((err) => console.log(err));
-        // navigate(`/verification?email=${inputs.email}`);
       })
       .finally(() => dispatch(loadingStop()));
   };
 
   const validate = inputs.email && inputs.password;
-
   return (
     <div className="biodata_container">
       <form>

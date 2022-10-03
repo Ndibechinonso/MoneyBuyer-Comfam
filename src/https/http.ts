@@ -2,16 +2,6 @@ import { BASE_URL } from "./constant";
 import { clearData, fetchUserToken } from "./storage";
 import axios from "axios";
 
-// interface HTTPParams {
-//   // method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
-//   method: string;
-//   url: string;
-//   headers?: any;
-//   body?: any;
-//   isFormData?: boolean;
-//   isAuth?: true;
-// }
-
 export interface HTTPResponse<T = any> {
   status: number;
   data: T;
@@ -20,7 +10,6 @@ export interface HTTPResponse<T = any> {
   message?: string;
   count?: number;
 }
-
 /** general headers **/
 const headers = {
   "Content-Type": "application/json",
@@ -60,14 +49,12 @@ instance.interceptors.response.use(
         message: "Login session expired, please login again",
       });
     }
-
     return Promise.reject(
       error
         ? error.response
           ? error.response.data
           : error.response
         : "Something Went wrong!!!"
-      // : Language.NetworkErrorMessage.errorMessage
     );
   }
 );
@@ -130,7 +117,6 @@ export const makeAuthorizedImageUpload = async (
     data: data.item(0),
     headers: { "Content-Type": data.item(0).type },
   });
-
   return { response, res };
 };
 
@@ -143,7 +129,6 @@ export const makeAuthorizedImageDownload = async (url: string) => {
       ...setAuthorization(),
     },
   });
-
   return response.data.url;
 };
 
@@ -156,11 +141,9 @@ export const makeRequestWithFormData = async (
 ) => {
   /** create new formdata object **/
   let formData = new FormData();
-
   let headers = {
     "Content-Type": "multipart/form-data",
   };
-
   /** loop through and append all data to formdata object **/
   for (const key in data) {
     if (data.hasOwnProperty(key)) {
@@ -168,17 +151,14 @@ export const makeRequestWithFormData = async (
       formData.append(key, fieldData);
     }
   }
-
   if (authorized) {
     headers = { ...headers, ...setAuthorization() };
   }
-
   const response = await instance.request({
     method,
     url: url,
     data: formData,
     headers,
   });
-
   return response;
 };

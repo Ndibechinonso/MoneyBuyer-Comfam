@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 interface PaginationComponentProps {
   isDisabled?: boolean;
@@ -31,48 +31,17 @@ const PaginationComponent = ({
     return numberArray;
   };
 
-  // useEffect(()=>{
-  //   const pageNumberArray = () => { 
-  //     var numberArray = [];
-  
-  //     for (var i = 1; i <= totalPages; i++) {
-  //         numberArray.push(i);
-  //     }
-  //     return numberArray;
-  //   };
-  //   const pgArray = pageNumberArray()
-  //   setPageArray(pgArray)
-  // }, )
   const pageArray = pageNumberArray()
 
   return (
     <div className="paginator_container">
-      {/* <div className="d-flex align-items-center">
-                <span className="d-none d-md-block me-2 font-12 text-uppercase">items Per Page</span>
-                <select value={limit} onChange={(e) => {
-                    setLimit(Number(e.target.value));
-                    setPage(1)
-                }}
-                    className="filter-select font-12 p-2 x-small-radius"
-                >
-                    {limits.map((limit, i) => <option key={i} value={limit} className="font-12">{limit}</option>)}
-                </select>
-            </div> */}
-      {/* <div className="d-flex align-items-center"> */}
-      {/* {loading && <Pulse color="#00CCFF" />} */}
-      {/* <span className="">{totalPages < 1 ? 0 : currentPage} of {totalPages}</span> */}
-      {/* <div className=""> */}
       <button
         className="icoin-pagination-buttons"
         disabled={isDisabled || currentPage <= 1}
         onClick={() => setPage(currentPage - 1)}
       >
-      
         <span>{"<"}</span> <span>Prev.</span>
       </button>
-      {/* {pageArray.filter((item) => item <= (currentPage + 8)).map((item, index)=> {
-              return <p key={index} className={`page_number ${item === currentPage ? "active_page" : ""}`} onClick={() => {setPage(item); }}>{item}</p>  
-      })} */}
       {totalPages > 0 &&
       <div className="flexRowCenter gap-30">
            {((totalPages - currentPage)) > 8 ? pageArray.filter((item) =>  item <= (currentPage + 8) && item > currentPage - 1 ).map((item, index)=> {
@@ -81,17 +50,6 @@ const PaginationComponent = ({
         return <p key={index} className={`page_number ${item === currentPage ? "active_page" : ""}`} onClick={() => {setPage(item); }}>{item}</p>  
 })}
 </div> }
-
-      {/* {pageArray.map((item, index) =>{
-        return <p key={index} className={`page_number ${item === currentPage ? "active_page" : ""}`} onClick={() => {setPage(item); }}>{item}</p>
-      })} */}
-      {/* {new Array(10).fill(0).filter(isPrime).map((item, index) => {
-                        return index
-                            // p key={index} className={`page_number ${(index + 1 ) === currentPage ? "active_page" : ""}`} onClick={() => setPage(index + 1)}>{index + 1}</p>
-                    })
-                        // return  Array(10).fill(0).filter(pageNumber => item)
-                        // <p key={index} className={`page_number ${(index + 1 ) === currentPage ? "active_page" : ""}`} onClick={() => setPage(index + 1)}>{index + 1}</p>
-                    } */}
       <button
         className="icoin-pagination-buttons"
         disabled={isDisabled || currentPage === totalPages || totalPages === 0}
@@ -99,8 +57,6 @@ const PaginationComponent = ({
       >
         <span>Next</span> <span>{">"}</span>
       </button>
-      {/* </div> */}
-      {/* </div> */}
     </div>
   );
 };

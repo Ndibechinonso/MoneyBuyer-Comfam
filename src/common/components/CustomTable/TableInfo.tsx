@@ -37,8 +37,6 @@ const TableInfo = ({
     const {totalPages: transaction_totalPages} = useAppSelector(
       (state) => state.transactions.pagination
     );
-  // const offset = (page - 1) * limit;
-  // const endposition = page * limit;
 
   const loading = dispute_loading || transaction_loading;
 
@@ -57,7 +55,7 @@ const TableInfo = ({
     if (pathname.includes("transaction")) {
       dispatch(trans_changePageNumber(currentPage));
     }
-  }, [currentPage]); // eslint-disable-line
+  }, [currentPage]);
 
   const tableContentHandler = (row: any, col: any) => {
     let template: any;
@@ -158,9 +156,7 @@ const TableInfo = ({
       <PaginationComponent
         loading={false}
         currentPage={currentPage}
-        // totalPages={Math.ceil((count || 0) / limit)}
         totalPages={totalPages}
-        // totalPages={12}
         setLimit={setLimit}
         setPage={setCurrentPage}
         limit={neglectlimit}

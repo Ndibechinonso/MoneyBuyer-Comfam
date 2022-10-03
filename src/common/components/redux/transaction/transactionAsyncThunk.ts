@@ -104,12 +104,3 @@ export const transactionFeedback = createAsyncThunk(
   }
 );
 
-// export const fundATransaction = createAsyncThunk(
-//   "transaction/fundATransaction",
-//   async (data: IfundTransaction) => {
-//     return admin
-//       .fundTransaction(data)
-//       .then((res) => res.data)
-//       .catch((err) => err);
-//   }
-// );

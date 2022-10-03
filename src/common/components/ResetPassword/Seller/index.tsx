@@ -18,12 +18,10 @@ const Form = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // setInputs(initialFormState);
     dispatch(Alerts("resetpassword"));
   };
 
   const validate = inputs.email && true;
-
   return (
     <div className="biodata_container">
       <form onSubmit={handleSubmit}>
@@ -40,7 +38,6 @@ const Form = () => {
               placeholder="Enter Email Address"
             />
           </div>
-
           <CustomButton
             className="signup_btn"
             disabled={!validate}

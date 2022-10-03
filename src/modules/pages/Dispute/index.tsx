@@ -18,7 +18,7 @@ const  Dispute = () => {
     if (page || startDate || endDate) {
       dispatch(fetchAllDisputes({ page, startDate, endDate }));
     }
-  }, [page, endDate]); // eslint-disable-line
+  }, [page, endDate]); 
 
   useEffect(() => {
     if (mountOnce.current === true) {
@@ -28,7 +28,7 @@ const  Dispute = () => {
       dispatch(fetchAllDisputes({ page, startDate, endDate }));
     }
     mountOnce.current = true;
-  }, [page, endDate]); // eslint-disable-line
+  }, [page, endDate]); 
 
   return (
     <>

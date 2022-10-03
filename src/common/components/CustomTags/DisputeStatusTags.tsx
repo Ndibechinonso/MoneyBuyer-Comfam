@@ -1,6 +1,3 @@
-type tagsProps = {
-  value: "OPEN" | "IN-PROGRESS" | "RESOLVED";
-};
 
 const DisputeStatusTags = ({ value }: any) => {
   let defClassName = "";
@@ -23,9 +20,6 @@ const DisputeStatusTags = ({ value }: any) => {
   }
 
   return (
-    // <span className={`tags tags__${defClassName}`}>
-    //   {value.split("-").join(" ").toLowerCase()}
-    // </span>
     <div className={`dispute_status_container__${bodayBg} dispute_status_container`}>
       <div className="dispute_status_container__header">
         <h4>Dispute Status:</h4>

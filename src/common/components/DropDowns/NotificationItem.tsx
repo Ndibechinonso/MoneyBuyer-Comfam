@@ -20,6 +20,7 @@ function NotificationDropDownItem({ notification_id }: props) {
     dispatch(readNotification({ notification_id }));
   };
   const deleteHandler = () => {
+    
     dispatch(deleteNotification(notification_id));
   };
   return (

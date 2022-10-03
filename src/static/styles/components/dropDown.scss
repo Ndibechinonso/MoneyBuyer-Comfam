@@ -118,15 +118,12 @@
 
   div {
     button span {
-      // height: 18px;
       color: var(--blackColorBlack3);
     }
     &:only-child {
       button {
         padding: 1.125rem 2.125rem 0.9375rem 3rem;
         position: relative;
-        // line-height: normal;
-
         svg {
           position: absolute;
           top: 19px;

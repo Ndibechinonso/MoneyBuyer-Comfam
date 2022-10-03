@@ -1,24 +1,8 @@
 type tagsProps ={
   value: string
 }
-  // | {
-  //     value:
-  //       | "Pending confirmation"
-  //       | "Pending payment"
-  //       | "Awaiting delivery"
-  //       | "Pending delivery......"
-  //       | "Completed"
-  //       | "Cancelled"
-  //       | "Refunded";
-  //   }
-  // | {
-  //     value: "Delivered" | "Pending delivery......";
-  //   }
-  // | {
-  //     value: "Closed" | "Open" | "In-Progress" | "Resolved";
-  //   };
 
-function Tag({ value }: tagsProps) {
+const Tag = ({ value }: tagsProps) => {
   let defClassName = "";
   if (value !== undefined) {
     if (

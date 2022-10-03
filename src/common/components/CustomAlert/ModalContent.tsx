@@ -18,8 +18,6 @@ const ModalContent = (props: modalContentProps) => {
   const { type, alertIcon, header, opt, text } = props;
   const { progress, finishBtn, confirmBtn, alertForm } = props;
   const { actionRight, actionLeft, onSubmit } = props;
-
-  // const { isloading } = useAppSelector((state) => state.isloading);
   const { loading: isloading } = useAppSelector((state) => state.transactions);
   const dispatch = useAppDispatch();
   const handleCloseBtn = () => dispatch(Alerts(""));

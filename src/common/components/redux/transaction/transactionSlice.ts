@@ -7,9 +7,6 @@ const initialState: TransactionDataType = {
   error: "",
   transactions: [],
   singleTransaction: {} as any,
-  // count: 0,
-  // limit: "",
-  // skip: "",
   pagination: {
     currentPage: 0,
     dataCount: 0,
