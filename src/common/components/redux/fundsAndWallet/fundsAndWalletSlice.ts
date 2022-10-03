@@ -96,7 +96,6 @@ const slice = createSlice({
       state.withdrawalform.bank_name = action.payload.name;
     },
     selectARecipient: (state, action: PayloadAction<any>) => {
-      // state.withdrawalform.bank_code = action.payload.code;
       state.withdrawalform.bank_name = action.payload.bank_name;
       state.withdrawalform.account_name = action.payload.account_name;
       state.withdrawalform.account_number = action.payload.account_number;

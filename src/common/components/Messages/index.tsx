@@ -13,29 +13,6 @@ const dispatch = useAppDispatch()
 const {messageList} = useAppSelector((state)=> state.messages)
 // const [loadedMessageList, setLoadedMessageList] = useState([])
 
-// const fetchData = useCallback(async () => {
-//   const data = await messageList.map((message) => {
-//     return admin
-//      .getImage(message.seller.image)
-//      .then((res) => {
-//        // setSellerAvatar(res);
-//        message.seller.image = res
-//      })
-//      .catch((err) => console.log(err, "error"))
-//      .finally(() => dispatch(loadingStop()));
-//    })
- 
-//    setLoadedMessageList(data);
-// }, [])
-
-// useEffect( () =>{
-//   fetchData()
-//   console.log(messageList, "messages");
-
-//  console.log(loadedMessageList, "loadedMessageList");
- 
-
-// }, [fetchData])
 const filterActiveMessage = (id) =>{
   const activeMessage = messageList.filter((message) => message._id === id )
   dispatch(openMessageChats(activeMessage))
@@ -44,7 +21,6 @@ const filterActiveMessage = (id) =>{
 // useEffect(() =>{
 //   dispatch(fetchAllMessages())
 // }, [])
-
 
   return (
     <div className="messagescontainer">

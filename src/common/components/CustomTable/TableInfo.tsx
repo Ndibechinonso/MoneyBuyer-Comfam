@@ -180,7 +180,6 @@ const TableInfo = ({
       <PaginationComponent
         loading={false}
         currentPage={currentPage}
-        // totalPages={Math.ceil((count || 0) / limit)}
         totalPages={totalPages}
         // totalPages={12}
         // setLimit={setLimit}

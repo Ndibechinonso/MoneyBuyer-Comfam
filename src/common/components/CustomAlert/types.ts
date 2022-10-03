@@ -21,5 +21,4 @@ export type modalContentProps = {
   finishBtn?: any;
   opt?: any;
   alertForm?: alertFormType;
-  // emojiForm?: any;
 };

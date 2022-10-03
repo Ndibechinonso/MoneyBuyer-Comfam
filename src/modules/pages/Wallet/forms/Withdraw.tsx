@@ -135,7 +135,7 @@ function Withdraw({ titleRef }: Props) {
       dispatch(fetchAllBanks());
     }
     mountOnce.current = true;
-  }, []); //eslint-disable-line
+  }, []); 
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -1,16 +1,13 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
-// import ConfirmMoneyIcon from "../customIcons/ConfamMoney";
 import { language } from "../../utils/language/en";
 import DashboardIcon from "../CustomIcons/DashBoardIcon";
 import WalletIcon from "../CustomIcons/WalletIcon";
 import TransactionIcon from "../CustomIcons/TransactionIcon";
-// import DeliveryIcon from "../customIcons/DeliveryIcon";
 import MessagesIcon from "../CustomIcons/MessagesIcon";
 import DisputeIcon from "../CustomIcons/DisputeIcon";
 import { useAppSelector } from "../redux/hooks";
 
 const { navigation: PageDictionary } = language.layout;
-
 type IsideNav = {
   newUser?: boolean;
 };
@@ -30,7 +27,6 @@ function SideNav({ newUser }: IsideNav) {
     >
       {/* logo */}
       <Link className="nav__logo" to={"/"}>
-        {/* <ConfirmMoneyIcon /> */}
       </Link>
       <ul className="nav__wrapper">
         <li className="nav__item">

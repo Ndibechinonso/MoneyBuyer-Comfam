@@ -22,14 +22,13 @@ const ratingsOptions = [
   { name: "extremely_likely", value: "Extremely likely" },
 ];
 
-function FeedBack() {
+const FeedBack = () => {
   const dispatch = useAppDispatch();
 const {isloading} = useAppSelector((state) => state.isloading)
   const [inputs, setInputs] = useState(initialFormState);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const changeHandler = (e: any) => {
-    // const name = e.target.name;
+  const changeHandler = (e: any) => {    
     if (e.target.type === "radio") {
       setInputs((inputs) => ({ ...inputs, rating: e.target.value }));
     } else {
@@ -45,13 +44,14 @@ const {isloading} = useAppSelector((state) => state.isloading)
 
   const onSubmit = (e: any) =>{
     e.preventDefault()
-    dispatch(loadingStart(""))
     setIsSubmitted(true)
+    if(!validate) return
+    dispatch(loadingStart(""))
     if(!validate) return
     setIsSubmitted(false)
     admin
     .sendFeedback(inputs)
-    .then((res) => {dispatch(Alerts("sentfeedback")) })
+    .then((res) => {dispatch(Alerts("sentfeedback")); setInputs(initialFormState) })
     .catch((err) => {  CustomToast(err.message)})
     .finally(() => dispatch(loadingStop()));
       }
@@ -112,24 +112,20 @@ const {isloading} = useAppSelector((state) => state.isloading)
           <div className="form_group textarea_div">
             <label>What do you like about our service?</label>
             <textarea placeholder="Let us know" name="likes" id="likes" value={inputs.likes} onChange={changeHandler} disabled={isloading} />
-        
             {isSubmitted && !inputs.likes && (
               <small className="input_error text-red-1 text-xs">
                 *Required
               </small>
             )}
           </div>
-
           <div className="textarea_div">
             <label>What can we change?</label>
             <textarea placeholder="Let us know" name="change_request" id="change_request" value={inputs.change_request} onChange={changeHandler} disabled={isloading} />
           </div>
-
           <div className="textarea_div">
             <label>What feature would you like to add?</label>
             <textarea placeholder="Let us know" name="feature_request" id="feature_request" value={inputs.feature_request} onChange={changeHandler} disabled={isloading} />
           </div>
-
           <CustomButton
             className="profile__cta"
             disabled={isloading}

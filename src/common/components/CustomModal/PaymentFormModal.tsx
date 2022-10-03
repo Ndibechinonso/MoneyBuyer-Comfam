@@ -8,7 +8,7 @@ const initialState = {
   walletId: "",
 };
 
-function PaymentFormModal() {
+const PaymentFormModal = () => {
   const [inputContent, setInputContent] = useState(initialState);
   const id = useId();
   const { isloading } = useAppSelector((state) => state.isloading);
@@ -18,12 +18,10 @@ function PaymentFormModal() {
     setInputContent((prev) => ({ ...prev, [name]: value }));
   };
   const checkEmptyValues = Object.values(inputContent).includes("");
-
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setInputContent(initialState);
     if (checkEmptyValues === false) {
-      // dispatch(Alerts("successfulltransaction"));
       dispatch(Alerts("unsuccessfulltransaction"));
     }
   };
@@ -51,7 +49,6 @@ function PaymentFormModal() {
           onChange={changeHandler}
         />
       </div>
-
       <CustomButton
         disabled={checkEmptyValues || isloading}
         type="submit"

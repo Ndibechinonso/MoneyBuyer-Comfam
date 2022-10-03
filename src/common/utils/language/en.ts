@@ -7,7 +7,6 @@ const language = {
             wallet: "Wallet",
             transaction: "Transaction",
             messages: "Messages",
-            // delivery: "Delivery",
             dispute: "Dispute"
         }
     },
@@ -19,9 +18,7 @@ const language = {
         },
         existingUser:{
             transactionCards:{
-
             },
-            
         },
 	},
     wallet: {
@@ -32,9 +29,7 @@ const language = {
         },
         existingUser:{
             transactionCards:{
-
             },
-            
         },
 	},
     transaction: {
@@ -45,24 +40,9 @@ const language = {
         },
         existingUser:{
             transactionCards:{
-
             },
-            
         },
 	},
-    // delivery: {
-    //     title: "Delivery",
-    //     subtitle: "View all your delivered transactions",
-    //     newUser:{
-    //         message:"Start paying and receiving money now",
-    //     },
-    //     existingUser:{
-    //         transactionCards:{
-
-    //         },
-            
-    //     },
-	// },
     messages: {
         title: "Message",
         subtitle: "create a transaction to start chatting with a buyer",
@@ -71,9 +51,7 @@ const language = {
         },
         existingUser:{
             transactionCards:{
-
             },
-            
         },
 	},
     dispute: {
@@ -84,9 +62,7 @@ const language = {
         },
         existingUser:{
             transactionCards:{
-
-            },
-            
+            },   
         },
 	},
     notifications: {
@@ -97,9 +73,7 @@ const language = {
         },
         existingUser:{
             transactionCards:{
-
             },
-            
         },
 	},
     setting: {
@@ -110,9 +84,7 @@ const language = {
         },
         existingUser:{
             transactionCards:{
-
-            },
-            
+            },      
         },
 	},
 }

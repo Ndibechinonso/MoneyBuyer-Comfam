@@ -1,5 +1,4 @@
 import React, { useEffect, useId, useRef, useState } from "react";
-// import img from "../../../static/images/unsplash.png";
 import closemodal from "../../../static/images/dashboard_modal_close.svg";
 import ArrowLeft from "../CustomIcons/ArrowLeft";
 import CustomImageInput from "../CustomImageInput";
@@ -62,7 +61,6 @@ function DisputeFormModal() {
   const [inputs, setInputs] = useState<IcreateDispute>(initialState);
   const [images, setImages] = useState([]);
   const mountOnce = useRef(false);
-  // const transactionItem = useAppSelector((state) => state.tableItem.itm);
   const transactionItem = useAppSelector(
     (state) => state.transactions.singleTransaction
   );
@@ -96,7 +94,7 @@ function DisputeFormModal() {
     });
 
     mountOnce.current = true;
-  }, []); //eslint-disable-line
+  }, []); 
 
   const emptyInput =
     Object.values(inputs).includes("") || inputs.images.length === 0;
@@ -238,7 +236,6 @@ function DisputeFormModal() {
                   id={`${id}-quantityr`}
                   value={inputs.quantity}
                   onChange={(e) => selectChangeHandler(e, "quantity")}
-                  // default="0"
                   className="select-trigger"
                   placeholder="0"
                 >

@@ -19,12 +19,11 @@ const Auth = () => {
         navigate("/signin/seller");
       }
     }
-  }, [modalType]); //eslint-disable-line
+  }, [modalType]);
 
   if (fetchUserToken()) {
     return <Navigate replace to="/dashboard" />;
   }
-
   return (
     <>
       {modal && <CustomAlert alertType={modalType} />}

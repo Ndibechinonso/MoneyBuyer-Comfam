@@ -23,7 +23,7 @@ import useAppLoader from "../../hooks/useAppLoader";
 import { fetchAllMessages } from "../redux/messages/messagesAsyncThunk";
 import { fetchAllTransactions } from "../redux/transaction/transactionAsyncThunk";
 
-function Layout() {
+const Layout = () => {
   const { pathname } = useLocation();
   const [userError, setUserError] = useState(true);
   const [newUser, setNewUser] = useState(true);
@@ -87,7 +87,7 @@ function Layout() {
     if (user_type !== "" && transactionCount === 0 && transactionloading) {
       dispatch(fetchUser());
     }
-  }, [transactionloading, dispatch]); // eslint-disable-line
+  }, [transactionloading, dispatch]); 
 
   //  this gets the user notification and also the user object when component mounts
   useLayoutEffect(() => {
@@ -101,7 +101,7 @@ function Layout() {
       dispatch(fetchUser());
     }
     mountOnce.current = true;
-  }, []); //eslint-disable-line
+  }, []);
 
   if (!fetchUserToken() || fetchUserDetails() === false) {
     return <Navigate replace to="/signin/buyer" />;

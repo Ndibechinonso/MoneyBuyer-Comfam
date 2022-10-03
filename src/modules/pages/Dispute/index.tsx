@@ -27,7 +27,7 @@ const  Dispute = () => {
       dispatch(fetchAllDisputes({ page, startDate, endDate }));
     }
     mountOnce.current = true;
-  }, [page, endDate]); // eslint-disable-line
+  }, [page, endDate]); 
 
   return (
     <>

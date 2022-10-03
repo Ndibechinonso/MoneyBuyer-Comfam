@@ -24,7 +24,6 @@ const completeProfile = createAsyncThunk(
           transactionCount: res.data.transactionCount,
         });
         thunkAPI.dispatch(updateProfileImage());
-        // window.location.href = "/dashboard";
       })
       .catch((err) => {
         CustomToast(err.message);
