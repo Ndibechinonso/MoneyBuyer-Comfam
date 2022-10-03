@@ -2,12 +2,12 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface PaginationComponentProps {
   isDisabled?: boolean;
-  limit: number;
-  setLimit: Dispatch<SetStateAction<number>>;
+  limit?: number;
+  setLimit?: Dispatch<SetStateAction<number>>;
   currentPage: number;
   totalPages: number;
   setPage: Dispatch<SetStateAction<number>>;
-  loading: boolean;
+  loading?: boolean;
 }
 
 const limits = [1, 3, 5, 10, 20, 50, 100, 200];

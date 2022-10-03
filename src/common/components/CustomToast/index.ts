@@ -1,8 +1,9 @@
 import { toast } from "react-toastify";
 
-const customToast = (res?: string, iserror?: true) => {
+const customToast = (res?: string | string[], iserror?: true) => {
   const code = iserror === undefined ? "success" : "error";
-  return toast(res, {
+  const data = typeof res === "object" ? res[0]: res
+  return toast(data, {
     position: "top-right",
     draggable: false,
     bodyClassName: "toast__body",

@@ -7,18 +7,27 @@ import TransactionIcon from "../CustomIcons/TransactionIcon";
 // import DeliveryIcon from "../customIcons/DeliveryIcon";
 import MessagesIcon from "../CustomIcons/MessagesIcon";
 import DisputeIcon from "../CustomIcons/DisputeIcon";
+import { useAppSelector } from "../redux/hooks";
 
 const { navigation: PageDictionary } = language.layout;
 
-
 type IsideNav = {
-  newUser?:boolean,
-}
+  newUser?: boolean;
+};
 
-function SideNav({newUser}:IsideNav) {
-  const {pathname} = useLocation()
+function SideNav({ newUser }: IsideNav) {
+  const { pathname } = useLocation();
+  const { messageList } = useAppSelector((state) => state.messages);
   return (
-    <nav className={`confam__sideNav nav${pathname.includes("messages") && newUser === false?"__small":""}`}>
+    <nav
+      className={`confam__sideNav nav${
+        pathname.includes("messages") &&
+        newUser === false &&
+        messageList.length !== 0
+          ? "__small"
+          : ""
+      }`}
+    >
       {/* logo */}
       <Link className="nav__logo" to={"/"}>
         {/* <ConfirmMoneyIcon /> */}

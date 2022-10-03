@@ -211,3 +211,21 @@ export const modalClassName = (type: string) => {
 
   return className;
 };
+
+export const renderEmptyPageState = (
+  newUser: boolean,
+  path: string,
+  notificationCount: number,
+  messageCount:number
+) => {
+  if (getFirstLevelPath(path) === "notifications" && notificationCount === 0) {
+    return true;
+  }
+  if (getFirstLevelPath(path) === "messages" && messageCount === 0) {
+    return true;
+  }
+  if (newUser && getFirstLevelPath(path) !== "setting") {
+    return true;
+  }
+  return false;
+};

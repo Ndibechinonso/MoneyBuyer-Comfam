@@ -15,6 +15,10 @@ function useLoading() {
   );
   const { loading: messageloading } = useAppSelector((state) => state.messages);
 
+  const { loading: notificationloading } = useAppSelector(
+    (state) => state.notification
+  );
+
   return {
     userloading,
     disputeloading,
@@ -23,6 +27,7 @@ function useLoading() {
     walletloading,
     completeprofileloading,
     messageloading,
+    notificationloading,
   };
 }
 

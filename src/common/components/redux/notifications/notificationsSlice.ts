@@ -44,6 +44,13 @@ const slice = createSlice({
       })
       .addCase(deleteNotification.pending, (state) => {
         state.loading = true
+      }).addCase(deleteNotification.fulfilled, (state,action:PayloadAction<any>)=>{
+        state.loading = false;
+        state.notifications = state.notifications.filter(item => item._id !== action.payload._id);
+        state.pagination.dataCount = state.pagination.dataCount - 1
+
+      }).addCase(deleteNotification.rejected, (state)=>{
+        state.loading = false;
       })
       .addCase(readNotification.fulfilled, (state, action) => {
         state.notifications = state.notifications.map((item) =>
@@ -81,12 +88,6 @@ const slice = createSlice({
           state.loading = false;
         }
       )
-      .addMatcher(
-        isAnyOf(deleteNotification.fulfilled, deleteNotification.rejected),
-        (state) => {
-          state.loading = false;
-        }
-      );
   },
 });
 

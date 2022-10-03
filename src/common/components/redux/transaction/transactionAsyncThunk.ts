@@ -7,6 +7,7 @@ import {
 import customToast from "../../CustomToast";
 import { Alerts } from "../alert/alertActions";
 import { iAlert } from "../alert/types";
+import { fetchNotifications } from "../notifications/notificationsAsyncThunk";
 import { store } from "../store";
 import { NewTransaction } from "../types";
 
@@ -15,6 +16,9 @@ const alert = (type: iAlert) => store.dispatch(Alerts(type));
 const successHandler = (type: iAlert) => {
   const { endDate, startDate } = store.getState().tableFilter;
   const { page } = store.getState().transactions;
+  if(type === "transactionaccepted" || type === "transactioncancelled" || type === "transactionrejected" || type === "confirmdelivery"){
+    store.dispatch(fetchNotifications(1))
+  }
   store.dispatch(fetchAllTransactions({ page, startDate, endDate }));
   alert(type);
 };

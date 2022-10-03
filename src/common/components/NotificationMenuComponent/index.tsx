@@ -12,6 +12,7 @@ import {
   fetchTransaction,
   readNotification,
 } from "../redux/notifications/notificationsAsyncThunk";
+import useScrollToView from "../../hooks/useScrollToView";
 
 type Props = {
   status: boolean;
@@ -20,6 +21,7 @@ type Props = {
   notificationid: string;
   id: string;
   type: string;
+  position: number;
 };
 
 function NotificationItem({
@@ -29,11 +31,14 @@ function NotificationItem({
   id,
   type,
   notificationid,
+  position,
 }: Props) {
   const dispatch = useAppDispatch();
   const { item, loading } = useAppSelector(
     (state) => state.notification.notification
   );
+
+  const headerRef = useScrollToView();
 
   useEffect(() => {
     if (item.id === id && loading === false && type === "TRANSACTION") {
@@ -59,12 +64,16 @@ function NotificationItem({
 
   return (
     <div
+      ref={position === 0 ? headerRef : null}
       className={`${status ? "notifications__itemR" : "notifications__item"} `}
     >
       <div className="notifications__item--status"></div>
       <span className="notifications__item--avatar"></span>
       <p className="notifications__item--content">
-        {content} <span onClick={viewClickHandler}>View</span>
+        {content}{" "}
+        {type !== "PAYMENT" ? (
+          <span onClick={viewClickHandler}>View</span>
+        ) : null}
       </p>
       <DropDown
         content={

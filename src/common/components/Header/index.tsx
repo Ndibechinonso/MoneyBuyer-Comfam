@@ -15,12 +15,13 @@ import { Alerts } from "../redux/alert/alertActions";
 import statusIndicator from "../../../static/images/status_indicator.svg";
 import HandWave from "../CustomIcons/HandWave";
 import { fetchUserDetails } from "../../../https/storage";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { capitalizeFirstLetter } from "../../utils";
 import { loadingStop } from "../redux/apploader";
 import admin from "../../../modules/service/admin";
 import { SellerProps } from "../redux/types";
 import useLoading from "../../hooks/useLoading";
+import { fetchNotifications } from "../redux/notifications/notificationsAsyncThunk";
 
 type Iheader = {
   newUser?: boolean;
@@ -33,25 +34,38 @@ function Header({ newUser, inCompleteReg }: Iheader) {
   const value = getObject(getFirstLevelPath(pathname));
   const dispatch = useAppDispatch();
   const { notifications } = useAppSelector((state) => state.notification);
-  const [unreadNotifications, setUnreadNotifications] = useState([]);
+  // const [unreadNotifications, setUnreadNotifications] = useState([]);
   const { activeMessage } = useAppSelector((state) => state.messages);
   const [sellerObject, setSellerObject] = useState<any>({});
   // const { isloading } = useAppSelector((state) => state.);
   const { transactionloading } = useLoading();
+  // const disputes = useAppSelector(state => state.disputes.disputes)
+  // const transactions = useAppSelector(state => state.transactions.transactions)
+  // const wallet_transaction = useAppSelector(state => state.wallet.wallet.transactions)
 
   const [sellerAvatar, setSellerAvatar] = useState("");
 
-  useEffect(() => {
-    const newNotifications = notifications.filter(
-      (notification) => notification.read === false
-    );
-    setUnreadNotifications(newNotifications);
-  }, [notifications]);
+  // useEffect(() => {
+  //   const newNotifications = notifications.filter(
+  //     (notification) => notification.read === false
+  //   );
+  //   setUnreadNotifications(newNotifications);
+  // }, [notifications]);
+
+  const unreadNotifications = useMemo(
+    () => notifications.filter((notification) => notification.read === false),
+    [notifications]
+  );
 
   useEffect(() => {
     const activeSeller = activeMessage[0]?.seller;
     setSellerObject(activeSeller);
   }, [activeMessage]);
+
+  // useEffect(() => {
+
+  //   dispatch(fetchNotifications(1))
+  // }, [])
 
   // useEffect(()=>{
   //   admin

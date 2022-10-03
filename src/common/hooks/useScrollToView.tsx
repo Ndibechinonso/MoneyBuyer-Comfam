@@ -7,7 +7,7 @@ function useScrollToView() {
     if (mountOnce.current) {
       return;
     }
-    elementRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    elementRef?.current?.scrollIntoView({ behavior: "smooth", block: "end" });
 
     mountOnce.current = true;
   }, []);

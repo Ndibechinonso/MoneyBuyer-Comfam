@@ -144,21 +144,29 @@ const slice = createSlice({
       })
       .addCase(verifyAccount.fulfilled, (state, action: PayloadAction<any>) => {
         state.loading = false;
-        state.withdrawalform.account_name = action.payload.account_name;
-        state.withdrawalform.account_number_verified = true;
+        if (!action.payload.error) {
+          state.withdrawalform.account_name = action.payload.account_name;
+          state.withdrawalform.account_number_verified = true;
+        }
       })
       .addCase(verifyAccount.rejected, (state) => {
         state.loading = false;
+        state.withdrawalform.account_number_verified = false;
       })
       .addCase(withdrawfromwallet.pending, (state) => {
         state.loading = true;
       })
-      .addCase(withdrawfromwallet.fulfilled, (state, action) => {
-        state.loading = false;
-        state.wallet.balance = action.payload.wallet.balance;
-        state.wallet.updated_at = action.payload.wallet.updated_at;
-        state.wallet.transactions = action.payload.wallet.transactions;
-      })
+      .addCase(
+        withdrawfromwallet.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.loading = false;
+          if (!action.payload.error) {
+            state.wallet.balance = action.payload.wallet.balance;
+            state.wallet.updated_at = action.payload.wallet.updated_at;
+            state.wallet.transactions = action.payload.wallet.transactions;
+          }
+        }
+      )
       .addCase(withdrawfromwallet.rejected, (state) => {
         state.loading = false;
       })
