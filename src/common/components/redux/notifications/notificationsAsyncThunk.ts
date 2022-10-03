@@ -1,6 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import admin from "../../../../modules/service/admin";
 import { ImarkNotification } from "../../../../modules/service/admin/types";
+import CustomAlert from "../../CustomAlert";
+import customToast from "../../CustomToast";
 
 const fetchNotifications = createAsyncThunk(
   "notifications/fetchNotifications",
@@ -43,7 +45,11 @@ const deleteNotification = createAsyncThunk(
   async (id: string) => {
     return admin
       .deleteNotification(id)
-      .then((res) => res.data)
+      .then((res) => {  
+         customToast(res.message)
+        const response = res.data
+        return response
+      })
       .catch((err) => err);
   }
 );

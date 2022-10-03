@@ -30,10 +30,10 @@ const BarchartFilters = () =>{
     }, [filter])
     return(
         <div className="filter_container">
-      {startDate  && <span className="date_container">
+    <span className="date_container">
           <DasboardCalendar />
           <span>{getMonth(startDate)} - {getMonth(endDate)}</span>
-        </span> }
+        </span> 
         <div className="date_filter_container">
             {filterArray.map((item) =>{
                 return <div key={item.label} onClick={() => changeFilter(item.value)} className={`${item.value === filter ? "selected_date" : ""} dates`}>{item.label}</div>

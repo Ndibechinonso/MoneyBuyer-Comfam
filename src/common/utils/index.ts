@@ -151,8 +151,6 @@ export const getMonth = (date: string) =>{
   if(date.length < 1) return
   const month_value = date.split("-")[0]
   const year = date.split("-")[1]
-  console.log(month_value);
-
   let month;
   switch(month_value){
     case "1" : month = "Jan";

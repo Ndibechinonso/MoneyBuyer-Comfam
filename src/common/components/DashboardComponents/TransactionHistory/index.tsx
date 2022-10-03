@@ -1,32 +1,15 @@
+import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useAppSelector } from "../../redux/hooks";
 import { formatCurrency, formatDate } from "../../../utils";
 import CustomLoader from "../../CustomLoader";
-import { useEffect, useState } from "react";
-import admin from "../../../../modules/service/admin";
-import CustomToast from "../../CustomToast";
 
 const TransactionHistory = () => {
   const { loading, transactionHistory } = useAppSelector(
     (state) => state.dashboardSummary
   );
-const [transactionArray, setTransactionArray] = useState([])
-
   useEffect(() =>{
-//     transactionHistory.map((transaction) => {
-// const files = transaction.images[0]
-//       if (files.length) {
-//      return admin
-//       .uploadImage()
-//       .then((res) => {
-//         // setRawImage((prev) => [...prev, files.item(0)]);
-//         transaction.refinedImage = res?.response.data.key;
-//       })
-//       .catch((err) => CustomToast(err.message, true))
-//       .finally(() => {})
-//     })
-//   }
   }, [transactionHistory])
 
   return (

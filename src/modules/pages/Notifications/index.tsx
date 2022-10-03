@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomLoader from "../../../common/components/CustomLoader";
 import NotificationItem from "../../../common/components/NotificationMenuComponent";
 import PaginationComponent from "../../../common/components/PaginationComponent";
@@ -8,21 +8,16 @@ import {
 } from "../../../common/components/redux/hooks";
 import { fetchNotifications } from "../../../common/components/redux/notifications/notificationsAsyncThunk";
 import { changePageNumber } from "../../../common/components/redux/notifications/notificationsSlice";
-import { notificationArray } from "../../../fakeData";
 
 const Notifications = () => {
   const { notifications } = useAppSelector((state) => state.notification);
-  const runOnce = useRef(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [neglectlimit, setLimit] = useState(5);
-
   const { loading } = useAppSelector((state) => state.notification);
   const { totalPages } = useAppSelector(
     (state) => state.notification.pagination
   );
-
   const dispatch = useAppDispatch();
-
   useEffect(() => {
     dispatch(fetchNotifications(currentPage));
   }, [currentPage]);
@@ -50,13 +45,10 @@ const Notifications = () => {
       ) : (
         <div className="no_notifications">No Notifications</div>
       )}
-
       <PaginationComponent
         loading={false}
         currentPage={currentPage}
-        // totalPages={Math.ceil((count || 0) / limit)}
         totalPages={totalPages}
-        // totalPages={12}
         setLimit={setLimit}
         setPage={setCurrentPage}
         limit={neglectlimit}

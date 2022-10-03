@@ -16,7 +16,6 @@ import { createNewTransaction } from "../../redux/transaction/transactionAsyncTh
 
 const NewTransaction = () => {
   const id = useId();
-  // const { isloading } = useAppSelector((state) => state.isloading);
   const { loading: isloading } = useAppSelector((state) => state.transactions);
   const [imgUploading, setImgUploading] = useState(false);
   const dispatch = useAppDispatch();

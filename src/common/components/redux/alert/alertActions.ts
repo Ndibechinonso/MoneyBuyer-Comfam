@@ -3,11 +3,6 @@ import * as AlertTypes from "./alertTypes";
 import { iAlert } from "./types";
 
 type modalInitiator = string;
-// type modalInitiator =
-//   | undefined
-//   | "pendingconfirmation"
-//   | "awaitingconfirmation"
-//   | "pendingdelivery";
 
 export const Alerts =
   (alertType: iAlert, initiator?: modalInitiator) =>

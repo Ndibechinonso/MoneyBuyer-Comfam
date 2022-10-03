@@ -15,7 +15,7 @@ import { removeSingleTransaction } from "../redux/transaction/transactionSlice";
 import { removeSingleDispute } from "../redux/disputes/disputesSlice";
 import useLoading from "../../hooks/useLoading";
 
-function Layout() {
+const Layout = () => {
   const { pathname } = useLocation();
   const [userError, setUserError] = useState(true);
   const [newUser, setNewUser] = useState(true);
@@ -51,22 +51,13 @@ function Layout() {
     if (modalType === "" && disputeId) {
       dispatch(removeSingleDispute());
     }
-  }, [modalType, transactionId, disputeId, dispatch]); //eslint-disable-line
-
-  // useEffect(() => {
-  //   if (
-  //     prevInitiator === "wallet_transaction" ||
-  //     (transactionCount === 0 && prevInitiator === "created_new_transaction")
-  //   ) {
-  //     dispatch(fetchUser());
-  //   }
-  // }, [prevInitiator, dispatch]); //eslint-disable-line
+  }, [modalType, transactionId, disputeId, dispatch]);
 
   useEffect(() => {
     if (transactionCount === 0 && transactionloading) {
       dispatch(fetchUser());
     }
-  }, [transactionloading, dispatch]); // eslint-disable-line
+  }, [transactionloading, dispatch]); 
 
   useLayoutEffect(() => {
     if (mountOnce.current) {
@@ -76,7 +67,7 @@ function Layout() {
       dispatch(fetchUser());
     }
     mountOnce.current = true;
-  }, []); //eslint-disable-line
+  }, []);
 
   if (!fetchUserToken() || fetchUserDetails() === false) {
     return <Navigate replace to="/signin/buyer" />;

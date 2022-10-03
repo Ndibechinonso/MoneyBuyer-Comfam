@@ -111,12 +111,12 @@ useEffect(() =>{
 
           <h4> Referral Code </h4>
           <div className="profile__container_header-copy">
-            <h5 className="linkText">{`${REACT_APP_FRONTEND_URL}?referralId=${userId}`}</h5>
+            <h5 className="linkText">{`${REACT_APP_FRONTEND_URL}?referal_id=${userId}`}</h5>
             <CopyToClipboard
-              text={`${REACT_APP_FRONTEND_URL}?id=${userId}`}
+              text={`${REACT_APP_FRONTEND_URL}?referal_id=${userId}`}
               onCopy={() => CustomToast("Link copied")}
             >
-              <h5 className="copy">Copy</h5>
+              <h5 className="copy cursor-pointer">Copy</h5>
             </CopyToClipboard>
           </div>
         </div>

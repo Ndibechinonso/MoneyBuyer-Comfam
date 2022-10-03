@@ -17,7 +17,7 @@ function Transaction() {
     if (page || startDate || endDate) {
       dispatch(fetchAllTransactions({ page, startDate, endDate }));
     }
-  }, [page, endDate]); //eslint-disable-line
+  }, [page, endDate]); 
 
   useEffect(() => {
     if (mountOnce.current === true) {
@@ -27,8 +27,7 @@ function Transaction() {
       dispatch(fetchAllTransactions({ page, startDate, endDate }));
     }
     mountOnce.current = true;
-  }, []); //eslint-disable-line
-
+  }, []); 
   return (
     <>
       <Table data={transactions} headers={sellersTransactions.columns} />

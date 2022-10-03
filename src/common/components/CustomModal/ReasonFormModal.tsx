@@ -6,7 +6,6 @@ import { useAppSelector } from "../redux/hooks";
 type IReasonFormProps = {
   placeHolder?: any;
   onSubmitHandler: (e: React.FocusEvent<HTMLFormElement>) => void;
-  // loadingInitiator:string;
 };
 
 function ReasonFormModal({ placeHolder, onSubmitHandler }: IReasonFormProps) {

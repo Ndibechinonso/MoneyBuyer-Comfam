@@ -6,15 +6,11 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { Alerts } from "../redux/alert/alertActions";
 import CustomButton from "../CustomButtons";
 import DisputeTracker from "./DisputeTraker";
-import { removeNotificationItem } from "../redux/notifications/notificationsSlice";
 
 const DisputeModal = () => {
   const dispatch = useAppDispatch();
   const [display, setDisplay] = useState("Details");
   const { singleDispute } = useAppSelector((state) => state.disputes);
-  const notification = useAppSelector(
-    (state) => state.notification.notification
-  );
   const runUnmount = useRef(true);
 
   useEffect(() => {
@@ -22,15 +18,6 @@ const DisputeModal = () => {
       runUnmount.current = false;
       return;
     }
-
-    // return () => {
-    //   if (notification.id) {
-    //     dispatch(removeNotificationItem());
-
-    //   }
-
-    //   console.log("first")
-    // };
   }, []);
   
   return (

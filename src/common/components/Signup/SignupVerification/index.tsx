@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import { useAppSelector } from "../../redux/hooks";
 import { useAppDispatch } from "../../redux/hooks";
 import { Signup } from "../../redux/signup/signupActions";
 import styled from "styled-components";
@@ -42,7 +41,6 @@ const StyledReactInputVerificationCode = styled.div`
     border-radius: 8px;
     box-shadow: none;
   }
-
   .ReactInputVerificationCode__item.is-active {
     box-shadow: none;
     border: 1px solid #00003d;
@@ -51,26 +49,19 @@ const StyledReactInputVerificationCode = styled.div`
 
 const SignupVerification = () => {
   const dispatch = useAppDispatch();
-  // const { success } = useAppSelector((state) => state.signup);
   const [success] = useState(false);
-
   const [value, setValue] = useState("");
-  // const [isInvalid, setIsInvalid] = useState(false);
   const [error, setError] = useState(null) as any;
-
   const [seconds] = useState(null) as any;
-
   return (
     <div className="verification_container">
       {!success ? (
         <div>
           <h3>Check your Email</h3>
-
           <p className="verification_title">
             We have sent a verification code to your email address:
             sam******@gmail.com
           </p>
-
           <StyledReactInputVerificationCode>
             <ReactInputVerificationCode
               value={value}
@@ -78,20 +69,16 @@ const SignupVerification = () => {
               length={6}
               onChange={(newValue: string) => {
                 setValue(newValue);
-
                 if (newValue !== "") {
                   setError(null);
                 }
               }}
             />
           </StyledReactInputVerificationCode>
-
           {error && <StyledError>{error}</StyledError>}
-
           {seconds && (
             <StyledSeconds>{`Verification code has been re-sent (${seconds}s)`}</StyledSeconds>
           )}
-
           <p className="verification_resend">
             Didn’t get a code?{" "}
             <span
@@ -101,7 +88,6 @@ const SignupVerification = () => {
               Click to resend
             </span>
           </p>
-
           <CustomButton
             className="verify_btn"
             disabled={!(value.length === 6)}
@@ -113,7 +99,6 @@ const SignupVerification = () => {
         <div className="succes_container">
           <img src={successIcon} alt="success icon" />
           <h3>Email Verified</h3>
-
           <CustomButton
             className="verify_btn"
             action={() => console.log("success")}
@@ -121,34 +106,6 @@ const SignupVerification = () => {
           />
         </div>
       )}
-      {/* <StyledButton
-          onClick={() => {
-            setValue("");
-            setError("Incorrect code. Please try again");
-            setIsInvalid(true);
-            setSeconds(60);
-  
-            let mySeconds = 60;
-  
-            // TODO Clear previos interval
-  
-            const intervalId = setInterval(() => {
-              mySeconds = mySeconds - 1;
-              setSeconds(mySeconds);
-  
-              if (mySeconds === 0) {
-                clearInterval(intervalId);
-                setSeconds(null);
-              }
-            }, 1000);
-  
-            setTimeout(() => {
-              setIsInvalid(false);
-            }, 1000);
-          }}
-        >
-          Send
-        </StyledButton> */}
     </div>
   );
 };

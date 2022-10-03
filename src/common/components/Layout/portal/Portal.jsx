@@ -8,9 +8,8 @@ function createWrapperAndAppendToBody(wrapperId) {
   return wrapperElement;
 }
 
-function ReactPortal({ children, wrapperId = "react-portal-wrapper" }) {
+const ReactPortal = ({ children, wrapperId = "react-portal-wrapper" }) => {
     const [wrapperElement, setWrapperElement] = useState(null);
-
     useLayoutEffect(() => {
       let element = document.getElementById(wrapperId);
       let systemCreated = false;
@@ -21,7 +20,6 @@ function ReactPortal({ children, wrapperId = "react-portal-wrapper" }) {
         element = createWrapperAndAppendToBody(wrapperId);
       }
       setWrapperElement(element);
-
       return () => {
         // delete the programatically created element
         if (systemCreated && element.parentNode) {
@@ -29,10 +27,8 @@ function ReactPortal({ children, wrapperId = "react-portal-wrapper" }) {
         }
       }
     }, [wrapperId]);
-  
     // wrapperElement state will be null on very first render.
     if (wrapperElement === null) return null;
-
   return createPortal(children, wrapperElement);
 }
 export default ReactPortal;
