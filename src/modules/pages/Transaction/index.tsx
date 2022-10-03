@@ -13,11 +13,11 @@ function Transaction() {
   const { transactions, page } = useAppSelector((state) => state.transactions);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (page || startDate || endDate) {
-      dispatch(fetchAllTransactions({ page, startDate, endDate }));
-    }
-  }, [page, endDate]); //eslint-disable-line
+  // useEffect(() => {
+  //   if (page || startDate || endDate) {
+  //     dispatch(fetchAllTransactions({ page, startDate, endDate }));
+  //   }
+  // }, [page, endDate]); //eslint-disable-line
 
   useEffect(() => {
     if (mountOnce.current === true) {

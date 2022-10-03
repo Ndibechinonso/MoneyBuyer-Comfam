@@ -20,7 +20,6 @@ const Notifications = () => {
     dispatch(fetchNotifications(page));
   };
 
-
   return (
     <>
       {loading ? (
@@ -41,13 +40,12 @@ const Notifications = () => {
       ) : // <div className="no_notifications">No Notifications</div>
       null}
 
-      {dataCount > 10 ? (
-        <PaginationComponent
-          currentPage={currentPage}
-          totalPages={totalPages}
-          setPage={fetchPage}
-        />
-      ) : null}
+      <PaginationComponent
+        currentPage={currentPage}
+        totalPages={totalPages}
+        setPage={fetchPage}
+        dataCount={dataCount}
+      />
     </>
   );
 };

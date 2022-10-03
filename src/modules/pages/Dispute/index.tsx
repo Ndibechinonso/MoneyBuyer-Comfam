@@ -11,14 +11,13 @@ const  Dispute = () => {
   const mountOnce = useRef(false);
   const dispatch = useAppDispatch();
   const { startDate, endDate } = useAppSelector((state) => state.tableFilter);
-  const { disputes } = useAppSelector((state) => state.disputes);
-  const { page } = useAppSelector((state) => state.disputes);
+  const { disputes, page } = useAppSelector((state) => state.disputes);
 
-  useEffect(() => {
-    if (page || startDate || endDate) {
-      dispatch(fetchAllDisputes({ page, startDate, endDate }));
-    }
-  }, [page, endDate]); // eslint-disable-line
+  // useEffect(() => {
+  //   if (page || startDate || endDate) {
+  //     dispatch(fetchAllDisputes({ page, startDate, endDate }));
+  //   }
+  // }, [page, endDate]); // eslint-disable-line
 
   useEffect(() => {
     if (mountOnce.current === true) {
