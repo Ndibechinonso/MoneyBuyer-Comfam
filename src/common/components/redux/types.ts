@@ -251,11 +251,17 @@ export type Disputes = {
   updatedAt: string;
 };
 
-export type PaginationProps = {
+export interface PaginationProps {
   currentPage: number;
   dataCount: number;
   totalPages: number;
-};
+}
+
+export interface NotificationPaginationProps extends PaginationProps {
+  readNotification: number;
+  unReadNotification: number;
+}
+
 export type DisputesDataType = {
   loading: boolean;
   error: string;
@@ -353,7 +359,7 @@ export interface INotifications {
 export type NotificationsProps = {
   loading: boolean;
   notifications: INotifications[];
-  notification: {loading: boolean; item: any };
-  pagination: PaginationProps;
+  notification: { loading: boolean; item: any };
+  pagination: NotificationPaginationProps;
   page: number;
 };

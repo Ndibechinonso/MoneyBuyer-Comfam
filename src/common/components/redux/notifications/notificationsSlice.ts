@@ -16,6 +16,8 @@ const initialState: NotificationsProps = {
     currentPage: 0,
     dataCount: 0,
     totalPages: 0,
+    readNotification:0,
+    unReadNotification:0
   },
   page: 0,
 };
@@ -40,6 +42,8 @@ const slice = createSlice({
         state.pagination.currentPage = action.payload?.pagination.currentPage;
         state.pagination.dataCount = action.payload?.pagination.dataCount;
         state.pagination.totalPages = action.payload?.pagination.totalPages;
+        state.pagination.readNotification = action.payload?.pagination.readNotification;
+        state.pagination.unReadNotification = action.payload?.pagination.unReadNotification;
         state.notifications = action.payload.notifications;
       })
       .addCase(deleteNotification.pending, (state) => {
@@ -58,6 +62,8 @@ const slice = createSlice({
             ? { ...item, read: action.payload.read }
             : item
         );
+        state.pagination.readNotification = state.pagination.readNotification + 1
+        state.pagination.unReadNotification = state.pagination.unReadNotification - 1
       })
       .addMatcher(
         isAnyOf(fetchTransaction.pending, fetchDispute.pending),
