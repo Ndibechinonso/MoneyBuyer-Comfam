@@ -1,52 +1,57 @@
-import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
-import useScrollToView from "../../../common/hooks/useScrollToView";
-import { fetchUserDetails } from "../../../https/storage";
+import { ReactNode } from "react";
+import { NavLink } from "react-router-dom";
+import { useAppSelector } from "../../../common/components/redux/hooks";
+import route from "../../../common/routes/route";
 
-function Settings() {
-  const headerRef = useScrollToView()
+type props = {
+  children: ReactNode;
+};
+
+function Settings({ children }: props) {
+  const { verified } = useAppSelector((state) => state.user.user);
   return (
     <>
-      <ul ref={headerRef} className="setting__navigation">
+      <ul className="setting__navigation">
         <li className="setting__navigation--item">
           <NavLink
             className={({ isActive }) =>
               isActive ? "setting__navigation--item_active" : ""
             }
-            to={"/setting/profile"}
+            to={route.protected.setting_profile}
           >
             Profile
           </NavLink>
         </li>
-      { !fetchUserDetails().verified && 
+        {!verified && (
+          <li className="setting__navigation--item">
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "setting__navigation--item_active" : ""
+              }
+              to={route.protected.setting_verification}
+            >
+              Verification
+            </NavLink>
+          </li>
+        )}
+        {!verified && (
+          <li className="setting__navigation--item">
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "setting__navigation--item_active" : ""
+              }
+              to={route.protected.setting_bank_details}
+            >
+              Bank Detail
+            </NavLink>
+          </li>
+        )}
         <li className="setting__navigation--item">
           <NavLink
             className={({ isActive }) =>
               isActive ? "setting__navigation--item_active" : ""
             }
-            to={"/setting/verification"}
-          >
-            Verification
-          </NavLink>
-        </li> }
-        { !fetchUserDetails().verified &&   
-        <li className="setting__navigation--item">
-          <NavLink
-            className={({ isActive }) =>
-              isActive ? "setting__navigation--item_active" : ""
-            }
-            to={"/setting/bank_detail"}
-          >
-            Bank Detail
-          </NavLink>
-        </li>
-}
-        <li className="setting__navigation--item">
-          <NavLink
-            className={({ isActive }) =>
-              isActive ? "setting__navigation--item_active" : ""
-            }
-            to={"/setting/notification"}
+            to={route.protected.setting_notification}
           >
             Notification Setting
           </NavLink>
@@ -56,13 +61,13 @@ function Settings() {
             className={({ isActive }) =>
               isActive ? "setting__navigation--item_active" : ""
             }
-            to={"/setting/give_feedback"}
+            to={route.protected.setting_feedback}
           >
             Give Feedback
           </NavLink>
         </li>
       </ul>
-      <Outlet />
+      {children}
     </>
   );
 }

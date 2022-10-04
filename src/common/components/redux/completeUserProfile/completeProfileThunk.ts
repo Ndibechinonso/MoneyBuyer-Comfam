@@ -1,10 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { removeItem, storeUserDetails } from "../../../../https/storage";
+import { removeItem } from "../../../../https/storage";
 import auth from "../../../../modules/service/auth";
 import { Alerts } from "../alert/alertActions";
 import {
   resetProfileImageState,
   updateProfileImage,
+  updateUser,
 } from "../getUser/getUserSlice";
 import CustomToast from "../../CustomToast";
 import { loadingStop } from "../apploader";
@@ -19,10 +20,13 @@ const completeProfile = createAsyncThunk(
       .then((res) => {
         thunkAPI.dispatch(Alerts("profileupdated"));
         removeItem("verification");
-        storeUserDetails({
-          ...res.data.buyer,
-          transactionCount: res.data.transactionCount,
-        });
+
+        thunkAPI.dispatch(
+          updateUser({
+            ...res.user.buyer,
+            transaction_count: res.user.transactionCount,
+          })
+        );
         thunkAPI.dispatch(updateProfileImage());
       })
       .catch((err) => {
@@ -60,10 +64,12 @@ const updateNotification = createAsyncThunk(
       })
       .then((res) => {
         thunkAPI.dispatch(Alerts("notificationupdated"));
-        storeUserDetails({
-          ...res.data.buyer,
-          transactionCount: res.data.transactionCount,
-        });
+        thunkAPI.dispatch(
+          updateUser({
+            ...res.user.buyer,
+            transaction_count: res.user.transactionCount,
+          })
+        );
       })
       .catch((err) => CustomToast(err.message))
       .finally(() => thunkAPI.dispatch(loadingStop()));
@@ -99,10 +105,12 @@ const uploadProfileImage = createAsyncThunk(
           .updateProfileImage({ image: res?.response.data.key })
           .then((res) => {
             CustomToast(res.message);
-            storeUserDetails({
-              ...res.data.buyer,
-              transactionCount: res.data.transactionCount,
-            });
+            thunkAPI.dispatch(
+              updateUser({
+                ...res.user.buyer,
+                transaction_count: res.user.transactionCount,
+              })
+            );
             thunkAPI.dispatch(updateProfileImage());
           })
           .catch((err) => CustomToast(err.message, true));
@@ -117,4 +125,9 @@ const uploadProfileImage = createAsyncThunk(
   }
 );
 
-export { completeProfile, updateNotification, updatePassword, uploadProfileImage };
+export {
+  completeProfile,
+  updateNotification,
+  updatePassword,
+  uploadProfileImage,
+};

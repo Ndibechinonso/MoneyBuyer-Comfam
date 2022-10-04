@@ -8,11 +8,11 @@ import {
 import Header from "../Header";
 import NewUserCard from "../sharedCards/NewUserCard";
 import SideNav from "../SideNav";
-import Notice from "./Notice";
+import Notice from "./Buyer/Notice";
 import CustomAlert from "../CustomAlert";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import Messages from "../Messages";
-import { fetchUserDetails, fetchUserToken } from "../../../https/storage";
+import { fetchUserToken } from "../../../https/storage";
 import CustomLoader from "../CustomLoader";
 import fetchUser from "../redux/getUser/getUserThunk";
 import { removeSingleTransaction } from "../redux/transaction/transactionSlice";
@@ -22,6 +22,7 @@ import { fetchNotifications } from "../redux/notifications/notificationsAsyncThu
 import useAppLoader from "../../hooks/useAppLoader";
 import { fetchAllMessages } from "../redux/messages/messagesAsyncThunk";
 import { fetchAllTransactions } from "../redux/transaction/transactionAsyncThunk";
+import { fetchAllDisputes } from "../redux/disputes/disputesAsyncThunk";
 
 const Layout = () => {
   const { pathname } = useLocation();
@@ -31,16 +32,16 @@ const Layout = () => {
   const { modal, modalType } = useAppSelector((state) => state.alert);
   const {
     singleTransaction: { id: transactionId },
-    pagination: { dataCount: transactionDataCount },
+    pagination: { dataCount: transactionDataCount, currentPage: transactionCP },
   } = useAppSelector((state) => state.transactions);
   const {
     singleDispute: { _id: disputeId },
-    pagination:{dataCount: disputeDataCount},
+    pagination: { dataCount: disputeDataCount, currentPage: disputeCP },
   } = useAppSelector((state) => state.disputes);
   const { dataCount: notificationCount, currentPage: notificationCP } =
     useAppSelector((state) => state.notification.pagination);
   const mountOnce = useRef(false);
-  const { verified, transactionCount, user_type } = useAppSelector(
+  const { verified, transaction_count, user_type } = useAppSelector(
     (state) => state.user.user
   );
   const { messageList } = useAppSelector((state) => state.messages);
@@ -55,10 +56,10 @@ const Layout = () => {
     if (verified) {
       setUserError(false);
     }
-    if (transactionCount) {
+    if (transaction_count) {
       setNewUser(false);
     }
-  }, [verified, transactionCount]);
+  }, [verified, transaction_count]);
 
   //  this removes transaction and dispute modal item object from the redux state whenever the modal is closed
   useEffect(() => {
@@ -79,15 +80,24 @@ const Layout = () => {
       ) {
         dispatch(fetchNotifications(1));
       }
+      if (getFirstLevelPath(pathname) === "dispute" && disputeCP !== 1) {
+        dispatch(fetchNotifications(1));
+      }
+      if (
+        getFirstLevelPath(pathname) === "transaction" &&
+        transactionCP !== 1
+      ) {
+        dispatch(fetchAllTransactions({ page: 1 }));
+      }
     };
   }, [pathname]);
 
   //  update new user information after user has initiated a transaction
   useEffect(() => {
-    if (user_type !== "" && transactionCount === 0 && transactionloading) {
+    if (user_type !== "" && transaction_count === 0 && transactionloading) {
       dispatch(fetchUser());
     }
-  }, [transactionloading, dispatch]); 
+  }, [transactionloading, dispatch]);
 
   //  this gets the user notification and also the user object when component mounts
   useLayoutEffect(() => {
@@ -97,13 +107,14 @@ const Layout = () => {
     dispatch(fetchNotifications(1));
     dispatch(fetchAllMessages());
     dispatch(fetchAllTransactions({ page: 1 }));
+    dispatch(fetchAllDisputes({ page: 1 }));
     if (user_type === "") {
       dispatch(fetchUser());
     }
     mountOnce.current = true;
   }, []);
 
-  if (!fetchUserToken() || fetchUserDetails() === false) {
+  if (!fetchUserToken() ) {
     return <Navigate replace to="/signin/buyer" />;
   }
 
@@ -157,6 +168,6 @@ const Layout = () => {
       </div>
     </>
   );
-}
+};
 
 export default Layout;

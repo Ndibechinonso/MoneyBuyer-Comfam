@@ -13,22 +13,22 @@ export const setItem = (key: string, value: any) => {
 
 export const clearData = () => localStorage.clear();
 
-export const storeUserDetails = (userDetails: any) => {
-  setItem(STORAGE_KEYS.USER_DETAILS_STORAGE_KEY, JSON.stringify(userDetails));
-};
+// export const storeUserDetails = (userDetails: any) => {
+//   setItem(STORAGE_KEYS.USER_DETAILS_STORAGE_KEY, JSON.stringify(userDetails));
+// };
 
 export const clearUserDetails = () => {
   removeItem(STORAGE_KEYS.USER_DETAILS_STORAGE_KEY);
   removeItem(STORAGE_KEYS.CLIENT_TOKEN_STORAGE_KEY);
 };
 
-export const fetchUserDetails = () => {
-  let details = getItem(STORAGE_KEYS.USER_DETAILS_STORAGE_KEY);
-  if (details) {
-    return JSON.parse(details);
-  }
-  return false;
-};
+// export const fetchUserDetails = () => {
+//   let details = getItem(STORAGE_KEYS.USER_DETAILS_STORAGE_KEY);
+//   if (details) {
+//     return JSON.parse(details);
+//   }
+//   return false;
+// };
 
 export const storeUserToken = (token: string) => {
   return setItem(STORAGE_KEYS.CLIENT_TOKEN_STORAGE_KEY, token);

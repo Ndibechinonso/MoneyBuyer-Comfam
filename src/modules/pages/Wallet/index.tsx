@@ -13,7 +13,10 @@ function Wallet() {
   const [switchTabs, setSwitchTabs] = useState(false);
   const callOnce = useRef(false);
   const dispatch = useAppDispatch();
-  const balance = useAppSelector((state) => state.wallet.wallet.balance);
+  const {
+    wallet: { balance },
+    loading,
+  } = useAppSelector((state) => state.wallet);
   const headerRef = useScrollToView();
 
   // fetch balance on component mount
@@ -32,7 +35,7 @@ function Wallet() {
   return (
     <>
       <div ref={headerRef} className="wallet__header">
-        <h3 className="wallet__title">
+        <h3 className={`wallet__title ${loading? "wallet__title--loading":""}`}>
           {balance ? toNaira(balance.toString()) : "₦ 0.00"}
         </h3>
         <p className="wallet__subtitle">Wallet Balance</p>
@@ -52,7 +55,11 @@ function Wallet() {
         </button>
       </div>
       <div className="wallet__container">
-        {switchTabs ? <Withdraw titleRef={headerRef} /> : <Deposit titleRef={headerRef} />}
+        {switchTabs ? (
+          <Withdraw titleRef={headerRef} />
+        ) : (
+          <Deposit titleRef={headerRef} />
+        )}
       </div>
     </>
   );

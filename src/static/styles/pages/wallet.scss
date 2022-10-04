@@ -10,6 +10,22 @@
   &__title {
     @include h3SemiBold;
     color: var(--brandColorPrimary4);
+
+    &--loading {
+      background: linear-gradient(
+        to right,
+        var(--brandColorPrimary4) 0,
+        var(--brandColorPrimary8) 50%,
+        var(--brandColorPrimary4) 100%
+      );
+      background-position: 0;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 2s infinite linear;
+      animation-fill-mode: forwards;
+      -webkit-text-size-adjust: none;
+      white-space: nowrap;
+    }
   }
   &__subtitle {
     @include largeTextMedium;
@@ -115,7 +131,7 @@
       line-height: 1.375rem;
       letter-spacing: 0em;
     }
-    p{
+    p {
       @include normalTextMedium;
       color: var(--stateColorSuccess);
     }

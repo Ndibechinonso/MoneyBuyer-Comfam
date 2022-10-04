@@ -114,8 +114,8 @@ export const checkObjectValues = (myObj, propsLength) => {
 };
 
 export const capitalizeFirstLetter = (name: string) => {
-  const firstLetter = name.substring(0, 1).toUpperCase();
-  const otherLetters = name.substring(1).toLowerCase();
+  const firstLetter = name?.substring(0, 1)?.toUpperCase();
+  const otherLetters = name?.substring(1)?.toLowerCase();
   return firstLetter + otherLetters;
 };
 

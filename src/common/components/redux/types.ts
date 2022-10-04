@@ -111,6 +111,9 @@ export type UserProps = {
   verified: boolean;
   verifiedBvn: boolean;
   wallet_id: string;
+  transaction_count:number;
+  id:string;
+  phone_number:string;
 };
 
 export const initialUser = {
@@ -130,7 +133,7 @@ export const initialUser = {
     sms: false,
   },
   residential_address: "",
-  transactionCount: 0,
+  transaction_count: 0,
   state: "",
   state_of_origin: "",
   street_name: "",
@@ -139,6 +142,8 @@ export const initialUser = {
   verified: false,
   verifiedBvn: false,
   wallet_id: "",
+  id:"",
+  phone_number:"",
 };
 
 export type TransactionProps = {

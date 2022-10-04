@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import CustomButton from '../CustomButtons'
-import WarningIcon from '../CustomIcons/WarningIcon'
+import CustomButton from '../../CustomButtons'
+import WarningIcon from '../../CustomIcons/WarningIcon'
 
 
 function Notice() {

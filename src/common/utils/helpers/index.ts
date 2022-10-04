@@ -1,7 +1,8 @@
 import { Ioptions } from "../../components/CustomTable/types";
 import { language } from "../language/en";
 
-export const getFirstLevelPath = (value: string) => {
+type firstLevelPath = "dashboard" | "notifications" | "wallet" | "messages" |"transaction" | "dispute" | "setting"
+export const getFirstLevelPath = (value: any):firstLevelPath => {
   return value.substring(1).split("/")[0];
 };
 

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { fetchUserDetails } from "../../../../https/storage";
 import admin from "../../../../modules/service/admin";
 import DropDownIcon from "../../CustomIcons/DropDownIcon";
 import { useAppSelector } from "../../redux/hooks";
@@ -9,13 +8,13 @@ const UserMenuTrigger = () => {
   const runOnce = useRef(false);
   const [userAvatar, setUserAvartar] = useState("");
   const {profileImageChange} = useAppSelector((state) => state.user)
+  const {verified, image} = useAppSelector(state => state.user.user)
 
   useEffect(() => {
     if (runOnce.current && !profileImageChange) {
       return;
     }
-    if ((fetchUserDetails().verified && !userAvatar) || profileImageChange) {
-      const image = fetchUserDetails().image;
+    if ((verified && !userAvatar) || profileImageChange) {
       admin
         .getImage(image)
         .then((res) => {
