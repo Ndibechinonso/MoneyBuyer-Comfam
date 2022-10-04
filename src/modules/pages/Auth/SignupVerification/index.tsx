@@ -13,6 +13,7 @@ import {
   useAppSelector,
 } from "../../../../common/components/redux/hooks";
 import { Signup } from "../../../../common/components/redux/signup/signupActions";
+import route from "../../../../common/routes/route";
 import successIcon from "../../../../static/images/success.svg";
 import auth from "../../../service/auth";
 
@@ -170,7 +171,7 @@ const SignupVerification = () => {
 
           <CustomButton
             className="verify_btn"
-            action={() => navigate("/signin/buyer")}
+            action={() => navigate(route.nonprotected.buyer.login)}
             actionText="Back to Home"
           />
         </div>

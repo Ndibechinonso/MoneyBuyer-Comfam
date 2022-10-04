@@ -4,6 +4,7 @@ import { fetchUserToken } from '../../../../https/storage';
 import CustomAlert from '../../CustomAlert';
 import logo from "../../../../static/images/logo.svg";
 import { useAppSelector } from '../../redux/hooks';
+import route from '../../../routes/route';
 
 const Auth = () => {
     const { modal, modalType } = useAppSelector((state) => state.alert);
@@ -13,10 +14,10 @@ const Auth = () => {
     useEffect(() => {
       if (modalType === "" && pathname.includes("forgotpassword")) {
         if (pathname.includes("buyer")) {
-          navigate("/sigin/buyer");
+          navigate(route.nonprotected.buyer.login);
         }
         if (pathname.includes("seller")) {
-          navigate("/signin/seller");
+          navigate(route.nonprotected.seller.login);
         }
       }
     }, [modalType]);

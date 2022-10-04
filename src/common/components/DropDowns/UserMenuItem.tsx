@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { clearUserDetails } from "../../../https/storage";
+import route from "../../routes/route";
 import LogoutIcon from "../CustomIcons/LogoutIcon";
 import ReminderIcon from "../CustomIcons/ReminderIcon";
 import SettingsIcon from "../CustomIcons/SettingsIcon";
@@ -23,19 +24,19 @@ function UserMenuItem() {
   return (
     <DropDownMenuContent className="header__dropDownMenu">
       <DropDownItem className="header__dropDownMenu--itm">
-        <button onClick={() => navigate("/setting/profile")}>
+        <button onClick={() => navigate(route.protected.setting_profile)}>
           <UserIcon />
           View Profile
         </button>
       </DropDownItem>
       <DropDownItem className="header__dropDownMenu--itm">
-        <button onClick={() => navigate("/setting/profile")}>
+        <button onClick={() => navigate(route.protected.setting_profile)}>
           <SettingsIcon />
           Settings
         </button>
       </DropDownItem>
       <DropDownItem className="header__dropDownMenu--itm">
-        <button onClick={() => navigate("/setting/notification")}>
+        <button onClick={() => navigate(route.protected.setting_notification)}>
           <ReminderIcon />
           Send Delivery Reminder
         </button>

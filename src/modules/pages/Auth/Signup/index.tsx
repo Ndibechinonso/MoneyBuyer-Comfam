@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../../common/components/redux/hooks";
 import SignupVerification from "../../../../common/components/Signup/SignupVerification";
 import ResendVerification from "../../../../common/components/Signup/ResendVerification";

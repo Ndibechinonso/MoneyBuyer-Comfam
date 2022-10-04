@@ -16,6 +16,7 @@ import { Alerts } from "../redux/alert/alertActions";
 import HandWave from "../CustomIcons/HandWave";
 import { capitalizeFirstLetter } from "../../utils";
 import useLoading from "../../hooks/useLoading";
+import route from "../../routes/route";
 
 type Iheader = {
   newUser?: boolean;
@@ -45,7 +46,7 @@ function Header({ newUser, inCompleteReg }: Iheader) {
         <div className="confam__layout--header_top header">
           <button
             className="notification__icon"
-            onClick={() => navigate("/notifications")}
+            onClick={() => navigate(route.protected.notifications)}
           >
             <NotificationIcon
               color={`${

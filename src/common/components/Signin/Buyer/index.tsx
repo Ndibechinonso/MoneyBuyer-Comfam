@@ -9,6 +9,7 @@ import { loadingStart, loadingStop } from "../../redux/apploader";
 import customtoast from "../../CustomToast";
 import { updateUser } from "../../redux/getUser/getUserSlice";
 import Signin from "../../../../modules/pages/Auth/Signin";
+import route from "../../../routes/route";
 
 const Form = () => {
   const id = useId();
@@ -48,7 +49,7 @@ const Form = () => {
             transaction_count: res.user.transactionCount,
           })
         );
-        navigate("/dashboard");
+        navigate(route.protected.dashboard);
       })
       .catch((err) => {
         setIsSubmitted(false);

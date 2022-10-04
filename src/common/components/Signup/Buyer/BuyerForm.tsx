@@ -7,6 +7,7 @@ import { loadingStart, loadingStop } from "../../redux/apploader";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { validateEmail, validatePassword } from "../../../utils";
 import CustomToast from "../../CustomToast";
+import route from "../../../routes/route";
 
 const BuyerForm = () => {
   const id = useId();
@@ -56,7 +57,7 @@ const handleShowPassword = () => {
     dispatch(loadingStart(""));
     auth
       .registerBuyer(inputs)
-      .then((res) => { setIsSubmitted(false); navigate(`/verification?email=${inputs.email}`) })
+      .then((res) => { setIsSubmitted(false); navigate(`${route.nonprotected.verify}?email=${inputs.email}`) })
       .catch((err) => {  setIsSubmitted(false); CustomToast(err.message)})
       .finally(() => dispatch(loadingStop()));
   };

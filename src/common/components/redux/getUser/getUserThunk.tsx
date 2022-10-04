@@ -6,7 +6,7 @@ const fetchUser = createAsyncThunk("user/fetchUser", async () => {
     .getUserInfo()
     .then((res) => ({
       ...res.data.buyer,
-      transactionCount: res.data.transactionCount,
+      transaction_count: res.data.transactionCount,
     }))
     .catch((err) => err);
 });
