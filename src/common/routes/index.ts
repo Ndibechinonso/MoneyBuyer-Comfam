@@ -2,27 +2,43 @@ import { lazy } from "react";
 import route from "./route";
 import { RouteConfig } from "./types";
 
-const loadModules = (link:string) => lazy(() => import(`../../modules/pages/${link}`));
+const loadModules = (link: string) =>  lazy(() => import(`../../modules/pages/${link}`));
+const loadAuthModules = (link: string) =>  lazy(() => import(`../components/${link}`));
 
-const routes:RouteConfig[] = [
+const routes: RouteConfig[] = [
   {
-    path: route.nonprotected.login,
-    Component: loadModules("Auth/Login"),
+    path: route.nonprotected.buyer.login,
+    Component: loadAuthModules("Signin/Buyer"),
     access: "guest-only",
   },
   {
-    path: route.nonprotected.register,
-    Component: loadModules("Auth/Signup"),
+    path: route.nonprotected.buyer.register,
+    Component: loadAuthModules("Signup/Buyer"),
     access: "guest-only",
   },
   {
-    path: route.nonprotected.reset_password,
-    Component: loadModules("auth/ForgotPassword"),
+    path: route.nonprotected.buyer.reset_password,
+    Component: loadAuthModules("ResetPassword/Buyer"),
+    access: "guest-only",
+  },
+  {
+    path: route.nonprotected.seller.login,
+    Component: loadAuthModules("Signin/Seller"),
+    access: "guest-only",
+  },
+  {
+    path: route.nonprotected.seller.register,
+    Component: loadAuthModules("Signup/Seller"),
+    access: "guest-only",
+  },
+  {
+    path: route.nonprotected.seller.reset_password,
+    Component: loadAuthModules("ResetPassword/Seller"),
     access: "guest-only",
   },
   {
     path: route.nonprotected.verify,
-    Component: loadModules("auth/EnterOtp"),
+    Component: loadModules("Auth/SignupVerification"),
     access: "guest-only",
   },
   {
@@ -80,7 +96,6 @@ const routes:RouteConfig[] = [
     Component: loadModules("Settings/Verification"),
     access: "loggedin-user",
   },
-  
 ];
 
 export default routes;

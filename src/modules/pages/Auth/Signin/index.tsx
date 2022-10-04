@@ -1,7 +1,11 @@
-import React from "react";
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import React, { ReactNode } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
-function Signin() {
+type props = {
+  children: ReactNode;
+};
+
+function Signin({ children }: props) {
   const { pathname } = useLocation();
   const getAppPath = (path: string) => {
     if (path.includes("seller")) {
@@ -40,7 +44,7 @@ function Signin() {
         </li>
       </ul>
       <div className="seller_container">
-        <Outlet />
+        {children}
         <Link
           className="signin_forgotpassword_link"
           to={`/forgotpassword/${getAppPath(pathname)}`}

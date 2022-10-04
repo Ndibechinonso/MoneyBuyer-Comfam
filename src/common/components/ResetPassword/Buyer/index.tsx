@@ -5,6 +5,7 @@ import { Alerts } from "../../redux/alert/alertActions";
 import auth from "../../../../modules/service/auth";
 import { loadingStart, loadingStop } from "../../redux/apploader";
 import customtoast from "../../CustomToast";
+import ResetPassword from "../../../../modules/pages/Auth/ResetPassword";
 
 const Form = () => {
   const id = useId();
@@ -33,33 +34,35 @@ const Form = () => {
   const validate = inputs.email && true;
 
   return (
-    <div className="biodata_container">
-      <form onSubmit={handleSubmit}>
-        <div className="seller_container_form">
-          <div className="form_group">
-            <label htmlFor={`${id}-email`}>Email Address</label>
-            <input
-              type="email"
-              disabled={isloading}
-              className="seller_container_form_input"
-              name="email"
-              id={`${id}-email`}
-              value={inputs.email}
-              onChange={handleChange}
-              placeholder="Enter Email Address"
+    <ResetPassword>
+      <div className="biodata_container">
+        <form onSubmit={handleSubmit}>
+          <div className="seller_container_form">
+            <div className="form_group">
+              <label htmlFor={`${id}-email`}>Email Address</label>
+              <input
+                type="email"
+                disabled={isloading}
+                className="seller_container_form_input"
+                name="email"
+                id={`${id}-email`}
+                value={inputs.email}
+                onChange={handleChange}
+                placeholder="Enter Email Address"
+              />
+            </div>
+
+            <CustomButton
+              className="signup_btn"
+              disabled={!validate || isloading}
+              type="submit"
+              action={handleSubmit}
+              actionText="Reset Password"
             />
           </div>
-
-          <CustomButton
-            className="signup_btn"
-            disabled={!validate || isloading}
-            type="submit"
-            action={handleSubmit}
-            actionText="Reset Password"
-          />
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </ResetPassword>
   );
 };
 

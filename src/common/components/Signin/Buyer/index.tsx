@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { loadingStart, loadingStop } from "../../redux/apploader";
 import customtoast from "../../CustomToast";
 import { updateUser } from "../../redux/getUser/getUserSlice";
+import Signin from "../../../../modules/pages/Auth/Signin";
 
 const Form = () => {
   const id = useId();
@@ -58,6 +59,7 @@ const Form = () => {
 
   const validate = inputs.email && inputs.password;
   return (
+    <Signin>
     <div className="biodata_container">
       <form>
         <div className="seller_container_form">
@@ -118,6 +120,7 @@ const Form = () => {
         </div>
       </form>
     </div>
+    </Signin>
   );
 };
 

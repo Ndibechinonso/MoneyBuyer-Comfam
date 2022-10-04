@@ -1,11 +1,14 @@
-import BuyerForm from "./BuyerForm"
+import Signup from "../../../../modules/pages/Auth/Signup";
+import BuyerForm from "./BuyerForm";
 
 const Buyer = () => {
-    return(
-        <div className="seller_container"> 
-      <BuyerForm />
+  return (
+    <Signup>
+      <div className="seller_container">
+        <BuyerForm />
       </div>
-    )
-}
+    </Signup>
+  );
+};
 
-export default Buyer
+export default Buyer;

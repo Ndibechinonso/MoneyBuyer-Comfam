@@ -1,9 +1,11 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Outlet } from "react-router-dom";
 
-type Props = {};
+type Props = {
+  children: ReactNode;
+};
 
-function ResetPassword({}: Props) {
+function ResetPassword({ children }: Props) {
   return (
     <div className="resetpassword_container">
       <header className="resetpassword_title">
@@ -11,9 +13,7 @@ function ResetPassword({}: Props) {
         <p>Enter your email address to reset password</p>
       </header>
 
-      <div className="seller_container">
-        <Outlet />
-      </div>
+      <div className="seller_container">{children}</div>
     </div>
   );
 }

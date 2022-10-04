@@ -1,10 +1,13 @@
+import Signup from "../../../../modules/pages/Auth/Signup";
 import SellerForm from "./SellerForm";
 
 const Seller = () => {
   return (
-     <div className="seller_container">
-    <SellerForm /> 
-    </div> 
+    <Signup>
+      <div className="seller_container">
+        <SellerForm />
+      </div>
+    </Signup>
   );
 };
 

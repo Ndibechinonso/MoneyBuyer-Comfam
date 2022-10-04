@@ -2,8 +2,13 @@ import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../../common/components/redux/hooks";
 import SignupVerification from "../../../../common/components/Signup/SignupVerification";
 import ResendVerification from "../../../../common/components/Signup/ResendVerification";
+import { ReactNode } from "react";
 
-const Signup = () => {
+type props = {
+  children:ReactNode
+}
+
+const Signup = ({children}:props) => {
   const { signupStage } = useAppSelector((state) => state.signup);
   const { pathname } = useLocation();
   const getAppPath = (path: string) => {
@@ -46,7 +51,7 @@ const Signup = () => {
                 </NavLink>
               </li>
             </ul>
-            <Outlet />
+            {children}
           </div>
           <p className="signup_link_div">
             Already have an account?{" "}
