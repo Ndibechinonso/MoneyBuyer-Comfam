@@ -28,7 +28,7 @@ function Header({ newUser, inCompleteReg }: Iheader) {
   const { pathname } = useLocation();
   const value = getObject(getFirstLevelPath(pathname));
   const dispatch = useAppDispatch();
-  const unreadNotifications = useAppSelector((state) => state.notification.pagination.unReadNotification);
+  const unreadNotifications = useAppSelector((state) => state.notification.pagination.readNotification);
   const { activeMessage } = useAppSelector((state) => state.messages);
   const { user } = useAppSelector((state) => state.user)
   const [sellerObject, setSellerObject] = useState<any>({});

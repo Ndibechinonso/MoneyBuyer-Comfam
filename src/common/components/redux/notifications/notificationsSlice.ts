@@ -38,12 +38,12 @@ const slice = createSlice({
       .addCase(fetchNotifications.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchNotifications.fulfilled, (state, action) => {
+      .addCase(fetchNotifications.fulfilled, (state, action: PayloadAction<any>) => {
         state.pagination.currentPage = action.payload?.pagination.currentPage;
         state.pagination.dataCount = action.payload?.pagination.dataCount;
         state.pagination.totalPages = action.payload?.pagination.totalPages;
-        state.pagination.readNotification = action.payload?.pagination.readNotification;
-        state.pagination.unReadNotification = action.payload?.pagination.unReadNotification;
+        state.pagination.readNotification = action.payload?.pagination.readNotificationCount;
+        state.pagination.unReadNotification = action.payload?.pagination.unreadNotificationCount;
         state.notifications = action.payload.notifications;
       })
       .addCase(deleteNotification.pending, (state) => {
@@ -62,8 +62,8 @@ const slice = createSlice({
             ? { ...item, read: action.payload.read }
             : item
         );
-        state.pagination.readNotification = state.pagination.readNotification + 1
-        state.pagination.unReadNotification = state.pagination.unReadNotification - 1
+        state.pagination.readNotification = state.pagination.readNotification - 1
+        state.pagination.unReadNotification = state.pagination.unReadNotification + 1
       })
       .addMatcher(
         isAnyOf(fetchTransaction.pending, fetchDispute.pending),
