@@ -10,15 +10,6 @@ type props = {
 
 const Signup = ({children}:props) => {
   const { signupStage } = useAppSelector((state) => state.signup);
-  const { pathname } = useLocation();
-  const getAppPath = (path: string) => {
-    if (path.includes("seller")) {
-      return "seller";
-    }
-    if (path.includes("buyer")) {
-      return "buyer";
-    }
-  };
 
   return (
     <>
@@ -35,27 +26,21 @@ const Signup = ({children}:props) => {
                   }
                   to={"/signup/buyer"}
                 >
-                  BUYER{" "}
+                  BUYER
                 </NavLink>
               </li>
 
               <li>
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive ? "signup_container_active_tab" : ""
-                  }
-                  to={"/signup/seller"}
-                >
-                  {" "}
-                  SELLER
-                </NavLink>
+              <a href="">
+              SELLER
+            </a>
               </li>
             </ul>
             {children}
           </div>
           <p className="signup_link_div">
             Already have an account?{" "}
-            <Link to={`/signin/${getAppPath(pathname)}`}>
+            <Link to={`/signin/buyer`}>
               <span className="signup_link">Sign In</span>
             </Link>
           </p>

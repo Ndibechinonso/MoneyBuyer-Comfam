@@ -13,12 +13,7 @@ const Auth = () => {
   
     useEffect(() => {
       if (modalType === "" && pathname.includes("forgotpassword")) {
-        if (pathname.includes("buyer")) {
           navigate(route.nonprotected.buyer.login);
-        }
-        if (pathname.includes("seller")) {
-          navigate(route.nonprotected.seller.login);
-        }
       }
     }, [modalType]);
   

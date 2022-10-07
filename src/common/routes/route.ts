@@ -5,11 +5,6 @@ const route = {
       register: "/signup/buyer",
       reset_password: "/forgotpassword/buyer",
     },
-    seller:{
-      login: "/signin/seller",
-      register: "/signup/seller",
-      reset_password: "/forgotpassword/seller",
-    },
     verify: "/verification",
   },
   protected: {

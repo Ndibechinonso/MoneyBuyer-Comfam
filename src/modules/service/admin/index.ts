@@ -39,7 +39,7 @@ const admin = {
     skips: number,
     limit: number,
     startDate?: string,
-    endDate?: string
+    endDate?: string,
   ) {
     const { method, url: makeUrl } = ENDPOINTS.transaction.all_transaction;
     const url = makeUrl(skips, limit, startDate, endDate);
@@ -120,10 +120,12 @@ const admin = {
     skips: number,
     limit: number,
     startDate?: string,
-    endDate?: string
+    endDate?: string,
+    filter?: string,
+    search?: string
   ) {
     const { method, url: makeUrl } = ENDPOINTS.disputes.get_disputes;
-    const url = makeUrl(skips, limit, startDate, endDate);
+    const url = makeUrl(skips, limit, startDate, endDate, filter, search);
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
   async getSingleDispute(id: string) {

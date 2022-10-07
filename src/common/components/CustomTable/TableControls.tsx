@@ -5,7 +5,7 @@ import { ifState, Ioptions, TControls } from "./types";
 import StatusFilter from "../DropDowns/StatusFilter";
 import CustomDate from "../CustomDate";
 import { convertStatusFilter, removeHypen } from "../../utils/helpers";
-import { updateDate } from "../redux/tableFilter/tableFilterSlice";
+import { updateDate, updateSearchParam } from "../redux/tableFilter/tableFilterSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { useLocation } from "react-router-dom";
 import useScrollToView from "../../hooks/useScrollToView";
@@ -41,11 +41,14 @@ function TableControls(props: TControls) {
   });
 
   useEffect(() => {
+    const search =  formState.search;
+    console.log(search, "search");
+    dispatch(updateSearchParam(search))
     const startDate = new Date(formState.date?.[0]).toJSON();
     if (formState.date?.[1] == null) return;
     const endDate = new Date(formState.date?.[1]).toJSON();
     dispatch(updateDate({ startDate, endDate }));
-  }, [formState.date]);
+  }, [formState]);
 
   useEffect(() => {
     setFormState((prev) => ({ ...prev, filter: convertStatusFilter(data) }));

@@ -5,16 +5,8 @@ type props = {
   children: ReactNode;
 };
 
-function Signin({ children }: props) {
-  const { pathname } = useLocation();
-  const getAppPath = (path: string) => {
-    if (path.includes("seller")) {
-      return "seller";
-    }
-    if (path.includes("buyer")) {
-      return "buyer";
-    }
-  };
+const Signin = ({ children }: props) => {
+
   return (
     <div className="signup_container">
       <h3>SIGN IN INTO YOUR ACCOUNT</h3>
@@ -27,34 +19,28 @@ function Signin({ children }: props) {
             }
             to={"/signin/buyer"}
           >
-            BUYER{" "}
+            BUYER
           </NavLink>
         </li>
 
         <li>
-          <NavLink
-            className={({ isActive }) =>
-              isActive ? "signup_container_active_tab" : ""
-            }
-            to={"/signin/seller"}
-          >
-            {" "}
-            SELLER
-          </NavLink>
+        <a href="">
+              SELLER
+            </a>
         </li>
       </ul>
       <div className="seller_container">
         {children}
         <Link
           className="signin_forgotpassword_link"
-          to={`/forgotpassword/${getAppPath(pathname)}`}
+          to={`/forgotpassword/buyer`}
         >
           Forgot Password?
         </Link>
       </div>
       <p className="signin_link_div">
         Don't have an account?{" "}
-        <Link to={`/signup/${getAppPath(pathname)}`}>
+        <Link to={`/signup/buyer`}>
           <span className="signup_link">Sign Up</span>
         </Link>
       </p>

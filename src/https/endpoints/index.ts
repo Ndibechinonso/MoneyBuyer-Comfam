@@ -1,3 +1,5 @@
+import { filterEmptyUrlQuery } from "../../common/utils";
+
 const ENDPOINTS = {
   auth: {
     register: {
@@ -125,10 +127,10 @@ const ENDPOINTS = {
     },
     get_disputes: {
       method: "GET",
-      url: (skips: number, limit: number, startDate: string, endDate: string) =>
-        startDate
-          ? `/dispute?skip=${skips}&limit=${limit}&startDate=${startDate}&endDate=${endDate}`
-          : `/dispute?skip=${skips}&limit=${limit}`,
+      url: (skips: number, limit: number, startDate: string, endDate: string, filter: string, search: string) => filterEmptyUrlQuery("dispute", skips, limit, startDate, endDate, filter, search)
+        // startDate
+        //   ? `/dispute?skip=${skips}&limit=${limit}&startDate=${startDate}&endDate=${endDate}`
+        //   : `/dispute?skip=${skips}&limit=${limit}`,
     },
     get_a_dispute: {
       method: "GET",

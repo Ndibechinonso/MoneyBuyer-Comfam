@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   startDate: "" as any,
   endDate: "" as any,
+  search: "",
+  filter: ""
 };
 
 const slice = createSlice({
@@ -17,8 +19,14 @@ const slice = createSlice({
       state.startDate = initialState.startDate;
       state.endDate = initialState.endDate;
     },
+    updateSearchParam : (state, action) => {
+      state.search = action.payload?.search;
+    },
+    updateFilterParam : (state, action) => {
+      state.filter = action.payload?.search;
+    }
   },
 });
 
-export const { updateDate, resetDate } = slice.actions;
+export const { updateDate, resetDate, updateSearchParam } = slice.actions;
 export default slice.reducer;
