@@ -48,7 +48,7 @@ function StatusFilter(props: Props) {
             </DropDownItem>
           </div>
           <div className="statusFilter__body">
-            {options.map((opt, id) => {
+            {options?.map((opt, id) => {
               const { val, checked } = opt;
               return (
                 <div key={val} className="statusFilter__itm">

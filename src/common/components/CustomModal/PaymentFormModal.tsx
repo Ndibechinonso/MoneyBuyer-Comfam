@@ -53,7 +53,7 @@ const PaymentFormModal = () => {
         disabled={checkEmptyValues || isloading}
         type="submit"
         className="alert_modal_btn"
-        action={() => console.log("formSubmited")}
+        action={() => null}
         actionText="Pay now"
       />
     </form>

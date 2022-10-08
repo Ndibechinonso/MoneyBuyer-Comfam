@@ -7,6 +7,7 @@ const initialState: TransactionDataType = {
   error: "",
   transactions: [],
   singleTransaction: {} as any,
+  singleTransactionImages: [],
   pagination: {
     currentPage: 0,
     dataCount: 0,
@@ -28,6 +29,9 @@ const slice = createSlice({
     removeSingleTransaction: (state) => {
       state.singleTransaction = initialState.singleTransaction;
     },
+    removeTransactionImages: (state) => {
+      state.singleTransactionImages = initialState.singleTransactionImages;
+    },
     resetTransactions: (state) => {
       state.error = initialState.error;
       state.transactions = initialState.transactions;
@@ -40,7 +44,7 @@ const slice = createSlice({
     builder
       .addCase(thunk.fetchAllTransactions.pending, (state) => {
         state.loading = true;
-        state.transactions = [];
+        // state.transactions = [];
       })
       .addCase(
         thunk.fetchAllTransactions.fulfilled,
@@ -55,6 +59,12 @@ const slice = createSlice({
       .addCase(thunk.fetchAllTransactions.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "something went wrong";
+      })
+      .addCase(thunk.fetchTransactionImages.fulfilled, (state, action) => {
+        state.singleTransactionImages = [
+          ...state.singleTransactionImages,
+          action.payload,
+        ];
       })
       .addMatcher(
         isAnyOf(
@@ -98,6 +108,7 @@ export const {
   changePageNumber,
   updateSingleTransaction,
   removeSingleTransaction,
+  removeTransactionImages,
   resetTransactions,
 } = slice.actions;
 export default slice.reducer;

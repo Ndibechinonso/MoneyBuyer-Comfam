@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DisputesDataType } from "../types";
-import { fetchAllDisputes } from "./disputesAsyncThunk";
+import { fetchAllDisputes, fetchDisputeImages } from "./disputesAsyncThunk";
 const initialState: DisputesDataType = {
   loading: false,
   error: "",
   disputes: [],
   singleDispute: {} as any,
+  singleDisputeImages:[],
   pagination: {
     currentPage: 0,
     dataCount: 0,
@@ -27,6 +28,9 @@ const slice = createSlice({
     removeSingleDispute: (state) => {
       state.singleDispute = initialState.singleDispute;
     },
+    removeTransactionImages: (state) => {
+      state.singleDisputeImages = initialState.singleDisputeImages;
+    },
     resetDispute: (state) => {
       state.error = initialState.error;
       state.disputes = initialState.disputes;
@@ -39,7 +43,7 @@ const slice = createSlice({
     builder
       .addCase(fetchAllDisputes.pending, (state) => {
         state.loading = true;
-        state.disputes = [];
+        // state.disputes = [];
       })
       .addCase(
         fetchAllDisputes.fulfilled,
@@ -54,7 +58,12 @@ const slice = createSlice({
       .addCase(fetchAllDisputes.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "something went wrong";
-      });
+      }).addCase(fetchDisputeImages.fulfilled, (state, action) => {
+        state.singleDisputeImages = [
+          ...state.singleDisputeImages,
+          action.payload,
+        ];
+      })
   },
 });
 
@@ -62,6 +71,7 @@ export const {
   changePageNumber,
   updateSingleDispute,
   removeSingleDispute,
+  removeTransactionImages,
   resetDispute,
 } = slice.actions;
 export default slice.reducer;

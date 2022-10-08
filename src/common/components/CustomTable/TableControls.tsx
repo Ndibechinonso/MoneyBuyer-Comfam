@@ -1,58 +1,148 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import CalenderIcon from "../CustomIcons/CalenderIcon";
 import SearchIcon from "../CustomIcons/SearchIcon";
 import { ifState, Ioptions, TControls } from "./types";
 import StatusFilter from "../DropDowns/StatusFilter";
 import CustomDate from "../CustomDate";
 import { convertStatusFilter, removeHypen } from "../../utils/helpers";
-import { updateDate, updateSearchParam } from "../redux/tableFilter/tableFilterSlice";
+import {
+  resetAllParams,
+  setTableType,
+  updateDate,
+  updateFilterParam,
+  updateSearchParam,
+} from "../redux/tableFilter/tableFilterSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { useLocation } from "react-router-dom";
 import useScrollToView from "../../hooks/useScrollToView";
+import useDebounce from "../../hooks/useDebounce";
+import { fetchAllTransactions } from "../redux/transaction/transactionAsyncThunk";
+import { fetchAllDisputes } from "../redux/disputes/disputesAsyncThunk";
 
-function TableControls(props: TControls) {
-  const { data, setFilteredData, disabled } = props;
+const transaction_status = [
+  "COMPLETED",
+  "AWAITING-CONFIRMATION",
+  "AWAITING-DELIVERY",
+  "PENDING-CONFIRMATION",
+  "PENDING-PAYMENT",
+  "REFUNDED",
+  "CANCELLED",
+  "REJECTED",
+];
+const dispute_status = ["OPEN", "IN-PROGRESS", "RESOLVED"];
+
+const initialState = {
+  search: "",
+  date: [],
+  filter: { options: [], query: "" },
+};
+
+function TableControls({ data, disabled }: TControls) {
   const { pathname } = useLocation();
-  const headerRef = useScrollToView()
-  const transactionPage = useAppSelector(state => state.transactions.pagination.currentPage)
-  const disputePage = useAppSelector(state => state.disputes.pagination.currentPage)
+  const headerRef = useScrollToView();
+  const transactionPage = useAppSelector(
+    (state) => state.transactions.pagination.currentPage
+  );
+  const disputePage = useAppSelector(
+    (state) => state.disputes.pagination.currentPage
+  );
+  const table = useAppSelector((state) => state.tableFilter.type);
 
-  const page = useMemo(() => pathname.includes("dispute")?disputePage:transactionPage, [pathname,disputePage,transactionPage])
+  const dispatch = useAppDispatch();
+  const page = useMemo(
+    () => (pathname.includes("dispute") ? disputePage : transactionPage),
+    [pathname, disputePage, transactionPage]
+  );
+  const [formState, setFormState] = useState<ifState>(initialState);
+  const debouncedSearch = useDebounce<string>(formState.search, 500);
+
+  const resetFilter = useCallback(() => {
+    if (pathname.includes("dispute")) {
+      setFormState({
+        ...initialState,
+        filter: {
+          ...initialState.filter,
+          options: convertStatusFilter(dispute_status),
+        },
+      });
+    }
+    if (pathname.includes("transaction")) {
+      setFormState({
+        ...initialState,
+        filter: {
+          ...initialState.filter,
+          options: convertStatusFilter(transaction_status),
+        },
+      });
+    }
+  }, [pathname]);
+
+  // this cets the formstate to the initial state since the component is unmounting
+  const willUnmountOnce = useRef(true);
+  useEffect(() => {
+    if (willUnmountOnce.current) {
+      willUnmountOnce.current = false;
+      return;
+    }
+
+    return () => {
+      setFormState(initialState);
+    };
+  }, []);
 
   useEffect(() => {
     headerRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [pathname, page])
-  
-
-  const dispatch = useAppDispatch();
-
-  const [table, setTable] = useState("Transaction")
-
-  useEffect(() =>{
-    if(pathname.includes("dispute")){
-      setTable("Dispute")
-    }
-  }, [pathname])
-  
-  const [formState, setFormState] = useState<ifState>({
-    search: "",
-    date: [],
-    filter: [],
-  });
+  }, [pathname, page]);
 
   useEffect(() => {
-    const search =  formState.search;
-    console.log(search, "search");
-    dispatch(updateSearchParam(search))
+    if (pathname.includes("dispute")) {
+      dispatch(setTableType("Dispute"));
+      setFormState((prev) => ({
+        ...prev,
+        filter: {
+          ...prev.filter,
+          options: convertStatusFilter(dispute_status),
+        },
+      }));
+    }
+    if (pathname.includes("transaction")) {
+      dispatch(setTableType("Transaction"));
+      setFormState((prev) => ({
+        ...prev,
+        filter: {
+          ...prev.filter,
+          options: convertStatusFilter(transaction_status),
+        },
+      }));
+    }
+  }, [pathname]);
+
+  useEffect(() => {
     const startDate = new Date(formState.date?.[0]).toJSON();
     if (formState.date?.[1] == null) return;
     const endDate = new Date(formState.date?.[1]).toJSON();
-    dispatch(updateDate({ startDate, endDate }));
-  }, [formState]);
+    if (formState.date[0]) {
+      dispatch(updateDate({ startDate, endDate }));
+    }
+  }, [JSON.stringify(formState.date)]);
 
   useEffect(() => {
-    setFormState((prev) => ({ ...prev, filter: convertStatusFilter(data) }));
-  }, [data]);
+    if (formState.search) {
+      dispatch(updateSearchParam(formState.search));
+    }
+  }, [debouncedSearch]);
+
+  useEffect(() => {
+    if (formState.filter.query) {
+      dispatch(updateFilterParam(formState.filter.query));
+    }
+  }, [JSON.stringify(formState.filter.query)]);
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormState((prev) => ({ ...prev, search: e.target.value }));
@@ -65,37 +155,48 @@ function TableControls(props: TControls) {
   const handlerFliterUnfocus = (e: React.PointerEvent) => null;
 
   const HandlerfilterSubmit = (e: any) => {
-    const filteredOptions = formState.filter.filter(
+    const filteredOptions = formState.filter.options.filter(
       (itm) => itm.checked === true
     );
-
-    const temp = data.filter((itm) =>
-      filteredOptions.find((item) => removeHypen(itm.status) === item.val)
-    );
-
-    setFilteredData([...temp]);
+    let temp: any[];
+    if (pathname.includes("transaction")) {
+      temp = transaction_status.filter((itm) =>
+        filteredOptions.find((item) => removeHypen(itm) === item.val)
+      );
+    }
+    if (pathname.includes("dispute")) {
+      temp = dispute_status.filter((itm) =>
+        filteredOptions.find((item) => removeHypen(itm) === item.val)
+      );
+    }
+    setFormState((prev) => ({
+      ...prev,
+      filter: { ...prev.filter, query: temp[0] },
+    }));
   };
 
   const resetFilterHandler = () => null;
 
-  const filteSelectHandler = (itm: Ioptions, id: number) => {
+  const filterSelectHandler = (itm: Ioptions, id: number) => {
     const { checked, val } = itm;
-
-    const oldFiltered = formState.filter.map((item, idx) =>
+    const oldFiltered = formState.filter.options.map((item, idx) =>
       idx === id ? { val, checked: !checked } : item
     );
-
-    setFormState((prev) => ({ ...prev, filter: oldFiltered }));
+    setFormState((prev) => ({
+      ...prev,
+      filter: { ...prev.filter, options: [...oldFiltered] },
+    }));
   };
 
   const resetAllFilters = () => {
-    setFormState((prev) => ({
-      ...prev,
-      search: "",
-      date: [],
-      filter: [...convertStatusFilter(data)],
-    }));
-    setFilteredData([]);
+    resetFilter();
+    dispatch(resetAllParams());
+    if (pathname.includes("transaction")) {
+      dispatch(fetchAllTransactions({ page: 1 }));
+    }
+    if (pathname.includes("dispute")) {
+      dispatch(fetchAllDisputes({ page: 1 }));
+    }
   };
 
   return (
@@ -126,12 +227,13 @@ function TableControls(props: TControls) {
             onChange={dateChangeHandler}
             placeholder="Select Date"
             disable={disabled}
+            maxDate
           />
         </div>
       </form>
       <StatusFilter
-        options={formState.filter}
-        onSelect={filteSelectHandler}
+        options={formState.filter.options}
+        onSelect={filterSelectHandler}
         onResetForm={resetFilterHandler}
         onSubmitForm={HandlerfilterSubmit}
         onClickOutside={handlerFliterUnfocus}

@@ -1,4 +1,3 @@
-import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../../static/styles/components/datePicker.scss";
@@ -12,6 +11,7 @@ const CustomDate = ({
   disable,
   minDate,
   placeholder,
+  maxDate
 }: Icalendar) => {
   let template: any;
   switch (type) {
@@ -143,6 +143,7 @@ const CustomDate = ({
           endDate={endDate}
           selectsRange
           monthsShown={2}
+          maxDate={maxDate && new Date()}
           minDate={minDate && new Date()}
           disabled={disable}
           placeholderText={placeholder}
@@ -158,6 +159,6 @@ const CustomDate = ({
   }
 
   return template;
-}
+};
 
 export default CustomDate;

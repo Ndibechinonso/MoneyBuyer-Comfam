@@ -40,9 +40,11 @@ const admin = {
     limit: number,
     startDate?: string,
     endDate?: string,
+    search?: string,
+    filter?: string
   ) {
     const { method, url: makeUrl } = ENDPOINTS.transaction.all_transaction;
-    const url = makeUrl(skips, limit, startDate, endDate);
+    const url = makeUrl(skips, limit, startDate, endDate, search, filter);
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
   async cancelTransaction(body: type.IcanceltransactionFeedback) {
@@ -125,7 +127,7 @@ const admin = {
     search?: string
   ) {
     const { method, url: makeUrl } = ENDPOINTS.disputes.get_disputes;
-    const url = makeUrl(skips, limit, startDate, endDate, filter, search);
+    const url = makeUrl(skips, limit, startDate, endDate, search, filter);
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
   async getSingleDispute(id: string) {

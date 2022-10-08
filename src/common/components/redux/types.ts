@@ -111,9 +111,9 @@ export type UserProps = {
   verified: boolean;
   verifiedBvn: boolean;
   wallet_id: string;
-  transaction_count:number;
-  id:string;
-  phone_number:string;
+  transaction_count: number;
+  id: string;
+  phone_number: string;
 };
 
 export const initialUser = {
@@ -142,8 +142,8 @@ export const initialUser = {
   verified: false,
   verifiedBvn: false,
   wallet_id: "",
-  id:"",
-  phone_number:"",
+  id: "",
+  phone_number: "",
 };
 
 export type TransactionProps = {
@@ -258,6 +258,7 @@ export type DisputesDataType = {
   error: string;
   disputes: Disputes[];
   singleDispute: Disputes;
+  singleDisputeImages: string[];
   pagination: PaginationProps;
   page: number;
 };
@@ -328,6 +329,7 @@ export type TransactionDataType = {
   error: string;
   transactions: Transaction[];
   singleTransaction: Transaction;
+  singleTransactionImages: string[];
   pagination: PaginationProps;
   page: number;
 };
