@@ -1,21 +1,32 @@
 import React, { useId, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../../../common/components/redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../common/components/redux/hooks";
 import useScrollToView from "../../../../common/hooks/useScrollToView";
 import CustomButton from "../../../../common/components/CustomButtons";
 import { setItem } from "../../../../https/storage";
 import { checkObjectValues } from "../../../../common/utils";
 import Settings from "..";
 import route from "../../../../common/routes/route";
+import { Select, SelectItem } from "../../../../common/components/CustomSelect";
+import { fetchAllBanks } from "../../../../common/components/redux/getAllBanks/getAllBanksAsyncThunk";
+import { selectABank } from "../../../../common/components/redux/getAllBanks/getAllBanksSlice";
 
-function BankDetail() {
+const BankDetail = () => {
   const id = useId();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch()
+  const {
+    banks: allbanks,
+    loading,
+    bankInfo
+  } = useAppSelector((state) => state.getAllBanks);
+
   const { verified } = useAppSelector((state) => state.user.user);
   const [bvnumber, setBvn] = useState("");
   const [bankName, setBankName] = useState("");
   const [accountName, setAccountName] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
+  const [bankCode, setBankCode] = useState("");
   const [profilePayload, setprofilePayload] = useState<any>([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const headerRef = useScrollToView();
@@ -37,7 +48,18 @@ function BankDetail() {
     } else {
       navigate(route.protected.setting_verification);
     }
+    if (allbanks?.length === 0) {
+      dispatch(fetchAllBanks());
+    }
   }, []);
+
+  const selectHandler = (e: any) => {
+    const data = JSON.parse(e);
+      dispatch(selectABank(data));
+      console.log(data.code, data.name, "eee");
+      setBankCode(data.code)
+      setBankName(data.name)
+  };
 
   const validate = bvnumber && accountNumber && bankName && accountName;
 
@@ -48,14 +70,17 @@ function BankDetail() {
     if (!checkObjectValues(profilePayload, 9)) return;
 
     const bank_name = bankName;
+    const bank_code = bankCode;
     const account_number = accountNumber;
     const account_name = accountName;
     profilePayload.bvn = bvnumber;
     profilePayload.bankDetails = {
       bank_name,
+      bank_code,
       account_number,
       account_name,
     };
+    console.log(profilePayload);
     setItem("verification", JSON.stringify(profilePayload));
     navigate(route.protected.setting_notification);
   };
@@ -67,7 +92,24 @@ function BankDetail() {
           <div className="profile__container_form">
             <div ref={headerRef} className="form_group">
               <label htmlFor={`${id}-bankName`}>Bank Name</label>
-              <input
+              <Select
+              placeholder="Select Bank"
+              className="verification-select"
+              name="banks"
+              id="banks"
+              disabled={loading}
+              value={bankInfo.bank_name}
+              onChange={(e) => selectHandler(e)}
+              // disabled={!state.use_new_recipients}
+              // onFocus={verifyAccountNumber}
+            >
+              {allbanks?.map((bank) => (
+                <SelectItem key={bank.id} value={JSON.stringify(bank)}>
+                  {bank.name}
+                </SelectItem>
+              ))}
+            </Select>
+              {/* <input
                 className="profile__container_form_input"
                 id={`${id}-bankName`}
                 type="text"
@@ -75,7 +117,7 @@ function BankDetail() {
                 value={bankName}
                 onChange={(e) => setBankName(e.target.value)}
                 placeholder="eg. First Bank"
-              />
+              /> */}
               {isSubmitted && !bankName && (
                 <small className="input_error text-red-1 text-xs">
                   *Required
@@ -89,6 +131,7 @@ function BankDetail() {
                 id={`${id}-acctName`}
                 type="text"
                 name="account_name]"
+                disabled={loading}
                 value={accountName}
                 onChange={(e) => setAccountName(e.target.value)}
                 placeholder="e.g. Bryan Daniels"
@@ -107,6 +150,7 @@ function BankDetail() {
                 type="number"
                 name="account_number"
                 value={accountNumber}
+                disabled={loading}
                 onChange={(e) => setAccountNumber(e.target.value)}
                 placeholder="e.g. 221034521"
               />
@@ -123,6 +167,7 @@ function BankDetail() {
                 id={`${id}-bvn`}
                 type="number"
                 name="bvn"
+                disabled={loading}
                 value={bvnumber}
                 onChange={(e) => setBvn(e.target.value)}
                 placeholder="e.g. 12123456789"
@@ -137,6 +182,7 @@ function BankDetail() {
               className="profile__cta"
               type="submit"
               action={() => null}
+              disabled={loading}
               actionText="Update Bank Details"
             />
           </div>

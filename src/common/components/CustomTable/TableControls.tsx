@@ -59,6 +59,8 @@ function TableControls({ data, disabled }: TControls) {
     () => (pathname.includes("dispute") ? disputePage : transactionPage),
     [pathname, disputePage, transactionPage]
   );
+  const {startDate, endDate, filter, search} = useAppSelector((state) => state.tableFilter)
+
   const [formState, setFormState] = useState<ifState>(initialState);
   const debouncedSearch = useDebounce<string>(formState.search, 500);
 
@@ -195,7 +197,7 @@ function TableControls({ data, disabled }: TControls) {
       dispatch(fetchAllTransactions({ page: 1 }));
     }
     if (pathname.includes("dispute")) {
-      dispatch(fetchAllDisputes({ page: 1 }));
+      dispatch(fetchAllDisputes({ page: 1, startDate, endDate, filter, search }));
     }
   };
 

@@ -41,6 +41,8 @@ const Form = () => {
       .loginBuyer(inputs)
       .then((res) => {
         customtoast(res?.message);
+        console.log(res, "res");
+        
         setIsSubmitted(false);
         storeUserToken(res.tokens.accessToken);
         dispatch(

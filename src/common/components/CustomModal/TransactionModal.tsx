@@ -210,6 +210,7 @@ function TransactionModal() {
           {removeHypen(data?.status) === "pending payment" ? (
             <CustomButton
               actionText="Proceed to payment"
+              className="w-100"
               action={() => dispatch(Alerts("transactionpayment"))}
             />
           ) : null}

@@ -34,6 +34,7 @@ const Verification = () => {
   const { email, first_name, last_name, verified } = useAppSelector(
     (state) => state.user.user
   );
+
   const [inputs, setInputs] = useState(initialFormState);
   const [rawImage, setRawImage] = useState([]);
   const [imageLoading, setImageLoading] = useState(false);
@@ -309,7 +310,7 @@ const Verification = () => {
               />
               {isSubmitted && (!unEditedstate || !local_gov) && (
                 <small className="input_error text-red-1 text-xs">
-                  *Required
+                  *Select State and LGA
                 </small>
               )}
             </div>

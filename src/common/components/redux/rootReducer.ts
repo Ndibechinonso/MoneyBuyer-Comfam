@@ -12,6 +12,7 @@ import completeProfileReducer from "./completeUserProfile/completeProfileSlice";
 import messagesReducer from "./messages/messagesSlice"
 import notificationsReducer from "./notifications/notificationsSlice"
 import dashboardGraphReducer from "./dashboardGraph/dashboardGraphSlice"
+import getAllbanksReducer from "./getAllBanks/getAllBanksSlice"
 
 export default combineReducers({
   alert: alertReducer,
@@ -26,5 +27,6 @@ export default combineReducers({
   transactions: transactionReducer,
   messages: messagesReducer,
   notification: notificationsReducer,
-  dashboardGraph: dashboardGraphReducer
+  dashboardGraph: dashboardGraphReducer,
+  getAllBanks: getAllbanksReducer
 });

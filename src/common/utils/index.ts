@@ -184,9 +184,9 @@ export const getMonth = (date: string) =>{
 
 }
 
-
-export const filterEmptyUrlQuery = (page, skips, limit, startDate, endDate, search, filter) => {
+export const filterEmptyUrlQuery = (skips, limit, startDate, endDate, search, filter) => {
   let url
+
   if(startDate){
  url =  `&startDate=${startDate}&endDate=${endDate}`
   }
@@ -208,5 +208,5 @@ export const filterEmptyUrlQuery = (page, skips, limit, startDate, endDate, sear
   else if(search && filter && startDate){
     url =  `&startDate=${startDate}&endDate=${endDate}&search=${search}&search=${search}`
   }
-  return `/${page}?skip=${skips}&limit=${limit}` + url
+  return `/transaction?skip=${skips}&limit=${limit}` + url
 }

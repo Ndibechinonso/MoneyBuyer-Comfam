@@ -43,7 +43,7 @@ const handleShowPassword = () => {
   const validate =
     inputs.first_name &&
     inputs.last_name &&
-    inputs.email &&
+    validateEmail(inputs.email) &&
     validatePassword(inputs.password) &&
     inputs.signupTAC;
 
@@ -58,7 +58,7 @@ const handleShowPassword = () => {
     auth
       .registerBuyer(inputs)
       .then((res) => { setIsSubmitted(false); navigate(`${route.nonprotected.verify}?email=${inputs.email}`) })
-      .catch((err) => {  setIsSubmitted(false); CustomToast(err.message)})
+      .catch((err) => {  setIsSubmitted(false); CustomToast(err.message, true)})
       .finally(() => dispatch(loadingStop()));
   };
 
@@ -103,7 +103,6 @@ const handleShowPassword = () => {
               onChange={handleChange}
               placeholder="Enter Email Address"
             />
-         {isSubmitted && !inputs.email && <small className="input_error text-red-1 text-xs">*Required</small> }
          {isSubmitted && !validateEmail(inputs.email) && <small className="input_error text-red-1 text-xs">  Please provide a valid email</small> }  
           </div>
           <div className="form_group">

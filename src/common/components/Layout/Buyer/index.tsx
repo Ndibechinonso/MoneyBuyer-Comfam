@@ -48,8 +48,13 @@ const Buyer = () => {
   const { transactionloading, userloading } = useLoading(); // custom hook to handle all loading states
   const componentloading = useAppLoader(); // custom hook to conditionaly rendering the app loader
 
+  const { startDate, endDate, search, filter } = useAppSelector(
+    (state) => state.tableFilter
+  );
+
   const dispatch = useAppDispatch();
 
+  
   useLayoutEffect(() => {
     if (verified) {
       setUserError(false);
@@ -84,7 +89,7 @@ const Buyer = () => {
         dispatch(fetchNotifications(1));
       }
       if (getFirstLevelPath(pathname) === "dispute" && disputeCP !== 1) {
-        dispatch(fetchAllDisputes({ page: 1 }));
+        dispatch(fetchAllDisputes({ page: 1, startDate, endDate, search, filter }));
       }
       if (
         getFirstLevelPath(pathname) === "transaction" &&
@@ -110,7 +115,7 @@ const Buyer = () => {
     dispatch(fetchNotifications(1));
     dispatch(fetchAllMessages());
     dispatch(fetchAllTransactions({ page: 1 }));
-    dispatch(fetchAllDisputes({ page: 1 }));
+    dispatch(fetchAllDisputes({ page: 1 , startDate, endDate, search, filter}));
     if (user_type === "") {
       dispatch(fetchUser());
     }
