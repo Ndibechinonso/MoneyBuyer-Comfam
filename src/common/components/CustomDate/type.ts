@@ -5,5 +5,6 @@ export interface Icalendar {
     type: "range" | "picker";
     disable?: boolean;
     minDate?: boolean;
+    maxDate?: boolean;
     placeholder?: string;
   }

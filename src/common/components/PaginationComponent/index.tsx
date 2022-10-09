@@ -49,7 +49,7 @@ const PaginationComponent = ({
   return (
     <>
       {dataCount > 10 ? (
-        <div className="paginator_container">
+        <div className={`paginator_container ${loading? "paginator_loading":""}`}>
           {/* <div className="d-flex align-items-center">
                 <span className="d-none d-md-block me-2 font-12 text-uppercase">items Per Page</span>
                 <select value={limit} onChange={(e) => {
@@ -67,7 +67,7 @@ const PaginationComponent = ({
           {/* <div className=""> */}
           <button
             className="icoin-pagination-buttons"
-            disabled={isDisabled || currentPage <= 1}
+            disabled={isDisabled || currentPage <= 1 || loading}
             onClick={() => setPage(currentPage - 1)}
           >
             <span>{"<"}</span> <span>Prev.</span>
@@ -85,7 +85,7 @@ const PaginationComponent = ({
                     )
                     .map((item, index) => {
                       return (
-                        <p
+                        <button
                           key={index}
                           className={`page_number ${
                             item === currentPage ? "active_page" : ""
@@ -93,16 +93,17 @@ const PaginationComponent = ({
                           onClick={() => {
                             setPage(item);
                           }}
+                          disabled={loading}
                         >
                           {item}
-                        </p>
+                        </button>
                       );
                     })
                 : pageArray
                     .filter((item) => item > totalPages - 9)
                     .map((item, index) => {
                       return (
-                        <p
+                        <button
                           key={index}
                           className={`page_number ${
                             item === currentPage ? "active_page" : ""
@@ -110,9 +111,10 @@ const PaginationComponent = ({
                           onClick={() => {
                             setPage(item);
                           }}
+                          disabled={loading}
                         >
                           {item}
-                        </p>
+                        </button>
                       );
                     })}
             </div>
@@ -131,7 +133,7 @@ const PaginationComponent = ({
           <button
             className="icoin-pagination-buttons"
             disabled={
-              isDisabled || currentPage === totalPages || totalPages === 0
+              isDisabled || currentPage === totalPages || totalPages === 0 || loading
             }
             onClick={() => setPage(currentPage + 1)}
           >
