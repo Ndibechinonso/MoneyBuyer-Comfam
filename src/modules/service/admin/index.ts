@@ -120,12 +120,10 @@ const admin = {
     skips: number,
     limit: number,
     startDate?: string,
-    endDate?: string,
-    search?: string,
-    filter?: string
+    endDate?: string
   ) {
     const { method, url: makeUrl } = ENDPOINTS.disputes.get_disputes;
-    const url = makeUrl(skips, limit, startDate, endDate, search, filter);
+    const url = makeUrl(skips, limit, startDate, endDate);
     return makeAuthorizedRequestWithHeadersAndPayload(method, url);
   },
   async getSingleDispute(id: string) {

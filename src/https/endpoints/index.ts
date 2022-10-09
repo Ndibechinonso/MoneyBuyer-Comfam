@@ -127,7 +127,7 @@ const ENDPOINTS = {
     },
     get_disputes: {
       method: "GET",
-      url: (skips: number, limit: number, startDate: string, endDate: string) => (skips: number, limit: number, startDate: string, endDate: string) =>
+      url: (skips: number, limit: number, startDate: string, endDate: string) => 
       //  filterEmptyUrlQuery(skips, limit, startDate, endDate, search, filter)
       `/dispute?skip=${skips}&limit=${limit}&startDate=${startDate}&endDate=${endDate}` 
 //         startDate
