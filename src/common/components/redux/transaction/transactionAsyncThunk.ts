@@ -39,13 +39,17 @@ export const fetchAllTransactions = createAsyncThunk(
     page,
     startDate,
     endDate,
+    search,
+    filter,
   }: {
     page: number;
     startDate?: string;
     endDate?: string;
+    search?:string;
+    filter?:string
   }) => {
     return admin
-      .getAllTransaction(page, 10, startDate, endDate)
+      .getAllTransaction(page, 10, startDate, endDate,search,filter)
       .then((res) => res.data)
       .catch((err) => err);
   }
@@ -111,6 +115,15 @@ export const transactionFeedback = createAsyncThunk(
       .feedbackTransaction(data)
       .then(() => successHandler("sentfeedback"))
       .catch((err) => errorHandler(err.message));
+  }
+);
+export const fetchTransactionImages = createAsyncThunk(
+  "transaction/itemImages",
+  async (data: string) => {
+    return admin
+      .getImage(data)
+      .then((res) => res)
+      .catch((err) => customToast(err.message,true));
   }
 );
 

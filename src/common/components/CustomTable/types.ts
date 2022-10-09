@@ -18,20 +18,20 @@ export type dataObj = {
 };
 
 export type TObj = {
-  headers: Array<TheaderObj>;
-  data: Array<any>;
+  headers: TheaderObj[];
+  data: any[];
   activeOrder?: any;
   recentTransacionHistory?: any;
 };
 
 export type ifState = {
   search: string;
-  date: Array<any>;
-  filter: Ioptions[];
+  date: any[];
+  filter: { options: Ioptions[]; query: string };
 };
 
 export type TControls = {
   data?: any[];
-  setFilteredData?: React.Dispatch<React.SetStateAction<any[]>>;
+  // setFilteredData?: React.Dispatch<React.SetStateAction<any[]>>;
   disabled?: boolean;
 };

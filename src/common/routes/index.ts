@@ -22,21 +22,6 @@ const routes: RouteConfig[] = [
     access: "guest-only",
   },
   {
-    path: route.nonprotected.seller.login,
-    Component: loadAuthModules("Signin/Seller"),
-    access: "guest-only",
-  },
-  {
-    path: route.nonprotected.seller.register,
-    Component: loadAuthModules("Signup/Seller"),
-    access: "guest-only",
-  },
-  {
-    path: route.nonprotected.seller.reset_password,
-    Component: loadAuthModules("ResetPassword/Seller"),
-    access: "guest-only",
-  },
-  {
     path: route.nonprotected.verify,
     Component: loadModules("Auth/SignupVerification"),
     access: "guest-only",

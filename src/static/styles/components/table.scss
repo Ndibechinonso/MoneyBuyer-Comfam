@@ -112,4 +112,18 @@
       cursor: pointer;
     }
   }
+  &__loading {
+    th,
+    td {
+      &,
+      .tags{
+        color: var(--greyColorGrey4);
+
+      }
+      
+      path {
+        fill: var(--greyColorGrey4);
+      }
+    }
+  }
 }

@@ -1,8 +1,15 @@
 import { Ioptions } from "../../components/CustomTable/types";
 import { language } from "../language/en";
 
-type firstLevelPath = "dashboard" | "notifications" | "wallet" | "messages" |"transaction" | "dispute" | "setting"
-export const getFirstLevelPath = (value: any):firstLevelPath => {
+type firstLevelPath =
+  | "dashboard"
+  | "notifications"
+  | "wallet"
+  | "messages"
+  | "transaction"
+  | "dispute"
+  | "setting";
+export const getFirstLevelPath = (value: any): firstLevelPath => {
   return value.substring(1).split("/")[0];
 };
 
@@ -163,8 +170,8 @@ export const transactionModalTitleHandler = (data: any) => {
 export const convertStatusFilter = (input: any[]): Ioptions[] => {
   const result: any = {};
 
-  const temp = input.map((val) => val["status"]);
-  temp.forEach((itm) => {
+  // const temp = input?.map((val) => val["status"]);
+  input?.forEach((itm) => {
     if (!result[`${removeHypen(itm)}`]) {
       result[`${removeHypen(itm)}`] = {
         val: removeHypen(itm),
@@ -205,9 +212,9 @@ export const renderEmptyPageState = (
   newUser: boolean,
   path: string,
   notificationCount: number,
-  messageCount:number,
-  transactionCount:number,
-  disputeCount:number,
+  messageCount: number,
+  transactionCount: number,
+  disputeCount: number
 ) => {
   if (getFirstLevelPath(path) === "notifications" && notificationCount === 0) {
     return true;
@@ -215,14 +222,39 @@ export const renderEmptyPageState = (
   if (getFirstLevelPath(path) === "messages" && messageCount === 0) {
     return true;
   }
-  if (newUser === false && getFirstLevelPath(path) === "transaction" && transactionCount === 0) {
-    return true;
-  }
-  if (newUser === false && getFirstLevelPath(path) === "dispute" && disputeCount === 0) {
-    return true;
-  }
+  // if (
+  //   newUser === false &&
+  //   getFirstLevelPath(path) === "transaction" &&
+  //   transactionCount === 0
+  // ) {
+  //   return true;
+  // }
+  // if (
+  //   newUser === false &&
+  //   getFirstLevelPath(path) === "dispute" &&
+  //   disputeCount === 0
+  // ) {
+  //   return true;
+  // }
   if (newUser && getFirstLevelPath(path) !== "setting") {
     return true;
   }
   return false;
+};
+
+export const querySwitch = (
+  path: "transaction" | "dispute",
+  skips: number,
+  limit: number,
+  startDate?: string,
+  endDate?: string,
+  search?: string,
+  filter?: string
+): string => {
+  const searchParams: string = search ? `&search=${search}` : "";
+  const dateParams: string = startDate
+    ? `&startDate=${startDate}&endDate=${endDate}`
+    : "";
+  const filterParams: string = filter ? `&filter=${filter}` : "";
+  return `/${path}?limit=${limit}&skip=${skips}${searchParams}${dateParams}${filterParams}`;
 };

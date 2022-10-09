@@ -15,12 +15,12 @@ function useAppLoader() {
         case "notifications":
             template = notificationloading
             break;
-        case "dispute":
-            template = disputeloading
-            break;
-        case "transaction":
-            template = transactionloading
-            break;
+        // case "dispute":
+        //     template = disputeloading
+        //     break;
+        // case "transaction":
+        //     template = transactionloading
+        //     break;
     
         default:
             template = false

@@ -14,13 +14,16 @@ import { Alerts } from "../redux/alert/alertActions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { createMessage } from "../redux/messages/messagesAsyncThunk";
 import { removeNotificationItem } from "../redux/notifications/notificationsSlice";
+import { fetchTransactionImages } from "../redux/transaction/transactionAsyncThunk";
+import { removeTransactionImages } from "../redux/transaction/transactionSlice";
 
 function TransactionModal() {
-  const data = useAppSelector((state) => state.transactions.singleTransaction);
+  const { singleTransaction: data, singleTransactionImages: images } =
+    useAppSelector((state) => state.transactions);
   const notification = useAppSelector(
     (state) => state.notification.notification.item
   );
-  const [images, setImages] = useState([]);
+  // const [images, setImages] = useState([]);
   const runOnce = useRef(false);
   const runUnmount = useRef(false);
   const dispatch = useAppDispatch();
@@ -42,6 +45,9 @@ function TransactionModal() {
       if (notification.id) {
         dispatch(removeNotificationItem());
       }
+      if (images) {
+        dispatch(removeTransactionImages());
+      }
     };
   }, []);
 
@@ -50,13 +56,10 @@ function TransactionModal() {
       return;
     }
     data.images.forEach((imageKey: string) => {
-      admin
-        .getImage(imageKey)
-        .then((res) => setImages((prev) => [...prev, res]))
-        .catch((err) => console.log(err));
+      dispatch(fetchTransactionImages(imageKey));
     });
     runOnce.current = true;
-  }, []); 
+  }, []);
 
   const chatSeller = (seller, transaction) => {
     dispatch(createMessage({ seller, transaction }));

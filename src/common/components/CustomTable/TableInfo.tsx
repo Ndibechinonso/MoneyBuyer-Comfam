@@ -9,7 +9,7 @@ import clientImg from "../../../static/images/client_img.svg";
 import { toNaira } from "../../utils/helpers";
 import PaginationComponent from "../PaginationComponent";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import CustomLoader from "../CustomLoader";
+// import CustomLoader from "../CustomLoader";
 import { useLocation } from "react-router-dom";
 import { fetchAllDisputes } from "../redux/disputes/disputesAsyncThunk";
 import { fetchAllTransactions } from "../redux/transaction/transactionAsyncThunk";
@@ -23,7 +23,9 @@ const TableInfo = ({
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
 
-  const { startDate, endDate } = useAppSelector((state) => state.tableFilter);
+  const { startDate, endDate, search, filter } = useAppSelector(
+    (state) => state.tableFilter
+  );
 
   const {
     loading: dispute_loading,
@@ -67,10 +69,12 @@ const TableInfo = ({
         dispatch(fetchAllDisputes({ page, startDate, endDate }));
       }
       if (pathname.includes("transaction")) {
-        dispatch(fetchAllTransactions({ page, startDate, endDate }));
+        dispatch(
+          fetchAllTransactions({ page, startDate, endDate, search, filter })
+        );
       }
     },
-    [pathname, startDate, endDate]
+    [pathname, startDate, endDate, search, filter]
   );
 
   const totalPages = useMemo(
@@ -123,7 +127,7 @@ const TableInfo = ({
 
   return (
     <div>
-      <table className="table__display">
+      <table className={`table__display ${loading ? "table__loading" : ""}`}>
         <thead>
           <tr>
             {headers.map((itm) => {
@@ -140,13 +144,7 @@ const TableInfo = ({
           </tr>
         </thead>
         <tbody>
-          {loading ? (
-            <tr className="m-auto">
-              <td colSpan={6}>
-                <CustomLoader size={10} />
-              </td>
-            </tr>
-          ) : data.length > 0 ? (
+          {data.length > 0 ? (
             data?.map((row, idx) => {
               return (
                 <tr key={idx}>
@@ -158,7 +156,7 @@ const TableInfo = ({
                   <td className="">
                     {!activeOrder || recentTransacionHistory ? (
                       <DropDown content={<TableItem data={row} />}>
-                        <button>
+                        <button disabled={loading}>
                           <ThreeDotIcon />
                         </button>
                       </DropDown>
@@ -178,7 +176,7 @@ const TableInfo = ({
         </tbody>
       </table>
       <PaginationComponent
-        loading={false}
+        loading={loading}
         currentPage={currentPage}
         totalPages={totalPages}
         // totalPages={12}

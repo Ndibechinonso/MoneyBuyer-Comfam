@@ -37,8 +37,16 @@
     color: #828282;
     height: 18px;
     cursor: pointer;
+    background-color: transparent;
   }
   .active_page {
     color: #00003d;
+  }
+}
+.paginator_loading{
+  .page_number,
+  p{
+    // color: red;
+    color: var(--greyColorGrey4);
   }
 }

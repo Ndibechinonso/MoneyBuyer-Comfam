@@ -1,3 +1,6 @@
+import { filterEmptyUrlQuery } from "../../common/utils";
+import { querySwitch } from "../../common/utils/helpers";
+
 const ENDPOINTS = {
   auth: {
     register: {
@@ -68,10 +71,23 @@ const ENDPOINTS = {
     },
     all_transaction: {
       method: "GET",
-      url: (skips: number, limit: number, startDate: string, endDate: string) =>
-        startDate
-          ? `/transaction?skip=${skips}&limit=${limit}&startDate=${startDate}&endDate=${endDate}`
-          : `/transaction?skip=${skips}&limit=${limit}`,
+      url: (
+        skips: number,
+        limit: number,
+        startDate: string,
+        endDate: string,
+        search: string,
+        filter: string
+      ): string =>
+        querySwitch(
+          "transaction",
+          skips,
+          limit,
+          startDate,
+          endDate,
+          search,
+          filter
+        ),
     },
     get_a_transaction: {
       method: "GET",
@@ -125,10 +141,23 @@ const ENDPOINTS = {
     },
     get_disputes: {
       method: "GET",
-      url: (skips: number, limit: number, startDate: string, endDate: string) =>
-        startDate
-          ? `/dispute?skip=${skips}&limit=${limit}&startDate=${startDate}&endDate=${endDate}`
-          : `/dispute?skip=${skips}&limit=${limit}`,
+      url: (
+        skips: number,
+        limit: number,
+        startDate: string,
+        endDate: string,
+        search: string,
+        filter: string,
+      ) =>
+        querySwitch(
+          "dispute",
+          skips,
+          limit,
+          startDate,
+          endDate,
+          search,
+          filter,
+        ),
     },
     get_a_dispute: {
       method: "GET",
