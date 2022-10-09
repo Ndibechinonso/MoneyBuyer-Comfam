@@ -105,10 +105,12 @@ const uploadProfileImage = createAsyncThunk(
           .updateProfileImage({ image: res?.response.data.key })
           .then((res) => {
             CustomToast(res.message);
+            console.log(res, "res");
+            
             thunkAPI.dispatch(
               updateUser({
-                ...res.user.buyer,
-                transaction_count: res.user.transactionCount,
+                ...res.data.user.buyer,
+                transaction_count: res.data.user.transactionCount,
               })
             );
             thunkAPI.dispatch(updateProfileImage());
