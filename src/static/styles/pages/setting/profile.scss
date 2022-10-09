@@ -119,7 +119,7 @@
       color: var(--greyColorGrey1);
     }
     &_input,
-    ._3S8bS select {
+    ._3S8bS select, .verification-select {
       display: block;
       outline: 0;
       height: 3.4375rem;
@@ -131,6 +131,7 @@
       font-size: 1rem;
       font-weight: 400;
       color: var(--greyColorGrey1);
+      background: #ffffff;
       input {
         border: 0;
         width: 100%;

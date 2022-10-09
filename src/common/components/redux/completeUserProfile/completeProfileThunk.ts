@@ -20,17 +20,17 @@ const completeProfile = createAsyncThunk(
       .then((res) => {
         thunkAPI.dispatch(Alerts("profileupdated"));
         removeItem("verification");
-
         thunkAPI.dispatch(
           updateUser({
-            ...res.user.buyer,
-            transaction_count: res.user.transactionCount,
+            ...res.data.buyer,
+            transaction_count: res.data.transactionCount,
           })
         );
         thunkAPI.dispatch(updateProfileImage());
+        return res.data
       })
       .catch((err) => {
-        CustomToast(err.message);
+        CustomToast(err.message, true);
       })
       .finally(() => {
         thunkAPI.dispatch(resetProfileImageState());

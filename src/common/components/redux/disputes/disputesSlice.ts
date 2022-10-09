@@ -44,6 +44,8 @@ const slice = createSlice({
       .addCase(
         fetchAllDisputes.fulfilled,
         (state, action: PayloadAction<DisputesDataType>) => {
+          console.log(action.payload, "pay");
+          
           state.loading = false;
           state.pagination.currentPage = action.payload?.pagination.currentPage;
           state.pagination.dataCount = action.payload?.pagination.dataCount;
