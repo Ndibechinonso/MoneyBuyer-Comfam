@@ -54,6 +54,7 @@ const Buyer = () => {
 
   const dispatch = useAppDispatch();
 
+  
   useLayoutEffect(() => {
     if (verified) {
       setUserError(false);
