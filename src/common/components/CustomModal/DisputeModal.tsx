@@ -13,6 +13,10 @@ const DisputeModal = () => {
   const { singleDispute } = useAppSelector((state) => state.disputes);
   const runUnmount = useRef(true);
 
+//   useEffect(() =>{
+// console.log(singleDispute, "singleDispute");
+//   }, [singleDispute])
+
   useEffect(() => {
     if (runUnmount.current) {
       runUnmount.current = false;

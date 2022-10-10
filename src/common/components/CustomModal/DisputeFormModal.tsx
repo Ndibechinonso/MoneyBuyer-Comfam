@@ -9,7 +9,6 @@ import { Select, SelectItem } from "../CustomSelect";
 import admin from "../../../modules/service/admin";
 import CustomToast from "../CustomToast";
 import { loadStart, loadStop } from "../redux/apploader";
-import customToast from "../CustomToast";
 import { confamFeesCalc, toNaira } from "../../utils/helpers";
 
 export type IcreateDispute = {
@@ -175,7 +174,7 @@ function DisputeFormModal() {
       })
       .catch((err) => {
         dispatch(Alerts(""));
-        customToast(err.message, true);
+        CustomToast(err.message, true);
       })
       .finally(() => dispatch(loadStop()));
   };

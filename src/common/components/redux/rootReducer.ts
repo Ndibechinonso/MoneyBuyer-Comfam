@@ -9,9 +9,10 @@ import transactionReducer from "./transaction/transactionSlice";
 import tableFilterReducer from "./tableFilter/tableFilterSlice";
 import walletReducer from "./fundsAndWallet/fundsAndWalletSlice";
 import completeProfileReducer from "./completeUserProfile/completeProfileSlice";
-import messagesReducer from "./messages/messagesSlice";
-import notificationsReducer from "./notifications/notificationsSlice";
-import dashboardGraphReducer from "./dashboardGraph/dashboardGraphSlice";
+import messagesReducer from "./messages/messagesSlice"
+import notificationsReducer from "./notifications/notificationsSlice"
+import dashboardGraphReducer from "./dashboardGraph/dashboardGraphSlice"
+import getAllbanksReducer from "./getAllBanks/getAllBanksSlice"
 
 const appReducers = combineReducers({
   alert: alertReducer,
@@ -27,6 +28,7 @@ const appReducers = combineReducers({
   messages: messagesReducer,
   notification: notificationsReducer,
   dashboardGraph: dashboardGraphReducer,
+  getAllBanks: getAllbanksReducer
 });
 
 // const rootReducer = (state, action) => {

@@ -49,6 +49,10 @@ const Buyer = () => {
   const { transactionloading, userloading } = useLoading(); // custom hook to handle all loading states
   const componentloading = useAppLoader(); // custom hook to conditionaly rendering the app loader
 
+  const { startDate, endDate, search, filter } = useAppSelector(
+    (state) => state.tableFilter
+  );
+
   const dispatch = useAppDispatch();
 
   useLayoutEffect(() => {

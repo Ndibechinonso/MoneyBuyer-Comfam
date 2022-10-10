@@ -70,7 +70,7 @@ const TableInfo = ({
   const fetchPage = useCallback(
     (page: number) => {
       if (pathname.includes("dispute")) {
-        dispatch(fetchAllDisputes({ page, startDate, endDate }));
+        dispatch(fetchAllDisputes({ page, startDate, endDate, search, filter }));
       }
       if (pathname.includes("transaction")) {
         dispatch(
