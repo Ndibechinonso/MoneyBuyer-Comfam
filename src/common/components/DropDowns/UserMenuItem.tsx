@@ -6,18 +6,20 @@ import LogoutIcon from "../CustomIcons/LogoutIcon";
 import ReminderIcon from "../CustomIcons/ReminderIcon";
 import SettingsIcon from "../CustomIcons/SettingsIcon";
 import UserIcon from "../CustomIcons/UserIcon";
-import { resetState } from "../redux/resetState";
+import { resetUser } from "../redux/getUser/getUserSlice";
+import { useAppDispatch } from "../redux/hooks";
 import DropDownItem from "./primitive/DropDownItem";
 import DropDownMenuContent from "./primitive/DropDownMenuContent";
 
 function UserMenuItem() {
   const navigate = useNavigate();
+  const dispatch  = useAppDispatch()
 
   const logoutHandler = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     clearUserDetails();
-    resetState();
+    dispatch(resetUser())
     navigate("/");
   };
 

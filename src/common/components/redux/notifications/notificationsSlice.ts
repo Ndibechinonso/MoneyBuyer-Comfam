@@ -16,8 +16,9 @@ const initialState: NotificationsProps = {
     currentPage: 0,
     dataCount: 0,
     totalPages: 0,
-    readNotification:0,
-    unReadNotification:0
+    readNotificationCount: 0,
+    totalNotifications: 0,
+    unreadNotificationCount: 0,
   },
   page: 0,
 };
@@ -38,32 +39,40 @@ const slice = createSlice({
       .addCase(fetchNotifications.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchNotifications.fulfilled, (state, action: PayloadAction<any>) => {
-        state.pagination.currentPage = action.payload?.pagination.currentPage;
-        state.pagination.dataCount = action.payload?.pagination.dataCount;
-        state.pagination.totalPages = action.payload?.pagination.totalPages;
-        state.pagination.readNotification = action.payload?.pagination.readNotificationCount;
-        state.pagination.unReadNotification = action.payload?.pagination.unreadNotificationCount;
-        state.notifications = action.payload.notifications;
-      })
+      .addCase(
+        fetchNotifications.fulfilled,
+        (state, { payload }: PayloadAction<any>) => {
+          Object.keys(payload).forEach((key) => {
+            state[key] = payload[key];
+          });
+        }
+      )
       .addCase(deleteNotification.pending, (state) => {
-        state.loading = true
-      }).addCase(deleteNotification.fulfilled, (state,action:PayloadAction<any>)=>{
-        state.loading = false;
-        state.notifications = state.notifications.filter(item => item._id !== action.payload._id);
-        state.pagination.dataCount = state.pagination.dataCount - 1
-
-      }).addCase(deleteNotification.rejected, (state)=>{
-        state.loading = false;
+        state.loading = true;
       })
+      // .addCase(
+      //   deleteNotification.fulfilled,
+      //   (state, action: PayloadAction<any>) => {
+        //   const temp = state.notifications.find(
+        //     (item) => item._id === action.payload._id
+        //   );
+        //   state.notifications = state.notifications.filter(
+        //     (item) => item._id !== action.payload._id
+        //   );
+        //   state.pagination.dataCount--;
+        //   temp.read
+        //   ? state.pagination.unreadNotificationCount--
+        //   : state.pagination.readNotificationCount--
+      //   }
+      // )
       .addCase(readNotification.fulfilled, (state, action) => {
         state.notifications = state.notifications.map((item) =>
           item._id === action.payload._id
             ? { ...item, read: action.payload.read }
             : item
         );
-        state.pagination.readNotification = state.pagination.readNotification - 1
-        state.pagination.unReadNotification = state.pagination.unReadNotification + 1
+        state.pagination.readNotificationCount--;
+        state.pagination.unreadNotificationCount++;
       })
       .addMatcher(
         isAnyOf(fetchTransaction.pending, fetchDispute.pending),
@@ -89,11 +98,16 @@ const slice = createSlice({
         }
       )
       .addMatcher(
-        isAnyOf(fetchNotifications.fulfilled, fetchNotifications.rejected),
+        isAnyOf(
+          fetchNotifications.fulfilled,
+          fetchNotifications.rejected,
+          deleteNotification.fulfilled,
+          deleteNotification.rejected
+        ),
         (state) => {
           state.loading = false;
         }
-      )
+      );
   },
 });
 

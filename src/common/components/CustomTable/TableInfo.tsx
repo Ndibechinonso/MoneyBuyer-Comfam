@@ -45,7 +45,11 @@ const TableInfo = ({
     },
   } = useAppSelector((state) => state.transactions);
 
-  const loading = dispute_loading || transaction_loading;
+  const loading = useMemo(
+    () =>
+      pathname.includes("dispute") ? dispute_loading : transaction_loading,
+    [pathname, dispute_loading, transaction_loading]
+  );
 
   const dataCount = useMemo(
     () =>

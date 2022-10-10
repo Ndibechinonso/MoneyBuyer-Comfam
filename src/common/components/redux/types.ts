@@ -249,8 +249,9 @@ export interface PaginationProps {
 }
 
 export interface NotificationPaginationProps extends PaginationProps {
-  readNotification: number;
-  unReadNotification: number;
+  readNotificationCount: number;
+  totalNotifications: number;
+  unreadNotificationCount: number;
 }
 
 export type DisputesDataType = {

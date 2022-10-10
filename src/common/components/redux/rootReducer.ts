@@ -14,7 +14,7 @@ import notificationsReducer from "./notifications/notificationsSlice"
 import dashboardGraphReducer from "./dashboardGraph/dashboardGraphSlice"
 import getAllbanksReducer from "./getAllBanks/getAllBanksSlice"
 
-export default combineReducers({
+const appReducers = combineReducers({
   alert: alertReducer,
   signup: signupReducer,
   isloading: loadingReducer,
@@ -30,3 +30,12 @@ export default combineReducers({
   dashboardGraph: dashboardGraphReducer,
   getAllBanks: getAllbanksReducer
 });
+
+// const rootReducer = (state, action) => {
+//   if (action.type === 'user/resetUser') {
+//     return appReducers(undefined, action)
+//   }
+//   return appReducers(state, action);
+// };
+
+export default appReducers;

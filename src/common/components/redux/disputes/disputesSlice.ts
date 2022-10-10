@@ -31,13 +31,13 @@ const slice = createSlice({
     removeTransactionImages: (state) => {
       state.singleDisputeImages = initialState.singleDisputeImages;
     },
-    resetDispute: (state) => {
-      state.error = initialState.error;
-      state.disputes = initialState.disputes;
-      state.singleDispute = initialState.singleDispute;
-      state.pagination = initialState.pagination;
-      state.page = initialState.page;
-    },
+    // resetDispute: (state) => {
+    //   state.error = initialState.error;
+    //   state.disputes = initialState.disputes;
+    //   state.singleDispute = initialState.singleDispute;
+    //   state.pagination = initialState.pagination;
+    //   state.page = initialState.page;
+    // },
   },
   extraReducers(builder) {
     builder
@@ -51,9 +51,9 @@ const slice = createSlice({
           console.log(action.payload, "pay");
           
           state.loading = false;
-          state.pagination.currentPage = action.payload?.pagination.currentPage;
-          state.pagination.dataCount = action.payload?.pagination.dataCount;
-          state.pagination.totalPages = action.payload?.pagination.totalPages;
+          Object.keys(state.pagination).forEach(key => {
+            state.pagination[key] = action.payload.pagination[key]
+          })
           state.disputes = action.payload?.disputes;
         }
       )
@@ -61,10 +61,11 @@ const slice = createSlice({
         state.loading = false;
         state.error = action.error.message || "something went wrong";
       }).addCase(fetchDisputeImages.fulfilled, (state, action) => {
-        state.singleDisputeImages = [
-          ...state.singleDisputeImages,
-          action.payload,
-        ];
+        // state.singleDisputeImages = [
+        //   ...state.singleDisputeImages,
+        //   action.payload,
+        // ];
+        state.singleDisputeImages.push(action.payload)
       })
   },
 });
@@ -74,6 +75,6 @@ export const {
   updateSingleDispute,
   removeSingleDispute,
   removeTransactionImages,
-  resetDispute,
+  // resetDispute,
 } = slice.actions;
 export default slice.reducer;

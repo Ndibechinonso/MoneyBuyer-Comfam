@@ -119,7 +119,7 @@ export const confamFeesCalc = (
 
   let insurance = 0;
   if (insuranced) {
-    insurance = (1.0 * totalPrice) / 100;
+    insurance = (1.0 * totalPrice) / 100; // eslint-disable-line
   }
   const vat = (7.5 * totalPrice) / 100;
   return {
@@ -212,9 +212,9 @@ export const renderEmptyPageState = (
   newUser: boolean,
   path: string,
   notificationCount: number,
-  messageCount: number,
-  transactionCount: number,
-  disputeCount: number
+  messageCount: number
+  // transactionCount: number,
+  // disputeCount: number
 ) => {
   if (getFirstLevelPath(path) === "notifications" && notificationCount === 0) {
     return true;
