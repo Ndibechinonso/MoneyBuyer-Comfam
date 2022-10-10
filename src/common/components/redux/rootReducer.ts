@@ -9,11 +9,11 @@ import transactionReducer from "./transaction/transactionSlice";
 import tableFilterReducer from "./tableFilter/tableFilterSlice";
 import walletReducer from "./fundsAndWallet/fundsAndWalletSlice";
 import completeProfileReducer from "./completeUserProfile/completeProfileSlice";
-import messagesReducer from "./messages/messagesSlice"
-import notificationsReducer from "./notifications/notificationsSlice"
-import dashboardGraphReducer from "./dashboardGraph/dashboardGraphSlice"
+import messagesReducer from "./messages/messagesSlice";
+import notificationsReducer from "./notifications/notificationsSlice";
+import dashboardGraphReducer from "./dashboardGraph/dashboardGraphSlice";
 
-export default combineReducers({
+const appReducers = combineReducers({
   alert: alertReducer,
   signup: signupReducer,
   isloading: loadingReducer,
@@ -26,5 +26,14 @@ export default combineReducers({
   transactions: transactionReducer,
   messages: messagesReducer,
   notification: notificationsReducer,
-  dashboardGraph: dashboardGraphReducer
+  dashboardGraph: dashboardGraphReducer,
 });
+
+// const rootReducer = (state, action) => {
+//   if (action.type === 'user/resetUser') {
+//     return appReducers(undefined, action)
+//   }
+//   return appReducers(state, action);
+// };
+
+export default appReducers;

@@ -16,17 +16,7 @@ const initialState: DashboardProps = {
 const slice = createSlice({
   name: "dashboard",
   initialState,
-  reducers: {
-    resetDashboard: (state) => {
-      state.error = initialState.error;
-      state.totalTransactions = initialState.totalTransactions;
-      state.openTransactions = initialState.openTransactions;
-      state.settledTransactions = initialState.settledTransactions;
-      state.transactionHistory = initialState.transactionHistory;
-      state.contactList = initialState.contactList;
-      state.activeContracts = initialState.activeContracts;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchDashboardSummary.pending, (state) => {
@@ -36,12 +26,11 @@ const slice = createSlice({
         fetchDashboardSummary.fulfilled,
         (state, action: PayloadAction<any>) => {
           state.loading = false;
-          state.totalTransactions = action.payload?.totalTransactions;
-          state.openTransactions = action.payload?.openTransactions;
-          state.settledTransactions = action.payload?.settledTransactions;
-          state.transactionHistory = action.payload?.transactionHistory;
-          state.contactList = action.payload?.contactList;
-          state.activeContracts = action.payload?.activeContracts;
+          Object.keys(state).forEach(key => {
+            if(key.toString() !== "loading" && key.toString() !== "error"){
+              state[key] = action.payload[key]
+            }
+          })
         }
       )
       .addCase(fetchDashboardSummary.rejected, (state, action) => {
@@ -51,5 +40,5 @@ const slice = createSlice({
   },
 });
 
-export const { resetDashboard } = slice.actions;
+// export const { resetDashboard } = slice.actions;
 export default slice.reducer;

@@ -1,6 +1,6 @@
-import type { MessagesProps } from "../types"
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import {createMessage, fetchAllMessages, sendNewChat} from "./messagesAsyncThunk"
+import type { MessagesProps } from "../types";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createMessage,  fetchAllMessages, sendNewChat } from "./messagesAsyncThunk";
 
 const initialState: MessagesProps = {
   loading: false,
@@ -18,13 +18,6 @@ const slice = createSlice({
     openMessageChats: (state, action) => {
       state.activeMessage = action.payload;
       state.activeChats = action.payload?.[0]?.chats;
-    },
-    resetMessage: (state) => {
-      state.error = initialState.error;
-      state.messageList = initialState.messageList;
-      state.activeMessage = initialState.activeMessage;
-      state.activeChats = initialState.activeChats;
-      state.activeSeller = initialState.activeSeller;
     },
   },
   extraReducers: (builder) => {
@@ -70,5 +63,5 @@ const slice = createSlice({
   },
 });
 
-export const { openMessageChats, resetMessage } = slice.actions;
+export const { openMessageChats } = slice.actions;
 export default slice.reducer;

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import fetchUser from "./getUserThunk"
-import { UserProps } from "../types"
+// import { UserProps } from "../types"
 import { initialUser } from "../types"
 
 const initialState = {
@@ -24,9 +24,9 @@ const slice = createSlice({
             state.user = action.payload
         },
         resetUser: (state)=> {
-            state.error = initialState.error
-            state.user = initialState.user
-            state.profileImageChange = initialState.profileImageChange
+            Object.keys(state).forEach(key => {
+                key = initialState[key]
+            })
         }
     },
     extraReducers: (builder) =>{

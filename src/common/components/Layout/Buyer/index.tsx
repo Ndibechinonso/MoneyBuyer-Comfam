@@ -30,16 +30,17 @@ const Buyer = () => {
   const [newUser, setNewUser] = useState(true);
   const value = getObject(getFirstLevelPath(pathname));
   const { modal, modalType } = useAppSelector((state) => state.alert);
-  const {
-    singleTransaction: { id: transactionId },
-    pagination: { dataCount: transactionDataCount, currentPage: transactionCP },
-  } = useAppSelector((state) => state.transactions);
-  const {
-    singleDispute: { _id: disputeId },
-    pagination: { dataCount: disputeDataCount, currentPage: disputeCP },
-  } = useAppSelector((state) => state.disputes);
-  const { dataCount: notificationCount, currentPage: notificationCP } =
-    useAppSelector((state) => state.notification.pagination);
+  // pagination: { dataCount: transactionDataCount },
+  // pagination: { dataCount: disputeDataCount, },
+  const { id: transactionId } = useAppSelector(
+    (state) => state.transactions.singleTransaction
+  );
+  const { _id: disputeId } = useAppSelector(
+    (state) => state.disputes.singleDispute
+  );
+  const { dataCount: notificationCount } = useAppSelector(
+    (state) => state.notification.pagination
+  );
   const mountOnce = useRef(false);
   const { verified, transaction_count, user_type } = useAppSelector(
     (state) => state.user.user
@@ -69,32 +70,6 @@ const Buyer = () => {
     }
   }, [modalType, transactionId, disputeId, dispatch]); //eslint-disable-line
 
-  //  this fetches the first page of the route that is being so redux has the first page in memory
-  const fetchUnmount = useRef(true);
-  useEffect(() => {
-    if (fetchUnmount.current) {
-      fetchUnmount.current = false;
-      return;
-    }
-    return () => {
-      if (
-        getFirstLevelPath(pathname) === "notifications" &&
-        notificationCP !== 1
-      ) {
-        dispatch(fetchNotifications(1));
-      }
-      if (getFirstLevelPath(pathname) === "dispute" && disputeCP !== 1) {
-        dispatch(fetchAllDisputes({ page: 1 }));
-      }
-      if (
-        getFirstLevelPath(pathname) === "transaction" &&
-        transactionCP !== 1
-      ) {
-        dispatch(fetchAllTransactions({ page: 1 }));
-      }
-    };
-  }, [pathname]);
-
   //  update new user information after user has initiated a transaction
   useEffect(() => {
     if (user_type !== "" && transaction_count === 0 && transactionloading) {
@@ -107,12 +82,14 @@ const Buyer = () => {
     if (mountOnce.current) {
       return;
     }
-    dispatch(fetchNotifications(1));
-    dispatch(fetchAllMessages());
-    dispatch(fetchAllTransactions({ page: 1 }));
-    dispatch(fetchAllDisputes({ page: 1 }));
-    if (user_type === "") {
-      dispatch(fetchUser());
+    if (fetchUserToken()) {
+      dispatch(fetchNotifications(1));
+      dispatch(fetchAllMessages());
+      dispatch(fetchAllTransactions({ page: 1 }));
+      dispatch(fetchAllDisputes({ page: 1 }));
+      if (user_type === "") {
+        dispatch(fetchUser());
+      }
     }
     mountOnce.current = true;
   }, []);
@@ -150,9 +127,7 @@ const Buyer = () => {
                 newUser,
                 pathname,
                 notificationCount,
-                messageList.length,
-                transactionDataCount,
-                disputeDataCount
+                messageList.length
               ) ? (
               <>
                 {userError && <Notice />}

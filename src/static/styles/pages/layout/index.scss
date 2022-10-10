@@ -41,6 +41,9 @@
       }
     }
   }
+  @media screen and (min-width: 720px) {
+    // grid-template-columns: 7.1875rem 1fr;
+  }
   &__message {
     grid-template-columns: 7.1875rem 19.625rem 1fr;
     transition: all 0.5s ease;
