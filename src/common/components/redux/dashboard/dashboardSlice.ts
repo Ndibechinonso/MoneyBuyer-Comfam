@@ -25,6 +25,7 @@ const slice = createSlice({
       .addCase(
         fetchDashboardSummary.fulfilled,
         (state, action: PayloadAction<any>) => {
+          console.log(action.payload?.activeContracts, "activeContracts");
           state.loading = false;
           Object.keys(state).forEach(key => {
             if(key.toString() !== "loading" && key.toString() !== "error"){

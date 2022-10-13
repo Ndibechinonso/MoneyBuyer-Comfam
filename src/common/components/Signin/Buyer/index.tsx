@@ -40,9 +40,7 @@ const Form = () => {
     auth
       .loginBuyer(inputs)
       .then((res) => {
-        customtoast(res?.message);
-        console.log(res, "res");
-        
+        customtoast(res?.message);        
         setIsSubmitted(false);
         storeUserToken(res.tokens.accessToken);
         dispatch(

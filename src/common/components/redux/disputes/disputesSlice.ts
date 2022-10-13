@@ -47,9 +47,7 @@ const slice = createSlice({
       })
       .addCase(
         fetchAllDisputes.fulfilled,
-        (state, action: PayloadAction<DisputesDataType>) => {
-          console.log(action.payload, "pay");
-          
+        (state, action: PayloadAction<DisputesDataType>) => {          
           state.loading = false;
           Object.keys(state.pagination).forEach(key => {
             state.pagination[key] = action.payload.pagination[key]

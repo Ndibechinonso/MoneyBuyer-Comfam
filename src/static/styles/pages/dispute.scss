@@ -146,9 +146,26 @@
           @include smallTextMedium;
           color: var(--greyColorGrey1);
 
-          img {
+          img, .product_img_div, .overlay {
             width: 5.625rem;
             height: 3.375rem;
+            border-radius: 4px;
+          }
+          .product_img_div{
+            position: relative;
+            .overlay{
+              position: absolute;
+              background: rgba(68, 68, 68, 0.5);
+            }
+            .product_display_count{
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              font-weight: 500;
+              font-size: 20px;
+              line-height: 30px;   
+              color: #FFFFFF            }
           }
         }
         .transactionModal__productDesc {

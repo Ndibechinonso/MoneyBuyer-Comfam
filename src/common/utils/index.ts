@@ -29,7 +29,7 @@ export const validatePassword = (password: any) => {
   );
 };
 
-export const formatDate = (date: string, mode = 1) => {
+export const formatDate = (date: string, mode = 1, suffixed = true) => {
   if (!date) date = new Date().toISOString();
   if (mode === 1) {
     const dateArray = new Date(date).toDateString().split(" ");
@@ -70,7 +70,7 @@ export const formatDate = (date: string, mode = 1) => {
       }
     };
 
-    return `${month} ${day}${suffix(day)}, ${year}`;
+    return suffixed === true ? `${month} ${day}${suffix(day)}, ${year}` : `${day} ${month}, ${year}`;
   } else if (mode === 3) {
     const time = new Intl.DateTimeFormat(undefined, { timeStyle: "short" })
       .format(new Date(date))
@@ -81,11 +81,13 @@ export const formatDate = (date: string, mode = 1) => {
   }
 };
 
-export const formatCurrency = (value: number) => {
-  return (
+export const formatCurrency = (value: number, mode = 1) => {
+  if(!value) return "-"
+  return mode === 1 ? (
     "₦" +
     new Intl.NumberFormat("en-US", { minimumFractionDigits: 2 }).format(value)
-  );
+  ) : ("₦" +
+  new Intl.NumberFormat("en-US", { minimumFractionDigits: 0 }).format(value))
 };
 
 export const toDateTime = (date: string) =>
