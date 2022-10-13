@@ -1,20 +1,20 @@
 import { useLocation } from 'react-router-dom'
 import { getFirstLevelPath } from '../utils/helpers';
-import useLoading from './useLoading';
+// import useLoading from './useLoading';
 
 
 function useAppLoader() {
     let template: boolean;
     const {pathname} = useLocation();
-    const {messageloading,notificationloading,disputeloading,transactionloading} = useLoading()
+    // const {messageloading,notificationloading,disputeloading,transactionloading} = useLoading()
 
     switch (getFirstLevelPath(pathname)) {
         // case "messages":
         //     template = messageloading
         //     break;
-        case "notifications":
-            template = notificationloading
-            break;
+        // case "notifications":
+        //     template = notificationloading
+        //     break;
         // case "dispute":
         //     template = disputeloading
         //     break;

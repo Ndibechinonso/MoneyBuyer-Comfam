@@ -1,5 +1,6 @@
 import { createListenerMiddleware, isAnyOf } from "@reduxjs/toolkit";
 import { fetchAllDisputes } from "./disputes/disputesAsyncThunk";
+import { fetchNotifications } from "./notifications/notificationsAsyncThunk";
 import { store } from "./store";
 import {
   updateDate,
@@ -8,9 +9,9 @@ import {
 } from "./tableFilter/tableFilterSlice";
 import { fetchAllTransactions } from "./transaction/transactionAsyncThunk";
 
-const listenerMiddleware = createListenerMiddleware();
+const updateTableMiddleware = createListenerMiddleware();
 
-listenerMiddleware.startListening({
+updateTableMiddleware.startListening({
   matcher: isAnyOf(
     updateDate,
     updateSearchParam,
@@ -34,4 +35,19 @@ listenerMiddleware.startListening({
   },
 });
 
-export default listenerMiddleware;
+updateTableMiddleware.startListening({
+  type: "notifications/deleteNotification/fulfilled",
+  effect: async (state, listenApi) => {
+    const { currentPage, totalPages, dataCount } =
+      store.getState().notification.pagination;
+    listenApi.dispatch(
+      fetchNotifications(
+        totalPages === currentPage && dataCount % 10 === 1
+          ? totalPages - 1
+          : currentPage
+      )
+    );
+  },
+});
+
+export default updateTableMiddleware;

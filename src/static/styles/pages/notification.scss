@@ -4,6 +4,27 @@
   background: url(../../images/tableBtm.svg) bottom left no-repeat;
   background-color: var(--blackColorWhite);
 
+  &:has(.fetching_notification){
+    position: relative;
+    overflow: hidden;
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 150%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        60deg,
+        transparent,
+        transparent 0.75rem,
+        var(--greyColorGrey4) 0.75rem,
+        var(--greyColorGrey4) 1.5rem
+      );
+      opacity: 0.2;
+      animation: load 1s infinite linear;
+    }
+  }
+
   &__item {
     color: var(--greyColorGrey1);
     &,
@@ -29,7 +50,7 @@
         fill: var(--greyColorGrey3);
       }
     }
-    &Loading{
+    &Loading {
       background-color: green;
     }
 

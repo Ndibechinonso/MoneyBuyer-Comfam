@@ -28,7 +28,8 @@ function Header({ newUser, inCompleteReg }: Iheader) {
   const { pathname } = useLocation();
   const value = getObject(getFirstLevelPath(pathname));
   const dispatch = useAppDispatch();
-  const unreadNotifications = useAppSelector((state) => state.notification.pagination.readNotification);
+  const unreadNotifications = useAppSelector((state) => state.notification.pagination.readNotificationCount);
+  const { loading } = useAppSelector(state => state.notification)
   const { activeMessage } = useAppSelector((state) => state.messages);
   const { user } = useAppSelector((state) => state.user)
   const [sellerObject, setSellerObject] = useState<any>({});
@@ -40,6 +41,8 @@ function Header({ newUser, inCompleteReg }: Iheader) {
     setSellerObject(activeSeller);
   }, [activeMessage]);
 
+ 
+
   return (
     <>
       <header className="confam__layout--header">
@@ -47,6 +50,7 @@ function Header({ newUser, inCompleteReg }: Iheader) {
           <button
             className="notification__icon"
             onClick={() => navigate(route.protected.notifications)}
+            disabled={loading}
           >
             <NotificationIcon
               color={`${

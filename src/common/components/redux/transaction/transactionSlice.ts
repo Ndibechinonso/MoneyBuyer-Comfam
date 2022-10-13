@@ -32,13 +32,7 @@ const slice = createSlice({
     removeTransactionImages: (state) => {
       state.singleTransactionImages = initialState.singleTransactionImages;
     },
-    resetTransactions: (state) => {
-      state.error = initialState.error;
-      state.transactions = initialState.transactions;
-      state.singleTransaction = initialState.singleTransaction;
-      state.pagination = initialState.pagination;
-      state.page = initialState.page;
-    },
+  
   },
   extraReducers(builder) {
     builder
@@ -49,22 +43,14 @@ const slice = createSlice({
       .addCase(
         thunk.fetchAllTransactions.fulfilled,
         (state, action: PayloadAction<TransactionDataType>) => {
-          state.loading = false;
-          state.pagination.currentPage = action.payload?.pagination.currentPage;
-          state.pagination.dataCount = action.payload?.pagination.dataCount;
-          state.pagination.totalPages = action.payload?.pagination.totalPages;
+          Object.keys(state.pagination).forEach(key => {
+            state.pagination[key] = action.payload.pagination[key]
+          })
           state.transactions = action.payload?.transactions;
         }
       )
-      .addCase(thunk.fetchAllTransactions.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || "something went wrong";
-      })
       .addCase(thunk.fetchTransactionImages.fulfilled, (state, action) => {
-        state.singleTransactionImages = [
-          ...state.singleTransactionImages,
-          action.payload,
-        ];
+        state.singleTransactionImages.push(action.payload)
       })
       .addMatcher(
         isAnyOf(
@@ -80,7 +66,7 @@ const slice = createSlice({
           state.loading = true;
         }
       )
-      .addMatcher(
+      .addMatcher( 
         isAnyOf(
           thunk.createNewTransaction.fulfilled,
           thunk.createNewTransaction.rejected,
@@ -95,7 +81,9 @@ const slice = createSlice({
           thunk.cancelATransaction.fulfilled,
           thunk.cancelATransaction.rejected,
           thunk.transactionFeedback.fulfilled,
-          thunk.transactionFeedback.rejected
+          thunk.transactionFeedback.rejected,
+          thunk.fetchAllTransactions.fulfilled,
+          thunk.fetchAllTransactions.rejected,
         ),
         (state) => {
           state.loading = false;
@@ -109,6 +97,6 @@ export const {
   updateSingleTransaction,
   removeSingleTransaction,
   removeTransactionImages,
-  resetTransactions,
+  // resetTransactions,
 } = slice.actions;
 export default slice.reducer;
