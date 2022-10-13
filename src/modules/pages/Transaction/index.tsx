@@ -1,6 +1,6 @@
 import Table from "../../../common/components/CustomTable/Table";
 import { useAppSelector } from "../../../common/components/redux/hooks";
-import { sellersTransactions } from "../../../fakeData";
+import { sellersTransactions } from "../../../tableHeaders";
 
 function Transaction() {
   const { transactions } = useAppSelector((state) => state.transactions);

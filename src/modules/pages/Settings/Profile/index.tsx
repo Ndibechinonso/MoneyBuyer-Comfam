@@ -55,7 +55,7 @@ const Profile = () => {
           setUserAvartar(res);
         })
         .catch((err) => console.log(err, "error"))
-        .finally(() => dispatch(loadingStop()));
+        .finally(() => dispatch(loadingStop()))
     }
     if (!verified) {
       navigate(route.protected.setting_verification);

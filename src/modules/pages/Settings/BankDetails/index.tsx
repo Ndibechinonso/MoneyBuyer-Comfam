@@ -80,7 +80,6 @@ const BankDetail = () => {
       account_number,
       account_name,
     };
-    console.log(profilePayload);
     setItem("verification", JSON.stringify(profilePayload));
     navigate(route.protected.setting_notification);
   };

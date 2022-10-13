@@ -104,9 +104,7 @@ const uploadProfileImage = createAsyncThunk(
         admin
           .updateProfileImage({ image: res?.response.data.key })
           .then((res) => {
-            CustomToast(res.message);
-            console.log(res, "res");
-            
+            CustomToast(res.message);            
             thunkAPI.dispatch(
               updateUser({
                 ...res.data.user.buyer,

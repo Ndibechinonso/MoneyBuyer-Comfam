@@ -9,9 +9,9 @@ function useAppLoader() {
     const {messageloading,notificationloading,disputeloading,transactionloading} = useLoading()
 
     switch (getFirstLevelPath(pathname)) {
-        case "messages":
-            template = messageloading
-            break;
+        // case "messages":
+        //     template = messageloading
+        //     break;
         case "notifications":
             template = notificationloading
             break;
