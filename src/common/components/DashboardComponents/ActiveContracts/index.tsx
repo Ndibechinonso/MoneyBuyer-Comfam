@@ -1,4 +1,3 @@
-import clientImg from "../../../../static/images/client_img.svg";
 import { useAppSelector } from "../../redux/hooks";
 import { formatCurrency, formatDate } from "../../../utils";
 import CustomLoader from "../../CustomLoader";
@@ -20,7 +19,6 @@ const ActiveContracts = () => {
         <div className="card_container_content">
           <div className="d-flex card_top">
             <div className="d-flex user_container">
-              {/* <FontAwesomeIcon icon={faArrowRightArrowLeft} /> */}
               <Avatar sellerImage={contract?.seller?.image} />
               <div>
                 <div className="normalTextMedium">{contract?.productName}</div>

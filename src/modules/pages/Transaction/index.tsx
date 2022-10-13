@@ -5,7 +5,7 @@ import {
   useAppSelector,
 } from "../../../common/components/redux/hooks";
 import { fetchAllTransactions } from "../../../common/components/redux/transaction/transactionAsyncThunk";
-import { sellersTransactions } from "../../../fakeData";
+import { sellersTransactions } from "../../../tableHeaders";
 
 function Transaction() {
   const {

@@ -1,6 +1,4 @@
 import { useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useAppSelector } from "../../redux/hooks";
 import { formatCurrency, formatDate } from "../../../utils";
 import CustomLoader from "../../CustomLoader";
