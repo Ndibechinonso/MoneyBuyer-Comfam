@@ -5,7 +5,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../../common/components/redux/hooks";
-import { disputeTable } from "../../../fakeData";
+import { disputeTable } from "../../../tableHeaders";
 
 const Dispute = () => {
   const {

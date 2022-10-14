@@ -1,13 +1,11 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { useAppSelector } from "../../redux/hooks";
 import CustomLoader from "../../CustomLoader";
+import Avatar from "../Avatar";
 
 const ClientContact = () => {
   const { loading, contactList } = useAppSelector(
     (state) => state.dashboardSummary
   );
-
   return (
     <div className="dashboard_sections">
       <h2>Your Client Contact</h2>
@@ -18,10 +16,9 @@ const ClientContact = () => {
             return (
               <div key={index} className="d-flex">
                 <div className="d-flex user_container">
-                  <FontAwesomeIcon icon={faEnvelope} />
+                  <Avatar sellerImage={contact?.image} />
                   <div>
                     <div className="">
-                      {/* <span className="smallTextMedium">From: </span> */}
                       <span className="normalTextMedium">
                         {contact.first_name} {contact.last_name}
                       </span>
@@ -29,7 +26,7 @@ const ClientContact = () => {
                     <div className="smallTextMedium">{contact?.email}</div>
                   </div>
                 </div>
-                <div>
+                <div className="contact_btn_div">
                   <a className="contact_btn" href={`mailto:${contact?.email}`}>
                     Contact Client
                   </a>

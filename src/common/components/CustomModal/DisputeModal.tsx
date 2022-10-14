@@ -6,22 +6,47 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { Alerts } from "../redux/alert/alertActions";
 import CustomButton from "../CustomButtons";
 import DisputeTracker from "./DisputeTraker";
+import admin from "../../../modules/service/admin";
+import Pulse from "../CustomIcons/Pulse";
+import { formatCurrency } from "../../utils";
 
 const DisputeModal = () => {
   const dispatch = useAppDispatch();
   const [display, setDisplay] = useState("Details");
   const { singleDispute } = useAppSelector((state) => state.disputes);
   const runUnmount = useRef(true);
+  const [disputeImages, setDisputeImages] = useState([]);
+  const [transactionImages, setTransactionDisputeImages] = useState([]);
+  const [disputeImageLoader, setDisputeImageLoader] = useState(false);
+  const [transactionImageLoader, setTransactionImageLoader] = useState(false);
 
-//   useEffect(() =>{
-// console.log(singleDispute, "singleDispute");
-//   }, [singleDispute])
+  useEffect(() =>{
+console.log(singleDispute, "singleDispute");
+  }, [singleDispute])
 
   useEffect(() => {
     if (runUnmount.current) {
       runUnmount.current = false;
       return;
     }
+    setDisputeImageLoader(true);
+    singleDispute?.images?.forEach((imageKey: string) => {
+      admin
+        .getImage(imageKey)
+        .then((res) => setDisputeImages((prev) => [...prev, res]))
+        .catch((err) => console.log(err))
+        .finally(() => setDisputeImageLoader(false));
+    });
+
+    setTransactionImageLoader(true)
+
+    singleDispute?.transaction?.images?.forEach((imageKey: string) => {
+      admin
+        .getImage(imageKey)
+        .then((res) => setTransactionDisputeImages((prev) => [...prev, res]))
+        .catch((err) => console.log(err))
+        .finally(() => setTransactionImageLoader(false));
+    });
   }, []);
   
   return (
@@ -75,10 +100,19 @@ const DisputeModal = () => {
               </div>
             </div>
             <div className="section__body--itm__wrapper">
-              <h6 className="section__body--itm__title">Disputed Image</h6>
-              <p className="section__body--itm__body">
-                <img src={img} alt="dispute product" />
-              </p>
+            <h6 className="section__body--itm__title">
+                Disputed Image{disputeImages?.length > 1 && "s"}
+              </h6>
+              <div className="section__body--itm__body section__body--itm_img">
+              {disputeImageLoader && <Pulse />}
+              {disputeImages.filter((image, index) => index < 2).map((image, idx) => (
+                    <div key={idx} className={`product_img_div ${idx === 1 && disputeImages.length > 2 ? "second_img" : ""}`}>
+                  {idx === 1 && disputeImages.length > 2 && <><div className={`overlay`}>
+                    </div> <p className="product_display_count">+ {disputeImages.length - 2}</p> </> }
+                    <img  src={image} alt={`product ${idx + 1}`} />
+                    </div>
+                  ))}
+                  </div>
             </div>
           </div>
           {display === "Tracker" && (
@@ -112,7 +146,7 @@ const DisputeModal = () => {
                       Seller ID/Email
                     </h6>
                     <p className="section__body--itm__body">
-                      Johnson@gmail.com
+                     {singleDispute?.seller?.email}
                     </p>
                   </div>
                   <div className="section__body--itm__wrapper">
@@ -128,10 +162,19 @@ const DisputeModal = () => {
                     <p className="section__body--itm__body">24th Mar 2022</p>
                   </div>
                   <div className="section__body--itm__wrapper">
-                    <h6 className="section__body--itm__title">Product Image</h6>
-                    <p className="section__body--itm__body">
-                      <img src={img} alt="displayed product" />
-                    </p>
+                  <h6 className="section__body--itm__title">
+                  Product Image{transactionImages.length > 1 && "s"}
+                </h6>
+                <div className="section__body--itm__body section__body--itm_img">
+                {transactionImageLoader && <Pulse />}
+                {transactionImages.filter((image, index) => index < 2).map((image, idx) => (
+                    <div key={idx} className={`product_img_div ${idx === 1 && transactionImages.length > 2 ? "second_img" : ""}`}>
+                  {idx === 1 && transactionImages.length > 2 && <><div className={`overlay`}>
+                    </div> <p className="product_display_count">+ {transactionImages.length - 2}</p> </> }
+                    <img  src={image} alt={`product ${idx + 1}`} />
+                    </div>
+                  ))}
+                </div>
                   </div>
                 </div>
                 <div className="section__body--itm">
@@ -139,13 +182,15 @@ const DisputeModal = () => {
                     <h6 className="section__body--itm__title">
                       Seller Phone Number
                     </h6>
-                    <p className="section__body--itm__body">+234-704-5432-12</p>
+                    <p className="section__body--itm__body">{singleDispute?.seller?.phone_number}
+</p>
                   </div>
                   <div className="section__body--itm__wrapper">
                     <h6 className="section__body--itm__title">
                       Product Quantity
                     </h6>
-                    <p className="section__body--itm__body">1</p>
+                    <p className="section__body--itm__body">{singleDispute?.transaction?.quantity}
+</p>
                   </div>
                 </div>
                 <div className="section__body--itm">
@@ -154,7 +199,7 @@ const DisputeModal = () => {
                       Delivery Address
                     </h6>
                     <p className="section__body--itm__body">
-                      16A Adebayo Street, Lagos
+                    {singleDispute?.transaction?.deliveryAddress}
                     </p>
                   </div>
                   <div className="section__body--itm__wrapper">
@@ -162,8 +207,7 @@ const DisputeModal = () => {
                       Product Description
                     </h6>
                     <p className="section__body--itm__body transactionModal__productDesc">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Amet nisl dui at id...........
+                    {singleDispute?.transaction?.description}
                     </p>
                   </div>
                 </div>
@@ -180,8 +224,7 @@ const DisputeModal = () => {
                       Product Cost
                     </h6>
                     <p className="transactionModal__payment--cost__body">
-                      <span>₦</span>12,500
-                      {/* {data?.transactionDetails?.pricingAndPayment?.productCost} */}
+                    {formatCurrency(singleDispute?.transaction?.price, 2)}
                     </p>
                   </div>
                   <div className="transactionModal__payment--fee">
@@ -189,8 +232,10 @@ const DisputeModal = () => {
                       Transaction Fee
                     </h6>
                     <p className="transactionModal__payment--fee__body">
-                      <span>₦</span>1,000
-                      {/* {data?.transactionDetails?.pricingAndPayment?.transactionFee} */}
+                    {formatCurrency(
+                    singleDispute?.transaction?.transactionFee,
+                    2
+                  )}
                     </p>
                   </div>
                 </div>
@@ -200,8 +245,12 @@ const DisputeModal = () => {
                       Sub total
                     </h6>
                     <p className="transactionModal__payment--totalSub__body">
-                      <span>₦</span>12,500 + <span>₦</span>1,000 Transaction fee
-                      {/* {data?.transactionDetails?.pricingAndPayment?.subTotal} */}
+                    {formatCurrency(singleDispute?.transaction?.price, 2)} +{" "}
+                  {formatCurrency(
+                    singleDispute?.transaction?.transactionFee,
+                    2
+                  )}{" "}
+                  Transaction fee
                     </p>
                   </div>
                   <div className="transactionModal__payment--totalCost text-left">
@@ -209,8 +258,11 @@ const DisputeModal = () => {
                       Total cost
                     </h6>
                     <p className="transactionModal__payment--totalCost__body">
-                      <span>₦</span>13,500
-                      {/* {data?.transactionDetails?.pricingAndPayment?.totalCost} */}
+                    {formatCurrency(
+                    singleDispute?.transaction?.price +
+                      (singleDispute?.transaction?.transactionFee || 0),
+                    2
+                  )}
                     </p>
                   </div>
                 </div>

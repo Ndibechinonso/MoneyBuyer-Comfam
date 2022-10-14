@@ -31,7 +31,7 @@ const Signup = ({children}:props) => {
               </li>
 
               <li>
-              <a href="">
+              <a href="https://seller.confammoney.com/signup/seller">
               SELLER
             </a>
               </li>

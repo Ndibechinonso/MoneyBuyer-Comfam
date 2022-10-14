@@ -151,7 +151,7 @@ export type TransactionProps = {
   completed: boolean;
   deleted: boolean;
   _id: string;
-  seller: null;
+  seller: SellerProps;
   buyer: string;
   price: 0;
   createdBy: string;
@@ -172,6 +172,7 @@ export type ContactListType = {
   createdAt: string;
   updatedAt: string;
   id: string;
+  image: string;
 };
 
 export type ActiveContractTypes = {
@@ -180,7 +181,7 @@ export type ActiveContractTypes = {
   createdAt: string;
   productName: string;
   transactionFee: number;
-  seller: any;
+  seller: SellerProps;
   status: string;
 };
 
@@ -207,17 +208,13 @@ export type Disputes = {
   _id: string;
   seller: {
     _id: string;
-    state: string;
-    local_gov: string;
     city: string;
     street_number: number;
+    residential_address: string;
     phone_number: string;
     last_name: string;
     user_type: string;
     first_name: string;
-    bvn: string;
-    emailValidated: boolean;
-    cognito_id: string;
     email: string;
     bank_details: [];
     createdAt: string;
@@ -233,7 +230,16 @@ export type Disputes = {
     updatedAt: string;
     wallet_id: string;
   };
-  transaction: string;
+  transaction: {
+    price: number;
+    transactionFee: number;
+    deliveryAddress: string;
+    completionDueDate: string;
+    description: string;
+    productName: string;
+    images: string[];
+    quantity: number;
+  };
   dispute_reason: string;
   quantity: number;
   images: string[];

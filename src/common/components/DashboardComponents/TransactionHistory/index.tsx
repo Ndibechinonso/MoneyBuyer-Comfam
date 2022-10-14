@@ -1,9 +1,8 @@
 import { useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useAppSelector } from "../../redux/hooks";
 import { formatCurrency, formatDate } from "../../../utils";
 import CustomLoader from "../../CustomLoader";
+import Avatar from "../Avatar";
 
 const TransactionHistory = () => {
   const { loading, transactionHistory } = useAppSelector(
@@ -22,12 +21,12 @@ const TransactionHistory = () => {
             return (
               <div key={index} className="d-flex">
                 <div className="d-flex user_container">
-                  <FontAwesomeIcon icon={faArrowRightArrowLeft} />
+                  <Avatar sellerImage={transaction?.seller?.image} />
                   <div>
                     <div className="">
                       <span className="smallTextMedium">From: </span>
                       <span className="normalTextMedium">
-                        {/* {transaction?.seller} */}
+                        {transaction?.seller?.first_name} {transaction?.seller?.last_name}
                       </span>
                     </div>
                     <div className="smallTextMedium">

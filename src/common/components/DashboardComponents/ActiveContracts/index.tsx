@@ -1,9 +1,7 @@
-import clientImg from "../../../../static/images/client_img.svg";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { useAppSelector } from "../../redux/hooks";
 import { formatCurrency, formatDate } from "../../../utils";
 import CustomLoader from "../../CustomLoader";
+import Avatar from "../Avatar";
 
 const ActiveContracts = () => {
   const {loading, activeContracts} = useAppSelector((state) => state.dashboardSummary)
@@ -21,7 +19,7 @@ const ActiveContracts = () => {
         <div className="card_container_content">
           <div className="d-flex card_top">
             <div className="d-flex user_container">
-              <FontAwesomeIcon icon={faArrowRightArrowLeft} />
+              <Avatar sellerImage={contract?.seller?.image} />
               <div>
                 <div className="normalTextMedium">{contract?.productName}</div>
                 <div className="smallTextMedium">Nigeria</div>
@@ -37,12 +35,12 @@ const ActiveContracts = () => {
           <div className="d-flex">
             <div className="flexCol smallTextMedium">
               <div className="contract_info">Contract Period</div>
-              <div className="date">{formatDate(contract.createdAt, 2)} - {formatDate(contract.completionDueDate, 2)}</div>
+              <div className="date">{formatDate(contract?.createdAt, 2)} - {formatDate(contract.completionDueDate, 2)}</div>
             </div>
 
             <div className="flexCol smallTextMedium text-right">
               <div className="contract_info">Name of Seller</div>
-              {/* <div className="date name">{contract.seller}</div> */}
+              <div className="date name">{contract?.seller?.first_name} {contract?.seller?.last_name}</div>
             </div>
           </div>
         </div>

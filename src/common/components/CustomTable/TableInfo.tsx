@@ -5,14 +5,13 @@ import DropDown from "../DropDowns/primitive";
 import TableItem from "../DropDowns/TableItem";
 import { TObj } from "./types";
 import ArrowRight from "../CustomIcons/ArrowRight";
-import clientImg from "../../../static/images/client_img.svg";
 import { toNaira } from "../../utils/helpers";
 import PaginationComponent from "../PaginationComponent";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-// import CustomLoader from "../CustomLoader";
 import { useLocation } from "react-router-dom";
 import { fetchAllDisputes } from "../redux/disputes/disputesAsyncThunk";
 import { fetchAllTransactions } from "../redux/transaction/transactionAsyncThunk";
+import { formatCurrency, formatDate } from "../../utils";
 
 const TableInfo = ({
   headers,
@@ -93,24 +92,27 @@ const TableInfo = ({
     let template: any;
 
     switch (col.key) {
-      case "clients":
-        template = (
-          <span className="client_div">
-            <span className="client_img">
-              <img src={clientImg} alt="client" />
-            </span>
-          </span>
-        );
-        break;
+      // case "clients":
+      //   template = (
+      //     <span className="client_div">
+      //       <span className="client_img">
+      //         <img src={clientImg} alt="client" />
+      //       </span>
+      //     </span>
+      //   );
+      //   break;
       case "status":
         template = <Tag value={row[col.key]} />;
         break;
       case "createdAt":
-        template = new Date(row[col.key]).toDateString();
+        template = formatDate(row[col.key], 2, false);
         break;
       case "transactionFee":
         template = toNaira(row[col.key]);
         break;
+        case "transaction":
+          template = formatCurrency(row[col.key]?.transactionFee, 2)
+          break;
       case "seller":
         template = `${row[col.key]?.last_name} ${row[
           col.key
