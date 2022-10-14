@@ -28,7 +28,7 @@ const slice = createSlice({
     removeSingleDispute: (state) => {
       state.singleDispute = initialState.singleDispute;
     },
-    removeTransactionImages: (state) => {
+    removeDisputeImages: (state) => {
       state.singleDisputeImages = initialState.singleDisputeImages;
     },
     // resetDispute: (state) => {
@@ -74,7 +74,7 @@ export const {
   changePageNumber,
   updateSingleDispute,
   removeSingleDispute,
-  removeTransactionImages,
+  removeDisputeImages,
   // resetDispute,
 } = slice.actions;
 export default slice.reducer;

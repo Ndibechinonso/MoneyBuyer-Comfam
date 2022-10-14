@@ -12,7 +12,18 @@ const Dispute = () => {
     disputes,
     pagination: { currentPage },
   } = useAppSelector((state) => state.disputes);
+  const { type, startDate, search, endDate, filter } = useAppSelector(
+    (state) => state.tableFilter
+  );
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (type === "Dispute") {
+      dispatch(
+        fetchAllDisputes({ page: 1, endDate, search, startDate, filter })
+      );
+    }
+  }, [search, startDate, filter]);
 
   const fetchUnmount = useRef(true);
   useEffect(() => {
