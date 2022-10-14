@@ -87,7 +87,7 @@ export const toNaira = (amount: string) =>
       style: "currency",
       currency: "NGN",
     })
-    .split(".")[0];
+    ?.split(".")[0];
 
 interface IconfamFees {
   vat: number;
