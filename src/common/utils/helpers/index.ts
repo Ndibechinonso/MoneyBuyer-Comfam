@@ -141,7 +141,7 @@ export const transactionModalTitleHandler = (data: any) => {
       break;
     case "pending payment":
       template = `Transaction has been accepted, You have a pending payment of ${toNaira(
-        data?.amount
+        data?.price?.toString()
       )}`;
       break;
     case "awaiting delivery":

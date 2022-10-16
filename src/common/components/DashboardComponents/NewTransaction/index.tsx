@@ -258,6 +258,7 @@ const NewTransaction = () => {
                   disable={isloading}
                   type="picker"
                   startDate={new Date(inputs.completionDueDate)}
+                  minDate
                 />
               </div>
               <div className="form_group">
@@ -340,6 +341,7 @@ const NewTransaction = () => {
                   type="picker"
                   disable={isloading}
                   startDate={new Date(inputs.completionDueDate)}
+                  minDate
                 />
               </div>
               <div className="form_group">

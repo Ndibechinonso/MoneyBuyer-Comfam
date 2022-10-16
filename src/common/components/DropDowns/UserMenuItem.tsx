@@ -20,7 +20,7 @@ function UserMenuItem() {
   ) => {
     clearUserDetails();
     dispatch(resetUser())
-    navigate("/");
+    navigate(route.nonprotected.buyer.login);
   };
 
   return (

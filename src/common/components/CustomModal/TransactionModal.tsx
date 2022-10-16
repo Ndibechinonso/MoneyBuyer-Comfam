@@ -11,6 +11,7 @@ import IndicatorIcon from "../CustomIcons/IndicatorIcon";
 import ThreeDotIcon from "../CustomIcons/ThreeDot";
 import Tag from "../CustomTags";
 import { Alerts } from "../redux/alert/alertActions";
+import { fundTransaction } from "../redux/fundsAndWallet/fundsAndWalletAsyncThunk";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { createMessage } from "../redux/messages/messagesAsyncThunk";
 import { removeNotificationItem } from "../redux/notifications/notificationsSlice";
@@ -211,7 +212,9 @@ function TransactionModal() {
             <CustomButton
               actionText="Proceed to payment"
               className="w-100"
-              action={() => dispatch(Alerts("transactionpayment"))}
+              action={() =>
+                dispatch(fundTransaction({ transaction: data._id }))
+              }
             />
           ) : null}
           {removeHypen(data?.status) === "awaiting confirmation" ? (

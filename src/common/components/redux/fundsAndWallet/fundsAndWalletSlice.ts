@@ -1,7 +1,10 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf, PayloadAction } from "@reduxjs/toolkit";
+import { Alerts } from "../alert/alertActions";
+import { store } from "../store";
 import {
   fetchAllBanks,
   fetchWalletInfo,
+  fundTransaction,
   fundWallet,
   verifyAccount,
   withdrawfromwallet,
@@ -181,9 +184,24 @@ const slice = createSlice({
           { ...action.payload },
         ];
       })
-      .addCase(fundWallet.rejected, (state) => {
+      .addCase(fundWallet.rejected, (state, action) => {
         state.loading = false;
-      });
+      })
+      .addCase(fundTransaction.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(fundTransaction.fulfilled, (state, action) => {
+        Object.keys(state.wallet).forEach((key) => {
+          state.wallet[key] = action.payload.buyerTransactionReport.wallet[key];
+        });
+        store.dispatch(Alerts("successfulltransaction"));
+      })
+      .addMatcher(
+        isAnyOf(fundTransaction.fulfilled, fundTransaction.rejected),
+        (state) => {
+          state.loading = false;
+        }
+      );
   },
 });
 
