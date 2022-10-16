@@ -194,7 +194,6 @@ const slice = createSlice({
         Object.keys(state.wallet).forEach((key) => {
           state.wallet[key] = action.payload.buyerTransactionReport.wallet[key];
         });
-        store.dispatch(Alerts("successfulltransaction"));
       })
       .addMatcher(
         isAnyOf(fundTransaction.fulfilled, fundTransaction.rejected),
