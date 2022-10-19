@@ -297,6 +297,7 @@ export type MessagesProps = {
   error: string;
   messageList: MessageProps[];
   activeMessage: MessageProps[];
+  selectMessage: boolean;
   activeChats: ChatProps[];
   activeSeller: SellerProps;
 };

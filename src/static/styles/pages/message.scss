@@ -1,6 +1,6 @@
 .messagescontainer {
   background-color: var(--blackColorWhite);
-  padding-top: 5.5625rem;
+  padding-top: 12.3rem;
 
   .searchbox {
     padding: 2.375rem 1rem 1.6875rem 1rem;
@@ -242,4 +242,11 @@ color: #BDBDBD;
       background: #cccccc;
     }
   }
+}
+
+.no_selected_msg {
+  color: #828282;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: auto;
 }
