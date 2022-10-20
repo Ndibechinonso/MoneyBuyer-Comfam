@@ -32,7 +32,7 @@ const Dispute = () => {
       return;
     }
     return () => {
-      if (currentPage !== 1) {
+      if (currentPage !== 1 || search || startDate || filter) {
         dispatch(fetchAllDisputes({ page: 1 }));
       }
     };

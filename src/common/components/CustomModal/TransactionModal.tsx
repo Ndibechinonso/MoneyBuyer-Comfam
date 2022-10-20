@@ -212,9 +212,10 @@ function TransactionModal() {
             <CustomButton
               actionText="Proceed to payment"
               className="w-100"
-              action={() =>
-                dispatch(fundTransaction({ transaction: data._id }))
-              }
+              action={() => {
+                dispatch(Alerts("processing"));
+                dispatch(fundTransaction({ transaction: data._id }));
+              }}
             />
           ) : null}
           {removeHypen(data?.status) === "awaiting confirmation" ? (

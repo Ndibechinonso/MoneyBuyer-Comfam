@@ -25,7 +25,6 @@ function Transaction() {
     }
   }, [search, startDate, filter]);
 
-
   const fetchUnmount = useRef(true);
   useEffect(() => {
     if (fetchUnmount.current) {
@@ -33,7 +32,7 @@ function Transaction() {
       return;
     }
     return () => {
-      if (currentPage !== 1) {
+      if (currentPage !== 1 || search || startDate || filter) {
         dispatch(fetchAllTransactions({ page: 1 }));
       }
     };

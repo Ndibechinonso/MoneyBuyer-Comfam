@@ -72,10 +72,13 @@ export const fundTransaction = createAsyncThunk(
   async (body: IfundTransaction) => {
     return admin
       .fundTransaction(body)
-      .then((res) => res.data)
+      .then((res) => {
+        store.dispatch(Alerts("successfulltransaction"));
+        return res.data;
+      })
       .catch((err) => {
         customToast(err.message, true);
-        store.dispatch(Alerts(""))
+        store.dispatch(Alerts(""));
         return err;
       });
   }
