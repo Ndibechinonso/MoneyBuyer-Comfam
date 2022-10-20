@@ -5,7 +5,7 @@ import generateRoute from "./common/routes/generateRoute";
 import route from "./common/routes/route";
 
 function App() {
-  const userID = useAppSelector((state) => state.user.user.id);
+  const userID = useAppSelector((state) => state.user.user?.id);
   return (
     <Routes>
       {routes.map((route) => generateRoute(route))}
