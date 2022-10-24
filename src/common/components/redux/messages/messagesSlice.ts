@@ -7,6 +7,7 @@ const initialState: MessagesProps = {
   error: "",
   messageList: [],
   activeMessage: [],
+  selectMessage: false,
   activeChats: [],
   activeSeller: {} as null,
 };
@@ -18,6 +19,7 @@ const slice = createSlice({
     openMessageChats: (state, action) => {
       state.activeMessage = action.payload;
       state.activeChats = action.payload?.[0]?.chats;
+      state.selectMessage = true
     },
   },
   extraReducers: (builder) => {
@@ -42,6 +44,7 @@ const slice = createSlice({
       .addCase(sendNewChat.fulfilled, (state, action) => {
         state.activeMessage = action.payload;
         state.activeChats = action.payload?.chats;
+        state.selectMessage = true
         state.loading = false;
       })
       .addCase(sendNewChat.rejected, (state, action) => {

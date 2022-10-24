@@ -15,14 +15,14 @@ const filterActiveMessage = (id) =>{
 
   return (
     <div className="messagescontainer">
-      <form className="searchbox">
+      {/* <form className="searchbox">
         <label>
           <input type="search" name="searchmessage" id="" />
           <button type="submit">
             <SearchIcon />
           </button>
         </label>
-      </form>
+      </form> */}
       {messageList && messageList.length > 0 && messageList.map((item, index) => ( <div key={item._id} onClick={() =>{filterActiveMessage(item._id)}}><MessageCard
             buyerId={item?.seller?.first_name}
             buyerImage={item?.seller?.image}
