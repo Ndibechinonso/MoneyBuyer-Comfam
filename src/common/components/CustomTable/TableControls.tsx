@@ -59,7 +59,9 @@ function TableControls({ data, disabled }: TControls) {
     () => (pathname.includes("dispute") ? disputePage : transactionPage),
     [pathname, disputePage, transactionPage]
   );
-  const {startDate, endDate, filter, search} = useAppSelector((state) => state.tableFilter)
+  const { startDate, endDate, filter, search } = useAppSelector(
+    (state) => state.tableFilter
+  );
 
   const [formState, setFormState] = useState<ifState>(initialState);
   const debouncedSearch = useDebounce<string>(formState.search, 500);
@@ -197,14 +199,21 @@ function TableControls({ data, disabled }: TControls) {
       dispatch(fetchAllTransactions({ page: 1 }));
     }
     if (pathname.includes("dispute")) {
-      dispatch(fetchAllDisputes({ page: 1, startDate, endDate, filter, search }));
+      dispatch(
+        fetchAllDisputes({ page: 1, startDate, endDate, filter, search })
+      );
     }
   };
 
   return (
     <div ref={headerRef} className="table__control">
       <span className="table__control--btn">
-        <button onClick={resetAllFilters}>Showing All</button>
+        <button
+          disabled={!startDate || !filter || !search}
+          onClick={resetAllFilters}
+        >
+          Reset Table
+        </button>
       </span>
       <form autoComplete="off">
         <div className="table__input">

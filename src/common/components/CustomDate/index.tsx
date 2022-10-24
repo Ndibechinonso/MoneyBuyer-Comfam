@@ -76,6 +76,7 @@ const CustomDate = ({
           monthsShown={2}
           disabled={disable}
           minDate={minDate && new Date()}
+          maxDate={maxDate && new Date()}
           placeholderText={placeholder}
           required
         />

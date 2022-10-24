@@ -13,13 +13,13 @@ import CustomLoader from "../../CustomLoader";
 import Header from "../../Header";
 import Messages from "../../Messages";
 import { fetchAllDisputes } from "../../redux/disputes/disputesAsyncThunk";
-import { removeSingleDispute } from "../../redux/disputes/disputesSlice";
+import { removeDisputeImages, removeSingleDispute } from "../../redux/disputes/disputesSlice";
 import fetchUser from "../../redux/getUser/getUserThunk";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchAllMessages } from "../../redux/messages/messagesAsyncThunk";
 import { fetchNotifications } from "../../redux/notifications/notificationsAsyncThunk";
 import { fetchAllTransactions } from "../../redux/transaction/transactionAsyncThunk";
-import { removeSingleTransaction } from "../../redux/transaction/transactionSlice";
+import { removeSingleTransaction, removeTransactionImages } from "../../redux/transaction/transactionSlice";
 import NewUserCard from "../../sharedCards/NewUserCard";
 import SideNav from "../../SideNav";
 import Notice from "./Notice";
@@ -49,9 +49,9 @@ const Buyer = () => {
   const { transactionloading, userloading } = useLoading(); // custom hook to handle all loading states
   const componentloading = useAppLoader(); // custom hook to conditionaly rendering the app loader
 
-  const { startDate, endDate, search, filter } = useAppSelector(
-    (state) => state.tableFilter
-  );
+  // const { startDate, endDate, search, filter } = useAppSelector(
+  //   (state) => state.tableFilter
+  // );
 
   const dispatch = useAppDispatch();
 
@@ -68,9 +68,11 @@ const Buyer = () => {
   useEffect(() => {
     if (modalType === "" && transactionId) {
       dispatch(removeSingleTransaction());
+      dispatch(removeTransactionImages())
     }
     if (modalType === "" && disputeId) {
       dispatch(removeSingleDispute());
+      dispatch(removeDisputeImages())
     }
   }, [modalType, transactionId, disputeId, dispatch]); //eslint-disable-line
 

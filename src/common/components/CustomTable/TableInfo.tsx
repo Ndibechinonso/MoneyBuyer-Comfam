@@ -69,7 +69,9 @@ const TableInfo = ({
   const fetchPage = useCallback(
     (page: number) => {
       if (pathname.includes("dispute")) {
-        dispatch(fetchAllDisputes({ page, startDate, endDate, search, filter }));
+        dispatch(
+          fetchAllDisputes({ page, startDate, endDate, search, filter })
+        );
       }
       if (pathname.includes("transaction")) {
         dispatch(
@@ -110,9 +112,9 @@ const TableInfo = ({
       case "transactionFee":
         template = toNaira(row[col.key]);
         break;
-        case "transaction":
-          template = formatCurrency(row[col.key]?.transactionFee, 2)
-          break;
+      case "transaction":
+        template = formatCurrency(row[col.key]?.transactionFee, 2);
+        break;
       case "seller":
         template = `${row[col.key]?.last_name} ${row[
           col.key

@@ -12,7 +12,18 @@ function Transaction() {
     transactions,
     pagination: { currentPage },
   } = useAppSelector((state) => state.transactions);
+  const { type, startDate, search, endDate, filter } = useAppSelector(
+    (state) => state.tableFilter
+  );
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (type === "Transaction") {
+      dispatch(
+        fetchAllTransactions({ page: 1, endDate, search, startDate, filter })
+      );
+    }
+  }, [search, startDate, filter]);
 
   const fetchUnmount = useRef(true);
   useEffect(() => {
@@ -21,7 +32,7 @@ function Transaction() {
       return;
     }
     return () => {
-      if (currentPage !== 1) {
+      if (currentPage !== 1 || search || startDate || filter) {
         dispatch(fetchAllTransactions({ page: 1 }));
       }
     };
