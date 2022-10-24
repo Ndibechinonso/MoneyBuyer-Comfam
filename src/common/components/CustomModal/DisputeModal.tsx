@@ -20,10 +20,6 @@ const DisputeModal = () => {
   const [disputeImageLoader, setDisputeImageLoader] = useState(false);
   const [transactionImageLoader, setTransactionImageLoader] = useState(false);
 
-  useEffect(() =>{
-console.log(singleDispute, "singleDispute");
-  }, [singleDispute])
-
   useEffect(() => {
     if (runUnmount.current) {
       runUnmount.current = false;

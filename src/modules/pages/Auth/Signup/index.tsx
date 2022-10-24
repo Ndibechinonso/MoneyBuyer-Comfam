@@ -24,14 +24,14 @@ const Signup = ({children}:props) => {
                   className={({ isActive }) =>
                     isActive ? "signup_container_active_tab" : ""
                   }
-                  to={"/signup/buyer"}
+                  to={"/signup"}
                 >
                   BUYER
                 </NavLink>
               </li>
 
               <li>
-              <a href="https://seller.confammoney.com/signup/seller">
+              <a href="https://seller.confammoney.com/signup">
               SELLER
             </a>
               </li>
@@ -40,7 +40,7 @@ const Signup = ({children}:props) => {
           </div>
           <p className="signup_link_div">
             Already have an account?{" "}
-            <Link to={`/signin/buyer`}>
+            <Link to={`/signin`}>
               <span className="signup_link">Sign In</span>
             </Link>
           </p>

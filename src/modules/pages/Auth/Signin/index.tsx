@@ -17,14 +17,14 @@ const Signin = ({ children }: props) => {
             className={({ isActive }) =>
               isActive ? "signup_container_active_tab" : ""
             }
-            to={"/signin/buyer"}
+            to={"/signin"}
           >
             BUYER
           </NavLink>
         </li>
 
         <li>
-        <a href="https://seller.confammoney.com/signin/seller">
+        <a href="https://seller.confammoney.com/signin">
               SELLER
             </a>
         </li>
@@ -33,14 +33,14 @@ const Signin = ({ children }: props) => {
         {children}
         <Link
           className="signin_forgotpassword_link"
-          to={`/forgotpassword/buyer`}
+          to={`/forgotpassword`}
         >
           Forgot Password?
         </Link>
       </div>
       <p className="signin_link_div">
         Don't have an account?{" "}
-        <Link to={`/signup/buyer`}>
+        <Link to={`/signup`}>
           <span className="signup_link">Sign Up</span>
         </Link>
       </p>

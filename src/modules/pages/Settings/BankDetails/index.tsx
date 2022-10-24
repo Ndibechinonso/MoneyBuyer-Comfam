@@ -56,7 +56,6 @@ const BankDetail = () => {
   const selectHandler = (e: any) => {
     const data = JSON.parse(e);
       dispatch(selectABank(data));
-      console.log(data.code, data.name, "eee");
       setBankCode(data.code)
       setBankName(data.name)
   };

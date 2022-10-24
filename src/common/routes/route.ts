@@ -1,9 +1,9 @@
 const route = {
   nonprotected: {
     buyer:{
-      login: "/signin/buyer",
-      register: "/signup/buyer",
-      reset_password: "/forgotpassword/buyer",
+      login: "/signin",
+      register: "/signup",
+      reset_password: "/forgotpassword",
     },
     verify: "/verification",
   },

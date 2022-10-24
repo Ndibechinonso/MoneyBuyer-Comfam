@@ -99,7 +99,7 @@ const Buyer = () => {
   }, []);
 
   if (!fetchUserToken()) {
-    return <Navigate replace to="/signin/buyer" />;
+    return <Navigate replace to="/signin" />;
   }
 
   return (
