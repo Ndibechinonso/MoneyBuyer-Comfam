@@ -14,7 +14,7 @@ export interface HTTPResponse<T = any> {
 const headers = {
   "Content-Type": "application/json",
   Accept: "application/json",
-  x_api_key: "D77961BB64A885E6B716E699EA52B",
+  "x-api-key": "D77961BB64A885E6B716E699EA52B",
 };
 
 const setAuthorization = () => ({
